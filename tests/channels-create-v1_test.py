@@ -21,7 +21,7 @@ def invalid_chan2():
 def test_valid_creation(chan1):
     id, name, is_public = chan1
     new_channel = channels_create_v1(id, name, is_public)
-    assert(new_channel['channel_id'] == 1)
+    assert(new_channel == 1)
 
 # Test for InputError when name < 1 char long
 def test_exception_too_short(invalid_chan1): 
