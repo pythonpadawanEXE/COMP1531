@@ -3,7 +3,7 @@
 
 import pytest
 
-from src.channels import channels_create_v1
+from src.channels import channels_create_v1, channels_list_v1
 from src.error import InputError
 
 @pytest.fixture
@@ -21,7 +21,8 @@ def invalid_chan2():
 def test_valid_creation(chan1):
     id, name, is_public = chan1
     new_channel = channels_create_v1(id, name, is_public)
-    assert(new_channel == 1)
+    list_of_channels = channels_list_v1(id)
+    assert(new_channel in list_of_channels)
 
 # Test for InputError when name < 1 char long
 def test_exception_too_short(invalid_chan1): 
