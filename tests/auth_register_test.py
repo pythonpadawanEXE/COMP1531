@@ -21,6 +21,9 @@ def test_invalid_email_1():
     with pytest.raises(InputError):
         result = auth.auth_register_v1('invalidemailgmail.com', '123abc!@#', 'Hayden', 'Everest')
 
+def test_invalid_email_too_long():
+    with pytest.raises(InputError):
+        result = auth.auth_register_v1('invalidemailgmail.com', '123abc!@#', 'Hayden', 'Everest')
 
 '''
 Invalid Email address is already being used by another user
@@ -59,7 +62,12 @@ def test_multiple_emails():
     assert result2 - result1 == 1
     assert result3 - result2 == 1
     #TODO: then assert datastore to check all contained handles are unique and in lower case
-
+    #https://stackoverflow.com/questions/11092511/python-list-of-unique-dictionaries
+    #Will likely need to debug below code
+    store = data_store.get()
+    users = store['users']
+    DistinctUsers = list({Object['handle_str']:Object for Object in users}.values())
+    assert len(users) == len(DistinctUsers)
 '''
 data = {
     'users': [
@@ -100,7 +108,12 @@ Invalid length of password is less than 6 characters
 def test_invalid_short_password():
     with pytest.raises(InputError):
         result = auth.auth_register_v1('validemail@gmail.com', 'short', 'Hayden', 'Everest')
-
+'''
+Invalid length of password is more than 128 characters
+'''
+def test_invalid_long_password():
+    with pytest.raises(InputError):
+        result = auth.auth_register_v1('validemail@gmail.com', 'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong', 'Hayden', 'Everest')
 '''
 Valid length of password is more than 6 characters
 '''
