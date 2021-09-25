@@ -10,7 +10,7 @@ Valid Email Tests
 
 def test_valid_email_1():
     result = auth.auth_register_v1('validemail@gmail.com', '123abc!@#', 'Hayden', 'Everest')
-    assert isinstance(result,int)
+    assert isinstance(result['auth_user_id'],int)
 
 '''
 Invalid Email Tests
@@ -41,32 +41,34 @@ Valid Multiple Registrations with unique emails
 '''
 def test_multiple_emails():
     result1 = auth.auth_register_v1('distinctemail1@gmail.com', '123abc!@#', 'Jake', 'Everest')
-    assert isinstance(result1,int)
+    assert isinstance(result1['auth_user_id'],int)
     result2 = auth.auth_register_v1('distinctemail2@gmail.com', '123abc!@#', 'Bake', 'Everest')
-    assert isinstance(result2,int)
+    assert isinstance(result2['auth_user_id'],int)
     result3 = auth.auth_register_v1('distinctemail3@gmail.com', '123abc!@#', 'Cake', 'Everest')
-    assert isinstance(result3,int)
-    assert result2 - result1 == 1
-    assert result3 - result2 == 1
+    assert isinstance(result3['auth_user_id'],int)
+    assert result2['auth_user_id'] - result1['auth_user_id'] == 1
+    assert result3['auth_user_id'] - result2['auth_user_id'] == 1
 
 '''
 Valid Multiple Registrations with unique lowercase handles
 '''
 def test_multiple_emails():
     result1 = auth.auth_register_v1('distinctemail1@gmail.com', '123abc!@#', 'Jake', 'Everest')
-    assert isinstance(result1,int)
+    assert isinstance(result1['auth_user_id'],int)
     result2 = auth.auth_register_v1('distinctemail2@gmail.com', '123abc!@#', 'Jake', 'Everest')
-    assert isinstance(result2,int)
+    assert isinstance(result2['auth_user_id'],int)
     result3 = auth.auth_register_v1('distinctemail3@gmail.com', '123abc!@#', 'Jake', 'Everest')
-    assert isinstance(result3,int)
-    assert result2 - result1 == 1
-    assert result3 - result2 == 1
+    assert isinstance(result3['auth_user_id'],int)
+    assert result2['auth_user_id'] - result1['auth_user_id'] == 1
+    assert result3['auth_user_id'] - result2['auth_user_id'] == 1
     #TODO: then assert datastore to check all contained handles are unique and in lower case
     #https://stackoverflow.com/questions/11092511/python-list-of-unique-dictionaries
     #Will likely need to debug below code
     store = data_store.get()
     users = store['users']
     DistinctUsers = list({Object['handle_str']:Object for Object in users}.values())
+    # print(users)
+    # print(DistinctUsers)
     assert len(users) == len(DistinctUsers)
 '''
 data = {
@@ -107,19 +109,19 @@ Invalid length of password is less than 6 characters
 '''
 def test_invalid_short_password():
     with pytest.raises(InputError):
-        result = auth.auth_register_v1('validemail@gmail.com', 'short', 'Hayden', 'Everest')
+        result = auth.auth_register_v1('validemail1@gmail.com', 'short', 'Hayden', 'Everest')
 '''
 Invalid length of password is more than 128 characters
 '''
 def test_invalid_long_password():
     with pytest.raises(InputError):
-        result = auth.auth_register_v1('validemail@gmail.com', 'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong', 'Hayden', 'Everest')
+        result = auth.auth_register_v1('validemail2@gmail.com', 'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong', 'Hayden', 'Everest')
 '''
 Valid length of password is more than 6 characters
 '''
 def test_invalid_short_password():
-    result = auth.auth_register_v1('validemail@gmail.com', 'nottooshort', 'Hayden', 'Everest')
-    assert isinstance(result,int)
+    result = auth.auth_register_v1('validemail3@gmail.com', 'nottooshort', 'Hayden', 'Everest')
+    assert isinstance(result['auth_user_id'],int)
 
 '''
 Invalid length of name_first is not between 1 and 50 characters inclusive
@@ -127,48 +129,48 @@ Invalid length of name_first is not between 1 and 50 characters inclusive
 
 def test_name_first_invalid_length_short():
     with pytest.raises(InputError):
-        result = auth.auth_register_v1('validemail@gmail.com', '123ab78', '', 'Lastname')
+        result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', '', 'Lastname')
 
 def test_name_first_invalid_length_long():
     str_name = 'TpRXVggwnkBUGjXLVmwEGatLCEpUtbfVFLhDQUqLztGqxnrhruFyPmG'
     with pytest.raises(InputError):
-        result = auth.auth_register_v1('validemail@gmail.com', '123ab78', str_name, 'Lastname')
+        result = auth.auth_register_v1('validemail5@gmail.com', '123ab78', str_name, 'Lastname')
 '''
 Valid length of name_first is  between 1 and 50 characters inclusive
 '''
 def test_name_first_valid_length_1():
     str_name = 'John'
-    result = auth.auth_register_v1('validemail@gmail.com', '123ab78', str_name, 'Lastname')
-    assert isinstance(result,int)
+    result = auth.auth_register_v1('validemail6@gmail.com', '123ab78', str_name, 'Lastname')
+    assert isinstance(result['auth_user_id'],int)
 
 def test_name_first_valid_length_2():
     str_name = 'John-Mayer'
-    result = auth.auth_register_v1('validemail@gmail.com', '123ab78', str_name, 'Lastname')
-    assert isinstance(result,int)
+    result = auth.auth_register_v1('validemail7@gmail.com', '123ab78', str_name, 'Lastname')
+    assert isinstance(result['auth_user_id'],int)
 '''
 Invalid length of name_last is not between 1 and 50 characters inclusive
 '''
 def test_name_last_invalid_length_short():
     with pytest.raises(InputError):
-        result = auth.auth_register_v1('validemail@gmail.com', '123ab78', 'Firstname', '')
+        result = auth.auth_register_v1('validemail8@gmail.com', '123ab78', 'Firstname', '')
 
 def test_name_last_invalid_length_long():
     str_name = 'TpRXVggwnkBUGjXLVmwEGatLCEpUtbfVFLhDQUqLztGqxnrhruFyPmG'
     with pytest.raises(InputError):
-        result = auth.auth_register_v1('validemail@gmail.com', '123ab78', 'Firstname', str_name)
+        result = auth.auth_register_v1('validemail9@gmail.com', '123ab78', 'Firstname', str_name)
 
 '''
 Valid length of name_last is  between 1 and 50 characters inclusive
 '''
 def test_name_last_valid_length_1():
     str_name = 'John'
-    result = auth.auth_register_v1('validemail@gmail.com', '123ab78', 'Firstname', str_name)
-    assert isinstance(result,int)
+    result = auth.auth_register_v1('validemail10@gmail.com', '123ab78', 'Firstname', str_name)
+    assert isinstance(result['auth_user_id'],int)
 
 def test_name_last_valid_length_2():
     str_name = 'John-Mayer'
-    result = auth.auth_register_v1('validemail@gmail.com', '123ab78', 'Firstname', str_name)
-    assert isinstance(result,int)
+    result = auth.auth_register_v1('validemail11@gmail.com', '123ab78', 'Firstname', str_name)
+    assert isinstance(result['auth_user_id'],int)
 
 
 
