@@ -2,14 +2,13 @@ from src.data_store import data_store
 from src.error import InputError
 
 def channels_list_v1(auth_user_id):
-    return {
-        'channels': [
-        	{
-        		'channel_id': 1,
-        		'name': 'My Channel',
-        	}
-        ],
-    }
+    store = data_store.get()
+    channel_store = store['channels']
+    channels = []
+    for chan in channel_store:
+        if auth_user_id in chan['all_members']:
+            channels.append({'channel_id' : chan['id'], 'name' : chan['name']})
+    return channels
 
 def channels_listall_v1(auth_user_id):
     return {
