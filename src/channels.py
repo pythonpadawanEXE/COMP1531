@@ -35,6 +35,7 @@ def channels_create_v1(auth_user_id, name, is_public):
             'owner_members' : [auth_user_id],
             'all_members' : [auth_user_id]
             }
+        channels.append(new_channel)
         data_store.set(store)
 
         return int(new_channel['id'])
