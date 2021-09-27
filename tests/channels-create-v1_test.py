@@ -20,7 +20,7 @@ def invalid_chan2():
 
 def test_valid_creation(chan1):
     id, name, is_public = chan1
-    new_channel = {'id' : channels_create_v1(id, name, is_public), 'name' : name}
+    new_channel = {'channel_id' : channels_create_v1(id, name, is_public), 'name' : name}
     list_of_channels = channels_list_v1(id)
     assert(new_channel in list_of_channels)
 
