@@ -1,15 +1,30 @@
 from src.data_store import data_store
 from src.error import InputError, AccessError
 
-
+# Lists all channels that the given user id is a member of.
 def channels_list_v1(auth_user_id):
+
+    # Verifies that the user exists in the data store, raises an AccessError otherwise.
+    is_authorised = False
+    store = data_store.get()
+
+    user_store = store['users']
+    for user in user_store:
+        if user['u_id'] == auth_user_id:
+            is_authorised = True
+    if is_authorised != True:
+        raise AccessError
+
+    # Iterates through the list of channels and returns the subset that the given user is a member of.
     store = data_store.get()
     channel_store = store['channels']
     channels = []
     for chan in channel_store:
         if auth_user_id in chan['all_members']:
             channels.append({'channel_id' : chan['id'], 'name' : chan['name']})
-    return channels
+    return {
+        'channels' : channels
+    }
 
 def channels_listall_v1(auth_user_id):
     return {

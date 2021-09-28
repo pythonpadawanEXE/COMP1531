@@ -7,12 +7,12 @@ from src.channels import channels_create_v1, channels_list_v1
 
 def test_valid_list():
     list_of_channels = []
-    list_of_channels.append({'channel_id' : channels_create_v1(1, "Chan 1", True), 'name' : "Chan 1"})
-    list_of_channels.append({'channel_id' : channels_create_v1(1, "Chan 2", True), 'name' : "Chan 2"})
-    list_of_channels.append({'channel_id' : channels_create_v1(1, "Chan 3", True), 'name' : "Chan 3"})
+    list_of_channels.append(channels_create_v1(1, "Chan 1", True))
+    list_of_channels.append(channels_create_v1(1, "Chan 2", True))
+    list_of_channels.append(channels_create_v1(1, "Chan 3", True))
     bad_chan = channels_create_v1(2, "Chan 4", True)
     channels = channels_list_v1(1)
     for channel in list_of_channels:
         assert(channel in channels)
-    assert({'channel_id' : bad_chan, 'name' : "Chan 3"} not in channels)
+    assert(bad_chan not in channels)
 
