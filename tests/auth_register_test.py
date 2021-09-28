@@ -118,18 +118,59 @@ def test_invalid_short_password():
     with pytest.raises(InputError):
         result = auth.auth_register_v1('validemail1@gmail.com', 'short', 'Hayden', 'Everest')
 '''
-Invalid length of password is more than 128 characters
+Invalid length of password is more than 256 characters
 '''
 def test_invalid_long_password():
     other.clear_v1()
     with pytest.raises(InputError):
-        result = auth.auth_register_v1('validemail2@gmail.com', 'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong', 'Hayden', 'Everest')
+        result = auth.auth_register_v1('validemail2@gmail.com', 'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong', 'Hayden', 'Everest')
 '''
 Valid length of password is more than 6 characters
 '''
 def test_valid_len_password():
     other.clear_v1()
     result = auth.auth_register_v1('validemail3@gmail.com', 'nottooshort', 'Hayden', 'Everest')
+    assert isinstance(result['auth_user_id'],int)
+'''
+Since str_handle must be letters or hyphens (a-z0-9)
+'''
+def test_valid_name_first():
+    other.clear_v1()
+
+    result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', 'Jake-Allan', 'Edwards')
+    assert isinstance(result['auth_user_id'],int)
+
+
+def test_invalid_name_first_1():
+    other.clear_v1()
+    with pytest.raises(InputError):
+        result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', 'Jake@Allan', 'Edwards')
+
+def test_invalid_name_first_2():
+    other.clear_v1()
+    with pytest.raises(InputError):
+        result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', '------', 'Edwards')
+
+
+
+
+
+
+def test_valid_name_last():
+    other.clear_v1()
+
+    result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', 'Jake', 'Allan-Edwards')
+    assert isinstance(result['auth_user_id'],int)
+
+def test_invalid_name_last():
+    other.clear_v1()
+    with pytest.raises(InputError):
+        result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', 'Jake@Allan', '-----')
+
+def test_valid_name_last():
+    other.clear_v1()
+
+    result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', 'Jake', 'Allan@Edwards')
     assert isinstance(result['auth_user_id'],int)
 
 '''
@@ -189,6 +230,17 @@ def test_name_last_valid_length_2():
     result = auth.auth_register_v1('validemail11@gmail.com', '123ab78', 'Firstname', str_name)
     assert isinstance(result['auth_user_id'],int)
 
+
+'''
+Test Max Users Assumption
+
+'''
+def test_valid_max_users_registration():
+    other.clear_v1()
+    for i in range(10000)
+        str_name = 'John' + f'{i}'
+        result = auth.auth_register_v1('validemail10'+f'{i}'+ '@gmail.com', '123ab78', 'Firstname', str_name)
+        assert isinstance(result['auth_user_id'],int)
 
 
 #     PASSWORD FUTURE WARNINGS
