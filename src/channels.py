@@ -1,5 +1,6 @@
 from src.data_store import data_store
-from src.error import InputError
+from src.error import InputError, AccessError
+
 
 def channels_list_v1(auth_user_id):
     store = data_store.get()
@@ -20,13 +21,34 @@ def channels_listall_v1(auth_user_id):
         ],
     }
 
+# Creates a channel as specified by the parameters.
 def channels_create_v1(auth_user_id, name, is_public):
+
+    # Verifies that the user exists in the data store, raises an AccessError otherwise.
+    is_authorised = False
+    store = data_store.get()
+
+    user_store = store['users']
+    for user in user_store:
+        if user['u_id'] == auth_user_id:
+            is_authorised = True
+    if is_authorised != True:
+        raise AccessError
+        return None
+
+    # Verifies that the channel name is of correct length, raises an InputError otherwise.
     if len(name) < 1 or len(name) > 20:
         raise InputError
         return None
 
+    # Creates the channel if call is valid
+    # Channel dictionary entry is as follows:
+    #     'id'            :   integer type - assigned sequentially
+    #     'name'          :   string type
+    #     'is_public'     :   boolean
+    #     'owner_members' :   list of user ids - creator made an owner
+    #     'all_members'   :   list of user ids - creator made a member
     else:
-        store = data_store.get()
         channels = store['channels']
         new_channel = {
             'id': len(channels) + 1,
@@ -38,4 +60,7 @@ def channels_create_v1(auth_user_id, name, is_public):
         channels.append(new_channel)
         data_store.set(store)
 
-        return int(new_channel['id'])
+        return {
+            'channel_id' : new_channel['id']
+            }
+            
