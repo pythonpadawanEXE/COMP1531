@@ -1,6 +1,7 @@
 # channels-list-v1_test.py
 # pytest file to test the implementation of channels_list_v1
 
+from src.error import AccessError
 import pytest
 
 from src.channels import channels_create_v1, channels_list_v1
@@ -15,4 +16,8 @@ def test_valid_list():
     for channel in list_of_channels:
         assert(channel in channels)
     assert(bad_chan not in channels)
+
+def test_raise_exception(): 
+    with pytest.raises(AccessError):
+        assert(channels_list_v1(1) == [])
 
