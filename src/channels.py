@@ -34,12 +34,10 @@ def channels_create_v1(auth_user_id, name, is_public):
             is_authorised = True
     if is_authorised != True:
         raise AccessError
-        return None
 
     # Verifies that the channel name is of correct length, raises an InputError otherwise.
     if len(name) < 1 or len(name) > 20:
         raise InputError
-        return None
 
     # Creates the channel if call is valid
     # Channel dictionary entry is as follows:
@@ -62,5 +60,5 @@ def channels_create_v1(auth_user_id, name, is_public):
 
         return {
             'channel_id' : new_channel['id']
-            }
+        }
             
