@@ -6,19 +6,23 @@ import pytest
 from src.channels import channels_create_v1, channels_list_v1
 from src.auth import auth_register_v1
 from src.error import InputError, AccessError
+from src.other import clear_v1
 
 @pytest.fixture
 def chan1():
+    clear_v1()
     auth_user_id = auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
     return (auth_user_id, 'My Channel', True)
 
 @pytest.fixture
 def invalid_chan1():
+    clear_v1()
     auth_user_id = auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
     return (auth_user_id, '', True)
 
 @pytest.fixture
 def invalid_chan2():
+    clear_v1()
     auth_user_id = auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
     return (auth_user_id, 'AAAAAAAAAAAAAAAAAAAAA', True)
 
