@@ -28,6 +28,7 @@ Example usage:
 initial_object = {
     'users': [],
     'channels' : [],
+    'passwords' : [],
 }
 ## YOU SHOULD MODIFY THIS OBJECT ABOVE
 
