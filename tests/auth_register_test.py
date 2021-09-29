@@ -24,10 +24,20 @@ def test_invalid_email_1():
     with pytest.raises(InputError):
         result = auth.auth_register_v1('invalidemailgmail.com', '123abc!@#', 'Hayden', 'Everest')
 
-def test_invalid_email_too_long():
+def test_invalid_email_too_long_1():
     other.clear_v1()
     with pytest.raises(InputError):
-        result = auth.auth_register_v1('invalidemailgmail.com', '123abc!@#', 'Hayden', 'Everest')
+        result = auth.auth_register_v1('invalidemailloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong@gmail.com', '123abc!@#', 'Hayden', 'Everest')
+
+def test_invalid_email_too_long_2():
+    other.clear_v1()
+    with pytest.raises(InputError):
+        result = auth.auth_register_v1('invalidemail@gmailloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong.com', '123abc!@#', 'Hayden', 'Everest')
+
+def test_invalid_email_too_long_3():
+    other.clear_v1()
+    with pytest.raises(InputError):
+        result = auth.auth_register_v1('invalidemailgmail.comloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong', '123abc!@#', 'Hayden', 'Everest')
 
 '''
 Invalid Email address is already being used by another user
@@ -167,11 +177,11 @@ def test_invalid_name_last():
     with pytest.raises(InputError):
         result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', 'Jake@Allan', '-----')
 
-def test_valid_name_last():
+def test_invalid_name_last():
     other.clear_v1()
-
-    result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', 'Jake', 'Allan@Edwards')
-    assert isinstance(result['auth_user_id'],int)
+    with pytest.raises(InputError):
+        result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', 'Jake', 'Allan@Edwards')
+    
 
 '''
 Invalid length of name_first is not between 1 and 50 characters inclusive
