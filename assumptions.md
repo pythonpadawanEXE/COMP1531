@@ -8,9 +8,7 @@ This is the list of assumptions made by **T11B_DODO** whilst developing iteratio
 Email Input follows the standard of RFC821 i.e.
 
   * The maximum total length of a user name is 64 characters.
-
   * The maximum total length of a domain name or number is 64 characters.
-  
   * The maximum total length of a reverse-path or forward-path is 256 characters (including the punctuation and element separators).
 
 * Length of Maximum Valid Password TBC 256 as this is allowed max in active directory azure, provides a practical maximum but doesn't allowed a DOS?
