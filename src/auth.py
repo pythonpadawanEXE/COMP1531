@@ -111,6 +111,10 @@ def auth_register_v1(email, password, name_first, name_last):
     check_email_validity(email)
     check_password_validity(password)
     
+    #check valid input for name_first i.e. cant be only number or hyphens cannot contain symbols must contain letters
+    if not (len(re.findall(r'[A-Za-z]',name_first)) + len(re.findall(r'[\s\-0-9]',name_first)) == len(name_first) and len(re.findall(r'[A-Za-z]',name_first)) > 0):
+        raise InputError("name_first invalid character sequence, sequence must contain letters can contain numbers,hypens or spaces other characters are forbidden.")
+
     #check valid input for name_last i.e. cant be only number or hyphens cannot contain symbols must contain letters
     if not (len(re.findall(r'[A-Za-z]',name_last)) + len(re.findall(r'[\s\-0-9]',name_last)) == len(name_last) and len(re.findall(r'[A-Za-z]',name_last)) > 0):
         raise InputError("name_last invalid character sequence, sequence must contain letters can contain numbers,hypens or spaces other characters are forbidden.")

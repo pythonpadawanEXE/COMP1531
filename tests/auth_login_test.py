@@ -145,3 +145,14 @@ def test_invalid_login_password_multi_registered_same_password():
     with pytest.raises(InputError):
         result = auth.auth_login_v1('validemail@gmail.com', '123abc!@#?')
 
+def test_valid_max_users_registration():
+    other.clear_v1()
+    for i in range(2000):
+        str_name = 'John' + f'{i}'
+        result = auth.auth_register_v1('validemail10'+f'{i}'+ '@gmail.com', '123ab78', 'Firstname', str_name)
+        assert isinstance(result['auth_user_id'],int)
+
+    for i in range(2000):
+        str_name = 'John' + f'{i}'
+        result = auth.auth_login_v1('validemail10'+f'{i}'+ '@gmail.com', '123ab78')
+        assert isinstance(result['auth_user_id'],int)
