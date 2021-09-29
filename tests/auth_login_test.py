@@ -76,6 +76,7 @@ def test_multiple_logins_1():
 
 #multiple logins register and login are not sequential operations
 def test_multiple_logins_2():
+    other.clear_v1()
     result = auth.auth_register_v1('validemail4@gmail.com', '123abc!@#', 'Hayden', 'Everest')
     assert isinstance(result['auth_user_id'],int)
 
@@ -143,3 +144,4 @@ def test_invalid_login_password_multi_registered_same_password():
     assert isinstance(result['auth_user_id'],int)
     with pytest.raises(InputError):
         result = auth.auth_login_v1('validemail@gmail.com', '123abc!@#?')
+
