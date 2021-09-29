@@ -3,7 +3,6 @@
 This is the list of assumptions made by **T11B_DODO** whilst developing iteration 1 of Streams for the COMP1531 Major Project.
 
 ## auth.py
----
 
 * Length of Valid Email Address TBC  https://stackoverflow.com/questions/5087426/how-many-sub-domain-are-allowed-for-an-email-id
 Email Input follows the standard of RFC821 i.e.
@@ -19,7 +18,6 @@ but name_ vairables cannot be only numbers or only hyphens or only spaces,while 
 * Maximum Number of Users with respect to max allowable run time expected 2,000 (perform stress test to estimate?)
 
 ## channels.py
----
 
 ### `channels_create_v1`
 
