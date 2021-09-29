@@ -33,6 +33,7 @@ def invalid_user():
 
 @pytest.fixture
 def invalid_user_and_chan():
+    clear_v1()
     return (654, 'AAAAAAAAAAAAAAAAAAAAA', True)
 
 def test_valid_creation(chan):
