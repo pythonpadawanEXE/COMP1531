@@ -1,8 +1,13 @@
+from src.channels import verify_user_id
+
 def channel_invite_v1(auth_user_id, channel_id, u_id):
     return {
     }
 
+# Given a channel with ID channel_id that the authorised user is a member of,
+# provides basic details about the channel.
 def channel_details_v1(auth_user_id, channel_id):
+
     return {
         'name': 'Hayden',
         'owner_members': [
