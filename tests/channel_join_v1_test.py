@@ -22,6 +22,7 @@ def test_already_joined():
         assert(channel_join_v1(user["auth_user_id"], channel["channel_id"]) == {})
 
 def test_join_private_channel():
+    clear_v1()
     owner = auth_register_v1("c@email.com", "ABCDEF123", "Cal", "Watts")
     user = auth_register_v1("d@email.com", "ABCDEF123", "Kim", "Smith")
     channel = channels_create_v1(owner["auth_user_id"], "Channel 1", False)
@@ -29,6 +30,7 @@ def test_join_private_channel():
         assert(channel_join_v1(user["auth_user_id"], channel["channel_id"]) == {})
 
 def test_join_public_channel():
+    clear_v1()
     owner = auth_register_v1("e@email.com", "ABCDEF123", "Cal", "Watts")
     user = auth_register_v1("f@email.com", "ABCDEF123", "Kim", "Smith")
     channel = channels_create_v1(owner["auth_user_id"], "Channel 1", True)
