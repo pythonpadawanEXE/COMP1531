@@ -35,7 +35,7 @@ def channel_invite_v1(auth_user_id, channel_id, u_id):
         raise InputError
 
     # Add user to the target_channel
-    target_channel["all_members"].append(auth_user_id)
+    target_channel["all_members"].append(u_id)
     data_store.set(store)
 
     return {
