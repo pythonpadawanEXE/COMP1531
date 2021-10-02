@@ -104,3 +104,4 @@ def test_user_invalid_channel(priv_chan):
     new_channel = channels.channels_create_v1(id, name, is_private)
     with pytest.raises(AccessError):
         result = channel.channel_messages_v1(2,new_channel['channel_id'],0)
+
