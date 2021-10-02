@@ -1,4 +1,4 @@
-# channels-create-v1_test.py
+# channel_join_v1_test.py
 # pytest file to test the implementation of channel_join_v1
 
 import pytest
