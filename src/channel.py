@@ -10,8 +10,11 @@ def is_channel_valid():
 # Given a channel with ID channel_id that the authorised user is a member of,
 # provides basic details about the channel.
 def channel_details_v1(auth_user_id, channel_id):
+
+    # Return type format example
     return {
         'name': 'Hayden',
+        'is_public': True,
         'owner_members': [
             {
                 'u_id': 1,
