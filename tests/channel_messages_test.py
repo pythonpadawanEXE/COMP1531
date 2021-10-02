@@ -6,6 +6,7 @@ from src.error import InputError
 from src.error import AccessError
 from src import other
 from src import channels
+from src import channel
 
 #create private channel
 @pytest.fixture
@@ -21,50 +22,53 @@ def pub_chan():
     auth_user_id = auth.auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
     return (auth_user_id, 'My Channel', True)
 
+@pytest.fixture
+def create_messages(pub_chan):
+    id, name, is_public = pub_chan
+    new_channel = channels.channels_create_v1(id, name, is_public)
+    store = data_store.get()
+    for i in range(30):
+        Message = "message" + str(i)
+        channel.create_message_v1(id,new_channel['channel_id'],Message)
+    return new_channel,id
+
 """
 Valid Input
 """
 
 #start is not greater than the total number of messages in the channel
 
-def valid_start_index_test(pub_chan):
-    other.clear_v1()
-    id, name, is_public = pub_chan
-    new_channel = channels.channels_create_v1(id, name, is_public)
-    #hard code some messages
+def test_valid_start_index(create_messages):
+    new_channel,id = create_messages
     
     with pytest.raises(InputError):
-        result = channels.channel_messages_v1(id,new_channel,1)
+        result = channel.channel_messages_v1(id,new_channel['channel_id'],1)
 """
 Input Errors
 """
 
 #channel_id does not refer to a valid channel
 
-def invalid_channel_test_1(pub_chan):
-    other.clear_v1()
+def test_invalid_channel_1(pub_chan):
     id, name, is_public = pub_chan
     new_channel = channels.channels_create_v1(id, name, is_public)
 
     
     with pytest.raises(InputError):
-        result = channels.channel_messages_v1(id,2,0)
+        result = channel.channel_messages_v1(id,2,0)
 
-def invalid_channel_test_1():
+def test_invalid_empty_channel():
     other.clear_v1()
     with pytest.raises(InputError):
-        result = channels.channel_messages_v1(1,2,0)
+        result = channel.channel_messages_v1(1,2,0)
 
 #start is greater than the total number of messages in the channel
 
-def invalid_start_index_test():
-    other.clear_v1()
-    id, name, is_public = pub_chan
-    new_channel = channels.channels_create_v1(id, name, is_public)
-    #hard code some messages
+def test_invalid_start_index(create_messages):
+    new_channel,id = create_messages
     
     with pytest.raises(InputError):
-        result = channels.channel_messages_v1(0,0,50)
+        result = channel.channel_messages_v1(id,new_channel['channel_id'],50)
 
 
 
@@ -73,8 +77,7 @@ Access Errors
 """
 #channel_id is valid and the authorised user is not a member of the channel
 
-def invalid_start_index_test(priv_chan):
-    other.clear_v1()
+def test_not_member_of_channel(priv_chan):
     id, name, is_private = priv_chan
     new_channel = channels.channels_create_v1(id, name, is_private)
 
@@ -82,13 +85,12 @@ def invalid_start_index_test(priv_chan):
     assert isinstance(result['auth_user_id'],int)
 
     with pytest.raises(AccessError):
-        result = channels.channel_messages_v1(result['auth_user_id'],new_channel['channel_id'],0)
+        result = channel.channel_messages_v1(result['auth_user_id'],new_channel['channel_id'],0)
 
 
 #channel_id is valid and the authorised user does not exist
-def invalid_start_index_test(priv_chan):
-    other.clear_v1()
+def test_user_invalid_channel(priv_chan):
     id, name, is_private = priv_chan
     new_channel = channels.channels_create_v1(id, name, is_private)
     with pytest.raises(AccessError):
-        result = channels.channel_messages_v1(2,new_channel['channel_id'],0)
+        result = channel.channel_messages_v1(2,new_channel['channel_id'],0)

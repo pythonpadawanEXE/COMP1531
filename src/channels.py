@@ -59,6 +59,7 @@ def channels_create_v1(auth_user_id, name, is_public):
     #     'is_public'     :   boolean
     #     'owner_members' :   list of user ids - creator made an owner
     #     'all_members'   :   list of user ids - creator made a member
+    #     'messages'      :   list of dictionaries for message details i.e.  { message_id, u_id, message, time_created }
     else:
         store = data_store.get()
         channels = store['channels']
@@ -67,7 +68,8 @@ def channels_create_v1(auth_user_id, name, is_public):
             'name' : name,
             'is_public' : is_public,
             'owner_members' : [auth_user_id],
-            'all_members' : [auth_user_id]
+            'all_members' : [auth_user_id],
+            'messages' :[],
             }
         channels.append(new_channel)
         data_store.set(store)
