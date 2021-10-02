@@ -4,6 +4,7 @@ def clear_v1():
     store = data_store.get()
     store['users'] = []
     data_store.set(store)
+    return {}
 
 # Check if the channel with channel_id is valid
 def is_channel_valid(channel_id):
