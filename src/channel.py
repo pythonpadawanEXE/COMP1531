@@ -1,28 +1,37 @@
+from src.data_store import data_store
+from src.error import InputError, AccessError
+from src.other import is_channel_valid, is_user_authorised, \
+    get_channel_name, is_channel_public, get_channel_owner, \
+    user_details, get_all_user_id_channel, get_all_members
+
 def channel_invite_v1(auth_user_id, channel_id, u_id):
     return {
     }
 
+# Given a channel with ID channel_id that the authorised user is a member of,
+# provides basic details about the channel.
 def channel_details_v1(auth_user_id, channel_id):
+
+    # channel_id does not refer to a valid channel
+    if not is_channel_valid(channel_id):
+        raise InputError
+
+    # channel_id is valid and the authorised user is not a member of the channel
+    if not is_user_authorised(auth_user_id, channel_id):
+        raise AccessError
+
+    # auth_user_id of the channel owner of ID channel_id
+    channel_owner_id = get_channel_owner(channel_id)
+
+    # List of auth_user_id of all the members in the channel of ID channel_id
+    all_members_id_list = get_all_user_id_channel(channel_id)
+
+    # Return channel details
     return {
-        'name': 'Hayden',
-        'owner_members': [
-            {
-                'u_id': 1,
-                'email': 'example@gmail.com',
-                'name_first': 'Hayden',
-                'name_last': 'Jacobs',
-                'handle_str': 'haydenjacobs',
-            }
-        ],
-        'all_members': [
-            {
-                'u_id': 1,
-                'email': 'example@gmail.com',
-                'name_first': 'Hayden',
-                'name_last': 'Jacobs',
-                'handle_str': 'haydenjacobs',
-            }
-        ],
+        'name': get_channel_name(channel_id),
+        'is_public': is_channel_public(channel_id),
+        'owner_members': user_details(channel_owner_id),
+        'all_members': get_all_members(all_members_id_list),
     }
 
 def channel_messages_v1(auth_user_id, channel_id, start):
