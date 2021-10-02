@@ -43,4 +43,8 @@ def test_valid_invite():
     user_b = auth_register_v1("d@email.com", "ABCDEF123", "Kim", "Smith")
     channel = channels_create_v1(user_a["auth_user_id"], "Channel 1", True)
     assert(channel_invite_v1(user_a["auth_user_id"], channel["channel_id"], user_b["auth_user_id"]) == {})
-    assert(user_b["auth_user_id"] in channel_details_v1(user_b["auth_user_id"], channel["channel_id"])["all_members"])
+    list_of_members = channel_details_v1(user_b["auth_user_id"], channel["channel_id"])["all_members"]
+    list_of_ids = []
+    for member in list_of_members:
+        list_of_ids.append(member["u_id"])
+    assert(user_b["auth_user_id"] in list_of_ids)
