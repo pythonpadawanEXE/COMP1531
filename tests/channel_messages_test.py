@@ -27,7 +27,7 @@ def create_messages(pub_chan):
     id, name, is_public = pub_chan
     new_channel = channels.channels_create_v1(id, name, is_public)
     store = data_store.get()
-    for i in range(30):
+    for i in range(5):
         Message = "message" + str(i)
         channel.create_message_v1(id,new_channel['channel_id'],Message)
     return new_channel,id
@@ -40,9 +40,14 @@ Valid Input
 
 def test_valid_start_index(create_messages):
     new_channel,id = create_messages
-    
-    with pytest.raises(InputError):
-        result = channel.channel_messages_v1(id,new_channel['channel_id'],1)
+    store = data_store.get()
+    channels_ = store['channels']
+    print(channels_)
+
+ 
+    result = channel.channel_messages_v1(id,new_channel['channel_id'],1)
+    print(result)
+    assert result["end"] == -1
 """
 Input Errors
 """
@@ -51,14 +56,19 @@ Input Errors
 
 def test_invalid_channel_1(pub_chan):
     id, name, is_public = pub_chan
-    new_channel = channels.channels_create_v1(id, name, is_public)
-
+    
+    store = data_store.get()
+    channels_ = store['channels']
+    print(channels_)
     
     with pytest.raises(InputError):
         result = channel.channel_messages_v1(id,2,0)
 
 def test_invalid_empty_channel():
     other.clear_v1()
+    store = data_store.get()
+    channels_ = store['channels']
+    print(channels_)
     with pytest.raises(InputError):
         result = channel.channel_messages_v1(1,2,0)
 

@@ -29,7 +29,7 @@ def channel_details_v1(auth_user_id, channel_id):
         ],
     }
 
-def create_message_v1(auth_user_id,channel_id,message):
+def create_message_v1(auth_user_id,channel_id,message_input):
     store = data_store.get()
     channels = store['channels']
     messages = None
@@ -53,8 +53,8 @@ def create_message_v1(auth_user_id,channel_id,message):
         {
             'message_id': 0,
             'u_id' : auth_user_id,
-            'message' : message,
-            'time_created'  : datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp(),
+            'message' : message_input,
+            'time_created'  : int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()),
             #https://stackoverflow.com/questions/55603536/python-time-time-and-datetime-datetime-utcnow-timestamp-returning-differ
         }
         
@@ -90,7 +90,7 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     if len(messages) < start:
         raise InputError("Start is greater than the total number of messages in the channel")
     end = start + 50
-    return_messages = {}
+    return_messages = []
     for idx,message in enumerate(messages):
         if start <= idx < end:
             return_messages.append(message)
