@@ -31,14 +31,24 @@ def channels_list_v1(auth_user_id):
         'channels' : channels
     }
 
+# Lists all channels that exists including public and private.
 def channels_listall_v1(auth_user_id):
+
+    # Verifies that the user exists in the data store, raises an AccessError otherwise.
+    if not verify_user_id(auth_user_id):
+        raise AccessError
+
+    # Iterates through the list of channels and adds them to channels list.
+    store = data_store.get()
+    channel_store = store['channels']
+    channels = []
+
+    for chan in channel_store:
+        channels.append({'channel_id' : chan['id'], 'name' : chan['name']})
+
+    # Return the channels list as a value of key channels in a dictionary.
     return {
-        'channels': [
-        	{
-        		'channel_id': 1,
-        		'name': 'My Channel',
-        	}
-        ],
+        'channels' : channels
     }
 
 # Creates a channel as specified by the parameters.
