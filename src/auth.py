@@ -1,7 +1,11 @@
 """
-auth.py contains the following functions:
-    -auth_login_v1(email, password)
-    -auth_register_v1(email, password, name_first, name_last)
+auth.py 
+
+This module handles login and registration functionality:
+
+Functions:
+    auth_login_v1(email, password) -> { auth_user_id }
+    auth_register_v1(email, password, name_first, name_last) -> { auth_user_id }
 """
 import re
 from src.data_store import data_store
