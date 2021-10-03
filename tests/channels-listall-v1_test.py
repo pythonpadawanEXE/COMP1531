@@ -133,7 +133,7 @@ def test_listall_private_multiple():
         assert(channel in channels['channels'])
 
 # Test all private and public channels from multiple users
-def test_listall_mixed_individual():
+def test_listall_mixed_multiple():
     clear_v1()
 
     # New user 1
