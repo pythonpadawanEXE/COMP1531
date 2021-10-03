@@ -101,7 +101,6 @@ def create_message_v1(auth_user_id,channel_id,message_input):
     )
     data_store.set(store)
 
-
 def channel_messages_v1(auth_user_id, channel_id, start):
     """
     Returns the 50 most recent messages from start
@@ -165,7 +164,7 @@ def channel_join_v1(auth_user_id, channel_id):
             elif channel["is_public"] == False:
                 raise AccessError
 
-            # Mark channel as found      
+            # Mark channel as found
             else:
                 found_channel_id = True
                 target_channel = channel
@@ -177,5 +176,4 @@ def channel_join_v1(auth_user_id, channel_id):
     # Add user to the target_channel
     target_channel["all_members"].append(auth_user_id)
     data_store.set(store)
-    return {
-    }
+    return {}
