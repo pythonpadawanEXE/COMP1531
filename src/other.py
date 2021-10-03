@@ -115,10 +115,19 @@ def verify_user_id(auth_user_id):
             is_authorised = True
     return is_authorised
     
-'''
-check email validity
-'''
+
 def check_email_validity(email):
+    """ Checks if email is a valid input and raises an error if it isn't.
+
+    Arguments:
+        email(string)     - The email of the user to be registered.
+
+    Exceptions:
+        InputError - Occurs when  email does not match a valid email length or pattern.
+            
+    Return Value:
+        None
+    """
     max_len_email_user_char = 64
     max_len_email_domain_char = 64
     max_len_email_path_char = 256
@@ -131,10 +140,21 @@ def check_email_validity(email):
     if len(email_list[0][0]) > max_len_email_user_char or len(email_list[0][1]) > max_len_email_domain_char or len(email_list[0][2]) > max_len_email_path_char:
         raise InputError("Email too long")
 
-'''
-check password validity
-'''
+
 def check_password_validity(password):
+    """ Checks if password is a valid input and raises an error if it isn't.
+
+    Arguments:
+        password (string)     - The password of the user to be registered.
+
+
+    Exceptions:
+        InputError - Occurs when  password does not match a valid password length.
+                    
+
+    Return Value:
+        None
+    """
     min_password_len = 6
     max_password_len = 128 
     if len(password) < min_password_len:
@@ -144,10 +164,22 @@ def check_password_validity(password):
         raise InputError("Password too long!")
 
 
-'''
-checks login credidentials match registered user 
-'''
+
 def search_email_password_match(email,password):
+    """ Checks if valid email password combination matches register user and returns auth_user_id.
+
+    Arguments:
+        email (string)        - The email of the user to be registered.
+        password (string)     - The password of the user to be registered.
+
+
+    Exceptions:
+        InputError - Occurs when  input does not match a valid password email combination.
+                    
+
+    Return Value:
+        Returns { auth_user_id } on successful completion.
+    """
     store = data_store.get()
     users = store['users']
     count = 0
@@ -158,7 +190,7 @@ def search_email_password_match(email,password):
             break
     if id == None:
         raise InputError("No User exists with this email/password combination")
-        return
+        
 
     passwords = store['passwords']
     for Object in passwords:
@@ -168,10 +200,21 @@ def search_email_password_match(email,password):
             }
     raise InputError("No User exists with this email/password combination")
     
-'''
-searches for duplicate emails and return a count of matching emails to the provided input
-'''
+
 def search_duplicate_email(email):
+    """ Searches for duplicate emails and returns a count of the number of matching emails to 
+        the provided email input.
+
+    Arguments:
+        email (string)        - The email of the user to be registered.
+
+
+    Exceptions:
+            None 
+
+    Return Value:
+        Returns { count } on successful completion.
+    """
     store = data_store.get()
     users = store['users']
     count = 0
@@ -180,10 +223,21 @@ def search_duplicate_email(email):
             count += 1
     return count
 
-'''
-Searches for existing handles and appends a number as a string to create a unique and valid handle
-'''
+
 def search_handle(name_first,name_last):
+    """ Searches for existing handles and appends a number as a string to create a unique and 
+        valid handle.
+
+    Arguments:
+        name_first (string)   - The first name of the user to be registered.
+        name_last (string)    - The last name of the user to be registered.
+
+    Exceptions:
+            None 
+
+    Return Value:
+        Returns { valid_handle } on successful completion.
+    """
     store = data_store.get()
     users = store['users']
     len_trunc = 20

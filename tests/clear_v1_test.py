@@ -5,18 +5,18 @@ from src.data_store import data_store
 def test_clear_v1_check_store():
     other.clear_v1()
     store = data_store.get()
-    errors = []
+    messages = []
         # replace assertions by conditions
-    if store['users']:
-        errors.append("Users is not empty")
-    if store['channels']:
-        errors.append("Channels is not empty")
+    if not store['users']:
+        messages.append("Users is  empty")
+    if not store['channels']:
+        messages.append("Channels is  empty")
 
-    if store['passwords']:
-        errors.append("Passwords is not empty")
+    if not store['passwords']:
+        messages.append("Passwords is  empty")
 
     # assert no error message has been registered, else print messages
-    assert not errors, "errors occured:\n{}".format("\n".join(errors))
+    assert len(messages) == 3, "actions occured:\n{}".format("\n".join(messages))
 
 
 def test_clear_v1():

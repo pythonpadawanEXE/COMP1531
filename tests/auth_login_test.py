@@ -103,6 +103,13 @@ def test_invalid_login_email():
     with pytest.raises(InputError):
         result = auth.auth_login_v1('validemailgmail.com', '123abc!@#')
 
+def test_invalid_login_email_2():
+    other.clear_v1()
+    result = auth.auth_register_v1('validemail@gmail.com', '123abc!@#', 'Hayden', 'Everest')
+    assert isinstance(result['auth_user_id'],int)
+    with pytest.raises(InputError):
+        result = auth.auth_login_v1('validemail1@gmail.com', '123abc!@#')
+
 
 
 #login password doesnt match registered password

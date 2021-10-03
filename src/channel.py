@@ -107,7 +107,7 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     """
 
     store = data_store.get()
-    if len(store) == 0:
+    if len(store['users'])+len(store['channels'])+len(store['passwords']) == 0:
         raise InputError("Empty Database")
 
     channels = store['channels']
