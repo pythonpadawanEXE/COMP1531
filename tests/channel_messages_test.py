@@ -29,7 +29,7 @@ def create_messages(pub_chan):
     store = data_store.get()
     for i in range(5):
         Message = "message" + str(i)
-        channel.create_message_v1(id,new_channel['channel_id'],Message)
+        other.create_message(id,new_channel['channel_id'],Message)
     return new_channel,id
 
 """
