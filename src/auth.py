@@ -44,7 +44,7 @@ def search_email_password_match(email,password):
             break
     if id == None:
         raise InputError("No User exists with this email/password combination")
-        return
+        
 
     passwords = store['passwords']
     for Object in passwords:

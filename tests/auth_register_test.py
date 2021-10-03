@@ -172,12 +172,12 @@ def test_valid_name_last():
     result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', 'Jake', 'Allan-Edwards')
     assert isinstance(result['auth_user_id'],int)
 
-def test_invalid_name_last():
+def test_invalid_name_last_1():
     other.clear_v1()
     with pytest.raises(InputError):
         result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', 'Jake@Allan', '-----')
 
-def test_invalid_name_last():
+def test_invalid_name_last_2():
     other.clear_v1()
     with pytest.raises(InputError):
         result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', 'Jake', 'Allan@Edwards')

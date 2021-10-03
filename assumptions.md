@@ -16,12 +16,13 @@ Email Input follows the standard of RFC821 i.e.
 but name_ vairables cannot be only numbers or only hyphens or only spaces,while they can be only letters.
 
 * Maximum Number of Users with respect to max allowable run time expected 2,000 (perform stress test to estimate?)
+* Assume that the `u_id` is assigned sequentially and begins at 1.
 
 ## channels.py
 
 ### `channels_create_v1`
 
-* Assume that the `channel_id` is assigned sequentially.
+* Assume that the `channel_id` is assigned sequentially and begins at 1.
 
 ### `channels_list_v1`
 

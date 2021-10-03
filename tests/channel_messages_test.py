@@ -64,11 +64,14 @@ def test_invalid_channel_1(pub_chan):
     with pytest.raises(InputError):
         result = channel.channel_messages_v1(id,2,0)
 
-def test_invalid_empty_channel():
-    other.clear_v1()
-    store = data_store.get()
-    channels_ = store['channels']
-    print(channels_)
+def test_invalid_empty_channel_1():
+    other.clear_v1()   
+    with pytest.raises(InputError):
+        result = channel.channel_messages_v1(1,2,0)
+
+def test_invalid_empty_channel_2():
+    other.clear_v1()   
+    auth_user_id = auth.auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
     with pytest.raises(InputError):
         result = channel.channel_messages_v1(1,2,0)
 
@@ -80,8 +83,24 @@ def test_invalid_start_index(create_messages):
     with pytest.raises(InputError):
         result = channel.channel_messages_v1(id,new_channel['channel_id'],50)
 
+#Channel ID is not valid or does not exist.
+def test_invalid_channel_unexist():
+    other.clear_v1()
+    is_public = True
+    auth_user_id = auth.auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
+    channels.channels_create_v1(auth_user_id,'New Channel', is_public)
+    auth_user_id = auth.auth_register_v1("js2@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
+    with pytest.raises(InputError):
+        result = channel.channel_messages_v1(1,10,0)
 
-
+def test_invalid_channel_private():
+    other.clear_v1()
+    is_public = False
+    auth_user_id = auth.auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
+    channels.channels_create_v1(auth_user_id,'New Channel', is_public)
+    auth_user_id = auth.auth_register_v1("js2@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
+    with pytest.raises(InputError):
+        result = channel.channel_messages_v1(2,5,0)
 """
 Access Errors
 """
