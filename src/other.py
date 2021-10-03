@@ -92,3 +92,24 @@ def get_all_members(auth_id_list):
                 all_members_list.append(user)
 
     return all_members_list
+
+def verify_user_id(auth_user_id):
+    """ Helper function that verifies that the user exists in the data store,
+        if in data store returns true else false.
+
+        Arguments:
+            auth_user_id (int)    - The user id of the user being verified.
+
+        Return Value:
+            Returns True on user id being found.
+            Returns False on user id not being found.
+    """
+    is_authorised = False
+    store = data_store.get()
+
+    user_store = store['users']
+    for user in user_store:
+        if user['u_id'] == auth_user_id:
+            is_authorised = True
+    return is_authorised
+    

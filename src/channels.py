@@ -1,35 +1,17 @@
-""" This module handles the creation and listing of channels.
+""" 
+channels.py
 
-    Functions:
-        verify_user_id(auth_user_id) -> boolean
-        channels_list_v1(auth_user_id) -> { channels }
-        channels_listall_v1(auth_user_id) -> { channels }
-        channels_create_v1(auth_user_id, name, is_public) -> { channel_id }
+This module handles the creation and listing of channels for Streams.
 
+Functions:
+    channels_list_v1(auth_user_id) -> { channels }
+    channels_listall_v1(auth_user_id) -> { channels }
+    channels_create_v1(auth_user_id, name, is_public) -> { channel_id }
 """
 
 from src.data_store import data_store
 from src.error import InputError, AccessError
-
-def verify_user_id(auth_user_id):
-    """ Helper function that verifies that the user exists in the data store,
-        if in data store returns true else false.
-
-        Arguments:
-            auth_user_id (int)    - The user id of the user being verified.
-
-        Return Value:
-            Returns True on user id being found.
-            Returns False on user id not being found.
-    """
-    is_authorised = False
-    store = data_store.get()
-
-    user_store = store['users']
-    for user in user_store:
-        if user['u_id'] == auth_user_id:
-            is_authorised = True
-    return is_authorised
+from src.other import verify_user_id
 
 def channels_list_v1(auth_user_id):
     """ Lists all channels that the given user id is a member of.

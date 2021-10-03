@@ -1,10 +1,10 @@
 from src.error import AccessError, InputError
-from src.channels import verify_user_id
 from src.data_store import data_store
 import datetime
 from src.other import is_channel_valid, is_user_authorised, \
     get_channel_name, is_channel_public, get_channel_owner, \
-    user_details, get_all_user_id_channel, get_all_members
+    user_details, get_all_user_id_channel, get_all_members, \
+    verify_user_id
 
 
 def channel_invite_v1(auth_user_id, channel_id, u_id):
