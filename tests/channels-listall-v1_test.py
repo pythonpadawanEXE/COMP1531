@@ -37,7 +37,7 @@ def test_listall_private_individual():
     # New user
     auth_user_id = auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
     
-    # List of channels that are public
+    # List of channels that are private
     list_of_channels = []
     list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id, "Chan 1", False)['channel_id'], 'name' : "Chan 1"})
     list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id, "Chan 2", False)['channel_id'], 'name' : "Chan 2"})
@@ -113,7 +113,7 @@ def test_listall_private_multiple():
     # New user 2
     auth_user_id_2 = auth_register_v1("jems@email.com", "ABCDEFGH", "Jemma", "Smith")['auth_user_id']
     
-    # List of channels that are private mixed with public channels
+    # List of channels that are private
     list_of_channels = []
     list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_1, "Chan 1", False)['channel_id'], 'name' : "Chan 1"})
     list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_1, "Chan 2", False)['channel_id'], 'name' : "Chan 2"})
