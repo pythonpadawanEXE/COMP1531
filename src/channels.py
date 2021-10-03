@@ -1,8 +1,16 @@
 from src.data_store import data_store
 from src.error import InputError, AccessError
 
-# Helper function that verifies that the user exists in the data store, 
-# if in data store returns true else false.
+''' Helper function that verifies that the user exists in the data store, if in data store returns true else false.
+
+    Arguments:
+        auth_user_id (int)    - The user id of the user being verified.
+
+    Return Value:
+        Returns True on user id being found.
+        Returns False on user id not being found.
+
+'''
 def verify_user_id(auth_user_id):
     is_authorised = False
     store = data_store.get()
@@ -13,7 +21,17 @@ def verify_user_id(auth_user_id):
             is_authorised = True
     return is_authorised
 
-# Lists all channels that the given user id is a member of.
+''' Lists all channels that the given user id is a member of.
+
+    Arguments:
+        auth_user_id (int)    - The user id of the user whose channel membership is being listed.
+
+    Exceptions:
+        AccessError - Occurs when the user's id does not exist in the data store.
+
+    Return Value:
+        Returns { channels } on successful completion.
+'''
 def channels_list_v1(auth_user_id):
 
     # Verifies that the user exists in the data store, raises an AccessError otherwise.
@@ -31,7 +49,17 @@ def channels_list_v1(auth_user_id):
         'channels' : channels
     }
 
-# Lists all channels that exists including public and private.
+''' Lists all channels that exist including public and private channels.
+
+    Arguments:
+        auth_user_id (int)    - The user id of the calling user.
+
+    Exceptions:
+        AccessError - Occurs when the user's id does not exist in the data store.
+
+    Return Value:
+        Returns { channels } on successful completion.
+'''
 def channels_listall_v1(auth_user_id):
 
     # Verifies that the user exists in the data store, raises an AccessError otherwise.
@@ -51,7 +79,22 @@ def channels_listall_v1(auth_user_id):
         'channels' : channels
     }
 
-# Creates a channel as specified by the parameters.
+''' Creates a channel as specified by the parameters.
+
+Arguments:
+    auth_user_id (int)    - The user id of the calling user.
+    name (string)         - The name of the channel to be created.
+    is_public (boolean)   - Determines whether the channel is public
+    ...
+
+Exceptions:
+    InputError  - Occurs when length of name is less than 1 or more than 20 characters.
+    AccessError - Occurs when the user's id does not exist in the data store.
+
+Return Value:
+    Returns { channel_id } on successful completion.
+
+'''
 def channels_create_v1(auth_user_id, name, is_public):
 
     # Verifies that the user exists in the data store, raises an AccessError otherwise.
