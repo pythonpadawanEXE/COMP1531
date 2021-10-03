@@ -28,3 +28,9 @@ but name_ vairables cannot be only numbers or only hyphens or only spaces,while 
 ### `channels_list_v1`
 
 * Assume that "associated details" as described in the specification is only the channel name.
+
+## channel.py
+
+### `channel_messages_v1`
+
+* Assume that start is always greater than or equal to zero.
