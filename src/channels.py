@@ -1,4 +1,4 @@
-""" 
+"""
 channels.py
 
 This module handles the creation and listing of channels for Streams.
