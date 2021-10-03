@@ -23,6 +23,7 @@ but name_ vairables cannot be only numbers or only hyphens or only spaces,while 
 ### `channels_create_v1`
 
 * Assume that the `channel_id` is assigned sequentially and begins at 1.
+* Assume that the creator of a channel is added to both owner members and all members lists.
 
 ### `channels_list_v1`
 
