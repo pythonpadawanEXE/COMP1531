@@ -146,8 +146,9 @@ def channel_messages_v1(auth_user_id, channel_id, start):
 
 def channel_join_v1(auth_user_id, channel_id):
     # Verify the user ID
-    verify_user_id(auth_user_id)
-    
+    if verify_user_id(auth_user_id) != True:
+        raise AccessError
+   
     store = data_store.get()
 
     # Check if call valid
