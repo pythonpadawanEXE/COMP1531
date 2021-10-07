@@ -54,7 +54,7 @@ def test_valid_start_index(create_messages):
 Input Errors
 """
 #start is not less than 0
-def test_valid_start_index(create_messages):
+def test_invalid_negative_start_index(create_messages):
     new_channel,id = create_messages
     store = data_store.get()
     channels_ = store['channels']
