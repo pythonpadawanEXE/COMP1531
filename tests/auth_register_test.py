@@ -75,50 +75,21 @@ def test_multiple_emails_valid_handles():
     assert isinstance(result2['auth_user_id'],int)
     result3 = auth.auth_register_v1('distinctemail3@gmail.com', '123abc!@#', 'Jake', 'Everest')
     assert isinstance(result3['auth_user_id'],int)
-    assert result2['auth_user_id'] - result1['auth_user_id'] == 1
-    assert result3['auth_user_id'] - result2['auth_user_id'] == 1
+    store = data_store.get()
+    users = store['users']
+    print(users)
     #TODO: then assert datastore to check all contained handles are unique and in lower case
     #https://stackoverflow.com/questions/11092511/python-list-of-unique-dictionaries
     #Will likely need to debug below code
-    store = data_store.get()
-    users = store['users']
+    assert other.search_handle(result1['auth_user_id']) == "jakeeverest"
+    assert other.search_handle(result2['auth_user_id']) == "jakeeverest0"
+    assert other.search_handle(result3['auth_user_id']) == "jakeeverest1"
+    
     DistinctUsers = list({Object['handle_str']:Object for Object in users}.values())
-    # print(users)
-    # print(DistinctUsers)
+    
+    print(DistinctUsers)
     assert len(users) == len(DistinctUsers)
-'''
-data = {
-    'users': [
-        {
-            'u_id': 1,
-            'email' : 'jake@gmail.com',
-            'name_first' : 'Jake',
-            'name_last'  : 'Edwards',
-            'handle_str' : 'jakeedwards'
 
-        },
-        {
-            'u_id': 2,
-            'email' : 'jake2@gmail.com',
-            'name_first' : 'Jake',
-            'name_last'  : 'Edwards',
-            'handle_str' : 'jakeedwards0'
-        }
-    ],
-
-    'passwords' : [
-        {
-            'u_id':1,
-            'password' : 'Password',
-        }
-        {
-            'u_id':2,
-            'password' : 'Password',
-        }
-
-    ]
-
-'''
 
 '''
 Invalid length of password is less than 6 characters
@@ -151,15 +122,7 @@ def test_valid_name_first():
     assert isinstance(result['auth_user_id'],int)
 
 
-def test_invalid_name_first_1():
-    other.clear_v1()
-    with pytest.raises(InputError):
-        result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', 'Jake@Allan', 'Edwards')
 
-def test_invalid_name_first_2():
-    other.clear_v1()
-    with pytest.raises(InputError):
-        result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', '------', 'Edwards')
 
 
 
@@ -172,15 +135,6 @@ def test_valid_name_last():
     result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', 'Jake', 'Allan-Edwards')
     assert isinstance(result['auth_user_id'],int)
 
-def test_invalid_name_last_1():
-    other.clear_v1()
-    with pytest.raises(InputError):
-        result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', 'Jake@Allan', '-----')
-
-def test_invalid_name_last_2():
-    other.clear_v1()
-    with pytest.raises(InputError):
-        result = auth.auth_register_v1('validemail4@gmail.com', '123ab78', 'Jake', 'Allan@Edwards')
     
 
 '''
