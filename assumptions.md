@@ -12,11 +12,9 @@ Email Input follows the standard of RFC821 i.e.
 
 * Length of Maximum Valid Password TBC 256 as this is allowed max in active directory azure, provides a practical maximum but doesn't allowed a DOS?
 
-* Assume that since str_handle must be alphanumeric (a-z0-9) so  name_first and name_last must be letters or hyphens or spaces or numbers
-but name_ vairables cannot be only numbers or only hyphens or only spaces,while they can be only letters.
-
 * Maximum Number of Users with respect to max allowable run time expected 2,000 (perform stress test to estimate?)
-* Assume that the `u_id` is assigned sequentially and begins at 1.
+* Assume that the `u_id` is assigned sequentially and begins at 0.
+* assume that if name_last and name_first are all non-alpha numeric characters an empty str_handle is allowed i.e. ""
 
 ## channels.py
 
