@@ -1,6 +1,6 @@
 import re, datetime
 from src.data_store import data_store
-from src.error import InputError
+from src.error import InputError,AccessError
 
 def clear_v1():
     store = data_store.get()
@@ -150,7 +150,6 @@ checks login credidentials match registered user
 def search_email_password_match(email,password):
     store = data_store.get()
     users = store['users']
-    count = 0
     id = None
     for Object in users:
         if Object['email'] == email:
@@ -158,7 +157,6 @@ def search_email_password_match(email,password):
             break
     if id == None:
         raise InputError("No User exists with this email/password combination")
-        return
 
     passwords = store['passwords']
     for Object in passwords:
@@ -179,25 +177,52 @@ def search_duplicate_email(email):
         if Object['email'] == email:
             count += 1
     return count
-
+'''
+Search for Handle given auth user id
+'''
+def search_handle(auth_user_id):
+    store = data_store.get()
+    users = store['users']
+    for user in users:
+        #print(Object)
+        print(user['u_id'])
+        print(auth_user_id)
+        if user['u_id'] == auth_user_id:
+            return user['handle_str']
+    return None
 '''
 Searches for existing handles and appends a number as a string to create a unique and valid handle
 '''
-def search_handle(name_first,name_last):
+def make_handle(name_first,name_last):
     store = data_store.get()
     users = store['users']
     len_trunc = 20
     count = 0
-    str_handle = ((name_first + name_last)[0:len_trunc]).lower()
-    if users:
-        for idx,Object in enumerate(users):
-            print(Object)
-            if Object['handle_str'] == str_handle:
-                idx = 0
-                str_handle = str_handle + str(count)
-                count += 1
+    #make lowercase then remove non-alphanumeric characters
+    name_first = name_first.lower()
+    name_first = ''.join(ch for ch in name_first if ch.isalnum())
+    #make lowercase then remove non-alphanumeric characters
+    name_last = name_last.lower()
+    name_last = ''.join(ch for ch in name_last if ch.isalnum())
 
-    valid_handle = str_handle        
+    
+    
+
+    #If the concatenation is longer than 20 characters, it is cut off at 20 characters
+    str_handle = ((name_first + name_last)[0:len_trunc])
+    #if handle is taken append
+    valid_handle = None
+    if users:
+        for user in users:
+            #print(Object)
+            if user['handle_str'] == str_handle:
+                valid_handle = str_handle + str(count)
+                count += 1
+            elif user['handle_str'] == valid_handle:
+                valid_handle = str_handle + str(count)
+                count += 1
+    if valid_handle is None:
+        valid_handle = str_handle
     return valid_handle
 
 def create_message(auth_user_id, channel_id, message_input):

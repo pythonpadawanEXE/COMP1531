@@ -135,7 +135,8 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     store = data_store.get()
     if len(store['users'])+len(store['channels'])+len(store['passwords']) == 0:
         raise InputError("Empty Database")
-
+    if start < 0:
+        raise InputError("Invalid Start Index")
     channels = store['channels']
     if len(channels) == 0:
         raise InputError("No Channels")
@@ -157,6 +158,7 @@ def channel_messages_v1(auth_user_id, channel_id, start):
         raise InputError("Start is greater than the total number of messages in the channel")
     end = start + 50
     return_messages = []
+
     for idx,message in enumerate(messages):
         if start <= idx < end:
             return_messages.append(message)
