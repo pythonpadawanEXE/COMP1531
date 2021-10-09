@@ -255,3 +255,9 @@ def create_message(auth_user_id, channel_id, message_input):
         }
     )
     data_store.set(store)
+
+def is_global_owner(auth_user_id):
+    # Returns true if the given user is the global owner (first registered user).
+    user_store = data_store.get()["users"]
+    global_owner = user_store[0]
+    return auth_user_id == global_owner["u_id"]
