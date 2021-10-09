@@ -13,7 +13,7 @@ Functions:
 
 from src.error import AccessError, InputError
 from src.data_store import data_store
-from src.other import is_channel_valid, is_user_authorised, \
+from src.other import is_channel_valid, is_global_owner, is_user_authorised, \
     get_channel_name, is_channel_public, get_channel_owner, \
     user_details, get_all_user_id_channel, get_all_members, \
     verify_user_id
@@ -208,7 +208,7 @@ def channel_join_v1(auth_user_id, channel_id):
                 raise InputError
 
             # Check if channel public
-            if not channel["is_public"]:
+            if not channel["is_public"] and not is_global_owner(auth_user_id):
                 raise AccessError
 
             # Mark channel as found
