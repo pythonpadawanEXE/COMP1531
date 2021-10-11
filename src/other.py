@@ -261,3 +261,29 @@ def is_global_owner(auth_user_id):
     user_store = data_store.get()["users"]
     global_owner = user_store[0]
     return auth_user_id == global_owner["u_id"]
+
+def make_token():
+    '''
+    !!!!!!!Need to fix after JWT lecture!!!!!!!!!
+    Makes a  new JWT. 
+
+    Arguments:
+        VOID
+    Return Value:   
+        token (string) on Successful completion.
+    '''
+    return 'token'
+
+def return_token(email,password):
+    '''
+    !!!!!!!Need to fix after JWT lecture!!!!!!!!!!!!!
+    Return a  valid JWT given valid login credidentials.
+
+    Arguments:
+        email (string)        - The email of the user to login.
+        password (string)     - The password of the user to login.
+        
+    Return Value:   
+        token (string) on Successful completion.
+    '''
+    return 'token'

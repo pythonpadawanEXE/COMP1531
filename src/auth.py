@@ -11,7 +11,7 @@ import re
 from src.data_store import data_store
 from src.error import InputError
 from src.other import check_email_validity, check_password_validity, \
-    search_email_password_match, search_duplicate_email, make_handle
+    search_email_password_match, search_duplicate_email, make_handle, make_token, return_token
 
 def auth_login_v1(email, password):
     """ Checks if valid email password combination and returns auth_user_id.
@@ -27,11 +27,18 @@ def auth_login_v1(email, password):
                       password email combination.
 
     Return Value:
-        Returns { auth_user_id } on successful completion.
+        { auth_user_id (string),
+          token        (string),
+         }                          - Upon successful completion.
+        
     """
     check_email_validity(email)
     check_password_validity(password)
-    return search_email_password_match(email,password)
+    auth_dict = search_email_password_match(email,password)
+    return {
+        'token' : return_token(email,password),
+        'auth_user_id' : auth_dict['auth_user_id'],
+    }
 
 def auth_register_v1(email, password, name_first, name_last):
     """ Create a unique user dictionary in the users data store with
@@ -50,8 +57,11 @@ def auth_register_v1(email, password, name_first, name_last):
                     - Occurs when length of name_first or name_last is less than 1 character
                     or greater than or equal to 50 characters
 
-    Return Value:
-        Returns { auth_user_id } on successful completion.
+    Return Values:
+        { auth_user_id (string),
+          token        (string),
+         }                          - Upon successful completion.
+        
     """
     max_name_len = 50
     min_name_len = 1
@@ -89,5 +99,6 @@ def auth_register_v1(email, password, name_first, name_last):
     data_store.set(store)
 
     return {
+        'token': make_token(),
         'auth_user_id': u_id,
     }
