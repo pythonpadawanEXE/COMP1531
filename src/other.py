@@ -287,3 +287,20 @@ def return_token(email,password):
         token (string) on Successful completion.
     '''
     return 'token'
+
+
+
+def check_valid_token(token):
+    '''
+    !!!!!!!Need to fix after JWT lecture!!!!!!!!!!!!!
+    Return a  boolean value for the validity of the token.
+
+    Arguments:
+       token (string)        - The token of the user session
+       
+        
+    Return Value:   
+        True on valid token.
+        False on Invalid Token
+    '''
+    return True
