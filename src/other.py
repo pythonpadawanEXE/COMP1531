@@ -268,7 +268,7 @@ def make_token(auth_user_id):
     Makes a  new JWT. 
 
     Arguments:
-        VOID
+        auth_user_id (int) - Unique ID of authorised user
     Return Value:   
         token (string) on Successful completion.
     '''
