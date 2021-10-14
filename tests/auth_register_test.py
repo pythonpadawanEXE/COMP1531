@@ -179,7 +179,7 @@ def test_duplicate_email():
     with pytest.raises(InputError):
         auth.auth_register_v1(duplicate_email, '123abc!@#', 'Hayden', 'Everest') # Expect fail since we already registered
 
-def test_invalid_email_too_long_1_endpoint(setup):
+def test_duplicate_endpoint(setup):
 
     response = requests.post(f"{BASE_URL}/auth/register/v2",json={
         'email' : duplicate_email,
