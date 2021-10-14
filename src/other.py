@@ -304,3 +304,24 @@ def check_valid_token(token):
         False on Invalid Token
     '''
     return True
+
+def token_to_uid(token):
+    """ 
+    Returns the associated uid for a given authorised token.
+
+    Arguments:
+        token (string)        - The token of the user session
+
+    Exceptions:
+        Raise AccessError on invalid token.
+
+    Return Value:
+        uid on valid token
+    
+    """
+    if check_valid_token(token): 
+        # return associated uid
+        uid = 0
+        return uid
+    else:
+        raise AccessError(description="Invalid token.")
