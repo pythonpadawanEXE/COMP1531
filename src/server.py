@@ -6,7 +6,8 @@ from flask_cors import CORS
 from src.error import InputError
 from src import config
 from src.channels import channels_create_v1
-from src.other import token_to_uid
+from src.other import token_to_uid, clear_v1
+
 
 def quit_gracefully(*args):
     '''For coverage'''
@@ -50,6 +51,12 @@ def channels_create_v2():
     auth_user_id = token_to_uid(token)
 
     return jsonify(channels_create_v1(auth_user_id, name, is_public))
+
+#reset database through clearing the dictionaries
+@APP.route("/clear/v1", methods=['DELETE'])
+def delete_clear():
+    clear_v1()
+    return dumps({})
 
 #### NO NEED TO MODIFY BELOW THIS POINT
 
