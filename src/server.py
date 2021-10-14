@@ -6,7 +6,7 @@ from flask_cors import CORS
 from src.error import InputError
 from src import config
 from src.other import clear_v1
-import dumps
+from json import dumps
 
 def quit_gracefully(*args):
     '''For coverage'''

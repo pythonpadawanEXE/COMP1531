@@ -2,8 +2,9 @@ from src import other
 import pytest
 from src.data_store import data_store
 import requests
+from src import config
 
-BASE_URL = 'http://127.0.0.1:5000'
+BASE_URL = config.url
 
 def test_clear_v1_check_store():
     other.clear_v1()
