@@ -222,34 +222,34 @@ def test_invalid_long_password():
 long_name = 'TpRXVggwnkBUGjXLVmwEGatLCEpUtbfVFLhDQUqLztGqxnrhruFyPmG'
 
 @pytest.mark.parametrize("name_first", ['', long_name])
-def test_name_first_invalid_length():
+def test_name_first_invalid_length(name_first):
     other.clear_v1()
     with pytest.raises(InputError):
         auth.auth_register_v1('validemail4@gmail.com', '123ab78', name_first, 'Lastname')
 
 #endpoint test name_first
 @pytest.mark.parametrize("name_first", ['', long_name])
-def test_name_first_invalid_length_endpoint(setup):
+def test_name_first_invalid_length_endpoint(setup,name_first):
     response = requests.post(f"{BASE_URL}/auth/register/v2",json={
         'email' : duplicate_email,
-        'password' : 'short',
+        'password' : '123ab78',
         'name_first' : name_first,
         'name_last' : 'Everest'
     })
     assert response.status_code == 400
 
 @pytest.mark.parametrize("name_last", ['', long_name])
-def test_name_last_invalid_length():
+def test_name_last_invalid_length(name_last):
     other.clear_v1()
     with pytest.raises(InputError):
         auth.auth_register_v1('validemail8@gmail.com', '123ab78', 'Firstname', name_last)
 
 #endpoint test name_last
 @pytest.mark.parametrize("name_last", ['', long_name])
-def test_name_first_invalid_length_endpoint(setup):
+def test_name_last_invalid_length_endpoint(setup,name_last):
     response = requests.post(f"{BASE_URL}/auth/register/v2",json={
         'email' : duplicate_email,
-        'password' : 'short',
+        'password' : '123ab78',
         'name_first' : 'Hayden',
         'name_last' : name_last
     })

@@ -77,7 +77,7 @@ def auth_register_v1(email, password, name_first, name_last):
         raise InputError("Invalid First Name Length")
 
     if len(name_last) > max_name_len or len(name_last) < min_name_len:
-        raise InputError("Invalid First Name Length")
+        raise InputError("Invalid Last Name Length")
 
     store = data_store.get()
     users = store['users']
