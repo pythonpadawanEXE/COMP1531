@@ -5,6 +5,8 @@ from flask import Flask, request
 from flask_cors import CORS
 from src.error import InputError
 from src import config
+from src.other import clear_v1
+import dumps
 
 def quit_gracefully(*args):
     '''For coverage'''
@@ -38,6 +40,14 @@ def echo():
     return dumps({
         'data': data
     })
+
+#reset database through clearing the dictionaries
+@APP.route("/clear/v1", methods=['DELETE'])
+def delete_clear():
+    clear_v1()
+    return dumps({})
+
+
 
 #### NO NEED TO MODIFY BELOW THIS POINT
 
