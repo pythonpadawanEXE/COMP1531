@@ -262,17 +262,17 @@ def is_global_owner(auth_user_id):
     global_owner = user_store[0]
     return auth_user_id == global_owner["u_id"]
 
-def make_token():
+def make_token(auth_user_id):
     '''
     !!!!!!!Need to fix after JWT lecture!!!!!!!!!
     Makes a  new JWT. 
 
     Arguments:
-        VOID
+        auth_user_id (int) - Unique ID of authorised user
     Return Value:   
         token (string) on Successful completion.
     '''
-    return 'token'
+    return str(auth_user_id)
 
 def return_token(email,password):
     '''
@@ -286,4 +286,21 @@ def return_token(email,password):
     Return Value:   
         token (string) on Successful completion.
     '''
-    return 'token'
+    return search_email_password_match(email,password)
+
+
+
+def check_valid_token(token):
+    '''
+    !!!!!!!Need to fix after JWT lecture!!!!!!!!!!!!!
+    Return a  boolean value for the validity of the token.
+
+    Arguments:
+       token (string)        - The token of the user session
+       
+        
+    Return Value:   
+        True on valid token.
+        False on Invalid Token
+    '''
+    return True

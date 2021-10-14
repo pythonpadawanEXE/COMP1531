@@ -27,7 +27,7 @@ def auth_login_v1(email, password):
                       password email combination.
 
     Return Value:
-        { auth_user_id (string),
+        { auth_user_id (int),
           token        (string),
          }                          - Upon successful completion.
         
@@ -58,7 +58,7 @@ def auth_register_v1(email, password, name_first, name_last):
                     or greater than or equal to 50 characters
 
     Return Values:
-        { auth_user_id (string),
+        { auth_user_id (int),
           token        (string),
          }                          - Upon successful completion.
         
@@ -99,6 +99,6 @@ def auth_register_v1(email, password, name_first, name_last):
     data_store.set(store)
 
     return {
-        'token': make_token(),
+        'token': make_token(u_id),
         'auth_user_id': u_id,
     }
