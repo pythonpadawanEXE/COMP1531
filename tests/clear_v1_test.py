@@ -1,6 +1,9 @@
 from src import other
 import pytest
 from src.data_store import data_store
+import requests
+
+BASE_URL = 'http://127.0.0.1:5000'
 
 def test_clear_v1_check_store():
     other.clear_v1()
@@ -22,4 +25,9 @@ def test_clear_v1_check_store():
 def test_clear_v1():
     assert other.clear_v1() == {}
 
+
+def test_clear_v1_endpoint():
+    response = requests.delete(f"{BASE_URL}/clear/v1")
+    assert response.status_code == 200
+    assert response.json() == {}
 
