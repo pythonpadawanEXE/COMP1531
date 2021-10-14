@@ -1,10 +1,12 @@
 import sys
 import signal
 from json import dumps
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from src.error import InputError
 from src import config
+from src.channels import channels_create_v1
+from src.other import token_to_uid
 
 def quit_gracefully(*args):
     '''For coverage'''
@@ -38,6 +40,16 @@ def echo():
     return dumps({
         'data': data
     })
+
+@APP.route("channels/create/v2", methods=['POST'])
+def channels_create_v2():
+    token = request.args.get('token')
+    name = request.args.get('name')
+    is_public = request.args.get('is_public') == True
+
+    auth_user_id = token_to_uid(token)
+
+    return jsonify(channels_create_v1(auth_user_id, name, is_public))
 
 #### NO NEED TO MODIFY BELOW THIS POINT
 
