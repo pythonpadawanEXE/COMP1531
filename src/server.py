@@ -48,7 +48,7 @@ def delete_clear():
     clear_v1()
     return dumps({})
 
-#reset database through clearing the dictionaries
+#register an account through a post request
 @APP.route("/auth/register/v2", methods=['POST'])
 def post_auth_register():
     request_data = request.get_json()
@@ -57,6 +57,17 @@ def post_auth_register():
         request_data['password'],
         request_data['name_first'],
         request_data['name_last']
+    )
+
+    return dumps(auth_result)
+
+#login an account through a post request
+@APP.route("/auth/login/v2", methods=['POST'])
+def post_auth_login():
+    request_data = request.get_json()
+    auth_result = auth_login_v1(
+        request_data['email'],
+        request_data['password']
     )
 
     return dumps(auth_result)

@@ -286,7 +286,7 @@ def return_token(email,password):
     Return Value:   
         token (string) on Successful completion.
     '''
-    return search_email_password_match(email,password)
+    return str(search_email_password_match(email,password)['auth_user_id'])
 
 
 
