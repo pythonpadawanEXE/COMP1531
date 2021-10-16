@@ -7,6 +7,7 @@ from src.error import InputError
 from src import config
 from src.other import clear_v1
 from json import dumps
+from src.auth import auth_register_v1,auth_login_v1
 
 def quit_gracefully(*args):
     '''For coverage'''
@@ -47,6 +48,18 @@ def delete_clear():
     clear_v1()
     return dumps({})
 
+#reset database through clearing the dictionaries
+@APP.route("/auth/register/v2", methods=['POST'])
+def post_auth_register():
+    request_data = request.get_json()
+    auth_result = auth_register_v1(
+        request_data['email'],
+        request_data['password'],
+        request_data['name_first'],
+        request_data['name_last']
+    )
+
+    return dumps(auth_result)
 
 
 #### NO NEED TO MODIFY BELOW THIS POINT
