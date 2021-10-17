@@ -13,6 +13,8 @@ def clear_v1():
     store['users'] = []
     store['channels'] = []
     store['passwords'] = []
+    store['permissions'] = []
+    sotre['dms'] = []
     data_store.set(store)
     return {}
 
@@ -297,6 +299,11 @@ def return_token(email,password):
     
     auth_user_id = search_email_password_match(email,password)['auth_user_id']
     session_id = generate_new_session_id()
+    store = data_store.get()
+    users = store['users']
+    for user in users:
+        if user['u_id'] == auth_user_id:
+            user['sessions'].append(session_id)
 
     return  generate_jwt(auth_user_id, session_id)
 
