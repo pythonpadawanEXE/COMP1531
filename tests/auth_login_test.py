@@ -179,7 +179,7 @@ def test_multiple_logins_2():
     result = auth.auth_login_v1('validemail1@gmail.com', '123abc!@#')
     assert isinstance(result['auth_user_id'],int)
 
-def test_multiple_logins_2():
+def test_multiple_logins_2_endpoint():
     _ = register_valid_user()
     _ = register_valid_user(email = 'validemail4@gmail.com')
     _ = register_valid_user(email = 'validemail3@gmail.com')
