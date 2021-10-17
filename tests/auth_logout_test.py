@@ -40,7 +40,15 @@ def login_valid_user(email = 'validemail@gmail.com',password = '123abc!@#'):
     assert isinstance(response_data['auth_user_id'],int)
     return response_data
 
-def logout_user(token):
+def login_invalid_user(email = 'validemail@gmail.com',password = '123abc!@#'):
+response = requests.post(f"{BASE_URL}/auth/login/v2",json={
+    'email' : email,
+    'password' : password
+})
+assert response.status_code == 400
+
+
+def logout__valid_user(token):
     response = requests.post(f"{BASE_URL}/auth/logout/v1",json={
         'token' : token
     })
@@ -51,7 +59,7 @@ def logout_user(token):
 def test_invalidate_token_one_user():
     response_data = register_valid_user()
     token = response_data['token']
-    logout_user(token)
+    logout_valid_user(token)
     
 
 def test_logout_multiple_users():
@@ -60,13 +68,20 @@ def test_logout_multiple_users():
     response_data2 = register_valid_user(email = 'validemail2@gmail.com',password= '123abc!@#2')
     response_data3 = register_valid_user(email = 'validemail3@gmail.com',password= '123abc!@#3')
     response_data4 = register_valid_user(email = 'validemail4@gmail.com',password= '123abc!@#4')
-    logout_user(response_data2['token'])
+    logout_valid_user(response_data2['token'])
     response_data5 = login_valid_user(email = 'validemail2@gmail.com',password= '123abc!@#2')
     assert isinstance(check_valid_token(response_data5['token']),dict)
-    logout_user(response_data5['token'])
-    logout_user(response_data4['token'])
-    logout_user(response_data3['token'])
-    logout_user(response_data2['token'])
-    logout_user(response_data1['token'])
-    logout_user(response_data['token'])
+    logout_valid_user(response_data5['token'])
+    logout_valid_user(response_data4['token'])
+    logout_valid_user(response_data3['token'])
+    logout_valid_user(response_data2['token'])
+    logout_valid_user(response_data1['token'])
+    logout_valid_user(response_data['token'])
+
+
+#note this gives an invalid token message with not logged in bro message on the test site
+def test_logout_twice():
+    response_data = register_valid_user()
+    logout_valid_user(response_data['token'])
+    logout_invalid_user(response_data['token'])
     

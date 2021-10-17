@@ -335,7 +335,7 @@ def check_valid_token(token):
             for session_id in user['u_id']['sessions']:
                 if session_id == decoded_token['session_id']:
                     return {'auth_user_id':decoded_token['auth_user_id'],'session_id':decoded_token['session_id']}
-    return None
+    raise AccessError(description="Invalid Token")
     
 
 

@@ -58,7 +58,7 @@ class Datastore:
         if not isinstance(self.__store, dict):
             raise TypeError('store must be of type dictionary')
         with open('datastore.p', 'wb') as FILE:
-        pickle.dump(self.__storetore, FILE)
+            pickle.dump(self.__store, FILE)
 
 print('Loading Datastore...')
 
