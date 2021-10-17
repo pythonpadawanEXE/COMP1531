@@ -1,6 +1,12 @@
 import re, datetime
 from src.data_store import data_store
 from src.error import InputError,AccessError
+import hashlib
+import jwt
+
+
+SESSION_TRACKER = 0
+SECRET = 'COMP1531'
 
 def clear_v1():
     store = data_store.get()
@@ -150,6 +156,7 @@ checks login credidentials match registered user
 def search_email_password_match(email,password):
     store = data_store.get()
     users = store['users']
+    password = hash(password)
     id = None
     for Object in users:
         if Object['email'] == email:
@@ -262,21 +269,22 @@ def is_global_owner(auth_user_id):
     global_owner = user_store[0]
     return auth_user_id == global_owner["u_id"]
 
-def make_token(auth_user_id):
+def make_token(auth_user_id,session_id):
     '''
-    !!!!!!!Need to fix after JWT lecture!!!!!!!!!
+    
     Makes a  new JWT. 
 
     Arguments:
         auth_user_id (int) - Unique ID of authorised user
+        session_id (int) - Unique ID of Session
     Return Value:   
         token (string) on Successful completion.
     '''
-    return str(auth_user_id)
+    return generate_jwt(auth_user_id, session_id)
 
 def return_token(email,password):
     '''
-    !!!!!!!Need to fix after JWT lecture!!!!!!!!!!!!!
+    
     Return a  valid JWT given valid login credidentials.
 
     Arguments:
@@ -286,13 +294,17 @@ def return_token(email,password):
     Return Value:   
         token (string) on Successful completion.
     '''
-    return str(search_email_password_match(email,password)['auth_user_id'])
+    
+    auth_user_id = search_email_password_match(email,password)['auth_user_id']
+    session_id = generate_new_session_id()
+
+    return  generate_jwt(auth_user_id, session_id)
 
 
 
 def check_valid_token(token):
     '''
-    !!!!!!!Need to fix after JWT lecture!!!!!!!!!!!!!
+    
     Return a  boolean value for the validity of the token.
 
     Arguments:
@@ -300,7 +312,73 @@ def check_valid_token(token):
        
         
     Return Value:   
-        True on valid token.
-        False on Invalid Token
+        {'auth_user_id':decoded_token['auth_user_id'],
+        'session_id':decoded_token['session_id']} on valid token.
+        None on Invalid Token
     '''
-    return True
+    decoded_token = decode_jwt(token)
+
+    decoded_token['auth_user_id']
+    store = data_store.get()
+    users = store['users']
+    for user in users:
+        if user['u_id'] == decoded_token['auth_user_id']:
+            for session_id in user['u_id']['sessions']:
+                if session_id == decoded_token['session_id']:
+                    return {'auth_user_id':decoded_token['auth_user_id'],'session_id':decoded_token['session_id']}
+    return None
+    
+
+
+
+def generate_new_session_id():
+    """Generates a new sequential session ID
+
+    Returns:
+        number: The next session ID
+    """
+    global SESSION_TRACKER
+    SESSION_TRACKER += 1
+    return SESSION_TRACKER
+
+
+def hash(input_string):
+    """Hashes the input string with sha256
+
+    Args:
+        input_string ([string]): The input string to hash
+
+    Returns:
+        string: The hexidigest of the encoded string
+    """
+    return hashlib.sha256(input_string.encode()).hexdigest()
+
+
+def generate_jwt(auth_user_id, session_id=None):
+    """Generates a JWT using the global SECRET
+
+    Args:
+        auth_user_id ([string]): The username
+        session_id ([string], optional): The session id, if none is provided will
+                                         generate a new one. Defaults to None.
+
+    Returns:
+        string: A JWT encoded string
+    """
+    if session_id is None:
+        session_id = generate_new_session_id()
+    return jwt.encode({'auth_user_id': auth_user_id, 'session_id': session_id}, SECRET, algorithm='HS256')
+
+
+def decode_jwt(encoded_jwt):
+    """Decodes a JWT string into an object of the data
+
+    Args:
+        encoded_jwt ([string]): The encoded JWT as a string
+
+    Returns:
+        Object: An object storing the body of the JWT encoded string
+    """
+    return jwt.decode(encoded_jwt, SECRET, algorithms=['HS256'])
+
+    
