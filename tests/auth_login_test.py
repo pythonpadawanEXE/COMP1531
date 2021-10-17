@@ -1,7 +1,6 @@
 from src import auth,other,config
 import re
 import pytest
-from src.data_store import data_store
 from src.error import InputError
 import requests
 

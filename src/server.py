@@ -8,6 +8,7 @@ from src import config
 from src.other import clear_v1
 from json import dumps
 from src.auth import auth_register_v1,auth_login_v1
+from src.data_store import data_store
 
 def quit_gracefully(*args):
     '''For coverage'''
@@ -58,7 +59,7 @@ def post_auth_register():
         request_data['name_first'],
         request_data['name_last']
     )
-
+    data_store.save()
     return dumps(auth_result)
 
 #login an account through a post request
@@ -69,7 +70,7 @@ def post_auth_login():
         request_data['email'],
         request_data['password']
     )
-
+    data_store.save()
     return dumps(auth_result)
 
 

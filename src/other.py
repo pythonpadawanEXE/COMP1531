@@ -18,6 +18,8 @@ def clear_v1():
     data_store.set(store)
     return {}
 
+
+
 # Check if the channel with channel_id is valid
 def is_channel_valid(channel_id):
 
