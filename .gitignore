@@ -126,6 +126,3 @@ dmypy.json
 # Other
 *.py~
 .vscode/
-
-#Database
-datastore.p
