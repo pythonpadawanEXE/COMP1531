@@ -195,9 +195,6 @@ def search_handle(auth_user_id):
     store = data_store.get()
     users = store['users']
     for user in users:
-        #print(Object)
-        print(user['u_id'])
-        print(auth_user_id)
         if user['u_id'] == auth_user_id:
             return user['handle_str']
     return None
@@ -207,6 +204,7 @@ Searches for existing handles and appends a number as a string to create a uniqu
 def make_handle(name_first,name_last):
     store = data_store.get()
     users = store['users']
+    print(f"handle: {users}")
     len_trunc = 20
     count = 0
     #make lowercase then remove non-alphanumeric characters
@@ -225,7 +223,6 @@ def make_handle(name_first,name_last):
     valid_handle = None
     if users:
         for user in users:
-            #print(Object)
             if user['handle_str'] == str_handle:
                 valid_handle = str_handle + str(count)
                 count += 1
@@ -306,7 +303,7 @@ def return_token(email,password):
     for user in users:
         if user['u_id'] == auth_user_id:
             user['sessions'].append(session_id)
-
+    data_store.set(store)
     return  generate_jwt(auth_user_id, session_id)
 
 
@@ -330,9 +327,11 @@ def check_valid_token(token):
     decoded_token['auth_user_id']
     store = data_store.get()
     users = store['users']
+    
+    print(f"Check Token users:{users}")
     for user in users:
         if user['u_id'] == decoded_token['auth_user_id']:
-            for session_id in user['u_id']['sessions']:
+            for session_id in user['sessions']:
                 if session_id == decoded_token['session_id']:
                     return {'auth_user_id':decoded_token['auth_user_id'],'session_id':decoded_token['session_id']}
     raise AccessError(description="Invalid Token")

@@ -3,13 +3,24 @@ import signal
 from json import dumps
 from flask import Flask, request
 from flask_cors import CORS
-from src.error import InputError
+from src.error import InputError,AccessError
 from src import config
 from src.other import clear_v1
+import src.other as other
 from json import dumps
 from src.auth import auth_register_v1,auth_login_v1,auth_logout_v1
 from src.data_store import data_store
-
+import pickle
+'''
+try:
+    store = pickle.load(open("datastore.p", "rb"))
+    #clear sessions
+    for user in initial_object['users']:
+        user['sessions'] = []
+    data_store.set(store)
+except Exception:
+    pass
+'''
 def quit_gracefully(*args):
     '''For coverage'''
     exit(0)
@@ -43,6 +54,10 @@ def echo():
         'data': data
     })
 
+@APP.route("/get_data", methods=['GET'])
+def get_all_data():
+    return dumps(data_store.get())
+
 #reset database through clearing the dictionaries
 @APP.route("/clear/v1", methods=['DELETE'])
 def delete_clear():
@@ -53,13 +68,15 @@ def delete_clear():
 @APP.route("/auth/register/v2", methods=['POST'])
 def post_auth_register():
     request_data = request.get_json()
+    print(request_data)
     auth_result = auth_register_v1(
         request_data['email'],
         request_data['password'],
         request_data['name_first'],
         request_data['name_last']
     )
-    data_store.save()
+    print(auth_result)
+    #data_store.save()
     return dumps(auth_result)
 
 #login an account through a post request
@@ -70,7 +87,7 @@ def post_auth_login():
         request_data['email'],
         request_data['password']
     )
-    data_store.save()
+    #data_store.save()
     return dumps(auth_result)
 
 #logout an account through a post request
@@ -81,7 +98,7 @@ def post_auth_logout():
     _ = auth_logout_v1(
         request_data['token']
     )
-    data_store.save()
+    #data_store.save()
     return dumps({})
 
 

@@ -25,18 +25,13 @@ Example usage:
 '''
 import pickle
 ## YOU SHOULD MODIFY THIS OBJECT BELOW
-try:
-    initial_object = pickle.load(open("datastore.p", "rb"))
-    #clear sessions
-    for user in initial_object['users']:
-        user['sessions'] = []
-except Exception:
-	initial_object = {
-    'users': [],
-    'channels' : [],
-    'passwords' : [],
-    'permissions': [],
-    'dms': [],
+
+initial_object = {
+'users': [],
+'channels' : [],
+'passwords' : [],
+'permissions': [],
+'dms': [],
 }
 
 

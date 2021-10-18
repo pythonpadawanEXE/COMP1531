@@ -37,6 +37,7 @@ def test_valid_email_1_endpoint(setup):
     response_data = response.json()
     assert isinstance(response_data['token'],str)
     assert response_data['auth_user_id'] == 0
+    print(data_store.get())
 
 
 #Valid Multiple Registrations with unique emails

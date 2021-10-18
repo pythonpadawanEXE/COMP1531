@@ -1,8 +1,9 @@
 from src import auth,other,config
 import re
 import pytest
-from src.error import InputError
+from src.error import InputError,AccessError
 import requests
+from src.data_store import data_store
 
 BASE_URL = config.url
 
@@ -57,12 +58,14 @@ def test_valid_login_1():
     assert isinstance(result['auth_user_id'],int)
     result = auth.auth_login_v1('validemail@gmail.com', '123abc!@#')
     assert isinstance(result['auth_user_id'],int)
+    print(data_store.get())
 
 def test_valid_login_1_endpoint():
     response_data = register_valid_user()
     assert response_data['auth_user_id'] == 0
     response_data = login_valid_user()
     assert response_data['auth_user_id'] == 0
+    print(data_store.get())
 
 
 #multiple  register and one login
