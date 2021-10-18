@@ -5,9 +5,15 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from src.error import InputError
 from src import config
+<<<<<<< HEAD
 from src.channels import channels_create_v1
 from src.other import token_to_uid, clear_v1
 
+=======
+from src.other import clear_v1
+from json import dumps
+from src.auth import auth_register_v1,auth_login_v1
+>>>>>>> master
 
 def quit_gracefully(*args):
     '''For coverage'''
@@ -57,6 +63,20 @@ def channels_create_v2():
 def delete_clear():
     clear_v1()
     return dumps({})
+
+#reset database through clearing the dictionaries
+@APP.route("/auth/register/v2", methods=['POST'])
+def post_auth_register():
+    request_data = request.get_json()
+    auth_result = auth_register_v1(
+        request_data['email'],
+        request_data['password'],
+        request_data['name_first'],
+        request_data['name_last']
+    )
+
+    return dumps(auth_result)
+
 
 #### NO NEED TO MODIFY BELOW THIS POINT
 
