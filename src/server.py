@@ -58,12 +58,10 @@ def post_auth_register():
         request_data['name_first'],
         request_data['name_last']
     )
-
     return dumps(auth_result)
-
 
 #### NO NEED TO MODIFY BELOW THIS POINT
 
 if __name__ == "__main__":
-    signal.signal(signal.SIGINT, quit_gracefully) # For coverage
-    APP.run(port=config.port) # Do not edit this port
+    signal.signal(signal.SIGINT, quit_gracefully)
+    APP.run(port=config.port, debug=True)
