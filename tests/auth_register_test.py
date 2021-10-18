@@ -1,11 +1,10 @@
-from src import auth
+from src import auth,config,other
 import re
 import pytest
 from src.data_store import data_store
 from src.error import InputError
-from src import other
 import requests
-from src import config
+
 
 BASE_URL = config.url
 

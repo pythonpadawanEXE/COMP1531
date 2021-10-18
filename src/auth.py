@@ -11,7 +11,9 @@ import re
 from src.data_store import data_store
 from src.error import InputError
 from src.other import check_email_validity, check_password_validity, \
-    search_email_password_match, search_duplicate_email, make_handle, make_token, return_token
+    search_email_password_match, search_duplicate_email, make_handle, make_token, return_token,hash,generate_new_session_id,\
+    decode_jwt
+
 
 def auth_login_v1(email, password):
     """ Checks if valid email password combination and returns auth_user_id.
@@ -43,7 +45,7 @@ def auth_login_v1(email, password):
 def auth_register_v1(email, password, name_first, name_last):
     """ Create a unique user dictionary in the users data store with
         the provided inputs and creates a unique handle and id and creates a password
-        in the passwords dictionary.
+        in the passwords dictionary. Makes a session.
 
     Arguments:
         email (string)        - The email of the user to be registered.
@@ -83,22 +85,54 @@ def auth_register_v1(email, password, name_first, name_last):
     users = store['users']
     passwords = store['passwords']
     u_id = len(users)    
-
+    session_id = generate_new_session_id()
     users.append({
             'u_id': u_id,
             'email' : email,
             'name_first' : name_first,
             'name_last'  : name_last,
             'handle_str' : make_handle(name_first,name_last),
+            'sessions' : [session_id]
         })
 
     passwords.append({
             'u_id': u_id,
-            'password': password,
+            'password': hash(password),
         })
     data_store.set(store)
 
     return {
-        'token': make_token(u_id),
+        'token': make_token(u_id,session_id),
         'auth_user_id': u_id,
     }
+
+def auth_logout_v1(token):
+    """ Given a token deocdes the token and removes the session_id assosciated with that token from the database.
+
+    Arguments:
+        token (string)        - The encoded token an amlagamation of auth_user_id and session_id
+
+
+    Return Values:
+        { session_id (int)     - Upon successful completion  of old session_id now invalid.
+          
+         }                         
+        
+    """
+    store = data_store.get()
+    users = store['users']
+    decoded_token = decode_jwt(token)
+
+    print(token)
+    #delete session_id in user's sessions
+    for user in users:
+        if user['u_id'] == decoded_token['auth_user_id']:
+            for idx,session in enumerate(user['u_id']['sessions']):
+                if session == decoded_token['session_id']:
+                    del user['u_id']['sessions'][idx]
+                    return { 'old_session_id' :    decoded_token['session_id']}
+    raise AccessError(description="Invalid Token")
+    
+    
+
+
