@@ -5,15 +5,9 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from src.error import InputError
 from src import config
-<<<<<<< HEAD
 from src.channels import channels_create_v1
 from src.other import token_to_uid, clear_v1
-
-=======
-from src.other import clear_v1
-from json import dumps
-from src.auth import auth_register_v1,auth_login_v1
->>>>>>> master
+from src.auth import auth_register_v1, auth_login_v1
 
 def quit_gracefully(*args):
     '''For coverage'''
