@@ -3,10 +3,25 @@
 
 from src.error import AccessError
 import pytest
+import requests
 
 from src.auth import auth_register_v1
 from src.channels import channels_create_v1, channels_listall_v1
 from src.other import clear_v1
+from src import config
+
+BASE_URL = config.url
+
+@pytest.fixture
+def setup():
+
+    '''
+    A fixture to clear the state for each test
+    '''
+
+    response = requests.delete(f"{BASE_URL}/clear/v1")
+    assert response.status_code == 200
+    assert response.json() == {}
 
 # Test all public channels from individual user
 def test_listall_public_individual():
