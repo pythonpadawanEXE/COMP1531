@@ -8,7 +8,7 @@ from src.other import check_valid_token,decode_jwt,clear_v1
 
 BASE_URL = config.url
 
-@pytest.fixture()#autouse=True)
+@pytest.fixture(autouse=True)
 def setup():
     #set to clear memory state for blackbox testing
     '''A fixture to clear the state for each test'''
@@ -63,47 +63,26 @@ def logout_valid_user(token):
     })
     assert response.status_code == 200
     assert response.json() == {}
-
     with pytest.raises(AccessError):
         check_valid_token(token)
 
 def test_invalidate_token_one_user(setup):
-    #clear_v1()
     response_data = register_valid_user()
-    
     response_data = login_valid_user()
-    
     token = response_data['token']
     logout_valid_user(token)
     
     
 
-def test_logout_multiple_users(setup):#setup):
-    #clear_v1()
-    store = (requests.get(f"{BASE_URL}/get_data")).json()
-    print(f"before register data_store:{store}")
-    
+def test_logout_multiple_users():
     response_data = register_valid_user()
     response_data1 = register_valid_user(email = 'validemail1@gmail.com',password= '123abc!@#1')
     response_data2 = register_valid_user(email = 'validemail2@gmail.com',password= '123abc!@#2')
     response_data3 = register_valid_user(email = 'validemail3@gmail.com',password= '123abc!@#3')
     response_data4 = register_valid_user(email = 'validemail4@gmail.com',password= '123abc!@#4')
-   
-    store = (requests.get(f"{BASE_URL}/get_data")).json()
-    print(f"after register data_store:{store}")
-
     logout_valid_user(response_data2['token'])
-    store = (requests.get(f"{BASE_URL}/get_data")).json()
-    print(f"after first logout data_store:{store}")
-
     response_data5 = login_valid_user(email = 'validemail2@gmail.com',password= '123abc!@#2')
-
     store = (requests.get(f"{BASE_URL}/get_data")).json()
-    print(f"after first login data_store:{store}")
-
-    print(f"login token{decode_jwt(response_data5['token'])}")
-    store = (requests.get(f"{BASE_URL}/get_data")).json()
-
     assert isinstance(token_validity_check_pytest(response_data5['token'],store),dict)
     logout_valid_user(response_data5['token'])
     logout_valid_user(response_data4['token'])
@@ -115,7 +94,7 @@ def test_logout_multiple_users(setup):#setup):
 
 #note this gives an invalid token message with not logged in bro message on the test site
 #second logout raises AccessError 403
-def test_logout_twice(setup):
+def test_logout_twice():
     response_data = register_valid_user()
     logout_valid_user(response_data['token'])
     logout_invalid_user(response_data['token'])
