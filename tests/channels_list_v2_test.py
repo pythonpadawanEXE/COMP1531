@@ -28,15 +28,16 @@ def setup():
 
 def test_valid_list(setup):
     users = setup
-    channel1 = requests.post(config.url + 'channels/create/v2', json={'token': users[1]['token'], 'name': 'My channel', 'is_public': 'True'})
-    channel2 = requests.post(config.url + 'channels/create/v2', json={'token': users[2]['token'], 'name': 'My 2nd channel', 'is_public': 'True'})
+    channel1 = requests.post(config.url + 'channels/create/v2', json={'token': users[0]['token'], 'name': 'My channel', 'is_public': 'True'})
+    channel2 = requests.post(config.url + 'channels/create/v2', json={'token': users[1]['token'], 'name': 'My 2nd channel', 'is_public': 'True'})
 
-    list1 = requests.get(config.url + 'channels/list/v2', params={'token': users[1]['token']})
+    list1 = requests.get(config.url + 'channels/list/v2', params={'token': users[0]['token']})
     assert json.loads(list1.text) == {'channels': [{'channel_id': json.loads(channel1.text)['channel_id'], 'name': 'My channel'}]}
 
-    list2 = requests.get(config.url + 'channels/list/v2', params={'token': users[2]['token']})
+    list2 = requests.get(config.url + 'channels/list/v2', params={'token': users[1]['token']})
     assert json.loads(list2.text) == {'channels': [{'channel_id': json.loads(channel2.text)['channel_id'], 'name': 'My 2nd channel'}]}
 
 def test_bad_token(setup):
-    channel1 = requests.post(config.url + 'channels/list/v2', json={'token': ""})
+    _ = setup
+    channel1 = requests.get(config.url + 'channels/list/v2', params={'token': ""})
     assert channel1.status_code == 403
