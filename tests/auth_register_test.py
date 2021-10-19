@@ -1,11 +1,11 @@
-from src import auth
+from src import auth,config,other
 import re
 import pytest
 from src.data_store import data_store
 from src.error import InputError
-from src import other
 import requests
-from src import config
+
+
 BASE_URL = config.url
 
 @pytest.fixture
@@ -37,7 +37,14 @@ def test_valid_email_1_endpoint(setup):
     response_data = response.json()
     assert isinstance(response_data['token'],str)
     assert response_data['auth_user_id'] == 0
+<<<<<<< HEAD
     #Valid Multiple Registrations with unique emails
+=======
+    print(data_store.get())
+
+
+#Valid Multiple Registrations with unique emails
+>>>>>>> 689a4016022430776c65907a01fafa6c7f4e3ef6
 
 def test_multiple_emails():
     other.clear_v1()

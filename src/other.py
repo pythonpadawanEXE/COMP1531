@@ -388,5 +388,4 @@ def decode_jwt(encoded_jwt):
         Object: An object storing the body of the JWT encoded string
     """
     return jwt.decode(encoded_jwt, SECRET, algorithms=['HS256'])
-
     
