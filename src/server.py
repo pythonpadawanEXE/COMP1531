@@ -11,6 +11,7 @@ from src.channels import channels_create_v1
 from src.other import check_valid_token, clear_v1
 from src.data_store import data_store
 from src.message import message_send_v1
+from src.channels import channels_listall_v1
 import pickle
 
 try:
@@ -47,7 +48,7 @@ APP.register_error_handler(Exception, defaultHandler)
 
 # Auth Routes
 
-#register an account through a post request
+# Registers a new user from given JSON data in Body
 @APP.route("/auth/register/v2", methods=['POST'])
 def post_auth_register():
     request_data = request.get_json()
@@ -58,11 +59,10 @@ def post_auth_register():
         request_data['name_first'],
         request_data['name_last']
     )
-    print(auth_result)
     data_store.save()
     return dumps(auth_result)
 
-#login an account through a post request
+# Login an account through a post request
 @APP.route("/auth/login/v2", methods=['POST'])
 def post_auth_login():
     request_data = request.get_json()
@@ -106,6 +106,14 @@ def channels_create_v2():
     is_public = request_data['is_public'] == True
     decoded_token = check_valid_token(token)
     return dumps(channels_create_v1(decoded_token['auth_user_id'], name, is_public))
+
+# Returns all the channels in the datastore
+@APP.route("/channels/listall/v2", methods=['GET'])
+def get_channels_listall():
+    data = request.args.get('token')
+    channels = channels_listall_v1(data)
+    return dumps(channels)
+
 # Message Routes
 @APP.route("/message/send/v1", methods=['POST'])
 def post_message_send():
@@ -118,9 +126,9 @@ def post_message_send():
     data_store.save()
     return dumps(message_id)
 # Dm Routes
+
 # Other routes
 
-# Example
 @APP.route("/echo", methods=['GET'])
 def echo():
     data = request.args.get('data')
@@ -129,7 +137,6 @@ def echo():
     return dumps({
         'data': data
     })
-
 
 @APP.route("/get_data", methods=['GET'])
 def get_all_data():
@@ -144,5 +151,5 @@ def delete_clear():
 #### NO NEED TO MODIFY BELOW THIS POINT
 
 if __name__ == "__main__":
-    signal.signal(signal.SIGINT, quit_gracefully) # For coverage
-    APP.run(port=config.port) # Do not edit this port
+    signal.signal(signal.SIGINT, quit_gracefully)
+    APP.run(port=config.port, debug=True)
