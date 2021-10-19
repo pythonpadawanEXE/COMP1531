@@ -59,10 +59,7 @@ def channels_listall(token):
     Returns all the channels
     '''
 
-    response = requests.get(f"{BASE_URL}/channels/listall/v2", json={
-        'token' : token,
-    })
-
+    response = requests.get(f"{BASE_URL}/channels/listall/v2?{token}")
     assert response.status_code == 200
     response_data = response.json()
     return response_data
@@ -210,8 +207,5 @@ def test_listall_mixed_multiple():
 
 # Invalid user
 def test_raise_exception():
-    response = requests.get(f"{BASE_URL}/channels/listall/v2", json={
-        'token' : 1234,
-    })
-
+    response = requests.get(f"{BASE_URL}/channels/listall/v2?{1234}")
     assert response.status_code == 403

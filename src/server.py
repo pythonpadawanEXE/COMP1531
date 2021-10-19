@@ -10,6 +10,7 @@ import src.other as other
 from json import dumps
 from src.auth import auth_register_v1,auth_login_v1,auth_logout_v1
 from src.data_store import data_store
+from src.channels import channels_listall_v1
 import pickle
 
 try:
@@ -101,6 +102,13 @@ def post_auth_logout():
     )
     data_store.save()
     return dumps({})
+
+# Returns all the channels in the datastore
+@APP.route("/channels/listall/v2", methods=['GET'])
+def get_channels_listall():
+    data = request.args.get('token')
+    channels = channels_listall_v1(data)
+    return dumps(channels)
 
 #### NO NEED TO MODIFY BELOW THIS POINT
 
