@@ -4,7 +4,6 @@ from src.error import InputError,AccessError
 import hashlib
 import jwt
 
-
 SESSION_TRACKER = 0
 SECRET = 'COMP1531'
 
@@ -17,8 +16,6 @@ def clear_v1():
     store['dms'] = []
     data_store.set(store)
     return {}
-
-
 
 # Check if the channel with channel_id is valid
 def is_channel_valid(channel_id):
