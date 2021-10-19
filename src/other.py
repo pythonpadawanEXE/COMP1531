@@ -317,6 +317,9 @@ def check_valid_token(token):
         'session_id':decoded_token['session_id']} on valid token.
         None on Invalid Token
     '''
+    if None == re.fullmatch(r'^[A-Za-z0-9-_]*\.[A-Za-z0-9-_]*\.[A-Za-z0-9-_]*$',token):
+        raise AccessError(description="Invalid Token")
+
     decoded_token = decode_jwt(token)
 
     decoded_token['auth_user_id']
