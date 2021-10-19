@@ -6,9 +6,11 @@ from flask_cors import CORS
 from src import config
 from src.error import InputError, AccessError
 from src.auth import auth_register_v1, auth_login_v1, auth_logout_v1
+from src.channel import channel_messages_v1
 from src.channels import channels_create_v1
 from src.other import check_valid_token, clear_v1
 from src.data_store import data_store
+from src.message import message_send_v1
 from src.channels import channels_listall_v1
 import pickle
 
@@ -71,8 +73,7 @@ def post_auth_login():
     data_store.save()
     return dumps(auth_result)
 
-# Logout an account through a post request
-# do we handle invalid tokens (see result of auth_logout_v1?
+#logout an account through a post request
 @APP.route("/auth/logout/v1", methods=['POST'])
 def post_auth_logout():
     request_data = request.get_json()
@@ -83,7 +84,18 @@ def post_auth_logout():
     return dumps({})
 
 # Channel Routes
-
+@APP.route("/channel/messages/v2", methods=['GET'])
+def get_channel_messages():
+    token = request.args.get('token')
+    channel_id = request.args.get('channel_id')
+    start = request.args.get('start')
+    channel_messages = channel_messages_v1(
+        token,
+        channel_id,
+        start
+    )
+    data_store.save()
+    return dumps(channel_messages)
 # Channels Routes
 
 @APP.route("/channels/create/v2", methods=['POST'])
@@ -101,6 +113,19 @@ def get_channels_listall():
     data = request.args.get('token')
     channels = channels_listall_v1(data)
     return dumps(channels)
+
+# Message Routes
+@APP.route("/message/send/v1", methods=['POST'])
+def post_message_send():
+    request_data = request.get_json()
+    message_id = message_send_v1(
+        request_data['token'],
+        request_data['channel_id'],
+        request_data['message']
+    )
+    data_store.save()
+    return dumps(message_id)
+# Dm Routes
 
 # Other routes
 
