@@ -1,19 +1,15 @@
-# channels-listall-v1_test.py
-# pytest file to test the implementation of channels_listall_v1
+# channels_listall_v2_test.py
+# pytest file to test the implementation of channels_listall_v2 endpoint
 
-from src.error import AccessError
 import pytest
 import requests
-
-from src.auth import auth_register_v1
-from src.channels import channels_create_v1, channels_listall_v1
-from src.other import clear_v1
 from src import config
+from src.error import AccessError
 
 BASE_URL = config.url
 
-@pytest.fixture
-def setup():
+@pytest.fixture(autouse=True)
+def clear():
 
     '''
     A fixture to clear the state for each test
@@ -23,22 +19,68 @@ def setup():
     assert response.status_code == 200
     assert response.json() == {}
 
+def register_user(email, password, name_first, name_last):
+
+    '''
+    Registers a new user with given parameters and returns the users token
+    '''
+
+    response = requests.post(f"{BASE_URL}/auth/register/v2",json={
+        'email' : email,
+        'password' : password,
+        'name_first' : name_first,
+        'name_last' : name_last
+    })
+
+    assert response.status_code == 200
+    response_data = response.json()
+    assert isinstance(response_data['token'],str)
+    assert isinstance(response_data['user_token'],int)
+    return response_data['token']
+
+def channels_create(token, name, is_public):
+
+    '''
+    Creates a channel for user with given token and returns the channel ID
+    '''
+
+    response = requests.post(f"{BASE_URL}/channels/create/v2", json={
+        'token' : token,
+        'name' : name,
+        'is_public' : is_public
+    })
+
+    assert response.status_code == 200
+    response_data = response.json()
+    return response_data
+
+def channels_listall(token):
+    '''
+    Returns all the channels
+    '''
+
+    response = requests.get(f"{BASE_URL}/channels/listall/v2", json={
+        'token' : token,
+    })
+
+    assert response.status_code == 200
+    response_data = response.json()
+    return response_data
+
 # Test all public channels from individual user
 def test_listall_public_individual():
-    clear_v1()
-
     # New user
-    auth_user_id = auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
+    user_token = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
     
     # List of channels that are public
     list_of_channels = []
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id, "Chan 1", True)['channel_id'], 'name' : "Chan 1"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id, "Chan 2", True)['channel_id'], 'name' : "Chan 2"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id, "Chan 3", True)['channel_id'], 'name' : "Chan 3"})
+    list_of_channels.append({'channel_id' : channels_create(user_token, "Chan 1", True)['channel_id'], 'name' : "Chan 1"})
+    list_of_channels.append({'channel_id' : channels_create(user_token, "Chan 2", True)['channel_id'], 'name' : "Chan 2"})
+    list_of_channels.append({'channel_id' : channels_create(user_token, "Chan 3", True)['channel_id'], 'name' : "Chan 3"})
     channels_dict = {'channels' : list_of_channels}
 
     # Get all channels
-    channels = channels_listall_v1(auth_user_id)
+    channels = channels_listall(user_token)
 
     # Loop through created channels
     for channel in channels_dict['channels']:
@@ -47,20 +89,18 @@ def test_listall_public_individual():
 
 # Test all private channels from individual user
 def test_listall_private_individual():
-    clear_v1()
-
     # New user
-    auth_user_id = auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
+    user_token = register_user("js@email.com", "ABCDEFGH", "John", "Smith")['user_token']
     
     # List of channels that are private
     list_of_channels = []
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id, "Chan 1", False)['channel_id'], 'name' : "Chan 1"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id, "Chan 2", False)['channel_id'], 'name' : "Chan 2"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id, "Chan 3", False)['channel_id'], 'name' : "Chan 3"})
+    list_of_channels.append({'channel_id' : channels_create(user_token, "Chan 1", False)['channel_id'], 'name' : "Chan 1"})
+    list_of_channels.append({'channel_id' : channels_create(user_token, "Chan 2", False)['channel_id'], 'name' : "Chan 2"})
+    list_of_channels.append({'channel_id' : channels_create(user_token, "Chan 3", False)['channel_id'], 'name' : "Chan 3"})
     channels_dict = {'channels' : list_of_channels}
 
     # Get all channels
-    channels = channels_listall_v1(auth_user_id)
+    channels = channels_listall(user_token)
 
     # Loop through created channels
     for channel in channels_dict['channels']:
@@ -69,20 +109,18 @@ def test_listall_private_individual():
 
 # Test all private and public channels from individual user
 def test_listall_mixed_individual():
-    clear_v1()
-
     # New user
-    auth_user_id = auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
+    user_token = register_user("js@email.com", "ABCDEFGH", "John", "Smith")['user_token']
     
     # List of channels that are private mixed with public channels
     list_of_channels = []
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id, "Chan 1", True)['channel_id'], 'name' : "Chan 1"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id, "Chan 2", False)['channel_id'], 'name' : "Chan 2"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id, "Chan 3", False)['channel_id'], 'name' : "Chan 3"})
+    list_of_channels.append({'channel_id' : channels_create(user_token, "Chan 1", True)['channel_id'], 'name' : "Chan 1"})
+    list_of_channels.append({'channel_id' : channels_create(user_token, "Chan 2", False)['channel_id'], 'name' : "Chan 2"})
+    list_of_channels.append({'channel_id' : channels_create(user_token, "Chan 3", False)['channel_id'], 'name' : "Chan 3"})
     channels_dict = {'channels' : list_of_channels}
 
     # Get all channels
-    channels = channels_listall_v1(auth_user_id)
+    channels = channels_listall(user_token)
 
     # Loop through created channels
     for channel in channels_dict['channels']:
@@ -91,27 +129,25 @@ def test_listall_mixed_individual():
 
 # Test all public channels from multiple users
 def test_listall_public_multiple():
-    clear_v1()
-
     # New user 1
-    auth_user_id_1 = auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
+    user_token_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")['user_token']
 
     # New user 2
-    auth_user_id_2 = auth_register_v1("jems@email.com", "ABCDEFGH", "Jemma", "Smith")['auth_user_id']
+    user_token_2 = register_user("jems@email.com", "ABCDEFGH", "Jemma", "Smith")['user_token']
     
     # List of channels that are public
     list_of_channels = []
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_1, "Chan 1", True)['channel_id'], 'name' : "Chan 1"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_1, "Chan 2", True)['channel_id'], 'name' : "Chan 2"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_1, "Chan 3", True)['channel_id'], 'name' : "Chan 3"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_1, "Chan 1", True)['channel_id'], 'name' : "Chan 1"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_1, "Chan 2", True)['channel_id'], 'name' : "Chan 2"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_1, "Chan 3", True)['channel_id'], 'name' : "Chan 3"})
 
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_2, "Chan 4", True)['channel_id'], 'name' : "Chan 4"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_2, "Chan 5", True)['channel_id'], 'name' : "Chan 5"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_2, "Chan 6", True)['channel_id'], 'name' : "Chan 6"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_2, "Chan 4", True)['channel_id'], 'name' : "Chan 4"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_2, "Chan 5", True)['channel_id'], 'name' : "Chan 5"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_2, "Chan 6", True)['channel_id'], 'name' : "Chan 6"})
     channels_dict = {'channels' : list_of_channels}
 
     # Get all channels
-    channels = channels_listall_v1(auth_user_id_1)
+    channels = channels_listall(user_token_1)
 
     # Loop through created channels
     for channel in channels_dict['channels']:
@@ -120,27 +156,25 @@ def test_listall_public_multiple():
 
 # Test all private channels from multiple users
 def test_listall_private_multiple():
-    clear_v1()
-
     # New user 1
-    auth_user_id_1 = auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
+    user_token_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")['user_token']
 
     # New user 2
-    auth_user_id_2 = auth_register_v1("jems@email.com", "ABCDEFGH", "Jemma", "Smith")['auth_user_id']
+    user_token_2 = register_user("jems@email.com", "ABCDEFGH", "Jemma", "Smith")['user_token']
     
     # List of channels that are private
     list_of_channels = []
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_1, "Chan 1", False)['channel_id'], 'name' : "Chan 1"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_1, "Chan 2", False)['channel_id'], 'name' : "Chan 2"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_1, "Chan 3", False)['channel_id'], 'name' : "Chan 3"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_1, "Chan 1", False)['channel_id'], 'name' : "Chan 1"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_1, "Chan 2", False)['channel_id'], 'name' : "Chan 2"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_1, "Chan 3", False)['channel_id'], 'name' : "Chan 3"})
 
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_2, "Chan 4", False)['channel_id'], 'name' : "Chan 4"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_2, "Chan 5", False)['channel_id'], 'name' : "Chan 5"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_2, "Chan 6", False)['channel_id'], 'name' : "Chan 6"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_2, "Chan 4", False)['channel_id'], 'name' : "Chan 4"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_2, "Chan 5", False)['channel_id'], 'name' : "Chan 5"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_2, "Chan 6", False)['channel_id'], 'name' : "Chan 6"})
     channels_dict = {'channels' : list_of_channels}
 
     # Get all channels
-    channels = channels_listall_v1(auth_user_id_1)
+    channels = channels_listall(user_token_1)
 
     # Loop through created channels
     for channel in channels_dict['channels']:
@@ -149,27 +183,25 @@ def test_listall_private_multiple():
 
 # Test all private and public channels from multiple users
 def test_listall_mixed_multiple():
-    clear_v1()
-
     # New user 1
-    auth_user_id_1 = auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
+    user_token_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")['user_token']
 
     # New user 2
-    auth_user_id_2 = auth_register_v1("jems@email.com", "ABCDEFGH", "Jemma", "Smith")['auth_user_id']
+    user_token_2 = register_user("jems@email.com", "ABCDEFGH", "Jemma", "Smith")['user_token']
     
     # List of channels that are private mixed with public channels
     list_of_channels = []
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_1, "Chan 1", True)['channel_id'], 'name' : "Chan 1"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_1, "Chan 2", False)['channel_id'], 'name' : "Chan 2"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_1, "Chan 3", True)['channel_id'], 'name' : "Chan 3"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_1, "Chan 1", True)['channel_id'], 'name' : "Chan 1"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_1, "Chan 2", False)['channel_id'], 'name' : "Chan 2"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_1, "Chan 3", True)['channel_id'], 'name' : "Chan 3"})
 
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_2, "Chan 4", False)['channel_id'], 'name' : "Chan 4"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_2, "Chan 5", True)['channel_id'], 'name' : "Chan 5"})
-    list_of_channels.append({'channel_id' : channels_create_v1(auth_user_id_2, "Chan 6", False)['channel_id'], 'name' : "Chan 6"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_2, "Chan 4", False)['channel_id'], 'name' : "Chan 4"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_2, "Chan 5", True)['channel_id'], 'name' : "Chan 5"})
+    list_of_channels.append({'channel_id' : channels_create(user_token_2, "Chan 6", False)['channel_id'], 'name' : "Chan 6"})
     channels_dict = {'channels' : list_of_channels}
 
     # Get all channels
-    channels = channels_listall_v1(auth_user_id_1)
+    channels = channels_listall(user_token_1)
 
     # Loop through created channels
     for channel in channels_dict['channels']:
@@ -178,6 +210,8 @@ def test_listall_mixed_multiple():
 
 # Invalid user
 def test_raise_exception():
-    clear_v1()
-    with pytest.raises(AccessError):
-        assert(channels_listall_v1(1234) == {})
+    response = requests.get(f"{BASE_URL}/channels/listall/v2", json={
+        'token' : 1234,
+    })
+
+    assert response.status_code == 403

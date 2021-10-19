@@ -42,13 +42,13 @@ def echo():
         'data': data
     })
 
-#reset database through clearing the dictionaries
+# Reset database through clearing the dictionaries
 @APP.route("/clear/v1", methods=['DELETE'])
 def delete_clear():
     clear_v1()
     return dumps({})
 
-#reset database through clearing the dictionaries
+# Registers a new user from given JSON data in Body
 @APP.route("/auth/register/v2", methods=['POST'])
 def post_auth_register():
     request_data = request.get_json()

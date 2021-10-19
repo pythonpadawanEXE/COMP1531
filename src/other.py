@@ -205,9 +205,6 @@ def make_handle(name_first,name_last):
     name_last = name_last.lower()
     name_last = ''.join(ch for ch in name_last if ch.isalnum())
 
-    
-    
-
     #If the concatenation is longer than 20 characters, it is cut off at 20 characters
     str_handle = ((name_first + name_last)[0:len_trunc])
     #if handle is taken append
@@ -287,8 +284,6 @@ def return_token(email,password):
         token (string) on Successful completion.
     '''
     return search_email_password_match(email,password)
-
-
 
 def check_valid_token(token):
     '''
