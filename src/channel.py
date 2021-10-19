@@ -78,7 +78,7 @@ def channel_details_v1(token, channel_id):
         details about the channel.
 
         Arguments:
-            auth_user_id (int)    - User ID of the user who is a member of the channel.
+            token (str)           - Token of the user who is a member of the channel.
             channel_id (int)      - Channel ID of the channel the user is a member of.
 
         Exceptions:
@@ -93,14 +93,14 @@ def channel_details_v1(token, channel_id):
 
     # channel_id does not refer to a valid channel
     if not is_channel_valid(channel_id):
-        raise InputError
+        raise InputError(description="channel_id does not refer to a valid channel")
 
     # Get the auth_user_id from the token
     auth_user_id = check_valid_token(token)['auth_user_id']
 
     # channel_id is valid and the authorised user is not a member of the channel
     if not is_user_authorised(auth_user_id, channel_id):
-        raise AccessError
+        raise AccessError(description="channel_id is valid and the authorised user is not a member of the channel")
 
     # auth_user_id of the channel owner of ID channel_id
     channel_owner_id = get_channel_owner(channel_id)
