@@ -38,6 +38,5 @@ def test_valid_list(setup):
     assert json.loads(list2.text) == {'channels': [{'channel_id': json.loads(channel2.text)['channel_id'], 'name': 'My 2nd channel'}]}
 
 def test_bad_token(setup):
-    pass
-
-# assert json.loads(list.text) == {'channels': [{'channel_id': json.loads(channel.text)['channel_id'], 'name': 'My channel'}]}
+    channel1 = requests.post(config.url + 'channels/list/v2', json={'token': ""})
+    assert channel1.status_code == 403
