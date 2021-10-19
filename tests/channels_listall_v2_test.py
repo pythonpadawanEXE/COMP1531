@@ -15,7 +15,7 @@ def clear():
     A fixture to clear the state for each test
     '''
 
-    response = requests.delete(f"{BASE_URL}/clear/v1")
+    response = requests.delete(f"{BASE_URL}clear/v1")
     assert response.status_code == 200
     assert response.json() == {}
 
@@ -25,7 +25,7 @@ def register_user(email, password, name_first, name_last):
     Registers a new user with given parameters and returns the users token
     '''
 
-    response = requests.post(f"{BASE_URL}/auth/register/v2",json={
+    response = requests.post(f"{BASE_URL}auth/register/v2",json={
         'email' : email,
         'password' : password,
         'name_first' : name_first,
@@ -35,7 +35,7 @@ def register_user(email, password, name_first, name_last):
     assert response.status_code == 200
     response_data = response.json()
     assert isinstance(response_data['token'],str)
-    assert isinstance(response_data['user_token'],int)
+    assert isinstance(response_data['auth_user_id'],int)
     return response_data['token']
 
 def channels_create(token, name, is_public):
@@ -44,7 +44,7 @@ def channels_create(token, name, is_public):
     Creates a channel for user with given token and returns the channel ID
     '''
 
-    response = requests.post(f"{BASE_URL}/channels/create/v2", json={
+    response = requests.post(f"{BASE_URL}channels/create/v2", json={
         'token' : token,
         'name' : name,
         'is_public' : is_public
@@ -59,7 +59,7 @@ def channels_listall(token):
     Returns all the channels
     '''
 
-    response = requests.get(f"{BASE_URL}/channels/listall/v2?{token}")
+    response = requests.get(f"{BASE_URL}channels/listall/v2?token={token}")
     assert response.status_code == 200
     response_data = response.json()
     return response_data
@@ -87,7 +87,7 @@ def test_listall_public_individual():
 # Test all private channels from individual user
 def test_listall_private_individual():
     # New user
-    user_token = register_user("js@email.com", "ABCDEFGH", "John", "Smith")['user_token']
+    user_token = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
     
     # List of channels that are private
     list_of_channels = []
@@ -107,7 +107,7 @@ def test_listall_private_individual():
 # Test all private and public channels from individual user
 def test_listall_mixed_individual():
     # New user
-    user_token = register_user("js@email.com", "ABCDEFGH", "John", "Smith")['user_token']
+    user_token = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
     
     # List of channels that are private mixed with public channels
     list_of_channels = []
@@ -127,10 +127,10 @@ def test_listall_mixed_individual():
 # Test all public channels from multiple users
 def test_listall_public_multiple():
     # New user 1
-    user_token_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")['user_token']
+    user_token_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
 
     # New user 2
-    user_token_2 = register_user("jems@email.com", "ABCDEFGH", "Jemma", "Smith")['user_token']
+    user_token_2 = register_user("jems@email.com", "ABCDEFGH", "Jemma", "Smith")
     
     # List of channels that are public
     list_of_channels = []
@@ -154,10 +154,10 @@ def test_listall_public_multiple():
 # Test all private channels from multiple users
 def test_listall_private_multiple():
     # New user 1
-    user_token_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")['user_token']
+    user_token_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
 
     # New user 2
-    user_token_2 = register_user("jems@email.com", "ABCDEFGH", "Jemma", "Smith")['user_token']
+    user_token_2 = register_user("jems@email.com", "ABCDEFGH", "Jemma", "Smith")
     
     # List of channels that are private
     list_of_channels = []
@@ -181,10 +181,10 @@ def test_listall_private_multiple():
 # Test all private and public channels from multiple users
 def test_listall_mixed_multiple():
     # New user 1
-    user_token_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")['user_token']
+    user_token_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
 
     # New user 2
-    user_token_2 = register_user("jems@email.com", "ABCDEFGH", "Jemma", "Smith")['user_token']
+    user_token_2 = register_user("jems@email.com", "ABCDEFGH", "Jemma", "Smith")
     
     # List of channels that are private mixed with public channels
     list_of_channels = []
@@ -206,6 +206,6 @@ def test_listall_mixed_multiple():
         assert(channel in channels['channels'])
 
 # Invalid user
-def test_raise_exception():
-    response = requests.get(f"{BASE_URL}/channels/listall/v2?{1234}")
+def test_invalid():
+    response = requests.get(f"{BASE_URL}channels/listall/v2?token={1234}")
     assert response.status_code == 403
