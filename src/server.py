@@ -32,17 +32,7 @@ APP.register_error_handler(Exception, defaultHandler)
 
 #### NO NEED TO MODIFY ABOVE THIS POINT, EXCEPT IMPORTS
 
-## Example
-@APP.route("/echo", methods=['GET'])
-def echo():
-    data = request.args.get('data')
-    if data == 'echo':
-   	    raise InputError(description='Cannot echo "echo"')
-    return dumps({
-        'data': data
-    })
-
-## Auth Routes
+# Auth Routes
 
 @APP.route("/auth/register/v2", methods=['POST'])
 def post_auth_register():
@@ -56,9 +46,9 @@ def post_auth_register():
 
     return dumps(auth_result)
 
-## Channel Routes
+# Channel Routes
 
-## Channels Routes
+# Channels Routes
 
 @APP.route("channels/create/v2", methods=['POST'])
 def channels_create_v2():
@@ -70,14 +60,23 @@ def channels_create_v2():
 
     return jsonify(channels_create_v1(auth_user_id, name, is_public))
 
-## Other routes
+# Other routes
 
-#reset database through clearing the dictionaries
+# Example
+@APP.route("/echo", methods=['GET'])
+def echo():
+    data = request.args.get('data')
+    if data == 'echo':
+   	    raise InputError(description='Cannot echo "echo"')
+    return dumps({
+        'data': data
+    })
+
+# Reset database through clearing the dictionaries
 @APP.route("/clear/v1", methods=['DELETE'])
 def delete_clear():
     clear_v1()
     return dumps({})
-
 
 #### NO NEED TO MODIFY BELOW THIS POINT
 
