@@ -156,7 +156,7 @@ def test_not_member_of_channel_endpoint(priv_chan_endpoint):
     new_channel = create_channel_endpoint(token, name, is_private)
     response_data = register_valid_user(email = "js2@email.com")
     with pytest.raises(AccessError):
-        result = channel.channel_messages_v1(response_data['token'],new_channel['channel_id'],0)
+        result = channel_messages_endpoin(response_data['token'],new_channel['channel_id'],0)
 
 
 #channel_id is valid and the authorised user does not exist
@@ -164,5 +164,5 @@ def test_user_invalid_channel_endpoint(priv_chan_endpoint):
     token, name, is_private = priv_chan_endpoint
     new_channel = create_channel_endpoint(token, name, is_private)
     with pytest.raises(AccessError):
-        result = channel.channel_messages_v1("token",new_channel['channel_id'],0)
+        result = channel_messages_endpoin("token",new_channel['channel_id'],0)
 
