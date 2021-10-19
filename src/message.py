@@ -19,17 +19,17 @@ def message_send_v1(token, channel_id, message_input):
                 auth_user_id not in channel["owner_members"]:
                 raise AccessError("User is not an owner or member of this channel.")
             messages = channel['messages']
-            break
+            # break
 
     if not channel_exists:
         raise InputError("Channel ID is not valid or does not exist.")
 
     for message in messages:
         message['message_id'] += 1
-
+    message_id = len(messages)
     messages.insert(0,
         {
-            'message_id': 0,
+            'message_id': message_id,
             'u_id': auth_user_id,
             'message': message_input,
             'time_created': int(datetime.datetime.utcnow()
@@ -37,3 +37,4 @@ def message_send_v1(token, channel_id, message_input):
         }
     )
     data_store.set(store)
+    return {'message_id': message_id}

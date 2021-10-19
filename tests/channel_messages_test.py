@@ -54,7 +54,7 @@ def create_messages_endpoint(pub_chan_endpoint):
     new_channel = create_channel_endpoint(token,name,is_public)
     for i in range(5):
         Message = "message" + str(i)
-        response = requests.post(f"{BASE_URL}/message/send/v1",json={
+        _ = requests.post(f"{BASE_URL}/message/send/v1",json={
         'token' : token,
         'channel_id' : new_channel['channel_id'],
         'message' : Message
@@ -101,7 +101,7 @@ Input Errors
 #start is not less than 0
 def test_invalid_negative_start_index_endpoint(create_messages_endpoint):
     new_channel,token = create_messages_endpoint
-    result,status_code = channel_messages_endpoint(token,new_channel['channel_id'],-1) 
+    _,status_code = channel_messages_endpoint(token,new_channel['channel_id'],-1) 
     assert status_code == 400
     
 
@@ -109,20 +109,20 @@ def test_invalid_negative_start_index_endpoint(create_messages_endpoint):
 
 def test_invalid_channel_1_endpoint(pub_chan_endpoint):
     token, _, _ = pub_chan_endpoint
-    result,status_code = channel_messages_endpoint(token,2,0) 
+    _,status_code = channel_messages_endpoint(token,2,0) 
     assert status_code == 400
 
 
 def test_invalid_empty_channel_2_endpoint(): 
     response_data = register_valid_user()
-    result,status_code = channel_messages_endpoint(response_data['token'],2,0)
+    _,status_code = channel_messages_endpoint(response_data['token'],2,0)
     assert status_code == 400
 
 #start is greater than the total number of messages in the channel
 
 def test_invalid_start_index_endpoint(create_messages_endpoint):
     new_channel,token = create_messages_endpoint
-    result,status_code = channel_messages_endpoint(token,new_channel['channel_id'],50)
+    _,status_code = channel_messages_endpoint(token,new_channel['channel_id'],50)
     assert status_code == 400
 
 #Channel ID is not valid or does not exist.
@@ -131,7 +131,7 @@ def test_invalid_channel_unexist_endpoint():
     response_data = register_valid_user()
     create_channel_endpoint(response_data['token'],'NEw Channel',is_public)
     response_data = register_valid_user(email = "js2@email.com")
-    result,status_code = channel_messages_endpoint(response_data['token'],10,0)
+    _,status_code = channel_messages_endpoint(response_data['token'],10,0)
     assert status_code == 400
 
 """
@@ -139,7 +139,7 @@ Access Errors
 """
 #Invalid Token
 def test_invalid_empty_channel_1_endpoint():
-    result,status_code = result = channel_messages_endpoint("token",2,0) 
+    _,status_code = channel_messages_endpoint("token",2,0) 
     assert status_code == 403
 
 #channel ID is private user channel messages is called with a user  that doesn't exist
@@ -148,7 +148,7 @@ def test_invalid_channel_private_endpoint():
     response_data = register_valid_user()
     create_channel_endpoint(response_data['token'],'NEw Channel',is_public)
     response_data = register_valid_user(email = "js2@email.com")
-    result,status_code = channel_messages_endpoint(response_data['token'],1,0)
+    _,status_code = channel_messages_endpoint(response_data['token'],1,0)
     assert status_code == 403
 
 #channel_id is valid and the authorised user is not a member of the channel
@@ -157,12 +157,12 @@ def test_not_member_of_channel_endpoint(priv_chan_endpoint):
     token, name, is_private = priv_chan_endpoint
     new_channel = create_channel_endpoint(token, name, is_private)
     response_data = register_valid_user(email = "js2@email.com")
-    result,status_code = result = channel_messages_endpoint(response_data['token'],new_channel['channel_id'],0)
+    _,status_code = channel_messages_endpoint(response_data['token'],new_channel['channel_id'],0)
     assert status_code == 403
 
 #channel_id is valid and the authorised user does not exist
 def test_user_invalid_channel_endpoint(priv_chan_endpoint):
     token, name, is_private = priv_chan_endpoint
     new_channel = create_channel_endpoint(token, name, is_private)
-    result,status_code = channel_messages_endpoint("token",new_channel['channel_id'],0)
+    _,status_code = channel_messages_endpoint("token",new_channel['channel_id'],0)
     assert status_code == 403
