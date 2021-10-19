@@ -3,11 +3,22 @@ import signal
 from json import dumps
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from src.error import InputError
+from src.error import InputError, AccessError
 from src import config
 from src.channels import channels_create_v1
 from src.other import token_to_uid, clear_v1
-from src.auth import auth_register_v1, auth_login_v1
+from src.auth import auth_register_v1,auth_login_v1,auth_logout_v1
+from src.data_store import data_store
+import pickle
+
+try:
+    store = pickle.load(open("datastore.p", "rb"))
+    #clear sessions
+    for user in store['users']:
+        user['sessions'] = []
+    data_store.set(store)
+except Exception:
+    pass
 
 def quit_gracefully(*args):
     '''For coverage'''
@@ -34,17 +45,42 @@ APP.register_error_handler(Exception, defaultHandler)
 
 # Auth Routes
 
+#register an account through a post request
 @APP.route("/auth/register/v2", methods=['POST'])
 def post_auth_register():
     request_data = request.get_json()
+    print(request_data)
     auth_result = auth_register_v1(
         request_data['email'],
         request_data['password'],
         request_data['name_first'],
         request_data['name_last']
     )
-
+    print(auth_result)
+    data_store.save()
     return dumps(auth_result)
+
+#login an account through a post request
+@APP.route("/auth/login/v2", methods=['POST'])
+def post_auth_login():
+    request_data = request.get_json()
+    auth_result = auth_login_v1(
+        request_data['email'],
+        request_data['password']
+    )
+    data_store.save()
+    return dumps(auth_result)
+
+#logout an account through a post request
+#do we handle invalid tokens (see result of auth_logout_v1?
+@APP.route("/auth/logout/v1", methods=['POST'])
+def post_auth_logout():
+    request_data = request.get_json()
+    _ = auth_logout_v1(
+        request_data['token']
+    )
+    data_store.save()
+    return dumps({})
 
 # Channel Routes
 
@@ -71,6 +107,11 @@ def echo():
     return dumps({
         'data': data
     })
+
+
+@APP.route("/get_data", methods=['GET'])
+def get_all_data():
+    return dumps(data_store.get())
 
 # Reset database through clearing the dictionaries
 @APP.route("/clear/v1", methods=['DELETE'])
