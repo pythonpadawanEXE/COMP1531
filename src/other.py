@@ -1,4 +1,4 @@
-import re, datetime
+import re
 from src.data_store import data_store
 from src.error import InputError,AccessError
 import hashlib
@@ -214,9 +214,6 @@ def make_handle(name_first,name_last):
     name_last = name_last.lower()
     name_last = ''.join(ch for ch in name_last if ch.isalnum())
 
-    
-    
-
     #If the concatenation is longer than 20 characters, it is cut off at 20 characters
     str_handle = ((name_first + name_last)[0:len_trunc])
     #if handle is taken append
@@ -232,37 +229,6 @@ def make_handle(name_first,name_last):
     if valid_handle is None:
         valid_handle = str_handle
     return valid_handle
-
-def create_message(auth_user_id, channel_id, message_input):
-    store = data_store.get()
-    channels = store['channels']
-    messages = None
-    channel_exists = False
-    for channel in channels:
-        if channel['id'] == channel_id:
-            channel_exists = True
-            if auth_user_id not in channel["all_members"] and \
-                auth_user_id not in channel["owner_members"]:
-                raise AccessError("User is not an owner or member of this channel")
-            messages = channel['messages']
-            break
-
-    if not channel_exists:
-        raise InputError("Channel ID is not valid or does not exist.")
-
-    for message in messages:
-        message['message_id'] += 1
-
-    messages.insert(0,
-        {
-            'message_id': 0,
-            'u_id': auth_user_id,
-            'message': message_input,
-            'time_created': int(datetime.datetime.utcnow()
-                            .replace(tzinfo= datetime.timezone.utc).timestamp()),
-        }
-    )
-    data_store.set(store)
 
 def is_global_owner(auth_user_id):
     # Returns true if the given user is the global owner (first registered user).
@@ -306,8 +272,6 @@ def return_token(email,password):
     data_store.set(store)
     return  generate_jwt(auth_user_id, session_id)
 
-
-
 def check_valid_token(token):
     '''
     
@@ -324,14 +288,14 @@ def check_valid_token(token):
     '''
     if None == re.fullmatch(r'^[A-Za-z0-9-_]*\.[A-Za-z0-9-_]*\.[A-Za-z0-9-_]*$',token):
         raise AccessError(description="Invalid Token")
-
     decoded_token = decode_jwt(token)
+    if isinstance(decoded_token,dict) == False:
+        raise AccessError(description="Invalid Token")
 
-    decoded_token['auth_user_id']
     store = data_store.get()
     users = store['users']
     
-    print(f"Check Token users:{users}")
+    print(f"Check Token store:{store}")
     for user in users:
         if user['u_id'] == decoded_token['auth_user_id']:
             for session_id in user['sessions']:
@@ -391,4 +355,3 @@ def decode_jwt(encoded_jwt):
         Object: An object storing the body of the JWT encoded string
     """
     return jwt.decode(encoded_jwt, SECRET, algorithms=['HS256'])
-    

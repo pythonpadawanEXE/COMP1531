@@ -11,7 +11,7 @@ Functions:
 
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import verify_user_id
+from src.other import verify_user_id, check_valid_token
 
 def channels_list_v1(auth_user_id):
     """ Lists all channels that the given user id is a member of.
@@ -43,22 +43,22 @@ def channels_list_v1(auth_user_id):
         'channels' : channels
     }
 
-def channels_listall_v1(auth_user_id):
+def channels_listall_v1(token):
+
     """ Lists all channels that exist including public and private channels.
 
         Arguments:
-            auth_user_id (int)    - The user id of the calling user.
+            token (int)    - The token of the user.
 
         Exceptions:
-            AccessError - Occurs when the user's id does not exist in the data store.
+            AccessError - Occurs when the token is not valid.
 
         Return Value:
             Returns { channels } on successful completion.
     """
 
     # Verifies that the user exists in the data store, raises an AccessError otherwise.
-    if not verify_user_id(auth_user_id):
-        raise AccessError(description="User does not exist.")
+    _ = check_valid_token(token)
 
     # Iterates through the list of channels and adds them to channels list.
     store = data_store.get()
