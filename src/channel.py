@@ -133,8 +133,8 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     """
 
     store = data_store.get()
-    if len(store['users'])+len(store['channels'])+len(store['passwords']) == 0:
-        raise InputError("Empty Database")
+    # if len(store['users'])+len(store['channels'])+len(store['passwords']) == 0:
+    #     raise InputError("Empty Database")
     if start < 0:
         raise InputError("Invalid Start Index")
     channels = store['channels']
