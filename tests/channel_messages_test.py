@@ -34,13 +34,6 @@ def register_valid_user(email = 'validemail@gmail.com',password = '123abc!@#',na
 
 #user for private channel
 @pytest.fixture
-def priv_chan():
-    other.clear_v1()
-    token = auth.auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['token']
-    return (token, 'My Channel', False)
-
-
-@pytest.fixture
 def priv_chan_endpoint():
     other.clear_v1()
     token = (register_valid_user())['token']
@@ -48,29 +41,11 @@ def priv_chan_endpoint():
 
 #user public channel 
 @pytest.fixture
-def pub_chan():
-    other.clear_v1()
-    token = auth.auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['token']
-    return (token, 'My Channel', True)
-
-
-@pytest.fixture
 def pub_chan_endpoint():
     other.clear_v1()
     token = (register_valid_user())['token']
     return (token, 'My Channel', True)
 
-
-#create multiple messages in a public channel
-@pytest.fixture
-def create_messages(pub_chan):
-    token, name, is_public = pub_chan
-    new_channel = channels.channels_create_v1(token, name, is_public)
-    for i in range(5):
-        Message = "message" + str(i)
-        _ = message_send_v1(token,new_channel['channel_id'],Message)
-        #move create_message to message.py and rename message_send_v1
-    return new_channel,token
 
 #create multiple messages in a public channel
 @pytest.fixture
@@ -110,15 +85,6 @@ Valid Input
 
 #start is not greater than the total number of messages in the channel
 
-def test_valid_start_index(create_messages):
-    new_channel,token = create_messages
-    store = data_store.get()
-    channels_ = store['channels']
-    print(channels_)
-    result = channel.channel_messages_v1(token,new_channel['channel_id'],1)
-    print(result)
-    assert result["end"] == -1
-
 def test_valid_start_index_endpoint(create_messages_endpoint):
     new_channel,token = create_messages_endpoint
     result = channel_messages_endpoint(token,new_channel['channel_id'],1)
@@ -128,14 +94,6 @@ def test_valid_start_index_endpoint(create_messages_endpoint):
 """
 Input Errors
 """
-#start is not less than 0
-def test_invalid_negative_start_index(create_messages):
-    new_channel,token = create_messages
-    store = data_store.get()
-    channels_ = store['channels']
-    print(channels_)
-    with pytest.raises(InputError):
-        channel.channel_messages_v1(token,new_channel['channel_id'],-1)
 
 #start is not less than 0
 def test_invalid_negative_start_index_endpoint(create_messages_endpoint):
@@ -146,24 +104,10 @@ def test_invalid_negative_start_index_endpoint(create_messages_endpoint):
 
 #channel_id does not refer to a valid channel
 
-def test_invalid_channel_1(pub_chan):
-    id, _, _ = pub_chan
-    store = data_store.get()
-    channels_ = store['channels']
-    print(channels_)
-    with pytest.raises(InputError):
-        channel.channel_messages_v1(id,2,0)
-
 def test_invalid_channel_1_endpoint(pub_chan_endpoint):
     token, _, _ = pub_chan_endpoint
     with pytest.raises(InputError):
         result = channel_messages_endpoint(token,2,0) 
-
-    
-
-def test_invalid_empty_channel_1_endpoint():
-    with pytest.raises(AccessError):
-        result = channel_messages_endpoint("token",2,0) 
 
 
 def test_invalid_empty_channel_2_endpoint(): 
@@ -191,6 +135,11 @@ def test_invalid_channel_unexist_endpoint():
 """
 Access Errors
 """
+#Invalid Token
+def test_invalid_empty_channel_1_endpoint():
+    with pytest.raises(AccessError):
+        result = channel_messages_endpoint("token",2,0) 
+
 #channel ID is private user channel messages is called with a user  that doesn't exist
 def test_invalid_channel_private_endpoint():
     is_public = False
