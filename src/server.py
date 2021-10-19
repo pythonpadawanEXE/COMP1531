@@ -15,7 +15,7 @@ import pickle
 try:
     store = pickle.load(open("datastore.p", "rb"))
     #clear sessions
-    for user in initial_object['users']:
+    for user in store['users']:
         user['sessions'] = []
     data_store.set(store)
 except Exception:
