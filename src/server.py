@@ -1,14 +1,13 @@
 import sys
 import signal
 from json import dumps
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
-from src.error import InputError,AccessError
 from src import config
-from src.other import clear_v1
-import src.other as other
-from json import dumps
-from src.auth import auth_register_v1,auth_login_v1,auth_logout_v1
+from src.error import InputError, AccessError
+from src.auth import auth_register_v1, auth_login_v1, auth_logout_v1
+from src.channels import channels_create_v1
+from src.other import check_valid_token, clear_v1
 from src.data_store import data_store
 import pickle
 
@@ -44,25 +43,7 @@ APP.register_error_handler(Exception, defaultHandler)
 
 #### NO NEED TO MODIFY ABOVE THIS POINT, EXCEPT IMPORTS
 
-# Example
-@APP.route("/echo", methods=['GET'])
-def echo():
-    data = request.args.get('data')
-    if data == 'echo':
-   	    raise InputError(description='Cannot echo "echo"')
-    return dumps({
-        'data': data
-    })
-
-@APP.route("/get_data", methods=['GET'])
-def get_all_data():
-    return dumps(data_store.get())
-
-#reset database through clearing the dictionaries
-@APP.route("/clear/v1", methods=['DELETE'])
-def delete_clear():
-    clear_v1()
-    return dumps({})
+# Auth Routes
 
 #register an account through a post request
 @APP.route("/auth/register/v2", methods=['POST'])
@@ -101,6 +82,40 @@ def post_auth_logout():
     data_store.save()
     return dumps({})
 
+# Channel Routes
+
+# Channels Routes
+
+@APP.route("/channels/create/v2", methods=['POST'])
+def channels_create_v2():
+    token = request.args.get('token')
+    name = request.args.get('name')
+    is_public = request.args.get('is_public') == True
+    decoded_token = check_valid_token(token)
+    return dumps(channels_create_v1(decoded_token['auth_user_id'], name, is_public))
+
+# Other routes
+
+# Example
+@APP.route("/echo", methods=['GET'])
+def echo():
+    data = request.args.get('data')
+    if data == 'echo':
+   	    raise InputError(description='Cannot echo "echo"')
+    return dumps({
+        'data': data
+    })
+
+
+@APP.route("/get_data", methods=['GET'])
+def get_all_data():
+    return dumps(data_store.get())
+
+# Reset database through clearing the dictionaries
+@APP.route("/clear/v1", methods=['DELETE'])
+def delete_clear():
+    clear_v1()
+    return dumps({})
 
 #### NO NEED TO MODIFY BELOW THIS POINT
 
