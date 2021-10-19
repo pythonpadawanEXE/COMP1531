@@ -11,7 +11,7 @@ from json import dumps
 from src.auth import auth_register_v1,auth_login_v1,auth_logout_v1
 from src.data_store import data_store
 import pickle
-'''
+
 try:
     store = pickle.load(open("datastore.p", "rb"))
     #clear sessions
@@ -20,7 +20,7 @@ try:
     data_store.set(store)
 except Exception:
     pass
-'''
+
 def quit_gracefully(*args):
     '''For coverage'''
     exit(0)
@@ -76,7 +76,7 @@ def post_auth_register():
         request_data['name_last']
     )
     print(auth_result)
-    #data_store.save()
+    data_store.save()
     return dumps(auth_result)
 
 #login an account through a post request
@@ -87,7 +87,7 @@ def post_auth_login():
         request_data['email'],
         request_data['password']
     )
-    #data_store.save()
+    data_store.save()
     return dumps(auth_result)
 
 #logout an account through a post request
@@ -98,7 +98,7 @@ def post_auth_logout():
     _ = auth_logout_v1(
         request_data['token']
     )
-    #data_store.save()
+    data_store.save()
     return dumps({})
 
 
