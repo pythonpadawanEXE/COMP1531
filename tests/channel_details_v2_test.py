@@ -1,5 +1,5 @@
-# channels-details-v1_test.py
-# pytest file to test the implementation of channel_details_v1
+# channels_details_v2_test.py
+# pytest file to test the implementation of channel_details_v2 endpoint
 
 import pytest
 
@@ -11,10 +11,38 @@ from src.channel import channel_invite_v1, channel_details_v1, channel_join_v1
 from src.channels import channels_create_v1
 from src.other import clear_v1
 
+@pytest.fixture(autouse=True)
+def clear():
+
+    '''
+    A fixture to clear the state for each test
+    '''
+
+    response = requests.delete(f"{BASE_URL}/clear/v1")
+    assert response.status_code == 200
+    assert response.json() == {}
+
+def register_user(email, password, name_first, name_last):
+
+    '''
+    Registers a new user with given parameters and returns the users token
+    '''
+
+    response = requests.post(f"{BASE_URL}/auth/register/v2",json={
+        'email' : email,
+        'password' : password,
+        'name_first' : name_first,
+        'name_last' : name_last
+    })
+
+    assert response.status_code == 200
+    response_data = response.json()
+    assert isinstance(response_data['token'],str)
+    assert isinstance(response_data['user_token'],int)
+    return response_data['token']
+
 # Test for a single member with a public channel
 def test_details_public_individual():
-    clear_v1()
-
     # New user
     auth_user_id = auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
     # Channel ID
@@ -28,8 +56,6 @@ def test_details_public_individual():
 
 # Test for a single member with a private channel
 def test_details_private_individual():
-    clear_v1()
-
     # New user
     auth_user_id = auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
     # Channel ID
@@ -43,8 +69,6 @@ def test_details_private_individual():
 
 # Test for a single member with public and private channels
 def test_details_mixed_individual():
-    clear_v1()
-
     # New user
     auth_user_id = auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
     # Channel ID
@@ -60,8 +84,6 @@ def test_details_mixed_individual():
 
 # Test for multiple members with a public channel
 def test_details_public_multiple():
-    clear_v1()
-
     # New user
     auth_user_id_1 = auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
     # New user 2
@@ -80,7 +102,6 @@ def test_details_public_multiple():
 
 # Test for invalid channel ID
 def test_invalid_channel():
-    clear_v1()
     # New user
     auth_user_id_1 = auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
     with pytest.raises(InputError):
@@ -88,8 +109,6 @@ def test_invalid_channel():
 
 # Test for valid channel ID and the authorised user is not a member of the channel
 def test_user_unauthorised():
-    clear_v1()
-
     # New user
     auth_user_id_1 = auth_register_v1("js@email.com", "ABCDEFGH", "John", "Smith")['auth_user_id']
     # New user 2
