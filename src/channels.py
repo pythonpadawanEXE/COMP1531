@@ -29,7 +29,7 @@ def channels_list_v1(auth_user_id):
 
     # Verifies that the user exists in the data store, raises an AccessError otherwise.
     if not verify_user_id(auth_user_id):
-        raise AccessError
+        raise AccessError(description="User does not exist.")
 
     # Iterates through the list of channels and
     # returns the subset that the given user is a member of.
@@ -58,7 +58,7 @@ def channels_listall_v1(auth_user_id):
 
     # Verifies that the user exists in the data store, raises an AccessError otherwise.
     if not verify_user_id(auth_user_id):
-        raise AccessError
+        raise AccessError(description="User does not exist.")
 
     # Iterates through the list of channels and adds them to channels list.
     store = data_store.get()
@@ -92,11 +92,11 @@ def channels_create_v1(auth_user_id, name, is_public):
 
     # Verifies that the user exists in the data store, raises an AccessError otherwise.
     if not verify_user_id(auth_user_id):
-        raise AccessError
+        raise AccessError(description="User does not exist.")
 
     # Verifies that the channel name is of correct length, raises an InputError otherwise.
     if len(name) < 1 or len(name) > 20:
-        raise InputError
+        raise InputError(description="Name needs to be between 1 and 20 characters long.")
 
     # Creates the channel if call is valid
     # Channel dictionary entry is as follows:
