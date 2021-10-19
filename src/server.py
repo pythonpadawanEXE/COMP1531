@@ -88,9 +88,10 @@ def post_auth_logout():
 
 @APP.route("/channels/create/v2", methods=['POST'])
 def channels_create_v2():
-    token = request.args.get('token')
-    name = request.args.get('name')
-    is_public = request.args.get('is_public') == True
+    request_data = request.get_json()
+    token = request_data['token']
+    name = request_data['name']
+    is_public = request_data['is_public'] == True
     decoded_token = check_valid_token(token)
     return dumps(channels_create_v1(decoded_token['auth_user_id'], name, is_public))
 
