@@ -28,7 +28,7 @@ def test_channels_valid_create(setup):
 
     # uncomment when channels/list/v2 complete
     # list = requests.get(config.url + 'channels/list/v2', params={'token': user['token']})
-    # assert json.loads(list.text) == {'channels': [{'channel_id': 1, 'name': 'My channel'}]}
+    # assert json.loads(list.text) == {'channels': [{'channel_id': json.loads(channel.text)['channel_id'], 'name': 'My channel'}]}
 
 def test_bad_token(setup):
     channel = requests.post(config.url + 'channels/create/v2', json={'token': '', 'name': 'My channel', 'is_public': 'True'})
