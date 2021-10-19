@@ -152,4 +152,4 @@ def delete_clear():
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, quit_gracefully)
-    APP.run(port=config.port, debug=True)
+    APP.run(port=config.port)
