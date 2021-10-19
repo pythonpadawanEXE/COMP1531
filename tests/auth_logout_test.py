@@ -63,8 +63,9 @@ def logout_valid_user(token):
     })
     assert response.status_code == 200
     assert response.json() == {}
+    store = (requests.get(f"{BASE_URL}/get_data")).json()
     with pytest.raises(AccessError):
-        check_valid_token(token)
+        token_validity_check_pytest(token,store)
 
 def test_invalidate_token_one_user(setup):
     response_data = register_valid_user()
