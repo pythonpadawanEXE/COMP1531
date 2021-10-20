@@ -1,4 +1,4 @@
-# userss_all_v1_test.py
+# users_all_v1_test.py
 # pytest file to test the implementation of userss_all_v1
 import pytest
 import requests
@@ -11,7 +11,6 @@ def setup():
     Clears the server data and creates some users and channels.
     '''
     users = []
-    channels = []
     requests.delete(config.url + 'clear/v1')
     resp = requests.post(config.url + f"auth/register/v2", json={
         'email' : 'validemail@gmail.com',
