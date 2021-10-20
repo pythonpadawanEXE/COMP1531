@@ -236,33 +236,30 @@ def is_global_owner(auth_user_id):
     global_owner = user_store[0]
     return auth_user_id == global_owner["u_id"]
 
-def make_token(auth_user_id,session_id):
-    '''
+# def make_token(auth_user_id,session_id):
+#     '''
     
-    Makes a  new JWT. 
+#     Makes a  new JWT. 
 
-    Arguments:
-        auth_user_id (int) - Unique ID of authorised user
-        session_id (int) - Unique ID of Session
-    Return Value:   
-        token (string) on Successful completion.
-    '''
-    return generate_jwt(auth_user_id, session_id)
+#     Arguments:
+#         auth_user_id (int) - Unique ID of authorised user
+#         session_id (int) - Unique ID of Session
+#     Return Value:   
+#         token (string) on Successful completion.
+#     '''
+#     return generate_jwt(auth_user_id, session_id)
 
-def return_token(email,password):
+def return_token(auth_user_id):
     '''
     
     Return a  valid JWT given valid login credidentials.
 
     Arguments:
-        email (string)        - The email of the user to login.
-        password (string)     - The password of the user to login.
+        auth_user_id          - auth_user_id (int) - Unique ID of authorised user
         
     Return Value:   
         token (string) on Successful completion.
     '''
-    
-    auth_user_id = search_email_password_match(email,password)['auth_user_id']
     session_id = generate_new_session_id()
     store = data_store.get()
     users = store['users']

@@ -113,11 +113,11 @@ def channel_details_v1(auth_user_id, channel_id):
         'all_members': get_all_members(all_members_id_list),
     }
 
-def channel_messages_v1(token, channel_id, start):
+def channel_messages_v1(auth_user_id, channel_id, start):
     """ Returns the 50 most recent messages from start.
 
         Arguments:
-            token (string)      - encrypted concatention of auth_user_id and session_id.
+            auth_user_id (int)      - User ID of the user who is a member of the channel.
             channel_id (int)        - Channel ID of the channel the user is a member of.
             start (int)             - Starting index of messages to be displayed.
 
@@ -131,7 +131,6 @@ def channel_messages_v1(token, channel_id, start):
         Return Value:
             Returns { messages, start, end } on successful completion.
     """
-    auth_user_id = check_valid_token(token)['auth_user_id']
     store = data_store.get()
     # if len(store['users'])+len(store['channels'])+len(store['passwords']) == 0:
     #     raise InputError("Empty Database")

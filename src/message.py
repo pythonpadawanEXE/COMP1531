@@ -3,8 +3,7 @@ from src.error import InputError,AccessError
 from src.other import check_valid_token
 import datetime
 
-def message_send_v1(token, channel_id, message_input):
-    auth_user_id = check_valid_token(token)['auth_user_id']
+def message_send_v1(auth_user_id, channel_id, message_input):
     len_msg = len(message_input)
     if len_msg < 1 or len_msg > 1000:
         raise InputError("Invalid Length of Message.")
