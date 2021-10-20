@@ -29,11 +29,7 @@ def channels_list_v1(auth_user_id):
 
     # Verifies that the user exists in the data store, raises an AccessError otherwise.
     if not verify_user_id(auth_user_id):
-<<<<<<< HEAD
-        raise AccessError(description="Bad uid")
-=======
         raise AccessError(description="User does not exist.")
->>>>>>> master
 
     # Iterates through the list of channels and
     # returns the subset that the given user is a member of.
