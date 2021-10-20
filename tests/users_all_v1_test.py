@@ -47,7 +47,7 @@ def test_valid_use(setup):
     response_data = resp.json()
     print(f"\n{response_data}\n")
     assert response_data == {'users': [
-        {'u_id': users[0]['auth_user_id'], 'email': 'validemail@gmail.com', 'name_first': 'Hayden', 'name_last': 'Everest', 'handle_str': 'haydeneverest0'}, 
-        {'u_id': users[1]['auth_user_id'], 'email': 'validemail2@gmail.com', 'name_first': 'Robert', 'name_last': 'Reid', 'handle_str': 'robertreid0'}, 
-        {'u_id': users[2]['auth_user_id'], 'email': 'validemail3@gmail.com', 'name_first': 'Jade', 'name_last': 'Painter', 'handle_str': 'jadepainter0'}
+        {'u_id': users[0]['auth_user_id'], 'email': 'validemail@gmail.com', 'name_first': 'Hayden', 'name_last': 'Everest', 'handle_str': 'haydeneverest'}, 
+        {'u_id': users[1]['auth_user_id'], 'email': 'validemail2@gmail.com', 'name_first': 'Robert', 'name_last': 'Reid', 'handle_str': 'robertreid'}, 
+        {'u_id': users[2]['auth_user_id'], 'email': 'validemail3@gmail.com', 'name_first': 'Jade', 'name_last': 'Painter', 'handle_str': 'jadepainter'}
         ]}
