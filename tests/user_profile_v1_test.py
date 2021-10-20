@@ -1,5 +1,5 @@
-# users_all_v1_test.py
-# pytest file to test the implementation of userss_all_v1
+# user_profile_v1_test.py
+# pytest file to test the implementation of user_profile_v1
 import pytest
 import requests
 import json
@@ -36,18 +36,18 @@ def setup():
     return users
 
 def test_invalid_token(setup):
-    _ = setup
-    resp = requests.get(config.url + 'users/all/v1', params={'token': ""})
+    users = setup
+    resp = requests.get(config.url + 'user/profile/v1', params={'token': "", 'u_id': users[0]['auth_user_id']})
     assert resp.status_code == 403
+
+def test_invalid_u_id(setup):
+    users = setup
+    resp = requests.get(config.url + 'user/profile/v1', params={'token': users[0]['token'], 'u_id': 1032764})
+    assert resp.status_code == 400
 
 def test_valid_use(setup):
     users = setup
-    resp = requests.get(config.url + 'users/all/v1', params={'token': users[0]['token']})
+    resp = requests.get(config.url + 'user/profile/v1', params={'token': users[1]['token'], 'u_id': users[0]['auth_user_id']})
     assert resp.status_code == 200
     response_data = resp.json()
-    print(f"\n{response_data}\n")
-    assert response_data == {'users': [
-        {'u_id': users[0]['auth_user_id'], 'email': 'validemail@gmail.com', 'name_first': 'Hayden', 'name_last': 'Everest', 'handle_str': 'haydeneverest'}, 
-        {'u_id': users[1]['auth_user_id'], 'email': 'validemail2@gmail.com', 'name_first': 'Robert', 'name_last': 'Reid', 'handle_str': 'robertreid'}, 
-        {'u_id': users[2]['auth_user_id'], 'email': 'validemail3@gmail.com', 'name_first': 'Jade', 'name_last': 'Painter', 'handle_str': 'jadepainter'}
-        ]}
+    assert response_data == {'u_id': users[0]['auth_user_id'], 'email': 'validemail@gmail.com', 'name_first': 'Hayden', 'name_last': 'Everest', 'handle_str': 'haydeneverest'}
