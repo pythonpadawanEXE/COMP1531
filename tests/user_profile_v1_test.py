@@ -37,17 +37,17 @@ def setup():
 
 def test_invalid_token(setup):
     users = setup
-    resp = requests.get(config.url + 'users/all/v1', params={'token': "", 'u_id': users[0]['auth_user_id']})
+    resp = requests.get(config.url + 'user/profile/v1', params={'token': "", 'u_id': users[0]['auth_user_id']})
     assert resp.status_code == 403
 
 def test_invalid_u_id(setup):
     users = setup
-    resp = requests.get(config.url + 'users/all/v1', params={'token': users[0]['token'], 'u_id': 1032764})
+    resp = requests.get(config.url + 'user/profile/v1', params={'token': users[0]['token'], 'u_id': 1032764})
     assert resp.status_code == 400
 
 def test_valid_use(setup):
     users = setup
-    resp = requests.get(config.url + 'users/all/v1', params={'token': users[1]['token'], 'u_id': users[0]['auth_user_id']})
+    resp = requests.get(config.url + 'user/profile/v1', params={'token': users[1]['token'], 'u_id': users[0]['auth_user_id']})
     assert resp.status_code == 200
     response_data = resp.json()
     assert response_data == {'u_id': users[0]['auth_user_id'], 'email': 'validemail@gmail.com', 'name_first': 'Hayden', 'name_last': 'Everest', 'handle_str': 'haydeneverest0'}
