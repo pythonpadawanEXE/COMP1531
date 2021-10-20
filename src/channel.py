@@ -16,7 +16,7 @@ from src.data_store import data_store
 from src.other import is_channel_valid, is_global_owner, is_user_authorised, \
     get_channel_name, is_channel_public, get_channel_owner, \
     user_details, get_all_user_id_channel, get_all_members, \
-    verify_user_id,check_valid_token
+    verify_user_id, check_valid_token
 
 def channel_invite_v1(auth_user_id, channel_id, u_id):
     """ <Brief description of what the function does>
@@ -73,12 +73,12 @@ def channel_invite_v1(auth_user_id, channel_id, u_id):
 
     return {}
 
-def channel_details_v1(auth_user_id, channel_id):
+def channel_details_v1(token, channel_id):
     """ Given a channel with ID channel_id that the authorised user is a member of, provide basic
         details about the channel.
 
         Arguments:
-            auth_user_id (int)    - User ID of the user who is a member of the channel.
+            token (str)           - Token of the user who is a member of the channel.
             channel_id (int)      - Channel ID of the channel the user is a member of.
 
         Exceptions:
@@ -93,11 +93,14 @@ def channel_details_v1(auth_user_id, channel_id):
 
     # channel_id does not refer to a valid channel
     if not is_channel_valid(channel_id):
-        raise InputError
+        raise InputError(description="channel_id does not refer to a valid channel")
+
+    # Get the auth_user_id from the token
+    auth_user_id = check_valid_token(token)['auth_user_id']
 
     # channel_id is valid and the authorised user is not a member of the channel
     if not is_user_authorised(auth_user_id, channel_id):
-        raise AccessError
+        raise AccessError(description="channel_id is valid and the authorised user is not a member of the channel")
 
     # auth_user_id of the channel owner of ID channel_id
     channel_owner_id = get_channel_owner(channel_id)
@@ -197,7 +200,7 @@ def channel_join_v1(auth_user_id, channel_id):
 
     # Verify the user ID
     if not verify_user_id(auth_user_id):
-        raise AccessError
+        raise AccessError(description="Bad user id")
 
     store = data_store.get()
 
@@ -210,11 +213,11 @@ def channel_join_v1(auth_user_id, channel_id):
             # Verify user not in channel
             if auth_user_id in channel["all_members"] \
                 or auth_user_id in channel["owner_members"]:
-                raise InputError
+                raise InputError(description="Bad channel id")
 
             # Check if channel public
             if not channel["is_public"] and not is_global_owner(auth_user_id):
-                raise AccessError
+                raise AccessError(description="Channel is private and cannot be joined")
 
             # Mark channel as found
             found_channel_id = True
@@ -222,7 +225,7 @@ def channel_join_v1(auth_user_id, channel_id):
 
     # If channel not found raise InputError
     if not found_channel_id:
-        raise InputError
+        raise InputError(description="Channel does not exist")
 
     # Add user to the target_channel
     target_channel["all_members"].append(auth_user_id)
