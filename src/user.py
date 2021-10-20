@@ -1,6 +1,6 @@
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import check_valid_token, make_handle, verify_user_id
+from src.other import verify_user_id
 
 def user_profile_v1(auth_user_id, u_id):
     if not verify_user_id(auth_user_id):

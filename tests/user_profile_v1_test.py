@@ -1,5 +1,5 @@
-# users_all_v1_test.py
-# pytest file to test the implementation of userss_all_v1
+# user_profile_v1_test.py
+# pytest file to test the implementation of user_profile_v1
 import pytest
 import requests
 import json
