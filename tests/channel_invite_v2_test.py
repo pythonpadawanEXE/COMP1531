@@ -52,20 +52,20 @@ def test_invalid_u_id(setup):
 
 def test_u_id_a_member(setup):
     users, channels = setup
-    resp = requests.post(config.url + 'channel/invite/v2', json={'token': users[0]['token'], 'channel_id': channels[0]['channel_id'], 'u_id': users[0]['token']})
+    resp = requests.post(config.url + 'channel/invite/v2', json={'token': users[0]['token'], 'channel_id': channels[0]['channel_id'], 'u_id': users[0]['auth_user_id']})
     assert resp.status_code == 400
 
 def test_auth_user_not_member(setup):
     users, channels = setup
-    resp = requests.post(config.url + 'channel/invite/v2', json={'token': users[1]['token'], 'channel_id': channels[0]['channel_id'], 'u_id': users[2]['token']})
+    resp = requests.post(config.url + 'channel/invite/v2', json={'token': users[1]['token'], 'channel_id': channels[0]['channel_id'], 'u_id': users[2]['auth_user_id']})
     assert resp.status_code == 403
 
 def test_bad_auth_user_id(setup):
     users, channels = setup
-    resp = requests.post(config.url + 'channel/invite/v2', json={'token': '', 'channel_id': channels[0]['channel_id'], 'u_id': users[2]['token']})
+    resp = requests.post(config.url + 'channel/invite/v2', json={'token': '', 'channel_id': channels[0]['channel_id'], 'u_id': users[2]['auth_user_id']})
     assert resp.status_code == 403
 
 def test_valid_invite(setup):
     users, channels = setup
-    resp = requests.post(config.url + 'channel/invite/v2', json={'token': users[0]['token'], 'channel_id': channels[0]['channel_id'], 'u_id': users[2]['token']})
+    resp = requests.post(config.url + 'channel/invite/v2', json={'token': users[0]['token'], 'channel_id': channels[0]['channel_id'], 'u_id': users[2]['auth_user_id']})
     assert resp.status_code == 200
