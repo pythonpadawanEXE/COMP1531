@@ -39,7 +39,8 @@ def is_user_authorised(auth_user_id, channel_id):
     is_authorised = False
     store = data_store.get()
     channel_store = store['channels']
-
+    print(f"channel_store_authroised {channel_store}")
+    print(f"auth_user_id {auth_user_id} channel_id {channel_id}")
     for chan in channel_store:
         if auth_user_id in chan['all_members']:
             is_authorised = True
@@ -293,7 +294,6 @@ def check_valid_token(token):
     store = data_store.get()
     users = store['users']
     
-    print(f"Check Token store:{store}")
     for user in users:
         if user['u_id'] == decoded_token['auth_user_id']:
             for session_id in user['sessions']:
@@ -353,3 +353,20 @@ def decode_jwt(encoded_jwt):
         Object: An object storing the body of the JWT encoded string
     """
     return jwt.decode(encoded_jwt, SECRET, algorithms=['HS256'])
+
+def is_user_in_dm(auth_user_id, dm_id):
+    """
+    Check if a user is a member of a dm
+    Args:
+        auth_user_id (int)  - Unique authenticated user id.
+        dm_id   (int)       - Unique direct message id.
+
+        return boolean
+    """
+    is_user_in_dm = False
+    store = data_store.get()
+    dms = store['dms']
+    for dm in dms:
+        if dm['dm_id'] == dm_id and auth_user_id in dm['members']:
+            is_user_in_dm = True
+    return is_user_in_dm

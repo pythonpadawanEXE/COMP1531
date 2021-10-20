@@ -10,7 +10,7 @@ from src.channel import channel_messages_v1
 from src.channels import channels_create_v1, channels_list_v1
 from src.other import check_valid_token, clear_v1,return_token
 from src.data_store import data_store
-from src.message import message_send_v1
+from src.message import message_send_v1,message_remove_v1,message_edit_v1
 from src.channels import channels_listall_v1
 import pickle
 
@@ -256,6 +256,27 @@ def post_message_send():
     )
     data_store.save()
     return dumps(message_id)
+
+@APP.route("/message/edit/v1", methods=['PUT'])
+def put_message_edit():
+    request_data = request.get_json()
+    _ = message_edit_v1(
+        request_data['token'],
+        request_data['message_id'],
+        request_data['message']
+        )
+    data_store.save()
+    return dumps({})
+
+@APP.route("/message/remove/v1", methods=['DELETE'])
+def delete_message_remove():
+    request_data = request.get_json()
+    _ = message_remove_v1(
+        request_data['token'],
+        request_data['message_id'],
+        )
+    data_store.save()
+    return dumps({})
 # Dm Routes
 
 # Other routes
