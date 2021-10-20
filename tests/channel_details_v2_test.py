@@ -125,7 +125,7 @@ def test_details_mixed_individual():
     for user in details['all_members']:
         assert(auth_user_id == user['u_id'])
 
-'''
+
 # Test for multiple members with a public channel
 def test_details_public_multiple():
     # New user
@@ -143,12 +143,12 @@ def test_details_public_multiple():
     # Invite auth_user_id_2 to channel
     channel_join(token_2, channel_id)
     # Channel details
-    channel_details = channel_details(token_1, channel_id)
+    details = channel_details(token_1, channel_id)
 
     # Loop through the channel details and find if auth_user_id and auth_user_id2 is in the channel
-    for user in channel_details['all_members']:
+    for user in details['all_members']:
         assert(auth_user_id_1 == user['u_id'] or auth_user_id_2 == user['u_id'])
-'''
+
 
 # Test for invalid channel ID
 def test_invalid_channel():
