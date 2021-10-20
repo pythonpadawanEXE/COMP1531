@@ -11,6 +11,7 @@ from src.channels import channels_create_v1, channels_listall_v1, channels_list_
 from src.other import check_valid_token, clear_v1
 from src.data_store import data_store
 from src.message import message_send_v1
+from src.user import user_profile_v1
 from src.users import users_all_v1
 import pickle
 
@@ -158,7 +159,16 @@ def post_message_send():
     )
     data_store.save()
     return dumps(message_id)
+
 # Dm Routes
+
+# User Routes
+@APP.route("/user/profile/v1", methods=['get'])
+def user_profile_v1_get():
+    token = request.args.get('token')
+    u_id = request.args.get('u_id')
+    decoded_token = check_valid_token(token)
+    return dumps(user_profile_v1(decoded_token['auth_user_id'], u_id))
 
 # Users Routes
 @APP.route("/users/all/v1", methods=['get'])
