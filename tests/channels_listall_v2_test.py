@@ -4,7 +4,6 @@
 import pytest
 import requests
 from src import config
-from src.error import AccessError
 
 BASE_URL = config.url
 
