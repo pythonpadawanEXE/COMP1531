@@ -34,11 +34,7 @@ def setup():
         'name_last' : 'Painter'
     })
     users.append(json.loads(resp.text))
-    chan_0 = requests.post(config.url + 'channels/create/v2', json={'token': users[0]['token'], 'name': 'My channel', 'is_public': 'True'})
-    channels.append(json.loads(chan_0.text))
-    chan_1 = requests.post(config.url + 'channels/create/v2', json={'token': users[1]['token'], 'name': 'My private channel', 'is_public': 'False'})
-    channels.append(json.loads(chan_1.text))
-    return (users, channels)
+    return users
 
 def test_invalid_token(setup):
     _ = setup
@@ -46,26 +42,13 @@ def test_invalid_token(setup):
     assert resp.status_code == 403
 
 def test_valid_use(setup):
-    users, channels = setup
-    _ = requests.post(config.url + 'channel/join/v2', json={'token': users[1]['token'], 'channel_id': channels[0]['channel_id']})
+    users = setup
     resp = requests.get(config.url + 'users/all/v1', params={'token': users[0]['token']})
     assert resp.status_code == 200
     response_data = resp.json()
-    assert response_data == {
-        'users' : [
-            {
-                'u_id' : users[0]['auth_user_id'],
-                'email' : 'validemail@gmail.com',
-                'name_first' : 'Hayden',
-                'name_last' : 'Everest',
-                'handle_str' : 'haydeneverest'
-            }, 
-            {
-                'u_id' : users[1]['auth_user_id'],
-                'email' : 'validemail2@gmail.com',
-                'name_first' : 'Robert',
-                'name_last' : 'Reid',
-                'handle_str' : 'robertreid'
-            }
-        ]
-    }
+    print(f"\n{response_data}\n")
+    assert response_data == {'users': [
+        {'u_id': users[0]['auth_user_id'], 'email': 'validemail@gmail.com', 'name_first': 'Hayden', 'name_last': 'Everest', 'handle_str': 'haydeneverest0'}, 
+        {'u_id': users[1]['auth_user_id'], 'email': 'validemail2@gmail.com', 'name_first': 'Robert', 'name_last': 'Reid', 'handle_str': 'robertreid0'}, 
+        {'u_id': users[2]['auth_user_id'], 'email': 'validemail3@gmail.com', 'name_first': 'Jade', 'name_last': 'Painter', 'handle_str': 'jadepainter0'}
+        ]}
