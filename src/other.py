@@ -15,6 +15,7 @@ def clear_v1():
     store['passwords'] = []
     store['permissions'] = []
     store['dms'] = []
+    store['messages'] = []
     data_store.set(store)
     return {}
 

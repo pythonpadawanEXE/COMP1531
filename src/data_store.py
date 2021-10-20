@@ -32,6 +32,7 @@ initial_object = {
 'passwords' : [],
 'permissions': [],
 'dms': [],
+'messages': []
 }
 
 

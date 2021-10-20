@@ -150,20 +150,21 @@ def channel_messages_v1(auth_user_id, channel_id, start):
             if auth_user_id not in channel["all_members"] \
             and auth_user_id not in channel["owner_members"]:
                 raise AccessError("User is not an owner or member of this channel")
-            messages = channel['messages']
-            break
+            
+            
 
     if channel_exists == False:
         raise InputError("Channel ID is not valid or does not exist.")
-    print("print?")
+    messages = channel['messages']
+    
     if len(messages) < start:
         raise InputError("Start is greater than the total number of messages in the channel")
     end = start + 50
     return_messages = []
-
+    store_messages = store['messages']
     for idx,message in enumerate(messages):
         if start <= idx < end:
-            return_messages.append(message)
+            return_messages.append(store_messages[message['message_id']]['message'])
 
     if len(return_messages) < end:
         end = -1
