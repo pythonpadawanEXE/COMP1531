@@ -284,7 +284,6 @@ def post_message_send():
     data_store.save()
     return dumps(message_id)
 
-<<<<<<< HEAD
 @APP.route("/message/edit/v1", methods=['PUT'])
 def put_message_edit():
     request_data = request.get_json()
@@ -305,8 +304,6 @@ def delete_message_remove():
         )
     data_store.save()
     return dumps({})
-=======
->>>>>>> master
 # Dm Routes
 
 # User Routes
