@@ -6,8 +6,8 @@ from flask_cors import CORS
 from src import config
 from src.error import InputError, AccessError
 from src.auth import auth_register_v1, auth_login_v1, auth_logout_v1
-from src.channel import channel_messages_v1, channel_details_v1
-from src.channels import channels_create_v1, channels_listall_v1
+from src.channel import channel_messages_v1, channel_details_v1, channel_join_v1, channel_invite_v1
+from src.channels import channels_create_v1, channels_listall_v1, channels_list_v1
 from src.other import check_valid_token, clear_v1
 from src.data_store import data_store
 from src.message import message_send_v1
@@ -104,6 +104,23 @@ def get_channel_messages():
     data_store.save()
     return dumps(channel_messages)
 
+@APP.route("/channel/join/v2", methods=['POST'])
+def channel_join_v2():
+    request_data = request.get_json()
+    token = request_data['token']
+    channel_id = request_data['channel_id']
+    decoded_token = check_valid_token(token)
+    return dumps(channel_join_v1(decoded_token['auth_user_id'], channel_id))
+
+@APP.route("/channel/invite/v2", methods=['POST'])
+def channel_invite_v2():
+    request_data = request.get_json()
+    token = request_data['token']
+    channel_id = request_data['channel_id']
+    u_id = request_data['u_id']
+    decoded_token = check_valid_token(token)
+    return dumps(channel_invite_v1(decoded_token['auth_user_id'], channel_id, u_id))
+
 # Channels Routes
 
 @APP.route("/channels/create/v2", methods=['POST'])
@@ -121,6 +138,13 @@ def channels_listall_v2():
     token = request.args.get('token')
     channels = channels_listall_v1(token)
     return dumps(channels)
+
+# Returns all the channels that the caller is a member of
+@APP.route("/channels/list/v2", methods=['GET'])
+def channels_list_v2():
+    token = request.args.get('token')
+    decoded_token = check_valid_token(token)
+    return dumps(channels_list_v1(decoded_token['auth_user_id']))
 
 # Message Routes
 @APP.route("/message/send/v1", methods=['POST'])

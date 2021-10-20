@@ -200,7 +200,7 @@ def channel_join_v1(auth_user_id, channel_id):
 
     # Verify the user ID
     if not verify_user_id(auth_user_id):
-        raise AccessError
+        raise AccessError(description="Bad user id")
 
     store = data_store.get()
 
@@ -213,11 +213,11 @@ def channel_join_v1(auth_user_id, channel_id):
             # Verify user not in channel
             if auth_user_id in channel["all_members"] \
                 or auth_user_id in channel["owner_members"]:
-                raise InputError
+                raise InputError(description="Bad channel id")
 
             # Check if channel public
             if not channel["is_public"] and not is_global_owner(auth_user_id):
-                raise AccessError
+                raise AccessError(description="Channel is private and cannot be joined")
 
             # Mark channel as found
             found_channel_id = True
@@ -225,7 +225,7 @@ def channel_join_v1(auth_user_id, channel_id):
 
     # If channel not found raise InputError
     if not found_channel_id:
-        raise InputError
+        raise InputError(description="Channel does not exist")
 
     # Add user to the target_channel
     target_channel["all_members"].append(auth_user_id)
