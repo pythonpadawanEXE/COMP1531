@@ -385,16 +385,6 @@ def users_all_v1_get():
     return dumps(users_all_v1(decoded_token['auth_user_id']))
 
 # Other routes
-
-@APP.route("/echo", methods=['GET'])
-def echo():
-    data = request.args.get('data')
-    if data == 'echo':
-   	    raise InputError(description='Cannot echo "echo"')
-    return dumps({
-        'data': data
-    })
-
 @APP.route("/get_data", methods=['GET'])
 def get_all_data():
     '''
