@@ -232,8 +232,13 @@ def make_handle(name_first,name_last):
 def is_global_owner(auth_user_id):
     # Returns true if the given user is the global owner (first registered user).
     user_store = data_store.get()["users"]
-    global_owner = user_store[0]
-    return auth_user_id == global_owner["u_id"]
+    for user in user_store:
+        if auth_user_id == user['u_id']:
+            if user['permission_id'] == 1:
+                return True
+            else:
+                return False
+    return False
 
 # def make_token(auth_user_id,session_id):
 #     '''
