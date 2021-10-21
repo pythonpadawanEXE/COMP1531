@@ -53,7 +53,7 @@ def test_invalid_permission_id(setup):
 def test_auth_user_not_global_owner(setup):
     users = setup
     resp = requests.post(config.url + 'admin/userpermission/change/v1', json={'token': users[1]['token'], 'u_id': users[2]['auth_user_id'], 'permission_id': 1})
-    assert resp.status_code == 400
+    assert resp.status_code == 403
 
 def test_valid_promote_and_demote(setup):
     users = setup
