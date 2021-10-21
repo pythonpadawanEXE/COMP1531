@@ -261,7 +261,7 @@ def test_invalid_auth_user_id():
     assert response.status_code == 403
 
 # channel_id is valid and the authorised user is not a member of the channel
-def test_invalid_auth_user_id():
+def test_invalid_token():
     # Create User1
     user1_token = register_user("js@email.com", "ABCDEFGH", "John", "Smith")['token']
 
