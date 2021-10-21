@@ -52,6 +52,9 @@ def message_send_v1(auth_user_id, channel_id, message_input):
 def message_edit_v1(token,message_id,message):
     auth_user_id = check_valid_token(token)['auth_user_id']
     store = data_store.get()
+    if message_id > len(store['messages'])-1:
+        raise InputError("Message_id does not refer to a valid message.")
+
     message_dict = store['messages'][message_id]
     #Does this fall under: message_id does not refer to a valid message within a channel/DM that the authorised user has joined?
     #print(f"Check Token store:{store}")
@@ -96,6 +99,8 @@ def message_edit_v1(token,message_id,message):
 def message_remove_v1(token,message_id):
     auth_user_id = check_valid_token(token)['auth_user_id']
     store = data_store.get()
+    if message_id > len(store['messages'])-1:
+        raise InputError("Message_id does not refer to a valid message.")
 
     message_dict = store['messages'][message_id]
 
@@ -106,11 +111,17 @@ def message_remove_v1(token,message_id):
     channel_id = message_dict['channel_id']
     dm_id = message_dict['dm_id']
     
+    print(f"Check Token store:{store}")
+    print(f"Message dict: {message_dict}, auth_user {auth_user_id}")
     if channel_id is not None:
         # -1 to adjust for starting id of 1 in index 0
         channel = store['channels'][channel_id-1]
         if (dm_id is None and is_user_authorised(auth_user_id, channel_id) == True and message_id not in channel['messages']):
             raise InputError("Message_id does not refer to a valid message within this dm/channel.")
+
+        if (dm_id is None and is_user_authorised(auth_user_id, channel_id) == False):
+            raise AccessError("The user is not authorised in this channel.")
+
         for idx,message_id_ch in enumerate(channel['messages']):
             if message_id_ch ==  message_id:
                 del channel['messages'][idx]
@@ -119,6 +130,10 @@ def message_remove_v1(token,message_id):
         dm = store['dms'][dm_id]
         if (channel_id is None and is_user_in_dm(auth_user_id, dm_id) == True and message_id not in dm['messages']):
             raise InputError("Message_id does not refer to a valid message within this dm/channel.")
+             
+        if (channel_id is None and is_user_in_dm(auth_user_id, dm_id) == False):
+            raise AccessError("The user is not authorised in this dm.")
+            
         for idx,message_id_dm in enumerate(dm['messages']):
             if message_id_dm ==  message_id:
                 del dm['messages'][idx]  
