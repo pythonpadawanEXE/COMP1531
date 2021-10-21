@@ -5,6 +5,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from src import config
 from src.error import InputError
+from src.admin import admin_userpermission_change_v1
 from src.auth import auth_register_v1, auth_login_v1, auth_logout_v1
 from src.channel import channel_messages_v1, channel_details_v1, channel_join_v1, channel_invite_v1
 from src.channels import channels_create_v1, channels_listall_v1, channels_list_v1
@@ -47,6 +48,16 @@ APP.config['TRAP_HTTP_EXCEPTIONS'] = True
 APP.register_error_handler(Exception, defaultHandler)
 
 #### NO NEED TO MODIFY ABOVE THIS POINT, EXCEPT IMPORTS
+
+# Admin Routes
+@APP.route("/admin/userpermission/change/v1", methods=['POST'])
+def post_admin_userpermission_change_v1():
+    request_data = request.get_json()
+    token = request_data['token']
+    u_id = request_data['u_id']
+    permission_id = request_data['permission_id']
+    decoded_token = check_valid_token(token)
+    return dumps(admin_userpermission_change_v1(decoded_token['auth_user_id'], u_id, permission_id))
 
 # Auth Routes
 
