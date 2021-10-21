@@ -7,7 +7,7 @@ def dm_create_v1(auth_user_id, u_ids):
     all_members = [creator_u_id]
     for u_id in u_ids:
         if not verify_user_id(u_id):
-            raise InputError
+            raise InputError(description ="User not exist.")
         all_members.append(u_id)
     store = data_store.get()
     dms = store['dms']
@@ -36,3 +36,19 @@ def dm_list_v1(auth_user_id):
     return{
         'dms' : dms
     }
+
+def dm_leave_v1(token, dm_id)
+    
+    if not is_dm_valid(dm_id):
+        raise InputError(description ="Dm not exist.")
+        
+    store = data_store.get()
+    dm_store= store['dms']
+    
+    if not auth_user_id in dm_store['all_members']:
+        raise AccessError(description ="Could not find user in this dm.")
+    
+    for dm in dm_store:
+        if dm['id'] == dm_id:
+            dm['all_members'].remove(auth_user_id)
+    return {}
