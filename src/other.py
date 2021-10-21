@@ -374,7 +374,7 @@ def is_user_in_dm(auth_user_id, dm_id):
     store = data_store.get()
     dms = store['dms']
     for dm in dms:
-        if dm['dm_id'] == dm_id and auth_user_id in dm['members']:
+        if dm['dm_id'] == dm_id and auth_user_id in dm['all_members']:
             is_user_in_dm = True
     return is_user_in_dm
 

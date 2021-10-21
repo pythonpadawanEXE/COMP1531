@@ -132,7 +132,8 @@ def message_edit_v1(token,message_id,message):
             raise InputError("Message_id does not refer to a valid message within this dm/channel.")
 
     if dm_id is not None:    
-        dm = store['dms'][dm_id]
+        # -1 to adjust for starting id of 1 in index 0
+        dm = store['dms'][dm_id-1]
         if (channel_id is None and is_user_in_dm(auth_user_id, dm_id) == True and message_id not in dm['messages']):
             raise InputError("Message_id does not refer to a valid message within this dm/channel.")
     
@@ -182,7 +183,8 @@ def message_remove_v1(token,message_id):
                 del channel['messages'][idx]
 
     if dm_id is not None:    
-        dm = store['dms'][dm_id]
+        # -1 to adjust for starting id of 1 in index 0
+        dm = store['dms'][dm_id-1]
         if (channel_id is None and is_user_in_dm(auth_user_id, dm_id) == True and message_id not in dm['messages']):
             raise InputError("Message_id does not refer to a valid message within this dm/channel.")
              
