@@ -132,7 +132,7 @@ def channel_messages_v1(auth_user_id, channel_id, start):
             member of the channel.
 
         Return Value:
-            Returns { messages, start, end } on successful completion.
+            Returns { messages, start, end } on successful completion
     """
     store = data_store.get()
     # if len(store['users'])+len(store['channels'])+len(store['passwords']) == 0:
@@ -230,4 +230,54 @@ def channel_join_v1(auth_user_id, channel_id):
     # Add user to the target_channel
     target_channel["all_members"].append(auth_user_id)
     data_store.set(store)
+    return {}
+
+def channel_leave_v1(token, channel_id):
+    """ Given a channel with ID channel_id that the authorised user is a member of,
+    remove them as a member of the channel. Their messages should remain in the channel.
+    If the only channel owner leaves, the channel will remain.
+
+        Arguments:
+            token (str)           - Token of the user who is a member of the channel.
+            channel_id (int)      - Channel ID of the channel the user is a member of.
+
+        Exceptions:
+            InputError  - Occurs when channel_id does not refer to a valid channel.
+
+            AccessError - Occurs when channel_id is valid and the authorised user is
+            not a member of the channel.
+
+        Return Value:
+            Returns { } on successful completion.
+    """
+
+    # channel_id does not refer to a valid channel
+    if not is_channel_valid(channel_id):
+        raise InputError(description="channel_id does not refer to a valid channel")
+
+    # Get the auth_user_id from the token
+    auth_user_id = check_valid_token(token)['auth_user_id']
+
+    # channel_id is valid and the authorised user is not a member of the channel
+    if not is_user_authorised(auth_user_id, channel_id):
+        raise AccessError(description="channel_id is valid and the authorised user is not a member of the channel")
+
+    # Get all channels
+    store = data_store.get()
+    channels = store["channels"]
+
+    # Loop through and find the authorised channel
+    for channel in channels:
+        if (channel_id == channel['id']):
+            # Remove auth_user_id from all_members
+            channel['all_members'].remove(auth_user_id)
+
+            # If user is owner_member
+            if (auth_user_id in channel['owner_members']):
+                # Remove auth_user_id from owner_members
+                channel['owner_members'].remove(auth_user_id)
+
+    # Save the data store
+    data_store.set(store)
+
     return {}
