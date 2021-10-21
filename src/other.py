@@ -384,3 +384,14 @@ def generate_dm_name(all_members):
     name = ', '.join(sorted(name_list))
     return name
     
+def is_dm_valid(dm_id):
+
+    dm_valid = False
+    store = data_store.get()
+    dm_store = store['dms']
+
+    for dm in dm_store:
+        if dm_id == dm['id']:
+            dm_valid = True
+
+    return dm_valid
