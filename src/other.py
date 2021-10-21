@@ -372,15 +372,3 @@ def is_user_in_dm(auth_user_id, dm_id):
         if dm['dm_id'] == dm_id and auth_user_id in dm['members']:
             is_user_in_dm = True
     return is_user_in_dm
-
-def generate_dm_name(all_members):
-    store = data_store.get()
-    users = store['users']
-    name_list = []
-    for member in all_members:
-        for user in users:
-            if member == user['u_id']:
-                name_list.append(user['handle_str'])
-    name = ', '.join(sorted(name_list))
-    return name
-    
