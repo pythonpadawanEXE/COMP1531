@@ -10,6 +10,10 @@ def message_send_v1(auth_user_id, channel_id, message_input):
     its own unique ID, i.e. no messages should share an ID with another 
     message, even if that other message is in a different channel.
     '''
+    #order errors should be thrown?
+    # if Channel_id > len(store['channels']):
+    #     raise InputError("Channel ID is not valid or does not exist.")
+
     len_msg = len(message_input)
     if len_msg < 1 or len_msg > 1000:
         raise InputError("Invalid Length of Message.")
@@ -142,3 +146,5 @@ def message_remove_v1(token,message_id):
     data_store.set(store)
     return {}
     
+def message_senddm_v1(token,dm_id,message):
+    pass
