@@ -33,8 +33,6 @@ def admin_user_remove_v1(auth_user_id, u_id):
     # Purge user from dms
     # dms_store = store['dms']
     # for dm in dms_store:
-    #     if dm['u_id'] == u_id or dm['owner'] == u_id:
-    #         dm['message'] = "Removed user"
     #     dm_leave_v1(dm)
 
     # Purge user's message contents
@@ -42,6 +40,8 @@ def admin_user_remove_v1(auth_user_id, u_id):
     for message in messages_store:
         if message['u_id'] == u_id:
             message['message'] = "Removed user"
+    
+    data_store.set(store)
 
     return {}
 
