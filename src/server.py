@@ -5,6 +5,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from src import config
 from src.error import InputError
+from src.admin import admin_userpermission_change_v1
 from src.auth import auth_register_v1, auth_login_v1, auth_logout_v1
 from src.channel import channel_messages_v1, channel_details_v1, channel_join_v1, channel_invite_v1
 from src.channels import channels_create_v1, channels_listall_v1, channels_list_v1
@@ -13,6 +14,7 @@ from src.data_store import data_store
 from src.message import message_send_v1,message_remove_v1,message_edit_v1
 from src.user import user_profile_v1
 from src.users import users_all_v1
+from src.dm import dm_create_v1
 import pickle
 
 try:
@@ -46,6 +48,16 @@ APP.config['TRAP_HTTP_EXCEPTIONS'] = True
 APP.register_error_handler(Exception, defaultHandler)
 
 #### NO NEED TO MODIFY ABOVE THIS POINT, EXCEPT IMPORTS
+
+# Admin Routes
+@APP.route("/admin/userpermission/change/v1", methods=['POST'])
+def post_admin_userpermission_change_v1():
+    request_data = request.get_json()
+    token = request_data['token']
+    u_id = request_data['u_id']
+    permission_id = request_data['permission_id']
+    decoded_token = check_valid_token(token)
+    return dumps(admin_userpermission_change_v1(decoded_token['auth_user_id'], u_id, permission_id))
 
 # Auth Routes
 
@@ -305,7 +317,14 @@ def delete_message_remove():
     data_store.save()
     return dumps({})
 # Dm Routes
-
+@APP.route("/dm/create/v1", methods=['POST'])
+def dm_create_v1_post():
+    request_data = request.get_json()
+    token = request_data['token']
+    u_ids = request_data['u_ids']
+    decoded_token = check_valid_token(token)
+    return dumps(dm_create_v1(decoded_token['auth_user_id'],u_ids))
+    
 # User Routes
 @APP.route("/user/profile/v1", methods=['get'])
 def user_profile_v1_get():
