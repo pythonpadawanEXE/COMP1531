@@ -102,7 +102,6 @@ def test_individual_public():
     # Create a user2
     user2 = register_user("jemma@email.com", "1234578sR", "Jemma", "Smith")
     user2_token = user2['token']
-    user2_uid = user2['auth_user_id']
     
     # User creates a public channel
     channel_id = channels_create(user1_token, "Chan 1", True)['channel_id']
@@ -161,7 +160,6 @@ def test_multiple_users_owner():
     # Create a user2
     user2 = register_user("jemma@email.com", "123456789sR", "Jemma", "Smith")
     user2_token = user2['token']
-    user2_uid = user2['auth_user_id']
     
     # User1 creates a public channel
     channel_id = channels_create(user1_token, "Chan 1", True)['channel_id']
