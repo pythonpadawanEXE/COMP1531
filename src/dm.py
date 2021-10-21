@@ -24,3 +24,15 @@ def dm_create_v1(auth_user_id, u_ids):
     data_store.set(store)
     return{'dm_id': new_dm['dm_id']}
 
+def dm_list_v1(auth_user_id):
+    store = data_store.get()
+    dm_store= store['dms']
+    dms = []
+
+    for dm in dm_store:
+        if auth_user_id in dm['all_members']:
+            dms.append({'dm_id' : dm['dm_id'], 'name' : dm['name']})
+
+    return{
+        'dms' : dms
+    }
