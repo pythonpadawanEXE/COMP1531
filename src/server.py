@@ -8,9 +8,9 @@ from src.error import InputError
 from src.auth import auth_register_v1, auth_login_v1, auth_logout_v1
 from src.channel import channel_messages_v1, channel_details_v1, channel_join_v1, channel_invite_v1
 from src.channels import channels_create_v1, channels_listall_v1, channels_list_v1
-from src.other import check_valid_token, clear_v1
+from src.other import check_valid_token, clear_v1,return_token
 from src.data_store import data_store
-from src.message import message_send_v1
+from src.message import message_send_v1,message_remove_v1,message_edit_v1
 from src.user import user_profile_v1
 from src.users import users_all_v1
 import pickle
@@ -52,6 +52,29 @@ APP.register_error_handler(Exception, defaultHandler)
 # Registers a new user from given JSON data in Body
 @APP.route("/auth/register/v2", methods=['POST'])
 def post_auth_register():
+    '''
+    Given a registered user's email and password, returns their `token` value.
+
+    Arguments:
+        email (string)      - Unique email
+        password (string)   - Password relevant to email/password combination
+        name_first (string) - First name of user.
+        name_last (string)  - Last name of user
+
+    Exceptions:
+        Input Error:
+        - Email entered is not a valid email. 
+        - Email address is already being used by another user.
+        - Length of password is less than 6 characters.
+        - Length of name_first is not between 1 and 50 characters inclusive.
+        - Length of name_last is not between 1 and 50 characters inclusive.
+
+    Return Value:
+    {   
+        token (string)      - Unique encrypted concat of auth_user_id and session_id
+        auth_user_id (int)  - Unique authenticated Id of User.
+    }
+    '''
     request_data = request.get_json()
     print(request_data)
     auth_result = auth_register_v1(
@@ -60,24 +83,68 @@ def post_auth_register():
         request_data['name_first'],
         request_data['name_last']
     )
+    auth_user_id = auth_result['auth_user_id']
+    token = return_token(auth_user_id)
     data_store.save()
-    return dumps(auth_result)
+    return dumps({
+        'token':token,
+        'auth_user_id' : auth_user_id
+    })
 
 # Login an account through a post request
 @APP.route("/auth/login/v2", methods=['POST'])
 def post_auth_login():
+    '''
+    Given a registered user's email and password, returns their `token` value.
+
+    Arguments:
+        email (string)   - Unique email
+        password (string) - Password relevant to email/password combination
+
+    Exceptions:
+        Input Error:
+        - email entered does not belong to a user
+        - password is not correct
+
+    Return Value:
+    {   
+        token (string)      - Unique encrypted concat of auth_user_id and session_id
+        auth_user_id (int)  - Unique authenticated Id of User.
+    }
+    '''
+
     request_data = request.get_json()
     auth_result = auth_login_v1(
         request_data['email'],
         request_data['password']
     )
+    auth_user_id = auth_result['auth_user_id']
+    token = return_token(auth_user_id)
     data_store.save()
-    return dumps(auth_result)
+    return dumps({
+        'token':token,
+        'auth_user_id' : auth_user_id
+    })
 
 #logout an account through a post request
 @APP.route("/auth/logout/v1", methods=['POST'])
 def post_auth_logout():
+    '''
+    Given an active token, invalidates the token to log the user out.
+    Does this by removing session id from user sessions list for user specified.
+    Arguments:
+        token (string)   - Unique encrypted concat of auth_user_id and session_id
+
+
+    Exceptions:
+        Access Error:
+        - Thrown when the token passed in is invalid
+
+    Return Value:
+        {}
+    '''
     request_data = request.get_json()
+    _ = check_valid_token(request_data['token'])
     _ = auth_logout_v1(
         request_data['token']
     )
@@ -95,11 +162,42 @@ def channel_details_v2():
 
 @APP.route("/channel/messages/v2", methods=['GET'])
 def get_channel_messages():
+    '''
+    Given a channel with ID channel_id that the authorised user
+    is a member of, return up to 50 messages between index "start" 
+    and "start + 50". Message with index 0 is the most recent message 
+    in the channel. This function returns a new index "end" which is 
+    the value of "start + 50", or, if this function has returned the 
+    least recent messages in the channel, returns -1 in "end" to indicate 
+    there are no more messages to load after this return.
+
+    Arguments:
+        token (string)   - Unique encrypted concat of auth_user_id and session_id
+        channel_id (int) - Unique ID of Channel
+        start (int)      - Start Index of Message
+
+    Exceptions:
+        Input Error:
+        - channel_id does not refer to a valid channel
+        - start is greater than the total number of messages in the channel
+        Access Error:
+        - channel_id is valid and the authorised user is not a member of the channel
+        - Thrown when the token passed in is invalid
+
+
+    Return Value:
+    {   
+        messages (list of strings) - on Successful completion.
+        start    (int) - Start Index of Message
+        end      (int) - End index of Message either start + 50 or -1
+    }
+    '''
     token = request.args.get('token')
+    decoded_token = check_valid_token(token)
     channel_id = request.args.get('channel_id')
     start = request.args.get('start')
     channel_messages = channel_messages_v1(
-        token,
+        decoded_token['auth_user_id'],
         channel_id,
         start
     )
@@ -151,15 +249,61 @@ def channels_list_v2():
 # Message Routes
 @APP.route("/message/send/v1", methods=['POST'])
 def post_message_send():
+    '''
+    Send a message from the authorised user to the 
+    channel specified by channel_id. Note: Each message 
+    should have its own unique ID, i.e. no messages should 
+    share an ID with another message, even if that other 
+    message is in a different channel.
+    Arguments:
+        token (string)   - Unique encrypted concat of auth_user_id and session_id
+        channel_id (int) - Unique ID of Channel
+        message (string) - Message that will be sent to channel.
+
+    Exceptions:
+        Input Error:
+        - channel_id does not refer to a valid channel
+        - length of message is less than 1 or over 1000 characters
+        Access Error:
+        - channel_id is valid and the authorised user is not a member of the channel
+        - Thrown when the token passed in is invalid
+
+
+    Return Value:
+    {   
+        message_id (int) - Unique message_Id in the unique channel.
+    }
+    '''
     request_data = request.get_json()
+    decoded_token = check_valid_token(request_data['token'])
     message_id = message_send_v1(
-        request_data['token'],
+        decoded_token['auth_user_id'],
         request_data['channel_id'],
         request_data['message']
     )
     data_store.save()
     return dumps(message_id)
 
+@APP.route("/message/edit/v1", methods=['PUT'])
+def put_message_edit():
+    request_data = request.get_json()
+    _ = message_edit_v1(
+        request_data['token'],
+        request_data['message_id'],
+        request_data['message']
+        )
+    data_store.save()
+    return dumps({})
+
+@APP.route("/message/remove/v1", methods=['DELETE'])
+def delete_message_remove():
+    request_data = request.get_json()
+    _ = message_remove_v1(
+        request_data['token'],
+        request_data['message_id'],
+        )
+    data_store.save()
+    return dumps({})
 # Dm Routes
 
 # User Routes
@@ -190,11 +334,35 @@ def echo():
 
 @APP.route("/get_data", methods=['GET'])
 def get_all_data():
+    '''
+    Returns latest memory state of data_store object.
+
+    Arguments:
+        None
+
+    Exceptions:
+        None
+
+    Return Value:
+        data_store (dict)
+    '''
     return dumps(data_store.get())
 
 # Reset database through clearing the dictionaries
 @APP.route("/clear/v1", methods=['DELETE'])
 def delete_clear():
+    '''
+    Returns latest memory state of data_store object.
+
+    Arguments:
+        None
+
+    Exceptions:
+        None
+
+    Return Value:
+        {}
+    '''
     clear_v1()
     return dumps({})
 
