@@ -11,9 +11,9 @@ import re
 from src.data_store import data_store
 from src.error import InputError,AccessError
 from src.other import check_email_validity, check_password_validity, \
-    search_email_password_match, search_duplicate_email, make_handle, make_token, return_token,hash,generate_new_session_id,\
+    search_email_password_match, search_duplicate_email, make_handle,return_token,hash,generate_new_session_id,\
     decode_jwt
-
+    #make_token
 
 def auth_login_v1(email, password):
     """ Checks if valid email password combination and returns auth_user_id.
@@ -30,7 +30,6 @@ def auth_login_v1(email, password):
 
     Return Value:
         { auth_user_id (int),
-          token        (string),
          }                          - Upon successful completion.
         
     """
@@ -38,8 +37,7 @@ def auth_login_v1(email, password):
     check_password_validity(password)
     auth_dict = search_email_password_match(email,password)
     return {
-        'token' : return_token(email,password),
-        'auth_user_id' : auth_dict['auth_user_id'],
+        'auth_user_id' : auth_dict['auth_user_id']
     }
 
 def auth_register_v1(email, password, name_first, name_last):
@@ -84,15 +82,18 @@ def auth_register_v1(email, password, name_first, name_last):
     store = data_store.get()
     users = store['users']
     passwords = store['passwords']
-    u_id = len(users)    
-    session_id = generate_new_session_id()
+    u_id = len(users)
+    permission_id = 2
+    if len(users) == 0:
+        permission_id = 1
     users.append({
             'u_id': u_id,
             'email' : email,
             'name_first' : name_first,
             'name_last'  : name_last,
             'handle_str' : make_handle(name_first,name_last),
-            'sessions' : [session_id]
+            'permission_id': permission_id,
+            'sessions' : []
         })
     passwords.append({
             'u_id': u_id,
@@ -101,7 +102,6 @@ def auth_register_v1(email, password, name_first, name_last):
     data_store.set(store)
 
     return {
-        'token': make_token(u_id,session_id),
         'auth_user_id': u_id,
     }
 
