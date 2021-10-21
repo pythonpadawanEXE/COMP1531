@@ -1,10 +1,26 @@
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import verify_user_id
+from src.other import is_global_owner, verify_user_id
+
+def get_global_owners():
+    store = data_store.get()
+    users_store = store['users']
+    global_owners = []
+    for user in users_store:
+        if user['permission_id'] == 1:
+            global_owners.append(user)
+    return global_owners
 
 def admin_user_remove_v1(auth_user_id, u_id):
     if not verify_user_id(auth_user_id):
         raise AccessError(description="User ID does not exist.")
+
+    if not is_global_owner(auth_user_id):
+        raise AccessError(description="The authorised user is not a global owner")
+
+    global_owners = get_global_owners()
+    if len(global_owners) == 1 and global_owners[0]['u_id'] == u_id:
+        raise InputError(description="u_id refers to a user who is the only global owner")
     
     found = False
     target_user = {}
