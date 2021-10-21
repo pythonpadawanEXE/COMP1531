@@ -352,9 +352,14 @@ def decode_jwt(encoded_jwt):
         encoded_jwt ([string]): The encoded JWT as a string
 
     Returns:
-        Object: An object storing the body of the JWT encoded string
+        Object: An object storing the body of the decoded JWT dict
     """
-    return jwt.decode(encoded_jwt, SECRET, algorithms=['HS256'])
+    try :
+        decoded_token = jwt.decode(encoded_jwt, SECRET, algorithms=['HS256'])
+    except Exception as decode_problem:
+        raise AccessError("Invalid Token") from decode_problem
+
+    return decoded_token
 
 def is_user_in_dm(auth_user_id, dm_id):
     """
