@@ -94,49 +94,33 @@ def channel_leave(token, channel_id):
 
 # Public channel with one user who leaves, user is also owner
 def test_individual_public():
-    # Create a user
+    # Create a user1
     user1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
     user1_token = user1['token']
     user1_uid = user1['auth_user_id']
+
+    # Create a user2
+    user2 = register_user("jemma@email.com", "1234578sR", "Jemma", "Smith")
+    user2_token = user2['token']
+    user2_uid = user2['auth_user_id']
     
     # User creates a public channel
     channel_id = channels_create(user1_token, "Chan 1", True)['channel_id']
+
+    # User 2 join channel
+    channel_join(user2_token, channel_id)
 
     # User leaves the channel
     channel_leave(user1_token, channel_id)
 
     # Check if user isnt in channel using channel details
-    details = channel_details(user1_token, channel_id)
+    details = channel_details(user2_token, channel_id)
 
     # Loop through the channel details and find if auth_user_id is in all_members
     for user in details['all_members']:
         assert(user1_uid != user['u_id'])
 
     # Loop through the channel details and find if auth_user_id is not in owner_members
-    for user in details['owner_members']:
-        assert(user1_uid != user['u_id'])
-
-# Private channel with one user who leaves, user is also owner
-def test_individual_private():
-    # Create a user
-    user1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
-    user1_token = user1['token']
-    user1_uid = user1['auth_user_id']
-    
-    # User creates a private channel
-    channel_id = channels_create(user1_token, "Chan 1", False)['channel_id']
-
-    # User leaves the channel
-    channel_leave(user1_token, channel_id)
-
-    # Check if user isnt in channel using channel details
-    details = channel_details(user1_token, channel_id)
-
-    # Loop through the channel details and find if user1_uid is in all_members
-    for user in details['all_members']:
-        assert(user1_uid != user['u_id'])
-
-    # Loop through the channel details and find if user1_uid is not in owner_members
     for user in details['owner_members']:
         assert(user1_uid != user['u_id'])
 
@@ -214,7 +198,6 @@ def test_multiple_users_all():
     # Create a user3
     user3 = register_user("jasoon@email.com", "123489sR", "Jason", "Smith")
     user3_token = user3['token']
-    user3_uid = user3['auth_user_id']
     
     # User1 creates a public channel
     channel_id = channels_create(user1_token, "Chan 1", True)['channel_id']
@@ -259,7 +242,7 @@ def test_invalid_user():
     channel_id = channels_create(user1_token, "Chan 1", True)['channel_id']
 
     response = requests.post(f"{BASE_URL}channel/leave/v1", json={
-        'token' : 9999,
+        'token' : "9999",
         'channel_id' : channel_id,
     })
     assert response.status_code == 403

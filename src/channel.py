@@ -102,8 +102,8 @@ def channel_details_v1(token, channel_id):
     if not is_user_authorised(auth_user_id, channel_id):
         raise AccessError(description="channel_id is valid and the authorised user is not a member of the channel")
 
-    # auth_user_id of the channel owner of ID channel_id
-    channel_owner_id = get_channel_owner(channel_id)
+    # list of auth_user_id of the channel owner of ID channel_id
+    channel_owner_id_list = get_channel_owner(channel_id)
 
     # List of auth_user_id of all the members in the channel of ID channel_id
     all_members_id_list = get_all_user_id_channel(channel_id)
@@ -112,7 +112,7 @@ def channel_details_v1(token, channel_id):
     return {
         'name': get_channel_name(channel_id),
         'is_public': is_channel_public(channel_id),
-        'owner_members': user_details(channel_owner_id),
+        'owner_members': user_details(channel_owner_id_list),
         'all_members': get_all_members(all_members_id_list),
     }
 
