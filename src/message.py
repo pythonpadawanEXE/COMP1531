@@ -197,5 +197,3 @@ def message_remove_v1(token,message_id):
     data_store.set(store)
     return {}
     
-def message_senddm_v1(token,dm_id,message):
-    pass
