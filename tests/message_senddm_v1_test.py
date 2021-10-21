@@ -38,7 +38,7 @@ def register_valid_user(email = 'validemail@gmail.com',password = '123abc!@#',na
 def create_dm_2():
     response_data1 = register_valid_user()
     response_data2 = register_valid_user(email='valid@gmail.com')
-    u_ids = [decode_jwt(response_data2)['auth_user_id']]
+    u_ids = [response_data2['auth_user_id']]
     response = requests.post(f"{BASE_URL}/dm/create/v1",json={
         'token' : response_data1['token'],
         'u_ids' : u_ids
@@ -51,7 +51,7 @@ def create_dm_3():
     response_data1 = register_valid_user()
     response_data2 = register_valid_user(email='valid@gmail.com')
     response_data3 = register_valid_user(email='valid1@gmail.com')
-    u_ids = [decode_jwt(response_data2)['auth_user_id'],decode_jwt(response_data3)['auth_user_id']]
+    u_ids = [response_data2['auth_user_id'],response_data3['auth_user_id']]
     response = requests.post(f"{BASE_URL}/dm/create/v1",json={
         'token' : response_data1['token'],
         'u_ids' : u_ids
@@ -81,7 +81,6 @@ def test_send_dms_2_endpoint_dm_maker(create_dm_2):
     for i in range(5):
         Message = "message" + str(i)
         _ , status_code =  send_msg(token,dm_data['dm_id'],Message)
-        message_ids.append(response.json()['message_id'])
         assert status_code == 200
     
 def test_send_dms_3_endpoint_dm_maker(create_dm_3):
@@ -90,42 +89,49 @@ def test_send_dms_3_endpoint_dm_maker(create_dm_3):
 
     for i in range(5):
         Message = "message" + str(i)
-        msg_data , status_code =  send_msg(token,dm_data['dm_id'],Message)
+        _ , status_code =  send_msg(token,dm_data['dm_id'],Message)
         assert status_code == 200
 
 '''
 Input Error
 '''
 def test_invalid_dm_id(create_dm_3):
-        dm_data, status_code,_,token = create_dm_3
+    _, status_code,_,token = create_dm_3
     assert status_code == 200
 
     for i in range(5):
         Message = "message" + str(i)
-        msg_data , status_code =  send_msg(token,10,Message)
+        _ , status_code =  send_msg(token,10,Message)
         assert status_code == 400
 
-def test_invalid_long_msg_(create_dm_3):
-        dm_data, status_code,_,token = create_dm_3
+def test_invalid_dm_long_msg_(create_dm_3):
+    _, status_code,_,token = create_dm_3
     assert status_code == 200
     long_msg = "l"
-    for i in range(1010):
+    for _ in range(1010):
         long_msg = long_msg + "o"
     long_msg = long_msg + "ng"
-    msg_data , status_code =  send_msg(token,10,long_msg)
+    _ , status_code =  send_msg(token,10,long_msg)
+    assert status_code == 400
+
+def test_invalid_dm_short_msg_(create_dm_3):
+    _, status_code,_,token = create_dm_3
+    assert status_code == 200
+    
+    _ , status_code =  send_msg(token,10,"")
     assert status_code == 400
 
 '''
 Access Error
 '''
 def test_send_dms_3_endpoint_unauthorised(create_dm_3):
-    dm_data, status_code,_,token = create_dm_3
+    dm_data, status_code,_,_ = create_dm_3
     assert status_code == 200
     response_data = register_valid_user(email='unauthorised@gmail.com')
     for i in range(5):
         Message = "message" + str(i)
-        msg_data , status_code =  send_msg(response_data['token'],dm_data['dm_id'],Message)
-        assert status_code == 200
+        _ , status_code =  send_msg(response_data['token'],dm_data['dm_id'],Message)
+        assert status_code == 403
 
 
 

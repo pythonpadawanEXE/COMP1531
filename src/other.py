@@ -356,8 +356,8 @@ def decode_jwt(encoded_jwt):
     """
     try :
         decoded_token = jwt.decode(encoded_jwt, SECRET, algorithms=['HS256'])
-    except Exception:
-        raise AccessError("Invalid Token")
+    except Exception as decode_problem:
+        raise AccessError("Invalid Token") from decode_problem
 
     return decoded_token
 

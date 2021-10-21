@@ -3,6 +3,57 @@ from src.error import InputError,AccessError
 from src.other import check_valid_token,is_user_in_dm,is_user_authorised
 import datetime
 
+def message_send_dm_v1(auth_user_id, dm_id, message_input):
+    '''
+    Send a message from the authorised user to the 
+    channel specified by channel_id. Note: Each message should have 
+    its own unique ID, i.e. no messages should share an ID with another 
+    message, even if that other message is in a different channel.
+    '''
+    #order errors should be thrown?
+    # if Channel_id > len(store['channels']):
+    #     raise InputError("Channel ID is not valid or does not exist.")
+
+    len_msg = len(message_input)
+    if len_msg < 1 or len_msg > 1000:
+        raise InputError("Invalid length of message.")
+        
+    store = data_store.get()
+    dms = store['dms']
+    store_messages = store['messages']
+    messages = None
+    dm_exists = False
+    for dm in dms:
+        if dm['dm_id'] == dm_id:
+            dm_exists = True
+            if auth_user_id not in dm["all_members"]:
+                raise AccessError("User is not an owner or member of this dm.")
+            
+            # break
+
+    if dm_exists == False:
+        raise InputError("dm_id is not valid or does not exist.")
+
+    messages = dm['messages']
+    # for message in messages:
+    #     message['message_id'] += 1
+
+    message_id = len(store_messages)
+    new_message ={
+            'dm_id': dm_id,
+            'channel_id':  None,
+            'message_id': message_id,
+            'u_id': auth_user_id,
+            'message': message_input,
+            'time_created': int(datetime.datetime.utcnow()
+                            .replace(tzinfo= datetime.timezone.utc).timestamp()),
+            }
+    messages.insert(0,message_id)
+    store_messages.append(new_message)
+    data_store.set(store)
+    return {'message_id': message_id}
+
+
 def message_send_v1(auth_user_id, channel_id, message_input):
     '''
     Send a message from the authorised user to the 
