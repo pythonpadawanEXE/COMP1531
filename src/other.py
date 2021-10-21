@@ -62,23 +62,23 @@ def is_channel_public(channel_id):
         if chan['id'] == channel_id:
             return chan['is_public']
 
-# Returns the auth_user_id of the channel owner with ID channel_id
+# Returns a list of all the auth_user_id's of the channel owner with ID channel_id
 def get_channel_owner(channel_id):
     store = data_store.get()
     channel_store = store['channels']
 
     for chan in channel_store:
         if chan['id'] == channel_id:
-            return chan['owner_members'][0]
+            return chan['owner_members']
 
 # Reurns a list containing details of the owner members
-def user_details(auth_user_id):
+def user_details(auth_user_id_list):
     user_details_list = []
     store = data_store.get()
     user_store = store['users']
 
     for user in user_store:
-        if user['u_id'] == auth_user_id:
+        if user['u_id'] in auth_user_id_list:
             user_details_list.append(user)
     return user_details_list
 
