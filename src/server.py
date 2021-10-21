@@ -14,7 +14,6 @@ from src.data_store import data_store
 from src.message import message_send_v1,message_remove_v1,message_edit_v1
 from src.user import user_profile_v1
 from src.users import users_all_v1
-from src.dm import dm_create_v1
 import pickle
 
 try:
@@ -317,14 +316,7 @@ def delete_message_remove():
     data_store.save()
     return dumps({})
 # Dm Routes
-@APP.route("/dm/create/v1", methods=['POST'])
-def dm_create_v1_post():
-    request_data = request.get_json()
-    token = request_data['token']
-    u_ids = request_data['u_ids']
-    decoded_token = check_valid_token(token)
-    return dumps(dm_create_v1(decoded_token['auth_user_id'],u_ids))
-    
+
 # User Routes
 @APP.route("/user/profile/v1", methods=['get'])
 def user_profile_v1_get():
