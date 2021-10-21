@@ -82,13 +82,17 @@ def auth_register_v1(email, password, name_first, name_last):
     store = data_store.get()
     users = store['users']
     passwords = store['passwords']
-    u_id = len(users)    
+    u_id = len(users)
+    permission_id = 2
+    if len(users) == 0:
+        permission_id = 1
     users.append({
             'u_id': u_id,
             'email' : email,
             'name_first' : name_first,
             'name_last'  : name_last,
             'handle_str' : make_handle(name_first,name_last),
+            'permission_id': permission_id,
             'sessions' : []
         })
     passwords.append({
