@@ -165,7 +165,7 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     end = start + 50
     return_messages = []
     store_messages = store['messages']
-    for idx,message in enumerate(messages):
+    for idx,_ in enumerate(messages):
         if start <= idx < end:
             return_messages.append(store_messages[messages[idx]]['message'])
 

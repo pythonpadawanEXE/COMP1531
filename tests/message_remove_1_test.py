@@ -100,7 +100,7 @@ Valid Input
 '''
 
 def test_channel_valid_message_delete_endpoint(create_messages_endpoint):
-    new_channel,token,message_ids =   create_messages_endpoint
+    _,token,message_ids =   create_messages_endpoint
     data,status_code =   remove_message_endpoint(token,message_ids[0])
     assert status_code == 200
     assert data == {}
@@ -111,12 +111,12 @@ def test_dm_valid_message_delete_endpoint():
 #Custom Input Error?
 #If the new message is an empty string, the message is deleted.
 def test_channel_double_delete_message_endpoint(create_messages_endpoint):
-    new_channel,token,message_ids =   create_messages_endpoint
+    _,token,message_ids =   create_messages_endpoint
     data,status_code = remove_message_endpoint(token,message_ids[0])
     assert status_code == 200
     assert data == {}
     #test message is deleted
-    data,status_code =  remove_message_endpoint(token,message_ids[0])
+    _,status_code =  remove_message_endpoint(token,message_ids[0])
     assert status_code == 400
 
 def test_dm__double_delete_message_endpoint():
@@ -131,22 +131,22 @@ Input Error
 
 #message_id does not refer to a valid message within a channel/DM that the authorised user has joined
 def test_channel_invalid_delete_message_id_endpoint(create_messages_endpoint):
-    new_channel,token,message_ids =   create_messages_endpoint
-    data,status_code = remove_message_endpoint(token,10,"NEw Msg")
+    _,token,_ =   create_messages_endpoint
+    _,status_code = remove_message_endpoint(token,10)
     assert status_code == 400
 
-def test_test_invalid_delete_message_id_endpoint():
+def test_dm_invalid_delete_message_id_endpoint():
     pass
 
 '''
 Access Error
 '''
 #editor is not an owner of channel or DM and not the maker of the message
-def test_channel_invalid_delete_message_id_endpoint(create_messages_endpoint):
-    new_channel,token,message_ids =   create_messages_endpoint
+def test_channel_unauthorised_delete_message_id_endpoint(create_messages_endpoint):
+    _,_,message_ids =   create_messages_endpoint
     data = register_valid_user(email = "newemail@gmail.com")
-    data,status_code =   remove_message_endpoint(data['token'],message_ids[0],"NEw Msg")
+    _,status_code =   remove_message_endpoint(data['token'],message_ids[0])
     assert status_code == 403
 
-def test_channel_invalid_delete_message_id_endpoint():
+def test_dm_unauthorised_delete_message_id_endpoint():
     pass

@@ -102,7 +102,7 @@ Input Error
 #channel_id does not refer to a valid channel
 def test_invalid_channel_endppoint(pub_chan_endpoint):
     token, name, is_public = pub_chan_endpoint
-    new_channel = create_channel_endpoint(token,name,is_public)
+    _ = create_channel_endpoint(token,name,is_public)
     _,status_code = create_message_endpoint(token,4,"Howdy Partner!")
     assert status_code == 400
 

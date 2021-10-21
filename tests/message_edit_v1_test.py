@@ -101,7 +101,7 @@ Valid Input
 '''
 
 def test_channel_valid_message_edit_endpoint(create_messages_endpoint):
-    new_channel,token,message_ids =   create_messages_endpoint
+    _,token,message_ids =   create_messages_endpoint
     data,status_code = edit_message_endpoint(token,message_ids[0],"Modified message.")
     assert status_code == 200
     assert data == {}
@@ -109,7 +109,7 @@ def test_channel_valid_message_edit_endpoint(create_messages_endpoint):
 
 #If the new message is an empty string, the message is deleted.
 def test_channel_delete_short_message_endpoint(create_messages_endpoint):
-    new_channel,token,message_ids =   create_messages_endpoint
+    _,token,message_ids =   create_messages_endpoint
     data,status_code =   edit_message_endpoint(token,message_ids[0],"")
     assert status_code == 200
     assert data == {}
@@ -127,8 +127,8 @@ for i in range(1010):
 long_msg = long_msg + "ng"
 #length of message is over 1000 characters
 def test_channel_invalid_long_message_endpoint(create_messages_endpoint):
-    new_channel,token,message_ids =   create_messages_endpoint
-    data,status_code =   edit_message_endpoint(token,message_ids[0],long_msg)
+    _,token,message_ids =   create_messages_endpoint
+    _,status_code =   edit_message_endpoint(token,message_ids[0],long_msg)
     assert status_code == 400
 
 def test_dm_invalid_long_message_endpoint():
@@ -136,23 +136,23 @@ def test_dm_invalid_long_message_endpoint():
 
 #message_id does not refer to a valid message within a channel/DM that the authorised user has joined
 def test_channel_invalid_message_id_endpoint(create_messages_endpoint):
-    new_channel,token,message_ids = create_messages_endpoint
-    data,status_code = edit_message_endpoint(token,10,"NEw Msg")
+    _,token,_ = create_messages_endpoint
+    _,status_code = edit_message_endpoint(token,10,"NEw Msg")
     assert status_code == 400
 
-def test_dm_invalid_message_id_endpoint():
+def test_dm_invalid_edit_message_id_endpoint():
     pass
     
 '''
 Access Error
 '''
 #editor is not an owner of channel or DM and not the maker of the message
-def test_channel_invalid_message_id_endpoint(create_messages_endpoint):
-    new_channel,token,message_ids =   create_messages_endpoint
+def test_channel_unauthorised_edit_message_id_endpoint(create_messages_endpoint):
+    _,_,message_ids =   create_messages_endpoint
     data = register_valid_user(email = "newemail@gmail.com")
-    data,status_code =   edit_message_endpoint(data['token'],message_ids[0],"NEw Msg")
+    _,status_code =   edit_message_endpoint(data['token'],message_ids[0],"NEw Msg")
     assert status_code == 403
 
-def test_dm_invalid_message_id_endpoint():
+def test_dm_unauthroised_edit_message_id_endpoint():
     pass
 
