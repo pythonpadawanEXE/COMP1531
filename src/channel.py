@@ -325,3 +325,18 @@ def channel_addowner_v1(token, channel_id, u_id):
     # channel_id is valid and the authorised user does not have owner permissions in the channel
     if (auth_user_id not in get_channel_owner(channel_id)):
         raise AccessError(description="channel_id is valid and the authorised user does not have owner permissions in the channel")
+
+    # Get all channels
+    store = data_store.get()
+    channels = store["channels"]
+
+    # Loop through and find the authorised channel
+    for channel in channels:
+        if (channel_id == channel['id']):
+            # Make user with user id u_id an owner of the channel
+            channel['owner_members'].append(u_id)
+    
+    # Save the data store
+    data_store.set(store)
+
+    return {}   
