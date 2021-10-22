@@ -389,3 +389,50 @@ def generate_dm_name(all_members):
     name = ', '.join(sorted(name_list))
     return name
     
+def is_dm_valid(dm_id):
+
+    dm_valid = False
+    store = data_store.get()
+    dm_store = store['dms']
+
+    for dm in dm_store:
+        if dm['dm_id'] == dm_id:
+            dm_valid = True
+
+    return dm_valid
+
+def is_user_authorised_dm(auth_user_id, dm_id):
+    is_authorised = False
+    store = data_store.get()
+    dm_store = store['dms']
+    print(f"dm_store_authroised {dm_store}")
+    print(f"auth_user_id {auth_user_id} dm_id {dm_id}")
+    for dm in dm_store:
+        if auth_user_id in dm['all_members']:
+            is_authorised = True
+
+    return is_authorised
+
+def get_all_user_id_dm(dm_id):
+    store = data_store.get()
+    dm_store = store['dms']
+
+    for dm in dm_store:
+        if dm['dm_id'] == dm_id:
+            return dm['all_members']
+
+def get_dm_name(dm_id):
+    store = data_store.get()
+    dm_store = store['dms']
+
+    for dm in dm_store:
+        if dm['dm_id'] == dm_id:
+            return dm['name']
+
+def get_dm_owner(dm_id):
+    store = data_store.get()
+    dm_store = store['dms']
+
+    for dm in dm_store:
+        if dm['dm_id'] == dm_id:
+            return dm['owner']
