@@ -66,12 +66,45 @@ def update_name(token, name_first, name_last):
 
 # Update the authorised user's first and last name
 def update_user_first_last_name():
-    pass
+    # New user
+    user = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
+    token = user['token']
+    auth_user_id = user['auth_user_id']
+
+    # Update users name
+    update_name(token, "Jemma", "Johnson")
+
+    # Check if users name has been changed
+    user_details = user_profile_details(token, auth_user_id)
+    assert(user_details['name_first'] == "Jemma")
+    assert(user_details['name_last'] == "Johnson")
 
 # length of name_first is not between 1 and 50 characters inclusive
 def name_first_invalid_length():
-    pass
+    # New user
+    user = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
+    token = user['token']
+
+    # Update users name
+    response = requests.put(f"{BASE_URL}user/profile/setname/v1", json={
+        'token' : token,
+        'name_first' : "Jemmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        'name_last' : "Johnson"
+    })
+
+    assert response.status_code == 400
 
 # length of name_last is not between 1 and 50 characters inclusive
 def name_last_invalid_length():
-    pass
+    # New user
+    user = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
+    token = user['token']
+
+    # Update users name
+    response = requests.put(f"{BASE_URL}user/profile/setname/v1", json={
+        'token' : token,
+        'name_first' : "Johnson",
+        'name_last' : "Jemmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    })
+
+    assert response.status_code == 400
