@@ -437,3 +437,17 @@ def get_dm_owner(dm_id):
     for dm in dm_store:
         if dm['dm_id'] == dm_id:
             return dm['owner']
+
+def is_user_creator_dm(auth_user_id, dm_id):
+    is_creator = False
+    store = data_store.get()
+    dm_store = store['dms']
+    print(f"dm_store_authroised {dm_store}")
+    print(f"auth_user_id {auth_user_id} dm_id {dm_id}")
+    for dm in dm_store:
+        if dm['dm_id'] == dm_id:
+            if dm['owner'] == auth_user_id:
+                is_creator = True
+                
+    return is_creator
+        
