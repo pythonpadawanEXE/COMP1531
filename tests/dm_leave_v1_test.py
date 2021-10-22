@@ -120,8 +120,6 @@ def test_dm_owner_leave():
     dm_leave(creator_token, dm_id)
     #Dm details after owner leave
     details_after = dm_details(member_token, dm_id)
-    #User_ids after owner leave
-    removed_user_ids = [creator['auth_user_id']]
     # Loop through the dm details and find if removed creater is still in all_members of dm
     for user in details_after['all_members']:
         assert(creator['auth_user_id'] != user['u_id'])
