@@ -408,8 +408,9 @@ def is_user_authorised_dm(auth_user_id, dm_id):
     print(f"dm_store_authroised {dm_store}")
     print(f"auth_user_id {auth_user_id} dm_id {dm_id}")
     for dm in dm_store:
-        if auth_user_id in dm['all_members']:
-            is_authorised = True
+        if dm['dm_id'] == dm_id:
+            if auth_user_id in dm['all_members']:
+                is_authorised = True
 
     return is_authorised
 

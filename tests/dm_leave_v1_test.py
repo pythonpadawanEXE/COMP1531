@@ -95,7 +95,7 @@ def test_dm_member_leave():
     # Loop through the dm details and find if removed member is still in all_members of dm
     for user in details_after['all_members']:
         assert(member['auth_user_id'] != user['u_id'] )
-    # As the creator leaves, calling the dm/detail_v1 function would raise AccessError
+    # As the member leaves, calling the dm/detail_v1 function would raise AccessError
     response = requests.get(f"{BASE_URL}dm/details/v1?token={member_token}&dm_id={dm_id}")
     assert response.status_code == 403
 
@@ -157,4 +157,36 @@ def test_leave_member_not_in_dm():
         'token' : member2_token,
         'dm_id' : dm_id,
     })
+    assert response.status_code == 403
+
+def test_dm_member_leave_multi_dm():
+    # New users
+    creator = register_user("js@email.com", "js123!@#", "John", "Smith")
+    member1 = register_user("lw@email.com", "lw123!@#", "Lewis", "Hamilton")
+    member2 = register_user("cl@email.com", "cl123!@#", "Charles", "Leclerc")
+    creator_token = creator['token']
+    member1_token = member1['token']
+    dm1_member_list = [member1['auth_user_id'], member2['auth_user_id']]
+    dm2_member_list = [member1['auth_user_id']]
+    
+    dm_create(creator_token, dm1_member_list)
+    #Dm id
+    dm_id = dm_create(creator_token, dm2_member_list)['dm_id']
+    # Dm details before member leave
+    details_before = dm_details(creator_token, dm_id)
+    # User_ids in dm before member leave
+    auth_user_id_list = [creator['auth_user_id'], member1['auth_user_id']]
+    # Loop through the dm details and find if auth_user_ids are in all_members
+    for user in details_before['all_members']:
+        assert(user['u_id'] in auth_user_id_list)
+    
+    #member leave
+    dm_leave(member1_token, dm_id)
+    #Dm details after member leave
+    details_after = dm_details(creator_token, dm_id)
+    # Loop through the dm details and find if removed member is still in all_members of dm
+    for user in details_after['all_members']:
+        assert(member1['auth_user_id'] != user['u_id'])
+    # As the member leaves, calling the dm/detail_v1 function would raise AccessError
+    response = requests.get(f"{BASE_URL}dm/details/v1?token={member1_token}&dm_id={dm_id}")
     assert response.status_code == 403
