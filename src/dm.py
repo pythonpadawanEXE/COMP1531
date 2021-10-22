@@ -51,6 +51,6 @@ def dm_details_v1(auth_user_id, dm_id):
 
     return {
         'name': get_dm_name(dm_id),
-        'owner': user_details(dm_owner_id),
+        'owner': user_details([dm_owner_id]),
         'all_members': get_all_members(all_members_id_list)
     }
