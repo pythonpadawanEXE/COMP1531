@@ -335,8 +335,8 @@ def channel_addowner_v1(token, channel_id, u_id):
         if (channel_id == channel['id']):
             # Make user with user id u_id an owner of the channel
             channel['owner_members'].append(u_id)
-    
+
     # Save the data store
     data_store.set(store)
 
-    return {}   
+    return {}
