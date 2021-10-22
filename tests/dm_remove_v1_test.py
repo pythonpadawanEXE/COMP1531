@@ -126,7 +126,7 @@ def test_further_valid_remove():
     member1 = register_user("lw@email.com", "lw123!@#", "Lewis", "Hamilton")
     member2 = register_user("cl@email.com", "cl123!@#", "Charles", "Leclerc")
     creator_token = creator['token']
-    member1_token = member1['token']
+   
     dm1_member_list = [member1['auth_user_id'], member2['auth_user_id']]
     dm2_member_list = [member1['auth_user_id']]
     # Dm ID
@@ -135,11 +135,11 @@ def test_further_valid_remove():
 
     list_before = dm_list(creator_token)
      # dm should be in creator's dm 
-    assert (list_before) == {'dms': [{'dm_id': 1, 'name': 'charlesleclerc, johnsmith, lewishamilton'}, 
-                                        {'dm_id': 2, 'name': 'johnsmith, lewishamilton'}]}
+    assert (list_before) == {'dms': [{'dm_id': dm1_id, 'name': 'charlesleclerc, johnsmith, lewishamilton'}, 
+                                        {'dm_id': dm2_id, 'name': 'johnsmith, lewishamilton'}]}
     # Remove dm from dms
     dm_remove(creator_token, dm2_id)
     #Dm list of the creator
     list_after = dm_list(creator_token)
     # dm should not exist in creator's dm list any longer
-    assert(list_after) == {'dms': [{'dm_id': 1, 'name': 'charlesleclerc, johnsmith, lewishamilton'}]}
+    assert(list_after) == {'dms': [{'dm_id': dm1_id, 'name': 'charlesleclerc, johnsmith, lewishamilton'}]}
