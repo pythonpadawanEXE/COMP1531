@@ -152,7 +152,6 @@ def test_invalid_u_id():
     # Create user2
     user_2 = register_user("jems@email.com", "ABCDEFGH", "Jemma", "Smith")
     token_2 = user_2['token']
-    auth_user_id_2 = user_2['auth_user_id']
 
     # user1 creates a channel
     channel_id = channels_create(token_1, "Chan 1", True)['channel_id']
@@ -177,11 +176,9 @@ def test_u_id_not_member_channel():
     # Create user2
     user_2 = register_user("jems@email.com", "ABCDEFGH", "Jemma", "Smith")
     token_2 = user_2['token']
-    auth_user_id_2 = user_2['auth_user_id']
 
     # Create user3
     user_3 = register_user("mike@email.com", "ABCDEFGH", "Mike", "Smith")
-    token_3 = user_3['token']
     auth_user_id_3 = user_3['auth_user_id']
 
     # user1 creates a channel
@@ -242,7 +239,6 @@ def test_token_is_not_channel_owner():
     # Create user2
     user_2 = register_user("jems@email.com", "ABCDEFGH", "Jemma", "Smith")
     token_2 = user_2['token']
-    auth_user_id_2 = user_2['auth_user_id']
 
     # user1 creates a channel
     channel_id = channels_create(token_1, "Chan 1", True)['channel_id']
