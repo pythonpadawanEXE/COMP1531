@@ -227,9 +227,6 @@ def test_u_id_only_owner():
     # user1 creates a channel
     channel_id = channels_create(token_1, "Chan 1", True)['channel_id']
 
-    # user2 joins user1's channel
-    channel_join(token_2, channel_id)
-
     # user1 removes user1 as channel owner
     response = requests.post(f"{BASE_URL}channel/removeowner/v1", json={
         'token' : token_1,
@@ -243,7 +240,6 @@ def test_token_is_not_channel_owner():
     # Create user1
     user_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
     token_1 = user_1['token']
-    auth_user_id_1 = user_1['auth_user_id']
 
     # Create user2
     user_2 = register_user("jems@email.com", "ABCDEFGH", "Jemma", "Smith")
@@ -252,7 +248,6 @@ def test_token_is_not_channel_owner():
 
     # Create user3
     user_3 = register_user("mike@email.com", "ABCDEFGH", "Mike", "Smith")
-    auth_user_id_3 = user_3['auth_user_id']
     token_3 = user_3['token']
 
     # user1 creates a channel
