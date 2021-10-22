@@ -93,7 +93,7 @@ def channel_addowner(token, channel_id, u_id):
     return response_data
 
 # Make user with user with id u_id an owner of the channel
-def make_u_id_channel_owner():
+def test_make_u_id_channel_owner():
     # Create user1
     user_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
     token_1 = user_1['token']
@@ -240,16 +240,24 @@ def test_token_is_not_channel_owner():
     user_2 = register_user("jems@email.com", "ABCDEFGH", "Jemma", "Smith")
     token_2 = user_2['token']
 
+    # Create user3
+    user_3 = register_user("mike@email.com", "ABCDEFGH", "Mike", "Smith")
+    auth_user_id_3 = user_3['auth_user_id']
+    token_3 = user_3['token']
+
     # user1 creates a channel
     channel_id = channels_create(token_1, "Chan 1", True)['channel_id']
 
     # user2 joins user1's channel
     channel_join(token_2, channel_id)
 
+    # user3 joins user1's channel
+    channel_join(token_3, channel_id)
+
     # user2 promotes user1 as channel owner again
     response = requests.post(f"{BASE_URL}channel/addowner/v1", json={
         'token' : token_2,
         'channel_id' : channel_id,
-        'u_id' : auth_user_id_1,
+        'u_id' : auth_user_id_3,
     })
     assert response.status_code == 403
