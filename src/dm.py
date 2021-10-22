@@ -40,10 +40,10 @@ def dm_list_v1(auth_user_id):
 def dm_details_v1(auth_user_id, dm_id):
 
     if not is_dm_valid(dm_id):
-        raise InputError(description="dm_id does not refer to a valid dm")
+        raise InputError(description="Dm_id does not refer to a valid dm")
     
     if not is_user_authorised_dm(auth_user_id, dm_id):
-        raise AccessError
+        raise AccessError(description="User not exist in this dm")
         
     dm_owner_id = get_dm_owner(dm_id)
 
@@ -55,18 +55,22 @@ def dm_details_v1(auth_user_id, dm_id):
         'all_members': get_all_members(all_members_id_list)
     }
     
-def dm_leave_v1(token, dm_id)
+def dm_leave_v1(auth_user_id, dm_id):
     
     if not is_dm_valid(dm_id):
-        raise InputError(description ="Dm not exist.")
+        raise InputError(description ="Dm_id does bot refer to a valid dm.")
         
+    if not is_user_authorised_dm(auth_user_id, dm_id):
+        raise AccessError(description="User not exist in this dm")
+
     store = data_store.get()
     dm_store= store['dms']
     
-    if not auth_user_id in dm_store['all_members']:
-        raise AccessError(description ="Could not find user in this dm.")
-    
     for dm in dm_store:
-        if dm['id'] == dm_id:
+        if dm['dm_id'] == dm_id:
             dm['all_members'].remove(auth_user_id)
+            if dm['owner'] == auth_user_id:
+                dm['owner'] = None
+    data_store.set(store)
+    
     return {}
