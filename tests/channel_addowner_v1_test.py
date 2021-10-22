@@ -78,9 +78,45 @@ def channel_details(token, channel_id):
     response_data = response.json()
     return response_data
 
+def channel_addowner(token, channel_id, u_id):
+    '''
+    Makes u_id a channel owner of channel with ID channel_id
+    '''
+
+    response = requests.post(f"{BASE_URL}channel/addowner/v1", json={
+        'token' : token,
+        'channel_id' : channel_id,
+        'u_id' : u_id,
+    })
+    assert response.status_code == 200
+    response_data = response.json()
+    return response_data
+
 # Make user with user id u_id an owner of the channel
 def make_u_id_channel_owner():
-    pass
+    # Create user1
+    user_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
+    token_1 = user_1['token']
+
+    # Create user2
+    user_2 = register_user("jems@email.com", "ABCDEFGH", "Jemma", "Smith")
+    token_2 = user_2['token']
+    auth_user_id_2 = user_2['auth_user_id']
+
+    # user1 creates a channel
+    channel_id = channels_create(token_1, "Chan 1", True)['channel_id']
+
+    # user2 joins user1's channel
+    channel_join(token_2, channel_id)
+
+    # user1 promotes user2 as channel owner
+    channel_addowner(token_1, channel_id, auth_user_id_2)
+
+    # get channel details
+    details = channel_details(token_1, channel_id)
+
+    # check if user2 is an owner of channel_id
+    assert(details['owner_members'][1]['u_id'] == auth_user_id_2)
 
 # channel_id does not refer to a valid channel
 def test_invalid_channel_id():
