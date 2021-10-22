@@ -436,4 +436,3 @@ def get_dm_owner(dm_id):
     for dm in dm_store:
         if dm['dm_id'] == dm_id:
             return dm['owner']
->>>>>>> feature/dm/details_v1_new
