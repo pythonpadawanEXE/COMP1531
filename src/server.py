@@ -14,7 +14,7 @@ from src.data_store import data_store
 from src.message import message_send_v1,message_remove_v1,message_edit_v1
 from src.user import user_profile_v1
 from src.users import users_all_v1
-from src.dm import dm_create_v1, dm_list_v1
+from src.dm import dm_create_v1, dm_list_v1, dm_details_v1
 import pickle
 
 try:
@@ -330,7 +330,14 @@ def dm_list_v1_get():
     token = request.args.get('token')
     decoded_token = check_valid_token(token)
     return dumps(dm_list_v1(decoded_token['auth_user_id']))
-    
+
+@APP.route("/dm/details/v1", methods=['GET'])
+def dm_details_v1_get():
+    token = request.args.get('token')
+    dm_id = int(request.args.get('dm_id'))
+    decoded_token = check_valid_token(token)
+    return dumps(dm_details_v1(decoded_token['auth_user_id'], dm_id))
+
 # User Routes
 @APP.route("/user/profile/v1", methods=['get'])
 def user_profile_v1_get():
