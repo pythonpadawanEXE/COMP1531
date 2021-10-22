@@ -303,4 +303,25 @@ def channel_addowner_v1(token, channel_id, u_id):
             Returns { } on successful completion.
     """
 
-    pass
+    # Get the auth_user_id from the token
+    auth_user_id = check_valid_token(token)['auth_user_id']
+
+    # channel_id does not refer to a valid channel
+    if not is_channel_valid(channel_id):
+        raise InputError(description="channel_id does not refer to a valid channel")
+
+    # u_id does not refer to a valid user
+    if not verify_user_id(u_id):
+        raise InputError(description="u_id does not refer to a valid user")
+
+    # u_id refers to a user who is not a member of the channel
+    if not is_user_authorised(u_id, channel_id):
+        raise InputError(description="u_id refers to a user who is not a member of the channel")
+
+    # u_id refers to a user who is already an owner of the channel
+    if (u_id in get_channel_owner(channel_id)):
+        raise InputError(description="u_id refers to a user who is already an owner of the channel")
+
+    # channel_id is valid and the authorised user does not have owner permissions in the channel
+    if (auth_user_id not in get_channel_owner(channel_id)):
+        raise AccessError(description="channel_id is valid and the authorised user does not have owner permissions in the channel")
