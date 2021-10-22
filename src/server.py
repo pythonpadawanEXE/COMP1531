@@ -7,7 +7,8 @@ from src import config
 from src.error import InputError
 from src.admin import admin_userpermission_change_v1
 from src.auth import auth_register_v1, auth_login_v1, auth_logout_v1
-from src.channel import channel_messages_v1, channel_details_v1, channel_join_v1, channel_leave_v1, channel_invite_v1, channel_addowner_v1
+from src.channel import channel_messages_v1, channel_details_v1, channel_join_v1, channel_leave_v1, \
+    channel_invite_v1, channel_addowner_v1, channel_removeowner_v1
 from src.channels import channels_create_v1, channels_listall_v1, channels_list_v1
 from src.other import check_valid_token, clear_v1,return_token
 from src.data_store import data_store
@@ -247,6 +248,14 @@ def post_channel_addowner_v1():
     channel_id = request_data['channel_id']
     u_id = request_data['u_id']
     return dumps(channel_addowner_v1(token, channel_id, u_id))
+
+@APP.route("/channel/removeowner/v1", methods=['POST'])
+def post_channel_removeowner_v1():
+    request_data = request.get_json()
+    token = request_data['token']
+    channel_id = request_data['channel_id']
+    u_id = request_data['u_id']
+    return dumps(channel_removeowner_v1(token, channel_id, u_id))
 
 # Channels Routes
 
