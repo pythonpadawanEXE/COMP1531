@@ -36,11 +36,11 @@ def is_user_authorised(auth_user_id, channel_id):
     is_authorised = False
     store = data_store.get()
     channel_store = store['channels']
-    print(f"channel_store_authroised {channel_store}")
-    print(f"auth_user_id {auth_user_id} channel_id {channel_id}")
+
     for chan in channel_store:
-        if auth_user_id in chan['all_members']:
-            is_authorised = True
+        if (chan['id'] == channel_id):
+            if auth_user_id in chan['all_members']:
+                is_authorised = True
 
     return is_authorised
 
