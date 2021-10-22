@@ -1,6 +1,6 @@
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import check_valid_token, verify_user_id, generate_dm_name
+from src.other import verify_user_id, generate_dm_name, is_dm_valid, get_all_user_id_dm, get_dm_name, is_user_authorised_dm, get_dm_owner, user_details, get_all_members
 
 def dm_create_v1(auth_user_id, u_ids):
     creator_u_id = auth_user_id
@@ -15,7 +15,7 @@ def dm_create_v1(auth_user_id, u_ids):
     new_dm = {
         'dm_id' : len(dms) + 1,
         'name' : generate_dm_name(all_members),
-        'owner' : [creator_u_id],
+        'owner' : creator_u_id,
         'all_members' : all_members,
         'messages' : [],
     }
@@ -35,4 +35,22 @@ def dm_list_v1(auth_user_id):
 
     return{
         'dms' : dms
+    }
+
+def dm_details_v1(auth_user_id, dm_id):
+
+    if not is_dm_valid(dm_id):
+        raise InputError(description="dm_id does not refer to a valid dm")
+    
+    if not is_user_authorised_dm(auth_user_id, dm_id):
+        raise AccessError
+        
+    dm_owner_id = get_dm_owner(dm_id)
+
+    all_members_id_list = get_all_user_id_dm(dm_id)
+
+    return {
+        'name': get_dm_name(dm_id),
+        'owner': user_details(dm_owner_id),
+        'all_members': get_all_members(all_members_id_list)
     }
