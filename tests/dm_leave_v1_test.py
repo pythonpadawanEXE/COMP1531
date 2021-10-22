@@ -137,22 +137,24 @@ def test_leave_invalid_dm():
     member_u_ids = [member['auth_user_id']]
     dm_create(creator_token, member_u_ids)
     #Input error is expected to be raised for a invalid dm
-    response = requests.post(f"{BASE_URL}dm/create/v1", json={
+    response = requests.post(f"{BASE_URL}dm/leave/v1", json={
         'token' : creator_token,
-        'u_ids' : '999',
+        'dm_id' : '999',
     })
     assert response.status_code == 400
 
 def test_leave_member_not_in_dm():
     # New users
     creator = register_user("js@email.com", "js123!@#", "John", "Smith")
-    member = register_user("lw@email.com", "lw123!@#", "Lewis", "Hamilton")
+    member1 = register_user("lw@email.com", "lw123!@#", "Lewis", "Hamilton")
+    member2 = register_user("cl@email.com", "cl123!@#", "Charles", "Leclerc")
     creator_token = creator['token']
-    member_u_ids = [member['auth_user_id']]
-    dm_id = dm_create(creator_token, member_u_ids)
+    member_u_ids = [member1['auth_user_id']]
+    member2_token = member2['token']
+    dm_id = dm_create(creator_token, member_u_ids)['dm_id']
     #Input error is expected to be raised for a invalid dm
-    response = requests.post(f"{BASE_URL}dm/create/v1", json={
-        'token' : "",
-        'u_ids' : dm_id,
+    response = requests.post(f"{BASE_URL}dm/leave/v1", json={
+        'token' : member2_token,
+        'dm_id' : dm_id,
     })
     assert response.status_code == 403
