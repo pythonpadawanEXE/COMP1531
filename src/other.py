@@ -62,23 +62,23 @@ def is_channel_public(channel_id):
         if chan['id'] == channel_id:
             return chan['is_public']
 
-# Returns the auth_user_id of the channel owner with ID channel_id
+# Returns a list of all the auth_user_id's of the channel owner with ID channel_id
 def get_channel_owner(channel_id):
     store = data_store.get()
     channel_store = store['channels']
 
     for chan in channel_store:
         if chan['id'] == channel_id:
-            return chan['owner_members'][0]
+            return chan['owner_members']
 
 # Reurns a list containing details of the owner members
-def user_details(auth_user_id):
+def user_details(auth_user_id_list):
     user_details_list = []
     store = data_store.get()
     user_store = store['users']
 
     for user in user_store:
-        if user['u_id'] == auth_user_id:
+        if user['u_id'] in auth_user_id_list:
             user_details_list.append(user)
     return user_details_list
 
@@ -352,9 +352,14 @@ def decode_jwt(encoded_jwt):
         encoded_jwt ([string]): The encoded JWT as a string
 
     Returns:
-        Object: An object storing the body of the JWT encoded string
+        Object: An object storing the body of the decoded JWT dict
     """
-    return jwt.decode(encoded_jwt, SECRET, algorithms=['HS256'])
+    try :
+        decoded_token = jwt.decode(encoded_jwt, SECRET, algorithms=['HS256'])
+    except Exception as decode_problem:
+        raise AccessError("Invalid Token") from decode_problem
+
+    return decoded_token
 
 def is_user_in_dm(auth_user_id, dm_id):
     """
@@ -369,7 +374,7 @@ def is_user_in_dm(auth_user_id, dm_id):
     store = data_store.get()
     dms = store['dms']
     for dm in dms:
-        if dm['dm_id'] == dm_id and auth_user_id in dm['members']:
+        if dm['dm_id'] == dm_id and auth_user_id in dm['all_members']:
             is_user_in_dm = True
     return is_user_in_dm
 
@@ -391,7 +396,44 @@ def is_dm_valid(dm_id):
     dm_store = store['dms']
 
     for dm in dm_store:
-        if dm_id == dm['id']:
+        if dm['dm_id'] == dm_id:
             dm_valid = True
 
     return dm_valid
+
+def is_user_authorised_dm(auth_user_id, dm_id):
+    is_authorised = False
+    store = data_store.get()
+    dm_store = store['dms']
+    print(f"dm_store_authroised {dm_store}")
+    print(f"auth_user_id {auth_user_id} dm_id {dm_id}")
+    for dm in dm_store:
+        if auth_user_id in dm['all_members']:
+            is_authorised = True
+
+    return is_authorised
+
+def get_all_user_id_dm(dm_id):
+    store = data_store.get()
+    dm_store = store['dms']
+
+    for dm in dm_store:
+        if dm['dm_id'] == dm_id:
+            return dm['all_members']
+
+def get_dm_name(dm_id):
+    store = data_store.get()
+    dm_store = store['dms']
+
+    for dm in dm_store:
+        if dm['dm_id'] == dm_id:
+            return dm['name']
+
+def get_dm_owner(dm_id):
+    store = data_store.get()
+    dm_store = store['dms']
+
+    for dm in dm_store:
+        if dm['dm_id'] == dm_id:
+            return dm['owner']
+>>>>>>> feature/dm/details_v1_new
