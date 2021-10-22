@@ -222,7 +222,7 @@ def test_u_id_only_owner():
     # Create user1
     user_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
     token_1 = user_1['token']
-    auth_user_id_1 = user_1['auth_user_id_1']
+    auth_user_id_1 = user_1['auth_user_id']
 
     # user1 creates a channel
     channel_id = channels_create(token_1, "Chan 1", True)['channel_id']
