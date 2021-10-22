@@ -34,9 +34,9 @@ def setup():
         'name_last' : 'Painter'
     })
     user.append(json.loads(resp.text))
-    chan_0 = requests.post(config.url + 'channels/create/v2', json={'token': user[0]['token'], 'name': 'My channel', 'is_public': 'True'})
+    chan_0 = requests.post(config.url + 'channels/create/v2', json={'token': user[0]['token'], 'name': 'My channel', 'is_public': True})
     channels.append(json.loads(chan_0.text))
-    chan_1 = requests.post(config.url + 'channels/create/v2', json={'token': user[1]['token'], 'name': 'My private channel', 'is_public': 'False'})
+    chan_1 = requests.post(config.url + 'channels/create/v2', json={'token': user[1]['token'], 'name': 'My private channel', 'is_public': False})
     channels.append(json.loads(chan_1.text))
     return (user, channels)
 
@@ -52,8 +52,8 @@ def test_invalid_token(setup):
         
 def test_already_joined(setup):
     users, channels = setup
-    resp = requests.post(config.url + 'channel/join/v2', json={'token': users[1]['token'], 'channel_id': channels[0]["channel_id"]})
-    assert resp.status_code == 403
+    resp = requests.post(config.url + 'channel/join/v2', json={'token': users[0]['token'], 'channel_id': channels[0]["channel_id"]})
+    assert resp.status_code == 400
 
 def test_join_private_channel(setup):
     users, channels = setup
@@ -62,7 +62,8 @@ def test_join_private_channel(setup):
 
 def test_join_public_channel(setup):
     users, channels = setup
-    _ = requests.post(config.url + 'channel/join/v2', json={'token': users[1]['token'], 'channel_id': channels[0]["channel_id"]})
+    resp = requests.post(config.url + 'channel/join/v2', json={'token': users[1]['token'], 'channel_id': channels[0]["channel_id"]})
+    assert resp.status_code == 200
     channel_details = requests.get(config.url + 'channel/details/v2', params={'token': users[1]['token'], 'channel_id': channels[0]["channel_id"]})
     assert channel_details.status_code == 200
 
