@@ -53,7 +53,7 @@ def user_profile_setname_v1(token, name_first, name_last):
             user['name_first'] = name_first
             user['name_last'] = name_last
     
-    data_store.set(store)
+    data_store.save(store)
 
     return {}
 

@@ -65,7 +65,7 @@ def update_name(token, name_first, name_last):
     return response_data
 
 # Update the authorised user's first and last name
-def update_user_first_last_name():
+def test_update_user_first_last_name():
     # New user
     user = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
     token = user['token']
@@ -80,7 +80,7 @@ def update_user_first_last_name():
     assert(user_details['name_last'] == "Johnson")
 
 # length of name_first is not between 1 and 50 characters inclusive
-def name_first_invalid_length():
+def test_name_first_invalid_length():
     # New user
     user = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
     token = user['token']
@@ -95,7 +95,7 @@ def name_first_invalid_length():
     assert response.status_code == 400
 
 # length of name_last is not between 1 and 50 characters inclusive
-def name_last_invalid_length():
+def test_name_last_invalid_length():
     # New user
     user = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
     token = user['token']
