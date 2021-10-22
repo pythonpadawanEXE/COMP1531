@@ -234,7 +234,6 @@ def test_token_is_not_channel_owner():
     # Create user1
     user_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
     token_1 = user_1['token']
-    auth_user_id_1 = user_1['auth_user_id']
 
     # Create user2
     user_2 = register_user("jems@email.com", "ABCDEFGH", "Jemma", "Smith")
