@@ -213,7 +213,7 @@ def channel_join_v1(auth_user_id, channel_id):
             # Verify user not in channel
             if auth_user_id in channel["all_members"] \
                 or auth_user_id in channel["owner_members"]:
-                raise InputError(description="Bad channel id")
+                raise InputError(description="The authorised user is already a member of the channel")
 
             # Check if channel public
             if not channel["is_public"] and not is_global_owner(auth_user_id):
