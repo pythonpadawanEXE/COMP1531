@@ -426,7 +426,7 @@ def get_dm_name(dm_id):
     dm_store = store['dms']
 
     for dm in dm_store:
-        if int(dm['dm_id']) == dm_id:
+        if dm['dm_id'] == dm_id:
             return dm['name']
 
 def get_dm_owner(dm_id):
