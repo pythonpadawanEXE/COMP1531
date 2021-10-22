@@ -318,12 +318,15 @@ def channel_addowner_v1(token, channel_id, u_id):
     if not is_user_authorised(u_id, channel_id):
         raise InputError(description="u_id refers to a user who is not a member of the channel")
 
+    # List containing channel owners
+    channel_owners_list = get_channel_owner(channel_id)
+
     # u_id refers to a user who is already an owner of the channel
-    if (u_id in get_channel_owner(channel_id)):
+    if (u_id in channel_owners_list):
         raise InputError(description="u_id refers to a user who is already an owner of the channel")
 
     # channel_id is valid and the authorised user does not have owner permissions in the channel
-    if (auth_user_id not in get_channel_owner(channel_id)):
+    if (auth_user_id not in channel_owners_list):
         raise AccessError(description="channel_id is valid and the authorised user does not have owner permissions in the channel")
 
     # Get all channels
@@ -335,6 +338,68 @@ def channel_addowner_v1(token, channel_id, u_id):
         if (channel_id == channel['id']):
             # Make user with user id u_id an owner of the channel
             channel['owner_members'].append(u_id)
+
+    # Save the data store
+    data_store.set(store)
+
+    return {}
+
+def channel_removeowner_v1(token, channel_id, u_id):
+    """ Remove user with user id u_id as an owner of the channel.
+
+        Arguments:
+            token (str)           - Token of the user who is the owner of the channel.
+            channel_id (int)      - Channel ID of the channel of the authorised owner user.
+            u_id (int)            - User ID of the user who is being removed from owner.
+
+        Exceptions:
+            InputError  - Occurs when channel_id does not refer to a valid channel.
+                          Occurs when u_id does not refer to a valid user.
+                          Occurs when u_id refers to a user who is not an owner of the channel.
+                          Occurs when u_id refers to a user who is currently the only owner of the channel.
+
+            AccessError - Occurs when channel_id is valid and the authorised user does not have owner
+            permissions in the channel.
+
+        Return Value:
+            Returns { } on successful completion.
+    """
+
+    # Get the auth_user_id from the token
+    auth_user_id = check_valid_token(token)['auth_user_id']
+
+    # channel_id does not refer to a valid channel
+    if not is_channel_valid(channel_id):
+        raise InputError(description="channel_id does not refer to a valid channel")
+
+    # u_id does not refer to a valid user
+    if not verify_user_id(u_id):
+        raise InputError(description="u_id does not refer to a valid user")
+
+    # List containing channel owners
+    channel_owners_list = get_channel_owner(channel_id)
+
+    # u_id refers to a user who is not an owner of the channel
+    if (u_id not in channel_owners_list):
+        raise InputError(description="u_id refers to a user who is not an owner of the channel")
+
+    # u_id refers to a user who is currently the only owner of the channel
+    if (u_id in channel_owners_list and len(channel_owners_list) == 1):
+        raise InputError(description="u_id refers to a user who is currently the only owner of the channel")
+
+    # channel_id is valid and the authorised user does not have owner permissions in the channel
+    if (auth_user_id not in channel_owners_list):
+        raise AccessError(description="channel_id is valid and the authorised user does not have owner permissions in the channel")
+
+    # Get all channels
+    store = data_store.get()
+    channels = store["channels"]
+
+    # Loop through and find the authorised channel
+    for channel in channels:
+        if (channel_id == channel['id']):
+            # Remove user with user id u_id as an owner of the channel
+            channel['owner_members'].remove(u_id)
 
     # Save the data store
     data_store.set(store)
