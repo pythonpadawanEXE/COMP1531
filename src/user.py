@@ -26,8 +26,36 @@ def user_profile_v1(auth_user_id, u_id):
         'handle_str' : target_user['handle_str']
     }
 
-def user_profile_setname_v1():
-    pass
+def user_profile_setname_v1(token, name_first, name_last):
+
+    # Get the u_id from the token
+    u_id = check_valid_token(token)['auth_user_id']
+
+    lenth_name_first = len(name_first)
+    lenth_name_last = len(name_last)
+
+    # length of name_first is not between 1 and 50 characters inclusive
+    if (lenth_name_first >= 1 and lenth_name_first <= 50):
+        raise InputError(description="length of name_first is not between 1 and 50 characters inclusive")
+
+    # length of name_last is not between 1 and 50 characters inclusive
+    if (lenth_name_last >= 1 and lenth_name_last <= 50):
+        raise InputError(description="length of name_last is not between 1 and 50 characters inclusive")
+
+    # Get all users
+    store = data_store.get()
+    users = store['users']
+
+    # Find the user to be updated
+    for user in users_store:
+        if u_id == user['u_id']:
+            # Update users name
+            user['name_first'] = name_first
+            user['name_last'] = name_last
+    
+    data_store.set(store)
+
+    return {}
 
 def user_profile_setemail_v1():
     pass
