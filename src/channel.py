@@ -281,3 +281,26 @@ def channel_leave_v1(token, channel_id):
     data_store.set(store)
 
     return {}
+
+def channel_addowner_v1(token, channel_id, u_id):
+    """ Make user with user id u_id an owner of the channel.
+
+        Arguments:
+            token (str)           - Token of the user who is the owner of the channel.
+            channel_id (int)      - Channel ID of the channel of the authorised owner user.
+            u_id (int)            - User ID of the user who is being promoted to owner.
+
+        Exceptions:
+            InputError  - Occurs when channel_id does not refer to a valid channel.
+                          Occurs when u_id does not refer to a valid user.
+                          Occurs when u_id refers to a user who is not a member of the channel.
+                          Occurs when u_id refers to a user who is already an owner of the channel.
+
+            AccessError - Occurs when channel_id is valid and the authorised user does not have owner
+            permissions in the channel.
+
+        Return Value:
+            Returns { } on successful completion.
+    """
+
+    pass
