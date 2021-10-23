@@ -1,4 +1,5 @@
 from src.data_store import data_store
+from src.dm import dm_leave_v1, dm_list_v1
 from src.error import InputError, AccessError
 from src.other import is_global_owner, verify_user_id
 
@@ -36,20 +37,23 @@ def admin_user_remove_v1(auth_user_id, u_id):
 
     # Purge user details
     target_user['name_first'] = 'Removed'
-    target_user['name_first'] = 'user'
+    target_user['name_last'] = 'user'
     target_user['email'] = ""
     target_user['handle_str'] = "Removed user"
     
     # Purge user from channel membership
     channels_store = store['channels']
     for channel in channels_store:
-        channel['owner_members'].remove(u_id)
-        channel['all_members'].remove(u_id)
+        if u_id in channel['owner_members']:
+            channel['owner_members'].remove(u_id)
+
+        if u_id in channel['all_members']:
+            channel['all_members'].remove(u_id)
 
     # Purge user from dms
-    # dms_store = store['dms']
-    # for dm in dms_store:
-    #     dm_leave_v1(dm)
+    dms = dm_list_v1(u_id)['dms']
+    for dm in dms:
+        dm_leave_v1(u_id, dm['dm_id'])
 
     # Purge user's message contents
     messages_store = store['messages']
