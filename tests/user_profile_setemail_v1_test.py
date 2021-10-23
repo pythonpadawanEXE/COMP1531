@@ -64,13 +64,13 @@ def update_email(token, email):
     return response_data
 
 # Update the authorised user's email address
-def test_update_user_first_last_name():
+def test_update_user_email():
     # New user
     user = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
     token = user['token']
     auth_user_id = user['auth_user_id']
 
-    # Update users name
+    # Update users email
     update_email(token, "johnsmith@gmail.com")
 
     # Check if users name has been changed
@@ -78,7 +78,7 @@ def test_update_user_first_last_name():
     assert(user_details['email'] == "johnsmith@gmail.com")
 
 # email entered is not a valid email
-def test_name_first_invalid_length():
+def test_email_invalid():
     # New user
     user = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
     token = user['token']
@@ -92,7 +92,7 @@ def test_name_first_invalid_length():
     assert response.status_code == 400
 
 # email address is already being used by another user
-def test_name_last_invalid_length():
+def test_email_in_use():
     # New user
     user1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
     user2 = register_user("jemma@email.com", "ABCDEFGH", "Jemma", "Smith")
