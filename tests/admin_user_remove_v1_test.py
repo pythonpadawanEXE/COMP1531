@@ -91,6 +91,4 @@ def test_valid_removal(setup):
     # Check dm message history for user
     dm_messages = requests.get(config.url + 'dm/messages/v1', params={'token': users[0]['token'], 'dm_id': dm_id, 'start': 0})
     messages = json.loads(dm_messages.text)['messages']
-    for msg in messages:
-        if msg['u_id'] == users[1]['auth_user_id']:
-            assert msg['message'] == "Removed user"
+    assert messages[0] == "Removed user"

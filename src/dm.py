@@ -107,7 +107,7 @@ def dm_messages_v1(auth_user_id, dm_id, start):
 
     for dm in dm_store:
         if dm['dm_id'] == dm_id:
-            if len(dm['messages']) - 1 <= start:
+            if len(dm['messages']) - 1 < start:
                 raise InputError(description="Invalid Start Index")
 
     messages_dm = dm['messages']
