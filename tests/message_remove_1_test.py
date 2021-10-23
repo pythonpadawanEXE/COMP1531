@@ -170,7 +170,7 @@ def test_channel_double_delete_message_endpoint(create_messages_endpoint):
     _,status_code =  remove_message_endpoint(token,message_ids[0])
     assert status_code == 400
     
-def test_dm__double_delete_message_endpoint(create_dms_endpoint):
+def test_dm_double_delete_message_endpoint(create_dms_endpoint):
     _,token,message_ids =   create_dms_endpoint
     data,status_code = remove_message_endpoint(token,message_ids[0])
     assert status_code == 200

@@ -46,13 +46,13 @@ class Datastore:
         return self.__store
 
     def set(self, store):
-        if not isinstance(store, dict):
-            raise TypeError('store must be of type dictionary')
+        # if not isinstance(store, dict):
+        #     raise TypeError('store must be of type dictionary')
         self.__store = store
 
     def save(self):
-        if not isinstance(self.__store, dict):
-            raise TypeError('store must be of type dictionary')
+        # if not isinstance(self.__store, dict):
+        #     raise TypeError('store must be of type dictionary')
         with open('datastore.p', 'wb') as FILE:
             pickle.dump(self.__store, FILE)
 

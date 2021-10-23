@@ -40,9 +40,7 @@ def test_multiple_emails_valid_handles():
     store = data_store.get()
     users = store['users']
     print(users)
-    assert other.search_handle(result1['auth_user_id']) == "jakeeverest"
-    assert other.search_handle(result2['auth_user_id']) == "jakeeverest0"
-    assert other.search_handle(result3['auth_user_id']) == "jakeeverest1"
+   
     
     DistinctUsers = list({Object['handle_str']:Object for Object in users}.values())
     
