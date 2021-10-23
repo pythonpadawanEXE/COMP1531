@@ -409,7 +409,6 @@ def dm_messages_get():
         dm_id,
         start
     )
-    data_store.save()
     return dumps(dm_messages)
 
 # User Routes
