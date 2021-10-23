@@ -61,7 +61,18 @@ def create_messages_endpoint(pub_chan_endpoint):
     })
     return new_channel,token
 
-
+@pytest.fixture
+def create_52_messages_endpoint(pub_chan_endpoint):
+    token, name, is_public = pub_chan_endpoint
+    new_channel = create_channel_endpoint(token,name,is_public)
+    for i in range(52):
+        Message = "message" + str(i)
+        _ = requests.post(f"{BASE_URL}/message/send/v1",json={
+        'token' : token,
+        'channel_id' : new_channel['channel_id'],
+        'message' : Message
+    })
+    return new_channel,token
 
 def channel_messages_endpoint(token,channel_id,start):
     response = requests.get(f"{BASE_URL}/channel/messages/v2",params={
@@ -86,13 +97,23 @@ Valid Input
 
 #start is not greater than the total number of messages in the channel
 
-def test_valid_start_index_endpoint(create_messages_endpoint):
+def test_valid_start_index_1_endpoint(create_messages_endpoint):
     new_channel,token = create_messages_endpoint
     print(f"new_channel var {new_channel}")
     result,status_code = channel_messages_endpoint(token,new_channel['channel_id'],1)
     assert status_code == 200
     assert result["end"] == -1
 
+def test_valid_start_index_2_endpoint(create_52_messages_endpoint):
+    new_channel,token = create_52_messages_endpoint
+    print(f"new_channel var {new_channel}")
+    _,status_code = channel_messages_endpoint(token,new_channel['channel_id'],1)
+    assert status_code == 200
+
+def test_invalid_start_index_3_endpoint(create_messages_endpoint):
+    new_channel,token = create_messages_endpoint
+    _,status_code = channel_messages_endpoint(token,new_channel['channel_id'],4)
+    assert status_code == 200
 
 """
 Input Errors
@@ -103,7 +124,8 @@ def test_invalid_negative_start_index_endpoint(create_messages_endpoint):
     new_channel,token = create_messages_endpoint
     _,status_code = channel_messages_endpoint(token,new_channel['channel_id'],-1) 
     assert status_code == 400
-    
+
+
 
 #channel_id does not refer to a valid channel
 
@@ -120,9 +142,14 @@ def test_invalid_empty_channel_2_endpoint():
 
 #start is greater than the total number of messages in the channel
 
-def test_invalid_start_index_endpoint(create_messages_endpoint):
+def test_invalid_start_index_50_endpoint(create_messages_endpoint):
     new_channel,token = create_messages_endpoint
     _,status_code = channel_messages_endpoint(token,new_channel['channel_id'],50)
+    assert status_code == 400
+
+def test_invalid_start_index_5_endpoint(create_messages_endpoint):
+    new_channel,token = create_messages_endpoint
+    _,status_code = channel_messages_endpoint(token,new_channel['channel_id'],5)
     assert status_code == 400
 
 #Channel ID is not valid or does not exist.
