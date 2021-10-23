@@ -170,7 +170,8 @@ def channel_messages_v1(auth_user_id, channel_id, start):
         if start <= idx < end:
             return_messages.append(store_messages[messages[idx]]['message'])
     #end - start is 50
-    if len(return_messages) < end-start:
+    #if len(return_messages) < end-start and len(messages) < end:
+    if len(messages) < end:
         end = -1
 
     return {
