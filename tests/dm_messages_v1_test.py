@@ -38,6 +38,12 @@ def dm_endpoint():
     member_ids = [register_valid_user(email = 'lh@gmail.com',password = 'lh123!@#',name_first ='Lewis',name_last = 'Hamilton' )['auth_user_id']]
     return (token, member_ids)
 
+@pytest.fixture
+def another_dm_endpoint():
+    other.clear_v1()
+    token = (register_valid_user(email = 'mv@gmail.com',password = 'mv123!@#',name_first ='Max',name_last = 'Verstappen' ))['token']
+    member_ids = [register_valid_user(email = 'sp@gmail.com',password = 'sp123!@#',name_first ='Sergio',name_last = 'Perez' )['auth_user_id']]
+    return (token, member_ids)
 
 #create multiple messages in a public channel
 @pytest.fixture
@@ -53,6 +59,31 @@ def create_messages_endpoint(dm_endpoint):
     })
     return new_dm,token
 
+@pytest.fixture
+def create_another_messages_endpoint(another_dm_endpoint):
+    token, member_ids = another_dm_endpoint
+    new_dm = create_dm_endpoint(token,member_ids)
+    for i in range(5):
+        Message = "message" + str(i)
+        _ = requests.post(f"{BASE_URL}/message/senddm/v1",json={
+        'token' : token,
+        'dm_id' : new_dm['dm_id'],
+        'message' : Message
+    })
+    return new_dm,token
+
+@pytest.fixture
+def create_extreme_messages_endpoint(dm_endpoint):
+    token, member_ids = dm_endpoint
+    new_dm = create_dm_endpoint(token,member_ids)
+    for i in range(60):
+        Message = "message" + str(i)
+        _ = requests.post(f"{BASE_URL}/message/senddm/v1",json={
+        'token' : token,
+        'dm_id' : new_dm['dm_id'],
+        'message' : Message
+    })
+    return new_dm,token
 
 
 def dm_messages_endpoint(token,dm_id,start):
@@ -82,8 +113,20 @@ def test_valid_start_index_endpoint(create_messages_endpoint):
     print(f"new_dm var {new_dm}")
     result,status_code = dm_messages_endpoint(token,new_dm['dm_id'],1)
     assert status_code == 200
-    assert result["end"] == -1
+    assert result['end'] == -1
 
+def test_dm_message_end_less_than_message_len_endpoint(create_extreme_messages_endpoint):
+    new_dm,token = create_extreme_messages_endpoint
+    result,status_code = dm_messages_endpoint(token,new_dm['dm_id'], 1) 
+    assert status_code == 200
+    assert result['end'] == 51
+
+def test_dm_message_in_multi_dm(create_messages_endpoint, create_another_messages_endpoint):
+    create_messages_endpoint
+    dm2,token = create_another_messages_endpoint
+    result,status_code = dm_messages_endpoint(token,dm2['dm_id'], 1) 
+    assert status_code == 200
+    assert result['end'] == -1
 
 """
 Input Errors
@@ -102,9 +145,18 @@ def test_invalid_dm_1_endpoint(dm_endpoint):
     _,status_code = dm_messages_endpoint(token,2,0) 
     assert status_code == 400
 
-
-
 def test_start_greater_than_num_messages(create_messages_endpoint):
     new_dm,token = create_messages_endpoint
     _,status_code = dm_messages_endpoint(token,new_dm['dm_id'], 10) 
     assert status_code == 400
+
+
+"""
+Access Errors
+"""
+
+def test_user_not_in_dm_messages(create_messages_endpoint):
+    new_dm,_= create_messages_endpoint
+    un_authorised_user = register_valid_user(email = 'cl@gmail.com',password = 'cl123!@#',name_first ='Charles',name_last = 'Leclecr' )['token']
+    _,status_code = dm_messages_endpoint(un_authorised_user,new_dm['dm_id'], 0) 
+    assert status_code == 403
