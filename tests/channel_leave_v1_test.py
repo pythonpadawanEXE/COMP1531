@@ -244,3 +244,32 @@ def test_invalid_user():
         'channel_id' : channel_id,
     })
     assert response.status_code == 403
+
+# channel_id is valid and the authorised user is not a member of the channel
+def test_invalid_auth_user_id():
+    # Create User1
+    user1_token = register_user("js@email.com", "ABCDEFGH", "John", "Smith")['token']
+    user2_token = register_user("jemma@email.com", "ABCDEFGH", "jemma", "Smith")['token']
+
+    # User1 creates a public channel
+    channel_id = channels_create(user1_token, "Chan 1", True)['channel_id']
+
+    response = requests.post(f"{BASE_URL}channel/leave/v1", json={
+        'token' : user2_token,
+        'channel_id' : channel_id,
+    })
+    assert response.status_code == 403
+
+# channel_id is valid and the authorised user is not a member of the channel
+def test_invalid_token():
+    # Create User1
+    user1_token = register_user("js@email.com", "ABCDEFGH", "John", "Smith")['token']
+
+    # User1 creates a public channel
+    channel_id = channels_create(user1_token, "Chan 1", True)['channel_id']
+
+    response = requests.post(f"{BASE_URL}channel/leave/v1", json={
+        'token' : "ByJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjJ9.Env14G_7NFpwl6w_pDX4SPknTJelqy8GgdcaA44rrmM",
+        'channel_id' : channel_id,
+    })
+    assert response.status_code == 403

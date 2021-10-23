@@ -7,14 +7,15 @@ from src import config
 from src.error import InputError
 from src.admin import admin_userpermission_change_v1
 from src.auth import auth_register_v1, auth_login_v1, auth_logout_v1
-from src.channel import channel_messages_v1, channel_details_v1, channel_join_v1, channel_leave_v1, channel_invite_v1
+from src.channel import channel_messages_v1, channel_details_v1, channel_join_v1, channel_leave_v1, \
+    channel_invite_v1, channel_addowner_v1, channel_removeowner_v1
 from src.channels import channels_create_v1, channels_listall_v1, channels_list_v1
 from src.other import check_valid_token, clear_v1,return_token
 from src.data_store import data_store
 from src.message import message_send_v1,message_remove_v1,message_edit_v1,message_send_dm_v1
 from src.user import user_profile_v1
 from src.users import users_all_v1
-from src.dm import dm_create_v1, dm_list_v1
+from src.dm import dm_create_v1, dm_list_v1, dm_details_v1, dm_leave_v1, dm_remove_v1
 import pickle
 
 try:
@@ -240,6 +241,22 @@ def channel_invite_v2():
     decoded_token = check_valid_token(token)
     return dumps(channel_invite_v1(decoded_token['auth_user_id'], channel_id, u_id))
 
+@APP.route("/channel/addowner/v1", methods=['POST'])
+def post_channel_addowner_v1():
+    request_data = request.get_json()
+    token = request_data['token']
+    channel_id = request_data['channel_id']
+    u_id = request_data['u_id']
+    return dumps(channel_addowner_v1(token, channel_id, u_id))
+
+@APP.route("/channel/removeowner/v1", methods=['POST'])
+def post_channel_removeowner_v1():
+    request_data = request.get_json()
+    token = request_data['token']
+    channel_id = request_data['channel_id']
+    u_id = request_data['u_id']
+    return dumps(channel_removeowner_v1(token, channel_id, u_id))
+
 # Channels Routes
 
 @APP.route("/channels/create/v2", methods=['POST'])
@@ -375,6 +392,29 @@ def dm_list_v1_get():
     token = request.args.get('token')
     decoded_token = check_valid_token(token)
     return dumps(dm_list_v1(decoded_token['auth_user_id']))
+
+@APP.route("/dm/details/v1", methods=['GET'])
+def dm_details_v1_get():
+    token = request.args.get('token')
+    dm_id = int(request.args.get('dm_id'))
+    decoded_token = check_valid_token(token)
+    return dumps(dm_details_v1(decoded_token['auth_user_id'], dm_id))
+
+@APP.route("/dm/leave/v1", methods=['POST'])
+def dm_leave_v1_post():
+    request_data = request.get_json()
+    token = request_data['token']
+    dm_id = request_data['dm_id']
+    decoded_token = check_valid_token(token)
+    return dumps(dm_leave_v1(decoded_token['auth_user_id'], dm_id))
+
+@APP.route("/dm/remove/v1", methods=['DELETE'])
+def dm_remove_delete():
+    request_data = request.get_json()
+    token = request_data['token']
+    dm_id = request_data['dm_id']
+    decoded_token = check_valid_token(token)
+    return dumps(dm_remove_v1(decoded_token['auth_user_id'], dm_id))
     
 # User Routes
 @APP.route("/user/profile/v1", methods=['get'])
