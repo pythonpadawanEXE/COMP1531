@@ -197,5 +197,6 @@ def message_remove_v1(token,message_id):
 
     message_dict = None
     data_store.set(store)
+    print(f"afer removal {store}")
     return {}
     

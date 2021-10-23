@@ -187,16 +187,16 @@ def search_duplicate_email(email):
         if Object['email'] == email:
             count += 1
     return count
-'''
-Search for Handle given auth user id
-'''
-def search_handle(auth_user_id):
-    store = data_store.get()
-    users = store['users']
-    for user in users:
-        if user['u_id'] == auth_user_id:
-            return user['handle_str']
-    return None
+# '''
+# Search for Handle given auth user id
+# '''
+# def search_handle(auth_user_id):
+#     store = data_store.get()
+#     users = store['users']
+#     for user in users:
+#         if user['u_id'] == auth_user_id:
+#             return user['handle_str']
+#     return None
 '''
 Searches for existing handles and appends a number as a string to create a unique and valid handle
 '''
@@ -290,8 +290,8 @@ def check_valid_token(token):
     if None == re.fullmatch(r'^[A-Za-z0-9-_]*\.[A-Za-z0-9-_]*\.[A-Za-z0-9-_]*$',token):
         raise AccessError(description="Invalid Token")
     decoded_token = decode_jwt(token)
-    if isinstance(decoded_token,dict) == False:
-        raise AccessError(description="Invalid Token")
+    # if isinstance(decoded_token,dict) == False:
+    #     raise AccessError(description="Invalid Token")
 
     store = data_store.get()
     users = store['users']
@@ -329,7 +329,7 @@ def hash(input_string):
     return hashlib.sha256(input_string.encode()).hexdigest()
 
 
-def generate_jwt(auth_user_id, session_id=None):
+def generate_jwt(auth_user_id, session_id):
     """Generates a JWT using the global SECRET
 
     Args:
@@ -340,8 +340,6 @@ def generate_jwt(auth_user_id, session_id=None):
     Returns:
         string: A JWT encoded string
     """
-    if session_id is None:
-        session_id = generate_new_session_id()
     return jwt.encode({'auth_user_id': auth_user_id, 'session_id': session_id}, SECRET, algorithm='HS256')
 
 
@@ -389,3 +387,65 @@ def generate_dm_name(all_members):
     name = ', '.join(sorted(name_list))
     return name
     
+def is_dm_valid(dm_id):
+
+    dm_valid = False
+    store = data_store.get()
+    dm_store = store['dms']
+
+    for dm in dm_store:
+        if dm['dm_id'] == dm_id:
+            dm_valid = True
+
+    return dm_valid
+
+def is_user_authorised_dm(auth_user_id, dm_id):
+    is_authorised = False
+    store = data_store.get()
+    dm_store = store['dms']
+    print(f"dm_store_authroised {dm_store}")
+    print(f"auth_user_id {auth_user_id} dm_id {dm_id}")
+    for dm in dm_store:
+        if dm['dm_id'] == dm_id:
+            if auth_user_id in dm['all_members']:
+                is_authorised = True
+
+    return is_authorised
+
+def get_all_user_id_dm(dm_id):
+    store = data_store.get()
+    dm_store = store['dms']
+
+    for dm in dm_store:
+        if dm['dm_id'] == dm_id:
+            return dm['all_members']
+
+def get_dm_name(dm_id):
+    store = data_store.get()
+    dm_store = store['dms']
+
+    for dm in dm_store:
+        if dm['dm_id'] == dm_id:
+            return dm['name']
+
+def get_dm_owner(dm_id):
+    store = data_store.get()
+    dm_store = store['dms']
+
+    for dm in dm_store:
+        if dm['dm_id'] == dm_id:
+            return dm['owner']
+
+def is_user_creator_dm(auth_user_id, dm_id):
+    is_creator = False
+    store = data_store.get()
+    dm_store = store['dms']
+    print(f"dm_store_authroised {dm_store}")
+    print(f"auth_user_id {auth_user_id} dm_id {dm_id}")
+    for dm in dm_store:
+        if dm['dm_id'] == dm_id:
+            if dm['owner'] == auth_user_id:
+                is_creator = True
+                
+    return is_creator
+        
