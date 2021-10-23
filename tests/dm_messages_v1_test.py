@@ -101,3 +101,10 @@ def test_invalid_dm_1_endpoint(dm_endpoint):
     token, _ = dm_endpoint
     _,status_code = dm_messages_endpoint(token,2,0) 
     assert status_code == 400
+
+
+
+def test_start_greater_than_num_messages(create_messages_endpoint):
+    new_dm,token = create_messages_endpoint
+    _,status_code = dm_messages_endpoint(token,new_dm['dm_id'], 10) 
+    assert status_code == 400

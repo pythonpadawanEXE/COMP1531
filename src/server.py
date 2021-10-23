@@ -427,7 +427,8 @@ def dm_messages_get():
         dm_id,
         start
     )
-    return dumps(dm_messages)
+    print(f"\n\n{dm_messages}\n\n")
+    return jsonify(dm_messages)
 
 # User Routes
 @APP.route("/user/profile/v1", methods=['GET'])
