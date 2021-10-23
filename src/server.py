@@ -4,16 +4,17 @@ from json import dumps
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from src import config
-from src.error import InputError
-from src.admin import admin_user_remove_v1
+from src.admin import admin_userpermission_change_v1, admin_user_remove_v1
 from src.auth import auth_register_v1, auth_login_v1, auth_logout_v1
-from src.channel import channel_messages_v1, channel_details_v1, channel_join_v1, channel_invite_v1
+from src.channel import channel_messages_v1, channel_details_v1, channel_join_v1, channel_leave_v1, \
+    channel_invite_v1, channel_addowner_v1, channel_removeowner_v1
 from src.channels import channels_create_v1, channels_listall_v1, channels_list_v1
 from src.other import check_valid_token, clear_v1,return_token
 from src.data_store import data_store
-from src.message import message_send_v1,message_remove_v1,message_edit_v1
+from src.message import message_send_v1,message_remove_v1,message_edit_v1,message_send_dm_v1
 from src.user import user_profile_v1
 from src.users import users_all_v1
+from src.dm import dm_create_v1, dm_list_v1, dm_details_v1, dm_leave_v1, dm_remove_v1
 import pickle
 
 try:
@@ -56,6 +57,15 @@ def delete_admin_user_remove_v1():
     u_id = request_data['u_id']
     decoded_token = check_valid_token(token)
     return dumps(admin_user_remove_v1(decoded_token['auth_user_id'], u_id))
+    
+@APP.route("/admin/userpermission/change/v1", methods=['POST'])
+def post_admin_userpermission_change_v1():
+    request_data = request.get_json()
+    token = request_data['token']
+    u_id = request_data['u_id']
+    permission_id = request_data['permission_id']
+    decoded_token = check_valid_token(token)
+    return dumps(admin_userpermission_change_v1(decoded_token['auth_user_id'], u_id, permission_id))
 
 # Auth Routes
 
@@ -81,7 +91,7 @@ def post_auth_register():
 
     Return Value:
     {   
-        token (string)      - Unique encrypted concat of auth_user_id and session_id
+        token (string),      - Unique encrypted concat of auth_user_id and session_id
         auth_user_id (int)  - Unique authenticated Id of User.
     }
     '''
@@ -118,7 +128,7 @@ def post_auth_login():
 
     Return Value:
     {   
-        token (string)      - Unique encrypted concat of auth_user_id and session_id
+        token (string),      - Unique encrypted concat of auth_user_id and session_id
         auth_user_id (int)  - Unique authenticated Id of User.
     }
     '''
@@ -222,6 +232,13 @@ def channel_join_v2():
     decoded_token = check_valid_token(token)
     return dumps(channel_join_v1(decoded_token['auth_user_id'], channel_id))
 
+@APP.route("/channel/leave/v1", methods=['POST'])
+def post_channel_leave_v1():
+    request_data = request.get_json()
+    token = request_data['token']
+    channel_id = request_data['channel_id']
+    return dumps(channel_leave_v1(token, channel_id))
+
 @APP.route("/channel/invite/v2", methods=['POST'])
 def channel_invite_v2():
     request_data = request.get_json()
@@ -230,6 +247,22 @@ def channel_invite_v2():
     u_id = request_data['u_id']
     decoded_token = check_valid_token(token)
     return dumps(channel_invite_v1(decoded_token['auth_user_id'], channel_id, u_id))
+
+@APP.route("/channel/addowner/v1", methods=['POST'])
+def post_channel_addowner_v1():
+    request_data = request.get_json()
+    token = request_data['token']
+    channel_id = request_data['channel_id']
+    u_id = request_data['u_id']
+    return dumps(channel_addowner_v1(token, channel_id, u_id))
+
+@APP.route("/channel/removeowner/v1", methods=['POST'])
+def post_channel_removeowner_v1():
+    request_data = request.get_json()
+    token = request_data['token']
+    channel_id = request_data['channel_id']
+    u_id = request_data['u_id']
+    return dumps(channel_removeowner_v1(token, channel_id, u_id))
 
 # Channels Routes
 
@@ -294,6 +327,44 @@ def post_message_send():
     data_store.save()
     return dumps(message_id)
 
+# Message Routes
+@APP.route("/message/senddm/v1", methods=['POST'])
+def post_message_dm_send():
+    '''
+    Send a message from authorised_user to the DM specified by dm_id. 
+    Note: Each message should have it's own unique ID, i.e. no messages 
+    should share an ID with another message, even if that other message 
+    is in a different channel or DM.
+
+    Arguments:
+        token (string)      - Unique encrypted concat of auth_user_id and session_id
+        dm_id (int)         - Unique ID of dm
+        message (string)    - Message that will be sent to channel.
+
+    Exceptions:
+        Input Error:
+        - dm_id does not refer to a valid channel
+        - length of message is less than 1 or over 1000 characters
+        Access Error:
+        - dm_id is valid and the authorised user is not a member of the channel
+        - Thrown when the token passed in is invalid
+
+
+    Return Value:
+    {   
+        message_id (int) - Unique message_id in the unique dm.
+    }
+    '''
+    request_data = request.get_json()
+    decoded_token = check_valid_token(request_data['token'])
+    message_id = message_send_dm_v1(
+        decoded_token['auth_user_id'],
+        request_data['dm_id'],
+        request_data['message']
+    )
+    data_store.save()
+    return dumps(message_id)
+
 @APP.route("/message/edit/v1", methods=['PUT'])
 def put_message_edit():
     request_data = request.get_json()
@@ -315,7 +386,43 @@ def delete_message_remove():
     data_store.save()
     return dumps({})
 # Dm Routes
+@APP.route("/dm/create/v1", methods=['POST'])
+def dm_create_v1_post():
+    request_data = request.get_json()
+    token = request_data['token']
+    u_ids = request_data['u_ids']
+    decoded_token = check_valid_token(token)
+    return dumps(dm_create_v1(decoded_token['auth_user_id'],u_ids))
 
+@APP.route("/dm/list/v1", methods=['GET'])
+def dm_list_v1_get():
+    token = request.args.get('token')
+    decoded_token = check_valid_token(token)
+    return dumps(dm_list_v1(decoded_token['auth_user_id']))
+
+@APP.route("/dm/details/v1", methods=['GET'])
+def dm_details_v1_get():
+    token = request.args.get('token')
+    dm_id = int(request.args.get('dm_id'))
+    decoded_token = check_valid_token(token)
+    return dumps(dm_details_v1(decoded_token['auth_user_id'], dm_id))
+
+@APP.route("/dm/leave/v1", methods=['POST'])
+def dm_leave_v1_post():
+    request_data = request.get_json()
+    token = request_data['token']
+    dm_id = request_data['dm_id']
+    decoded_token = check_valid_token(token)
+    return dumps(dm_leave_v1(decoded_token['auth_user_id'], dm_id))
+
+@APP.route("/dm/remove/v1", methods=['DELETE'])
+def dm_remove_delete():
+    request_data = request.get_json()
+    token = request_data['token']
+    dm_id = request_data['dm_id']
+    decoded_token = check_valid_token(token)
+    return dumps(dm_remove_v1(decoded_token['auth_user_id'], dm_id))
+    
 # User Routes
 @APP.route("/user/profile/v1", methods=['get'])
 def user_profile_v1_get():
@@ -332,16 +439,6 @@ def users_all_v1_get():
     return dumps(users_all_v1(decoded_token['auth_user_id']))
 
 # Other routes
-
-@APP.route("/echo", methods=['GET'])
-def echo():
-    data = request.args.get('data')
-    if data == 'echo':
-   	    raise InputError(description='Cannot echo "echo"')
-    return dumps({
-        'data': data
-    })
-
 @APP.route("/get_data", methods=['GET'])
 def get_all_data():
     '''
