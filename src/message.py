@@ -110,11 +110,7 @@ def message_edit_v1(token,message_id,message):
     if message_id > len(store['messages'])-1:
         raise InputError("Message_id does not refer to a valid message.")
 
-    message_dict = store['messages'][message_id]
-    #Does this fall under: message_id does not refer to a valid message within a channel/DM that the authorised user has joined?
-    #print(f"Check Token store:{store}")
-    #print(f"Message dict: {message_dict}, auth_user {auth_user_id}")
-    
+   
     if store['messages'][message_id] is None:
         raise InputError("Message has already been deleted")
 
@@ -123,16 +119,6 @@ def message_edit_v1(token,message_id,message):
 
     channel_id = store['messages'][message_id]['channel_id']
     dm_id = store['messages'][message_id]['dm_id']
-
-    #print(f"is_user_authorised {is_user_authorised(auth_user_id, channel_id)}")
-    if channel_id is not None:
-        # -1 to adjust for starting id of 1 in index 0
-        channel = store['channels'][channel_id-1]
-        
-
-    if dm_id is not None:    
-        # -1 to adjust for starting id of 1 in index 0
-        dm = store['dms'][dm_id-1]
         
     
     if (dm_id is None and is_user_authorised(auth_user_id, channel_id) == False) or \
