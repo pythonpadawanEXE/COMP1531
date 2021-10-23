@@ -180,6 +180,7 @@ def search_email_password_match(email,password):
 searches for duplicate emails
 '''
 def search_duplicate_email(email):
+    
     store = data_store.get()
     users = store['users']
     for Object in users:

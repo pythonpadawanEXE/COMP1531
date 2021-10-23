@@ -150,7 +150,10 @@ def test_invalid_start_index_50_endpoint(create_messages_endpoint):
 def test_invalid_start_index_5_endpoint(create_messages_endpoint):
     new_channel,token = create_messages_endpoint
     _,status_code = channel_messages_endpoint(token,new_channel['channel_id'],5)
+    response = requests.get(f"{BASE_URL}/get_data")
+    print(response.json())
     assert status_code == 400
+    
 
 #Channel ID is not valid or does not exist.
 def test_invalid_channel_unexist_endpoint():
