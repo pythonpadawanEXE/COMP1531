@@ -1,6 +1,6 @@
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import verify_user_id, generate_dm_name, is_dm_valid, get_all_user_id_dm, get_dm_name, is_user_authorised_dm, get_dm_owner, user_details, get_all_members
+from src.other import verify_user_id, generate_dm_name, is_dm_valid, get_all_user_id_dm, get_dm_name, is_user_authorised_dm, get_dm_owner, user_details, get_all_members, is_user_creator_dm
 
 def dm_create_v1(auth_user_id, u_ids):
     creator_u_id = auth_user_id
@@ -74,3 +74,19 @@ def dm_leave_v1(auth_user_id, dm_id):
     data_store.set(store)
     
     return {}
+
+def dm_remove_v1(auth_user_id, dm_id):
+    
+    if not is_dm_valid(dm_id):
+        raise InputError(description ="Dm_id does bot refer to a valid dm.")
+    if not is_user_creator_dm(auth_user_id, dm_id):
+        raise AccessError(description="User is not the creator of this dm")
+
+    store = data_store.get()
+    dm_store= store['dms']
+
+    for dm in dm_store:
+        if dm['dm_id'] == dm_id:
+            dm_store.remove(dm)
+    data_store.set(store)
+    return{}
