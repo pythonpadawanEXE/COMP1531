@@ -96,6 +96,12 @@ Valid Input
 """
 
 #start is not greater than the total number of messages in the channel
+def test_valid_start_index_0_endpoint(create_messages_endpoint):
+    new_channel,token = create_messages_endpoint
+    print(f"new_channel var {new_channel}")
+    result,status_code = channel_messages_endpoint(token,new_channel['channel_id'],1)
+    assert status_code == 200
+    assert result["end"] == -1
 
 def test_valid_start_index_1_endpoint(create_messages_endpoint):
     new_channel,token = create_messages_endpoint
