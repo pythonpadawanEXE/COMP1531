@@ -15,7 +15,7 @@ from src.data_store import data_store
 from src.message import message_send_v1,message_remove_v1,message_edit_v1,message_send_dm_v1
 from src.user import user_profile_v1, user_profile_setname_v1, user_profile_setemail_v1, user_profile_sethandle_v1
 from src.users import users_all_v1
-from src.dm import dm_create_v1, dm_list_v1, dm_details_v1, dm_leave_v1, dm_remove_v1
+from src.dm import dm_create_v1, dm_list_v1, dm_details_v1, dm_leave_v1, dm_remove_v1, dm_messages_v1
 import pickle
 
 try:
@@ -355,7 +355,6 @@ def post_message_dm_send():
         request_data['dm_id'],
         request_data['message']
     )
-    data_store.save()
     return dumps(message_id)
 
 @APP.route("/message/edit/v1", methods=['PUT'])
@@ -416,7 +415,21 @@ def dm_remove_delete():
     dm_id = request_data['dm_id']
     decoded_token = check_valid_token(token)
     return dumps(dm_remove_v1(decoded_token['auth_user_id'], dm_id))
-    
+
+@APP.route("/dm/messages/v1", methods=['GET'])
+def dm_messages_get():
+    token = request.args.get('token')
+    dm_id = int(request.args.get('dm_id'))
+    start = int(request.args.get('start'))
+    decoded_token = check_valid_token(token)
+    dm_messages = dm_messages_v1(
+        decoded_token['auth_user_id'],
+        dm_id,
+        start
+    )
+    print(f"\n\n{dm_messages}\n\n")
+    return jsonify(dm_messages)
+
 # User Routes
 @APP.route("/user/profile/v1", methods=['GET'])
 def user_profile_v1_get():
