@@ -105,3 +105,24 @@ def test_unauthoried_user():
     dm_id = dm_create(creator_token, u_ids)['dm_id']
     details = requests.get(f"{BASE_URL}dm/details/v1?token={unauthoried_user_token}&dm_id={dm_id}")
     assert details.status_code == 403
+
+def test_multi_dm_details():
+    # New users
+    creator1 = register_user("js@email.com", "js123!@#", "John", "Smith")
+    member1 = register_user("lw@email.com", "lw123!@#", "Lewis", "Hamilton")
+    token1 = creator1['token']
+    u_ids1 = [member1['auth_user_id']]
+    creator2 = register_user("mv@email.com", "mv123!@#", "Max", "Verstappen")
+    member2 = register_user("sp@email.com", "sp123!@#", "Sergio", "Perez")
+    token2 = creator2['token']
+    u_ids2 = [member2['auth_user_id']]
+    # Dm ID
+    dm_create(token1, u_ids1)['dm_id']
+    dm_id2 = dm_create(token2, u_ids2)['dm_id']
+    # Dm details
+    details = dm_details(token2, dm_id2)
+    # User_ids
+    auth_user_id_list = [creator2['auth_user_id'], member2['auth_user_id']]
+    # Loop through the dm details and find if auth_user_id is in all_members
+    for user in details['all_members']:
+        assert(user['u_id'] in auth_user_id_list)
