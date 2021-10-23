@@ -141,6 +141,13 @@ def create_dms_endpoint(create_dm_3):
         message_ids.append(response_data['message_id'])
     return dm_data['dm_id'],token,message_ids
 
+def remove_message_endpoint(token,message_id):
+    response = requests.delete(f"{BASE_URL}/message/remove/v1",json={
+        'token' : token,
+        'message_id' : message_id,
+    })
+    return response.json(),response.status_code
+
 '''
 Valid Input
 '''
@@ -179,6 +186,7 @@ def test_dm_delete_short_message_endpoint(create_dms_endpoint):
     assert status_code == 400    
 
 
+
 '''
 Input Error
 '''
@@ -203,10 +211,19 @@ def test_channel_invalid_message_id_endpoint(create_messages_endpoint):
     _,status_code = edit_message_endpoint(token,10,"NEw Msg")
     assert status_code == 400
 
+def test_channel_already_deleted_endpoint(create_messages_endpoint):
+    _,token,_ = create_messages_endpoint
+    _ ,status_code =  remove_message_endpoint(token,0)
+    assert status_code == 200
+    _,status_code = edit_message_endpoint(token,0,"NEw Msg")
+    assert status_code == 400
+    # assert 1 == 0
+
 def test_dm_invalid_edit_message_id_endpoint(create_dms_endpoint):
     _,token,_ = create_dms_endpoint
     _,status_code = edit_message_endpoint(token,10,"NEw Msg")
     assert status_code == 400
+
     
 '''
 Access Error

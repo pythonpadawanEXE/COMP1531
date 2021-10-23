@@ -160,7 +160,7 @@ def channel_messages_v1(auth_user_id, channel_id, start):
         raise InputError("Channel ID is not valid or does not exist.")
     messages = channel['messages']
     
-    if len(messages) < start:
+    if len(messages)-1 < start:
         raise InputError("Start is greater than the total number of messages in the channel")
     # 50 is the pagination block of messages
     end = start + 50
