@@ -360,6 +360,29 @@ def post_message_dm_send():
 
 @APP.route("/message/edit/v1", methods=['PUT'])
 def put_message_edit():
+    '''
+    Given a message, update its text with new text. 
+    If the new message is an empty string, the message is deleted.
+
+    Arguments:
+        token (string)      - Unique encrypted concat of auth_user_id and session_id
+        message_id (int)         - Unique ID of dm
+        message (string)    - Message that will be sent to channel.
+
+    Exceptions:
+        Input Error:
+        - message_id does not refer to a valid message within a channel/dm
+        - length of message is less than 1 or over 1000 characters
+        Access Error:
+        - token is invalid
+        - authorised user is not an owner of the channel/dm nor made the message
+
+
+    Return Value:
+    {   
+        message_id (int) - Unique message_id in the unique dm.
+    }
+    '''
     request_data = request.get_json()
     _ = message_edit_v1(
         request_data['token'],
@@ -371,6 +394,26 @@ def put_message_edit():
 
 @APP.route("/message/remove/v1", methods=['DELETE'])
 def delete_message_remove():
+    '''
+    Given a message, update its text with new text. 
+    If the new message is an empty string, the message is deleted.
+
+    Arguments:
+        token (string)      - Unique encrypted concat of auth_user_id and session_id
+        message_id (int)         - Unique ID of message
+
+
+    Exceptions:
+        Input Error:
+        - message_id does not refer to a valid message within a channel/dm+
+        Access Error:
+        - token is invalid
+        - authorised user is not an owner of the channel/dm nor made the message
+
+
+    Return Value:
+        {   }
+    '''
     request_data = request.get_json()
     _ = message_remove_v1(
         request_data['token'],

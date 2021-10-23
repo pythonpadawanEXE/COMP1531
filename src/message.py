@@ -1,6 +1,6 @@
 from src.data_store import data_store
 from src.error import InputError,AccessError
-from src.other import check_valid_token,is_user_in_dm,is_user_authorised
+from src.other import check_valid_token,is_user_channel_owner,is_user_dm_owner
 import datetime
 
 def message_send_dm_v1(auth_user_id, dm_id, message_input):
@@ -125,8 +125,8 @@ def message_edit_v1(token,message_id,message):
 
         
     
-    if (dm_id is None and is_user_authorised(auth_user_id, channel_id) == False) or \
-    (channel_id is None and is_user_in_dm(auth_user_id, dm_id) == False):
+    if ((dm_id is None and is_user_channel_owner(auth_user_id, channel_id) == False) or \
+    (channel_id is None and is_user_dm_owner(auth_user_id, dm_id) == False)) and store['messages'][message_id]['u_id'] != auth_user_id:
         raise AccessError("The user is not authorised in this dm/channel.")
 
      
@@ -160,7 +160,8 @@ def message_remove_v1(token,message_id):
         channel = store['channels'][channel_id-1]
         
 
-        if (dm_id is None and is_user_authorised(auth_user_id, channel_id) == False):
+        if (dm_id is None and is_user_channel_owner(auth_user_id, channel_id) == False) and \
+        store['messages'][message_id]['u_id'] != auth_user_id:
             raise AccessError("The user is not authorised in this channel.")
 
         for idx,message_id_ch in enumerate(channel['messages']):
@@ -172,7 +173,8 @@ def message_remove_v1(token,message_id):
         dm = store['dms'][dm_id-1]
         
              
-        if (channel_id is None and is_user_in_dm(auth_user_id, dm_id) == False):
+        if (channel_id is None and is_user_dm_owner(auth_user_id, dm_id) == False) and \
+        store['messages'][message_id]['u_id'] != auth_user_id:
             raise AccessError("The user is not authorised in this dm.")
             
         for idx,message_id_dm in enumerate(dm['messages']):

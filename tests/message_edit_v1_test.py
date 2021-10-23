@@ -165,6 +165,25 @@ def test_dm_valid_message_edit_endpoint(create_dms_endpoint):
     assert status_code == 200
     assert data == {}
 
+def test_dm_owner_edit_message_id_endpoint():
+    response_data1 = register_valid_user()
+    response_data2 = register_valid_user(email='valid@gmail.com')
+    response_data3 = register_valid_user(email='valid1@gmail.com')
+    u_ids = [response_data2['auth_user_id'],response_data3['auth_user_id']]
+    response = requests.post(f"{BASE_URL}/dm/create/v1",json={
+        'token' : response_data1['token'],
+        'u_ids' : u_ids
+    })
+    message_ids = []
+    dm_data = response.json()
+    for i in range(5):
+        Message = "message" + str(i)
+        response_data , status_code =  send_msg(response_data1['token'],dm_data['dm_id'],Message)
+        assert status_code == 200
+        message_ids.append(response_data['message_id'])
+    _,status_code =   edit_message_endpoint(response_data1['token'],message_ids[0],"NEw Msg")
+    assert status_code == 200
+
 
 #If the new message is an empty string, the message is deleted.
 def test_channel_delete_short_message_endpoint(create_messages_endpoint):
@@ -235,9 +254,10 @@ def test_channel_unauthorised_edit_message_id_endpoint(create_messages_endpoint)
     _,status_code =   edit_message_endpoint(data['token'],message_ids[0],"NEw Msg")
     assert status_code == 403
 
-def test_dm_unauthroised_edit_message_id_endpoint(create_dms_endpoint):
+def test_dm_unauthorised_edit_message_id_endpoint(create_dms_endpoint):
     _,_,message_ids =   create_dms_endpoint
     data = register_valid_user(email = "newemail@gmail.com")
     _,status_code =   edit_message_endpoint(data['token'],message_ids[0],"NEw Msg")
     assert status_code == 403
+
 
