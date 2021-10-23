@@ -39,11 +39,11 @@ def user_profile_setname_v1(token, name_first, name_last):
         raise AccessError(description="u_id does not exist.")
 
     # length of name_first is not between 1 and 50 characters inclusive
-    if (length_name_first >= 1 and length_name_last <= 50):
+    if (length_name_first < 1 or length_name_first > 50):
         raise InputError(description="length of name_first is not between 1 and 50 characters inclusive")
 
     # length of name_last is not between 1 and 50 characters inclusive
-    if (length_name_first >= 1 and length_name_last <= 50):
+    if (length_name_last < 1 or length_name_last > 50):
         raise InputError(description="length of name_last is not between 1 and 50 characters inclusive")
 
     # Get all users
@@ -56,7 +56,7 @@ def user_profile_setname_v1(token, name_first, name_last):
             # Update users name
             user['name_first'] = name_first
             user['name_last'] = name_last
-    
+
     data_store.save()
 
     return {}
