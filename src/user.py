@@ -1,6 +1,6 @@
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import verify_user_id
+from src.other import verify_user_id, check_valid_token
 
 def user_profile_v1(auth_user_id, u_id):
     if not verify_user_id(auth_user_id):
@@ -31,15 +31,19 @@ def user_profile_setname_v1(token, name_first, name_last):
     # Get the u_id from the token
     u_id = check_valid_token(token)['auth_user_id']
 
-    lenth_name_first = len(name_first)
-    lenth_name_last = len(name_last)
+    length_name_first = len(name_first)
+    length_name_last = len(name_last)
+
+    # Verify user ID
+    if not verify_user_id(u_id):
+        raise AccessError(description="u_id does not exist.")
 
     # length of name_first is not between 1 and 50 characters inclusive
-    if (lenth_name_first >= 1 and lenth_name_first <= 50):
+    if (length_name_first >= 1 and length_name_last <= 50):
         raise InputError(description="length of name_first is not between 1 and 50 characters inclusive")
 
     # length of name_last is not between 1 and 50 characters inclusive
-    if (lenth_name_last >= 1 and lenth_name_last <= 50):
+    if (length_name_first >= 1 and length_name_last <= 50):
         raise InputError(description="length of name_last is not between 1 and 50 characters inclusive")
 
     # Get all users
@@ -47,13 +51,13 @@ def user_profile_setname_v1(token, name_first, name_last):
     users = store['users']
 
     # Find the user to be updated
-    for user in users_store:
+    for user in users:
         if u_id == user['u_id']:
             # Update users name
             user['name_first'] = name_first
             user['name_last'] = name_last
     
-    data_store.save(store)
+    data_store.save()
 
     return {}
 
