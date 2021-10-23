@@ -13,7 +13,7 @@ from src.channels import channels_create_v1, channels_listall_v1, channels_list_
 from src.other import check_valid_token, clear_v1,return_token
 from src.data_store import data_store
 from src.message import message_send_v1,message_remove_v1,message_edit_v1,message_send_dm_v1
-from src.user import user_profile_v1, user_profile_setname_v1
+from src.user import user_profile_v1, user_profile_setname_v1, user_profile_setemail_v1
 from src.users import users_all_v1
 from src.dm import dm_create_v1, dm_list_v1, dm_details_v1, dm_leave_v1, dm_remove_v1
 import pickle
@@ -432,6 +432,13 @@ def put_user_profile_setname_v1():
     name_first = request_data['name_first']
     name_last = request_data['name_last']
     return dumps(user_profile_setname_v1(token, name_first, name_last))
+
+@APP.route("/user/profile/setemail/v1", methods=['PUT'])
+def put_user_profile_setemail_v1():
+    request_data = request.get_json()
+    token = request_data['token']
+    email = request_data['email']
+    return dumps(user_profile_setemail_v1(token, email))
 
 # Users Routes
 @APP.route("/users/all/v1", methods=['GET'])
