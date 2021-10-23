@@ -180,7 +180,6 @@ def search_email_password_match(email,password):
 searches for duplicate emails and return a count of matching emails to the provided input
 '''
 def search_duplicate_email(email):
-    
     store = data_store.get()
     users = store['users']
     count = 0
@@ -188,6 +187,16 @@ def search_duplicate_email(email):
         if Object['email'] == email:
             count += 1
     return count
+
+# Check if a given handle already exists in the datastore
+def is_handle_exist(handle_str):
+    store = data_store.get()
+    users = store['users']
+    for user in users:
+        if user['handle_str'] == handle_str:
+            return True
+    return False
+
 # '''
 # Search for Handle given auth user id
 # '''
