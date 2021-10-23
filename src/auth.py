@@ -123,13 +123,12 @@ def auth_logout_v1(token):
     decoded_token = decode_jwt(token)
     #delete session_id in user's sessions
     for user in users:
-        if user['u_id'] == decoded_token['auth_user_id']:
-            for idx,session in enumerate(user['sessions']):
-                if session == decoded_token['session_id']:
-                    del user['sessions'][idx]
-                    data_store.set(store)
-                    return { 'old_session_id' :    decoded_token['session_id']}
-    raise AccessError(description="Invalid Token")
+        for idx,session in enumerate(user['sessions']):
+            if user['u_id'] == decoded_token['auth_user_id'] and decoded_token['session_id'] == session:
+                del user['sessions'][idx]     
+    data_store.set(store)
+    return { 'old_session_id' :    decoded_token['session_id']}
+   
     
     
 

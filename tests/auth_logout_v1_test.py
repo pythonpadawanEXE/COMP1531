@@ -50,6 +50,7 @@ def login_valid_user(email = 'validemail@gmail.com',password = '123abc!@#'):
     assert isinstance(response_data['auth_user_id'],int)
     return response_data
 
+
 def logout_invalid_user(token):
     response = requests.post(f"{BASE_URL}/auth/logout/v1",json={
         'token' : token
@@ -66,7 +67,9 @@ def logout_valid_user(token):
     store = (requests.get(f"{BASE_URL}/get_data")).json()
     with pytest.raises(AccessError):
         token_validity_check_pytest(token,store)
-
+'''
+Valid Input
+'''
 def test_invalidate_token_one_user(setup):
     response_data = register_valid_user()
     response_data = login_valid_user()
@@ -92,11 +95,25 @@ def test_logout_multiple_users():
     logout_valid_user(response_data1['token'])
     logout_valid_user(response_data['token'])
 
-
+'''
+Access Error
+'''
 #note this gives an invalid token message with not logged in bro message on the test site
 #second logout raises AccessError 403
 def test_logout_twice():
     response_data = register_valid_user()
     logout_valid_user(response_data['token'])
     logout_invalid_user(response_data['token'])
+
+def test_logout_Invalid_token_from_credidentials_cleared():
+    _ = register_valid_user()
+    _ = register_valid_user(email="jake@gmail.com")
+    response_data2 = register_valid_user(email="jake1@gmail.com")
+    response_data3 = login_valid_user(email="jake1@gmail.com")
+    _  = requests.delete(f"{BASE_URL}/clear/v1")
+    _ = register_valid_user()
+    _ = register_valid_user(email="jake@gmail.com")
+    logout_invalid_user(response_data2['token'])
+    logout_invalid_user(response_data3['token'])
+
     
