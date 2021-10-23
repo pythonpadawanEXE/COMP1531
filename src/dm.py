@@ -119,7 +119,8 @@ def dm_messages_v1(auth_user_id, dm_id, start):
         if start <= idx < end:
             returned_messages.append(messages_store[messages_dm[idx]]['message'])
 
-    if len(returned_messages) - 1 < end - start:
+    # if len(returned_messages) - 1 < end - start:
+    if len(dm['messages']) < end:
         end = -1
 
     return {

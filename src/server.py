@@ -338,7 +338,6 @@ def post_message_dm_send():
         request_data['dm_id'],
         request_data['message']
     )
-    data_store.save()
     return dumps(message_id)
 
 @APP.route("/message/edit/v1", methods=['PUT'])
