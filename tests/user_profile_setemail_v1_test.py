@@ -95,8 +95,10 @@ def test_email_invalid():
 def test_email_in_use():
     # New user
     user1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
-    user2 = register_user("jemma@email.com", "ABCDEFGH", "Jemma", "Smith")
     token = user1['token']
+
+    # Create a 2nd user
+    register_user("jemma@email.com", "ABCDEFGH", "Jemma", "Smith")
 
     # Update users email to user2 email
     response = requests.put(f"{BASE_URL}user/profile/setemail/v1", json={
