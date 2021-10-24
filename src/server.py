@@ -4,8 +4,7 @@ from json import dumps
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from src import config
-from src.error import InputError
-from src.admin import admin_userpermission_change_v1
+from src.admin import admin_userpermission_change_v1, admin_user_remove_v1
 from src.auth import auth_register_v1, auth_login_v1, auth_logout_v1
 from src.channel import channel_messages_v1, channel_details_v1, channel_join_v1, channel_leave_v1, \
     channel_invite_v1, channel_addowner_v1, channel_removeowner_v1
@@ -15,7 +14,7 @@ from src.data_store import data_store
 from src.message import message_send_v1,message_remove_v1,message_edit_v1,message_send_dm_v1
 from src.user import user_profile_v1, user_profile_setname_v1, user_profile_setemail_v1, user_profile_sethandle_v1
 from src.users import users_all_v1
-from src.dm import dm_create_v1, dm_list_v1, dm_details_v1, dm_leave_v1, dm_remove_v1
+from src.dm import dm_create_v1, dm_list_v1, dm_details_v1, dm_leave_v1, dm_remove_v1, dm_messages_v1
 import pickle
 
 try:
@@ -51,6 +50,14 @@ APP.register_error_handler(Exception, defaultHandler)
 #### NO NEED TO MODIFY ABOVE THIS POINT, EXCEPT IMPORTS
 
 # Admin Routes
+@APP.route("/admin/user/remove/v1", methods=['DELETE'])
+def delete_admin_user_remove_v1():
+    request_data = request.get_json()
+    token = request_data['token']
+    u_id = request_data['u_id']
+    decoded_token = check_valid_token(token)
+    return dumps(admin_user_remove_v1(decoded_token['auth_user_id'], u_id))
+    
 @APP.route("/admin/userpermission/change/v1", methods=['POST'])
 def post_admin_userpermission_change_v1():
     request_data = request.get_json()
@@ -355,7 +362,6 @@ def post_message_dm_send():
         request_data['dm_id'],
         request_data['message']
     )
-    data_store.save()
     return dumps(message_id)
 
 @APP.route("/message/edit/v1", methods=['PUT'])
@@ -416,7 +422,21 @@ def dm_remove_delete():
     dm_id = request_data['dm_id']
     decoded_token = check_valid_token(token)
     return dumps(dm_remove_v1(decoded_token['auth_user_id'], dm_id))
-    
+
+@APP.route("/dm/messages/v1", methods=['GET'])
+def dm_messages_get():
+    token = request.args.get('token')
+    dm_id = int(request.args.get('dm_id'))
+    start = int(request.args.get('start'))
+    decoded_token = check_valid_token(token)
+    dm_messages = dm_messages_v1(
+        decoded_token['auth_user_id'],
+        dm_id,
+        start
+    )
+    print(f"\n\n{dm_messages}\n\n")
+    return jsonify(dm_messages)
+
 # User Routes
 @APP.route("/user/profile/v1", methods=['GET'])
 def user_profile_v1_get():

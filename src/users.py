@@ -10,6 +10,9 @@ def users_all_v1(auth_user_id):
     users_store = store['users']
     users = {'users' : []}
     for user in users_store:
+        if user['name_first'] == "Removed":
+            continue
+        
         users['users'].append({
             'u_id': user['u_id'],
             'email' : user['email'],

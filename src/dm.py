@@ -90,3 +90,42 @@ def dm_remove_v1(auth_user_id, dm_id):
             dm_store.remove(dm)
     data_store.set(store)
     return{}
+
+def dm_messages_v1(auth_user_id, dm_id, start):
+
+    if not is_dm_valid(dm_id):
+        raise InputError(description ="Dm_id does bot refer to a valid dm.")
+
+    if not is_user_authorised_dm(auth_user_id, dm_id):
+        raise AccessError(description="User not exist in this dm")
+
+    if start < 0:
+        raise InputError(description="Invalid Start Index")
+    
+    store = data_store.get()
+    dm_store = store['dms']
+
+    for dm in dm_store:
+        if dm['dm_id'] == dm_id:
+            if len(dm['messages']) - 1 < start:
+                raise InputError(description="Invalid Start Index")
+
+    messages_dm = dm['messages']
+    messages_store = store['messages']
+    returned_messages = []
+    end = start + 50
+    
+    for idx , _ in enumerate(messages_dm):
+        if start <= idx < end:
+            returned_messages.append(messages_store[messages_dm[idx]]['message'])
+
+    if len(dm['messages']) < end:
+        end = -1
+
+    return {
+        'messages': returned_messages,
+        'start': start,
+        'end': end,
+    }
+
+

@@ -34,10 +34,6 @@ def user_profile_setname_v1(token, name_first, name_last):
     length_name_first = len(name_first)
     length_name_last = len(name_last)
 
-    # Verify user ID
-    if not verify_user_id(u_id):
-        raise AccessError(description="u_id does not exist.")
-
     # length of name_first is not between 1 and 50 characters inclusive
     if (length_name_first < 1 or length_name_first > 50):
         raise InputError(description="length of name_first is not between 1 and 50 characters inclusive")
@@ -66,10 +62,6 @@ def user_profile_setemail_v1(token, email):
     # Get the u_id from the token
     u_id = check_valid_token(token)['auth_user_id']
 
-    # Verify user ID
-    if not verify_user_id(u_id):
-        raise AccessError(description="u_id does not exist.")
-
     # email entered is not a valid email
     check_email_validity(email)
         
@@ -95,10 +87,6 @@ def user_profile_sethandle_v1(token, handle_str):
 
     # Get the u_id from the token
     u_id = check_valid_token(token)['auth_user_id']
-
-    # Verify user ID
-    if not verify_user_id(u_id):
-        raise AccessError(description="u_id does not exist.")
 
     # length of handle_str is not between 3 and 20 characters inclusive
     length_handle_str = len(handle_str)
