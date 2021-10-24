@@ -172,3 +172,16 @@ def test_user_unauthorised():
 
     response = requests.get(f"{BASE_URL}channel/details/v2?token={token_2}&channel_id={channel_id}")
     assert response.status_code == 403
+
+def test_auth_user_id_invalid():
+    # New user
+    user_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
+    token_1 = user_1['token']
+
+    token_2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjF9.GZnHnjjXw8zZfYX7jEDxgyq7DY76TLapC5pQOBfq3Ac"
+
+    # Channel ID
+    channel_id = channels_create(token_1, "Chan 1", True)['channel_id']
+
+    response = requests.get(f"{BASE_URL}channel/details/v2?token={token_2}&channel_id={channel_id}")
+    assert response.status_code == 403

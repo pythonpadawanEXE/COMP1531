@@ -224,7 +224,5 @@ def test_token_valid_u_id_invalid():
     list_of_channels.append({'channel_id' : channels_create(user_token_1, "Chan 3", True)['channel_id'], 'name' : "Chan 3"})
 
     # Get all channels
-    channels = channels_listall(user_token_1)
-
-    response = requests.get(f"{BASE_URL}channels/listall/v2?token=user_token_2")
+    response = requests.get(f"{BASE_URL}channels/listall/v2?token={user_token_2}")
     assert response.status_code == 403
