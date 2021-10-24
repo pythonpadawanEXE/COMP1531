@@ -342,7 +342,7 @@ def datastore():
     return dumps(data_store.get())
 
 @APP.route("/clear/v1", methods=['DELETE'])
-def clear_v1():
+def clear_datastore():
     return dumps(clear_v1())
 
 if __name__ == "__main__":
