@@ -213,7 +213,6 @@ Searches for existing handles and appends a number as a string to create a uniqu
 def make_handle(name_first,name_last):
     store = data_store.get()
     users = store['users']
-    print(f"handle: {users}")
     len_trunc = 20
     count = 0
     #make lowercase then remove non-alphanumeric characters
@@ -413,8 +412,6 @@ def is_user_authorised_dm(auth_user_id, dm_id):
     is_authorised = False
     store = data_store.get()
     dm_store = store['dms']
-    print(f"dm_store_authroised {dm_store}")
-    print(f"auth_user_id {auth_user_id} dm_id {dm_id}")
     for dm in dm_store:
         if dm['dm_id'] == dm_id:
             if auth_user_id in dm['all_members']:
@@ -450,8 +447,6 @@ def is_user_creator_dm(auth_user_id, dm_id):
     is_creator = False
     store = data_store.get()
     dm_store = store['dms']
-    print(f"dm_store_authroised {dm_store}")
-    print(f"auth_user_id {auth_user_id} dm_id {dm_id}")
     for dm in dm_store:
         if dm['dm_id'] == dm_id:
             if dm['owner'] == auth_user_id:
