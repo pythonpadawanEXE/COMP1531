@@ -91,12 +91,12 @@ def channel_details_v1(token, channel_id):
             Returns { name, is_public, owner_members, all_members } on successful completion.
     """
 
+    # Get the auth_user_id from the token
+    auth_user_id = check_valid_token(token)['auth_user_id']
+
     # channel_id does not refer to a valid channel
     if not is_channel_valid(channel_id):
         raise InputError(description="channel_id does not refer to a valid channel")
-
-    # Get the auth_user_id from the token
-    auth_user_id = check_valid_token(token)['auth_user_id']
 
     # channel_id is valid and the authorised user is not a member of the channel
     if not is_user_authorised(auth_user_id, channel_id):
