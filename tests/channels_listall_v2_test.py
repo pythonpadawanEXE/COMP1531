@@ -215,13 +215,10 @@ def test_token_valid_u_id_invalid():
     user_token_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
 
     # New user 2
-    user_token_2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjF9.GZnHnjjXw8zZfYX7jEDxgyq7DY76TLapC5pQOBfq3Ac"
+    user_token_2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjMsInNlc3Npb25faWQiOjIyfQ.bD5_3yF1ORCbCTJUS390CWOwXUWG9xA5wIXqfwGZ76o"
     
-    # List of channels that are public
-    list_of_channels = []
-    list_of_channels.append({'channel_id' : channels_create(user_token_1, "Chan 1", True)['channel_id'], 'name' : "Chan 1"})
-    list_of_channels.append({'channel_id' : channels_create(user_token_1, "Chan 2", True)['channel_id'], 'name' : "Chan 2"})
-    list_of_channels.append({'channel_id' : channels_create(user_token_1, "Chan 3", True)['channel_id'], 'name' : "Chan 3"})
+    # Create a channel
+    channels_create(user_token_1, "Chan 1", True)
 
     # Get all channels
     response = requests.get(f"{BASE_URL}channels/listall/v2?token={user_token_2}")

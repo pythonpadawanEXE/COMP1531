@@ -178,7 +178,7 @@ def test_auth_user_id_invalid():
     user_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
     token_1 = user_1['token']
 
-    token_2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjF9.GZnHnjjXw8zZfYX7jEDxgyq7DY76TLapC5pQOBfq3Ac"
+    token_2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjMsInNlc3Npb25faWQiOjIyfQ.bD5_3yF1ORCbCTJUS390CWOwXUWG9xA5wIXqfwGZ76o"
 
     # Channel ID
     channel_id = channels_create(token_1, "Chan 1", True)['channel_id']
