@@ -60,10 +60,6 @@ def channels_listall_v1(token):
     # Verifies the token
     auth_user_id = check_valid_token(token)['auth_user_id']
 
-    # Verifies that the user exists in the data store, raises an AccessError otherwise.
-    if not verify_user_id(auth_user_id):
-        raise AccessError(description="User does not exist.")
-
     # Iterates through the list of channels and adds them to channels list.
     store = data_store.get()
     channel_store = store['channels']

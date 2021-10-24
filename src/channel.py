@@ -94,10 +94,6 @@ def channel_details_v1(token, channel_id):
     # Get the auth_user_id from the token
     auth_user_id = check_valid_token(token)['auth_user_id']
 
-    # Verifies that the user exists in the data store, raises an AccessError otherwise.
-    if not verify_user_id(auth_user_id):
-        raise AccessError(description="User does not exist.")
-
     # channel_id does not refer to a valid channel
     if not is_channel_valid(channel_id):
         raise InputError(description="channel_id does not refer to a valid channel")

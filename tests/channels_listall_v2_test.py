@@ -208,18 +208,3 @@ def test_listall_mixed_multiple():
 def test_invalid():
     response = requests.get(f"{BASE_URL}channels/listall/v2?token={1234}")
     assert response.status_code == 403
-
-# Token is valid but user_id is not
-def test_token_valid_u_id_invalid():
-    # New user 1
-    user_token_1 = register_user("js@email.com", "ABCDEFGH", "John", "Smith")
-
-    # New user 2
-    user_token_2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjMsInNlc3Npb25faWQiOjIyfQ.bD5_3yF1ORCbCTJUS390CWOwXUWG9xA5wIXqfwGZ76o"
-    
-    # Create a channel
-    channels_create(user_token_1, "Chan 1", True)
-
-    # Get all channels
-    response = requests.get(f"{BASE_URL}channels/listall/v2?token={user_token_2}")
-    assert response.status_code == 403
