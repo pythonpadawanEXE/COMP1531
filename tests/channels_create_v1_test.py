@@ -54,12 +54,12 @@ def test_exception_too_long(invalid_chan2):
     with pytest.raises(InputError):
         assert(channels_create_v1(id, name, is_public) == {})
 
-def test_raise_AccessError(invalid_user): 
-    id, name, is_public = invalid_user
-    with pytest.raises(AccessError):
-        assert(channels_create_v1(id, name, is_public) == {})
+# def test_raise_AccessError(invalid_user): 
+#     id, name, is_public = invalid_user
+#     with pytest.raises(AccessError):
+#         assert(channels_create_v1(id, name, is_public) == {})
 
-def test_both_exceptions(invalid_user_and_chan):
-    id, name, is_public = invalid_user_and_chan
-    with pytest.raises(AccessError):
-        assert(channels_create_v1(id, name, is_public) == {})
+# def test_both_exceptions(invalid_user_and_chan):
+#     id, name, is_public = invalid_user_and_chan
+#     with pytest.raises(AccessError):
+#         assert(channels_create_v1(id, name, is_public) == {})
