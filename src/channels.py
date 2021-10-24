@@ -58,7 +58,7 @@ def channels_listall_v1(token):
     """
 
     # Verifies the token
-    auth_user_id = check_valid_token(token)['auth_user_id']
+    check_valid_token(token)['auth_user_id']
 
     # Iterates through the list of channels and adds them to channels list.
     store = data_store.get()
