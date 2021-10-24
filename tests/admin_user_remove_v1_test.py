@@ -95,6 +95,12 @@ def test_valid_removal(setup):
     messages = json.loads(dm_messages.text)['messages']
     assert messages[0] == "Removed user"
 
+    # Check user not listed in all users
+    users_list = requests.get(config.url + 'users/all/v1', params={'token': users[0]['token']})
+    users_list = json.loads(users_list.text)
+    for user in users_list:
+        assert {'u_id': users[1]['auth_user_id'], 'email' : '', 'name_first' : 'Removed', 'name_last' : 'user', 'handle_str': 'Removed user'} != user
+
 def test_valid_removal_channel_owner(setup):
     users = setup
     channel = requests.post(config.url + 'channels/create/v2', json={'token': users[0]['token'], 'name': 'My Channel', 'is_public': True})
@@ -143,3 +149,9 @@ def test_valid_removal_channel_owner(setup):
     dm_messages = requests.get(config.url + 'dm/messages/v1', params={'token': users[0]['token'], 'dm_id': dm_id, 'start': 0})
     messages = json.loads(dm_messages.text)['messages']
     assert messages[0] == "Removed user"
+
+    # Check user not listed in all users
+    users_list = requests.get(config.url + 'users/all/v1', params={'token': users[0]['token']})
+    users_list = json.loads(users_list.text)
+    for user in users_list:
+        assert {'u_id': users[1]['auth_user_id'], 'email' : '', 'name_first' : 'Removed', 'name_last' : 'user', 'handle_str': 'Removed user'} != user
