@@ -1,6 +1,20 @@
+"""
+users.py
+
+This module allows a user to get a list of all users in the store
+
+Functions:
+    users_all_v1() -> { users }
+"""
+
 from src.data_store import data_store
 
 def users_all_v1():
+    """ Returns a list of all users and their associated details.
+
+        Return Value:
+            Returns { users } on successful completion.
+    """
     store = data_store.get()
     users_store = store['users']
     users = {'users' : []}
