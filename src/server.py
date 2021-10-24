@@ -427,6 +427,19 @@ def delete_message_remove():
 # Dm Routes
 @APP.route("/dm/create/v1", methods=['POST'])
 def dm_create_v1_post():
+    '''
+    Creates a dm as specified by the parameters.
+
+    Arguments:
+        token(str)          - Unique encrypted concat of auth_user_id and session_id.
+        u_ids (list)        - The u_id list of the member to be added in.
+    
+    Exceptions:
+        AccessError  - Occurs when token does not refer to a valid token.
+
+    Return Value:
+        Returns { dm_id, name, owner, all members, messages } on successful completion.
+    '''
     request_data = request.get_json()
     token = request_data['token']
     u_ids = request_data['u_ids']
@@ -435,12 +448,42 @@ def dm_create_v1_post():
 
 @APP.route("/dm/list/v1", methods=['GET'])
 def dm_list_v1_get():
+    ''' 
+    Lists all dms that exist.
+
+        Arguments:
+            Token (str)    -  Unique encrypted concat of auth_user_id and session_id.
+
+        Exceptions:
+            AccessError  - Occurs when token does not refer to a valid token.
+
+        Return Value:
+            Returns { dms } on successful completion.
+    '''
     token = request.args.get('token')
     decoded_token = check_valid_token(token)
     return dumps(dm_list_v1(decoded_token['auth_user_id']))
 
 @APP.route("/dm/details/v1", methods=['GET'])
 def dm_details_v1_get():
+    '''
+     Given a dm with ID dm_id that the authorised user is a member of, provide basic
+        details about the dm.
+
+        Arguments:
+            Token(str)          - Unique encrypted concat of auth_user_id and session_id.
+            dm_id (int)         - Dm ID of the dm the user is a member of.
+
+        Exceptions:
+            InputError  - Occurs when dm_id does not refer to a valid dm.
+                            
+            AccessError - Occurs when dm_id is valid and the authorised user is
+                          not a member of the dm.
+                        - Occurs when token does not refer to a valid token.
+
+        Return Value:
+            Returns { name, owner, all_members } on successful completion.
+    '''
     token = request.args.get('token')
     dm_id = int(request.args.get('dm_id'))
     decoded_token = check_valid_token(token)
@@ -448,6 +491,25 @@ def dm_details_v1_get():
 
 @APP.route("/dm/leave/v1", methods=['POST'])
 def dm_leave_v1_post():
+    '''
+    Given a dm with ID dm_id that authorised user is a member of,
+    remove them as a member of the dm. Their messages should remain in the dm.
+    If the only dm owner leaves, the dm will remain.
+
+        Arguments:
+            Token (str)      - Unique encrypted concat of auth_user_id and session_id.
+            dm_id (int)      - Dm ID of the dm the user is a member of.
+
+        Exceptions:
+            InputError  - Occurs when dm_id does not refer to a valid dm.
+
+            AccessError - Occurs when dm_id is valid and the authorised user is
+                          not a member of the dm.
+                        - Occurs when token does not refer to a valid token.
+
+        Return Value:
+            Returns { } on successful completion.
+    '''
     request_data = request.get_json()
     token = request_data['token']
     dm_id = request_data['dm_id']
@@ -456,6 +518,25 @@ def dm_leave_v1_post():
 
 @APP.route("/dm/remove/v1", methods=['DELETE'])
 def dm_remove_delete():
+    '''
+    Given a dm with ID dm_id that the authorised user is a member of,
+    removing an existing dm, so all members are no longer in the dm. This can only
+    done by the original creator of the dm.
+
+        Arguments:
+            Token (str)      - Unique encrypted concat of auth_user_id and session_id.
+            dm_id (int)      - Dm ID of the dm the user is a member of.
+
+        Exceptions:
+            InputError  - Occurs when dm_id does not refer to a valid dm.
+
+            AccessError - Occurs when dm_id is valid and the authorised user is
+                          not the creator of the dm.
+                        - Occurs when token does not refer to a valid token.
+
+        Return Value:
+            Returns { } on successful completion.
+    '''
     request_data = request.get_json()
     token = request_data['token']
     dm_id = request_data['dm_id']
@@ -464,6 +545,28 @@ def dm_remove_delete():
 
 @APP.route("/dm/messages/v1", methods=['GET'])
 def dm_messages_get():
+    '''
+    Given a dm with ID dm_id that the authorised user is a member of and and the 
+    starting index of messages to be displayed from. Lists the 50
+    most recent messages from start.
+
+        Arguments:
+            Tokem (str)        - Unique encrypted concat of auth_user_id and session_id.
+            dm_id (int)        - Dm ID of the dm the user is a member of.
+            start (int)             - Starting index of messages to be displayed.
+
+        Exceptions:
+            InputError  - Occurs when dm_id does not refer to a valid dm or
+                          start is greater than the total number of messages in the dm
+                          or less that 0 which refers to a invalid Start Index.
+
+            AccessError - Occurs when dm_id is valid and the authorised user is not a
+                          member of the dm.
+                        - Occurs when token does not refer to a valid token.
+
+        Return Value:
+            Returns { messages, start, end } on successful completion.
+    '''
     token = request.args.get('token')
     dm_id = int(request.args.get('dm_id'))
     start = int(request.args.get('start'))
@@ -510,8 +613,8 @@ def put_user_profile_sethandle_v1():
 @APP.route("/users/all/v1", methods=['GET'])
 def users_all_v1_get():
     token = request.args.get('token')
-    decoded_token = check_valid_token(token)
-    return dumps(users_all_v1(decoded_token['auth_user_id']))
+    _ = check_valid_token(token)
+    return dumps(users_all_v1())
 
 # Other routes
 @APP.route("/get_data", methods=['GET'])
