@@ -32,3 +32,14 @@ Email Input follows the standard of RFC821 i.e.
 ### `channel_messages_v1`
 
 * Assume that start is always greater than or equal to zero.
+
+## dm.py
+
+### `dm_create_v1`
+
+* Assume that the `dm_id` is assigned sequentially and begins at 1.
+* Assume that the creator of a dm is added to both owner  and all members lists.
+
+### `dm_list_v1`
+
+* Assume that "associated details" as described in the specification is only the dm name.
