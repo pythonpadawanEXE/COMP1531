@@ -137,7 +137,7 @@ def test_valid_removal_channel_owner(setup):
     # Check channel message history for user
     channel_messages = requests.get(config.url + 'channel/messages/v2', params={'token': users[0]['token'], 'channel_id': channel_id, 'start': 0})
     messages = json.loads(channel_messages.text)['messages']
-    assert messages[0] == "Removed user"
+    assert messages[1] == "Removed user"
 
     # Check dm message history for user
     dm_messages = requests.get(config.url + 'dm/messages/v1', params={'token': users[0]['token'], 'dm_id': dm_id, 'start': 0})
