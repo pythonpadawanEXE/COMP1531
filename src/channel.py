@@ -39,9 +39,6 @@ def channel_invite_v1(auth_user_id, channel_id, u_id):
     """
 
     # Verify the user IDs
-    if not verify_user_id(auth_user_id):
-        raise AccessError
-
     if not verify_user_id(u_id):
         raise InputError
 
@@ -199,10 +196,6 @@ def channel_join_v1(auth_user_id, channel_id):
         Return Value:
             Returns { } on successful completion.
     """
-
-    # Verify the user ID
-    if not verify_user_id(auth_user_id):
-        raise AccessError(description="Bad user id")
 
     store = data_store.get()
 
