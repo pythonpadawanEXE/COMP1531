@@ -1,3 +1,7 @@
+'''
+dm_leave_v1_test
+'''
+
 import pytest
 import requests
 from requests.models import Response
@@ -88,7 +92,7 @@ def test_dm_member_leave():
     for user in details_before['all_members']:
         assert(user['u_id'] in auth_user_id_list)
     
-    #member leave
+    # Member leave
     dm_leave(member_token, dm_id)
     #Dm details after member leave
     details_after = dm_details(creator_token, dm_id)
@@ -116,9 +120,9 @@ def test_dm_owner_leave():
     for user in details_before['all_members']:
         assert(user['u_id'] in auth_user_id_list)
     
-    #owner leave
+    # Owner leave
     dm_leave(creator_token, dm_id)
-    #Dm details after owner leave
+    # Dm details after owner leave
     details_after = dm_details(member_token, dm_id)
     # Loop through the dm details and find if removed creater is still in all_members of dm
     for user in details_after['all_members']:
@@ -136,7 +140,7 @@ def test_leave_invalid_dm():
     creator_token = creator['token']
     member_u_ids = [member['auth_user_id']]
     dm_create(creator_token, member_u_ids)
-    #Input error is expected to be raised for a invalid dm
+    # Input error is expected to be raised for a invalid dm_id (nonexist dm)
     response = requests.post(f"{BASE_URL}dm/leave/v1", json={
         'token' : creator_token,
         'dm_id' : '999',
@@ -152,14 +156,14 @@ def test_leave_member_not_in_dm():
     member_u_ids = [member1['auth_user_id']]
     member2_token = member2['token']
     dm_id = dm_create(creator_token, member_u_ids)['dm_id']
-    #Input error is expected to be raised for a invalid dm
+    # Input error is expected to be raised for a invalid user (user is not a member of this dm)
     response = requests.post(f"{BASE_URL}dm/leave/v1", json={
         'token' : member2_token,
         'dm_id' : dm_id,
     })
     assert response.status_code == 403
 
-def test_dm_member_leave_multi_dm():
+def test_dm_member_leave__for_multi_dm():
     # New users
     creator = register_user("js@email.com", "js123!@#", "John", "Smith")
     member1 = register_user("lw@email.com", "lw123!@#", "Lewis", "Hamilton")
@@ -170,7 +174,7 @@ def test_dm_member_leave_multi_dm():
     dm2_member_list = [member1['auth_user_id']]
     
     dm_create(creator_token, dm1_member_list)
-    #Dm id
+    # Dm id
     dm_id = dm_create(creator_token, dm2_member_list)['dm_id']
     # Dm details before member leave
     details_before = dm_details(creator_token, dm_id)
@@ -180,9 +184,9 @@ def test_dm_member_leave_multi_dm():
     for user in details_before['all_members']:
         assert(user['u_id'] in auth_user_id_list)
     
-    #member leave
+    # Member leave
     dm_leave(member1_token, dm_id)
-    #Dm details after member leave
+    # Dm details after member leave
     details_after = dm_details(creator_token, dm_id)
     # Loop through the dm details and find if removed member is still in all_members of dm
     for user in details_after['all_members']:

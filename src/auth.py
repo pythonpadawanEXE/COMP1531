@@ -33,8 +33,11 @@ def auth_login_v1(email, password):
          }                          - Upon successful completion.
         
     """
+    #check email and password validity
     check_email_validity(email)
     check_password_validity(password)
+
+    #get authorised user dict for email password combination which acts as a unique key
     auth_dict = search_email_password_match(email,password)
     return {
         'auth_user_id' : auth_dict['auth_user_id']
@@ -66,26 +69,32 @@ def auth_register_v1(email, password, name_first, name_last):
     max_name_len = 50
     min_name_len = 1
 
+    #check if email input is duplicate
     if search_duplicate_email(email) != 0:
         raise InputError("Duplicate Email")
 
     check_email_validity(email)
     check_password_validity(password)
 
-
+    #check if name_first and name_last fits length constraints
     if len(name_first) > max_name_len or len(name_first) < min_name_len:
         raise InputError("Invalid First Name Length")
-
     if len(name_last) > max_name_len or len(name_last) < min_name_len:
         raise InputError("Invalid Last Name Length")
 
+    #create new user with 
     store = data_store.get()
     users = store['users']
     passwords = store['passwords']
     u_id = len(users)
+
+    #set permission to normal user
     permission_id = 2
+    #if user is first one created give global owner permission
     if len(users) == 0:
         permission_id = 1
+
+    #add new user to users
     users.append({
             'u_id': u_id,
             'email' : email,
@@ -118,15 +127,19 @@ def auth_logout_v1(token):
          }                         
         
     """
+    #get users and decode token
     store = data_store.get()
     users = store['users']
     decoded_token = decode_jwt(token)
+
     #delete session_id in user's sessions
     for user in users:
         for idx,session in enumerate(user['sessions']):
             if user['u_id'] == decoded_token['auth_user_id'] and decoded_token['session_id'] == session:
                 del user['sessions'][idx]     
     data_store.set(store)
+
+    #return old session note not in current use
     return { 'old_session_id' :    decoded_token['session_id']}
    
     

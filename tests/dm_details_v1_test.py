@@ -1,3 +1,6 @@
+'''
+dm_details_v1_test
+'''
 import pytest
 import requests
 from src import config
@@ -50,13 +53,15 @@ def dm_create(token, u_ids):
     return response_data
 
 def dm_details(token, dm_id):
-
+    '''
+    Calling dm details for checking information
+    '''
     response = requests.get(f"{BASE_URL}dm/details/v1?token={token}&dm_id={dm_id}")
     assert response.status_code == 200
     response_data = response.json()
     return response_data
 
-def test_dm_details():
+def test_valid_dm_details():
     # New users
     creator = register_user("js@email.com", "js123!@#", "John", "Smith")
     member = register_user("lw@email.com", "lw123!@#", "Lewis", "Hamilton")
@@ -72,7 +77,7 @@ def test_dm_details():
     for user in details['all_members']:
         assert(user['u_id'] in auth_user_id_list)
 
-def test_bad_token():
+def test_invalid_token():
     # New users
     creator = register_user("js@email.com", "js123!@#", "John", "Smith")
     member = register_user("lw@email.com", "lw123!@#", "Lewis", "Hamilton")
@@ -84,7 +89,7 @@ def test_bad_token():
     details = requests.get(f"{BASE_URL}dm/details/v1?token={''}&dm_id={dm_id}")
     assert details.status_code == 403
 
-def test_invalid_dm_id():
+def test_invalid_details_for_invalid_dm_id():
     # New dm
     creator = register_user("js@email.com", "js123!@#", "John", "Smith")
     member = register_user("lw@email.com", "lw123!@#", "Lewis", "Hamilton")
@@ -94,7 +99,7 @@ def test_invalid_dm_id():
     details = requests.get(f"{BASE_URL}dm/details/v1?token={token}&dm_id={999}")
     assert details.status_code == 400
 
-def test_unauthoried_user():
+def test_invalid_details_for_user_not_in_dm():
     # New dm
     creator = register_user("js@email.com", "js123!@#", "John", "Smith")
     member = register_user("lw@email.com", "lw123!@#", "Lewis", "Hamilton")
@@ -106,7 +111,7 @@ def test_unauthoried_user():
     details = requests.get(f"{BASE_URL}dm/details/v1?token={unauthoried_user_token}&dm_id={dm_id}")
     assert details.status_code == 403
 
-def test_multi_dm_details():
+def test_details_for_multi_dms():
     # New users
     creator = register_user("js@email.com", "js123!@#", "John", "Smith")
     member1 = register_user("lw@email.com", "lw123!@#", "Lewis", "Hamilton")
