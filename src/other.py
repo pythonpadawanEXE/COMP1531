@@ -31,6 +31,19 @@ def is_channel_valid(channel_id):
 
     return channel_valid
 
+# Checks if user with auth_user_id is owner of channel with channel_id
+def is_user_channel_owner(auth_user_id, channel_id):
+    is_authorised = False
+    store = data_store.get()
+    channel_store = store['channels']
+
+    for chan in channel_store:
+        if (chan['id'] == channel_id):
+            if auth_user_id in chan['owner_members']:
+                is_authorised = True
+
+    return is_authorised
+
 # Checks if user with auth_user_id is in channel with channel_id
 def is_user_authorised(auth_user_id, channel_id):
     is_authorised = False
@@ -369,7 +382,7 @@ def decode_jwt(encoded_jwt):
 
     return decoded_token
 
-def is_user_in_dm(auth_user_id, dm_id):
+def is_user_dm_owner(auth_user_id, dm_id):
     """
     Check if a user is a member of a dm
     Args:
@@ -382,7 +395,7 @@ def is_user_in_dm(auth_user_id, dm_id):
     store = data_store.get()
     dms = store['dms']
     for dm in dms:
-        if dm['dm_id'] == dm_id and auth_user_id in dm['all_members']:
+        if dm['dm_id'] == dm_id and auth_user_id == dm['owner']:
             is_user_in_dm = True
     return is_user_in_dm
 
