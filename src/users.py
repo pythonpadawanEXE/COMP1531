@@ -1,6 +1,6 @@
 from src.data_store import data_store
 
-def users_all_v1(auth_user_id):
+def users_all_v1():
     store = data_store.get()
     users_store = store['users']
     users = {'users' : []}
