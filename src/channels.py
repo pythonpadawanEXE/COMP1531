@@ -10,8 +10,8 @@ Functions:
 """
 
 from src.data_store import data_store
-from src.error import InputError, AccessError
-from src.other import verify_user_id, check_valid_token
+from src.error import InputError
+from src.other import check_valid_token
 
 def channels_list_v1(auth_user_id):
     """ Lists all channels that the given user id is a member of.
@@ -26,10 +26,6 @@ def channels_list_v1(auth_user_id):
         Return Value:
             Returns { channels } on successful completion.
     """
-
-    # Verifies that the user exists in the data store, raises an AccessError otherwise.
-    if not verify_user_id(auth_user_id):
-        raise AccessError(description="User does not exist.")
 
     # Iterates through the list of channels and
     # returns the subset that the given user is a member of.
@@ -89,10 +85,6 @@ def channels_create_v1(auth_user_id, name, is_public):
     Return Value:
         Returns { channel_id } on successful completion.
     """
-
-    # Verifies that the user exists in the data store, raises an AccessError otherwise.
-    if not verify_user_id(auth_user_id):
-        raise AccessError(description="User does not exist.")
 
     # Verifies that the channel name is of correct length, raises an InputError otherwise.
     if len(name) < 1 or len(name) > 20:
