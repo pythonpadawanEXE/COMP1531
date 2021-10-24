@@ -135,8 +135,7 @@ def channel_messages_v1(auth_user_id, channel_id, start):
             Returns { messages, start, end } on successful completion
     """
     store = data_store.get()
-    # if len(store['users'])+len(store['channels'])+len(store['passwords']) == 0:
-    #     raise InputError("Empty Database")
+    
     start = int(start)
     if start < 0:
         raise InputError("Invalid Start Index")
@@ -145,23 +144,23 @@ def channel_messages_v1(auth_user_id, channel_id, start):
         raise InputError("No Channels")
     messages = None
     channel_exists = False
-    print(f"Channel Id {channel_id} Channels in channel.py {channels}")
+    
+    #check if channel provided exists in datastore and auth_user is a member
     for channel in channels:
-        print(f"Channel is {channel} channel_id is {channel['id']}")
         if int(channel['id']) == int(channel_id):
             channel_exists = True
-            if auth_user_id not in channel["all_members"] \
-            and auth_user_id not in channel["owner_members"]:
+            if auth_user_id not in channel["all_members"]:
                 raise AccessError("User is not an owner or member of this channel")
             
             
-
+    # if channel doesn't exist raise error
     if channel_exists == False:
         raise InputError("Channel ID is not valid or does not exist.")
     messages = channel['messages']
     
     if len(messages)-1 < start:
         raise InputError("Start is greater than the total number of messages in the channel")
+
     # 50 is the pagination block of messages
     end = start + 50
     return_messages = []
@@ -169,8 +168,8 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     for idx,_ in enumerate(messages):
         if start <= idx < end:
             return_messages.append(store_messages[messages[idx]]['message'])
-    #end - start is 50
-    #if len(return_messages) < end-start and len(messages) < end:
+    
+    #check if more messages to return
     if len(messages) < end:
         end = -1
 
