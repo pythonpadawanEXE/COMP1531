@@ -53,12 +53,14 @@ def test_u_id_only_global_owner(setup):
 def test_valid_removal(setup):
     users = setup
     channel = requests.post(config.url + 'channels/create/v2', json={'token': users[0]['token'], 'name': 'My Channel', 'is_public': True})
+    priv_channel = requests.post(config.url + 'channels/create/v2', json={'token': users[0]['token'], 'name': 'My private Channel', 'is_public': False})
     channel_id = json.loads(channel.text)['channel_id']
+    priv_channel_id = json.loads(priv_channel.text)['channel_id']
     _ = requests.post(config.url + 'channel/join/v2', json={'token': users[1]['token'], 'channel_id': channel_id})
 
     # User sends message in channel
     _ = requests.post(config.url + 'message/send/v1', json={'token': users[1]['token'], 'channel_id': channel_id, 'message': 'Hello World!'})
-
+    _ = requests.post(config.url + 'message/send/v1', json={'token': users[0]['token'], 'channel_id': priv_channel_id, 'message': 'Hello Private World!'})
     # User sends message in dm
     dm_create = requests.post(config.url + 'dm/create/v1', json={'token': users[0]['token'], 'u_ids': [users[1]['auth_user_id']]})
     dm_id = json.loads(dm_create.text)['dm_id']
@@ -86,7 +88,7 @@ def test_valid_removal(setup):
     # Check channel message history for user
     channel_messages = requests.get(config.url + 'channel/messages/v2', params={'token': users[0]['token'], 'channel_id': channel_id, 'start': 0})
     messages = json.loads(channel_messages.text)['messages']
-    assert messages[0] == "Removed user"
+    assert messages[1] == "Removed user"
 
     # Check dm message history for user
     dm_messages = requests.get(config.url + 'dm/messages/v1', params={'token': users[0]['token'], 'dm_id': dm_id, 'start': 0})
@@ -96,7 +98,9 @@ def test_valid_removal(setup):
 def test_valid_removal_channel_owner(setup):
     users = setup
     channel = requests.post(config.url + 'channels/create/v2', json={'token': users[0]['token'], 'name': 'My Channel', 'is_public': True})
+    priv_channel = requests.post(config.url + 'channels/create/v2', json={'token': users[0]['token'], 'name': 'My private Channel', 'is_public': False})
     channel_id = json.loads(channel.text)['channel_id']
+    priv_channel_id = json.loads(priv_channel.text)['channel_id']
     _ = requests.post(config.url + 'channel/join/v2', json={'token': users[1]['token'], 'channel_id': channel_id})
 
     # Make user a channel owner
@@ -104,6 +108,7 @@ def test_valid_removal_channel_owner(setup):
 
     # User sends message in channel
     _ = requests.post(config.url + 'message/send/v1', json={'token': users[1]['token'], 'channel_id': channel_id, 'message': 'Hello World!'})
+    _ = requests.post(config.url + 'message/send/v1', json={'token': users[0]['token'], 'channel_id': priv_channel_id, 'message': 'Hello Private World!'})
 
     # User sends message in dm
     dm_create = requests.post(config.url + 'dm/create/v1', json={'token': users[0]['token'], 'u_ids': [users[1]['auth_user_id']]})
@@ -132,7 +137,7 @@ def test_valid_removal_channel_owner(setup):
     # Check channel message history for user
     channel_messages = requests.get(config.url + 'channel/messages/v2', params={'token': users[0]['token'], 'channel_id': channel_id, 'start': 0})
     messages = json.loads(channel_messages.text)['messages']
-    assert messages[0] == "Removed user"
+    assert messages[1] == "Removed user"
 
     # Check dm message history for user
     dm_messages = requests.get(config.url + 'dm/messages/v1', params={'token': users[0]['token'], 'dm_id': dm_id, 'start': 0})
