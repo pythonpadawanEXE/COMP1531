@@ -10,8 +10,8 @@ Functions:
 """
 
 from src.data_store import data_store
-from src.error import InputError, AccessError
-from src.other import verify_user_id, check_valid_token
+from src.error import InputError
+from src.other import check_valid_token
 
 def channels_list_v1(auth_user_id):
     """ Lists all channels that the given user id is a member of.
