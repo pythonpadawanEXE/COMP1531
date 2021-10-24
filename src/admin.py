@@ -109,6 +109,7 @@ def admin_userpermission_change_v1(auth_user_id, u_id, permission_id):
         Return Value:
             Returns { } on successful completion.
     """
+    
     if not is_global_owner(auth_user_id):
         raise AccessError(description="The authorised user is not a global owner")
 
@@ -136,4 +137,3 @@ def admin_userpermission_change_v1(auth_user_id, u_id, permission_id):
     data_store.set(store)
 
     return {}
-
