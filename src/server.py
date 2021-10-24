@@ -471,8 +471,8 @@ def put_user_profile_sethandle_v1():
 @APP.route("/users/all/v1", methods=['GET'])
 def users_all_v1_get():
     token = request.args.get('token')
-    decoded_token = check_valid_token(token)
-    return dumps(users_all_v1(decoded_token['auth_user_id']))
+    _ = check_valid_token(token)
+    return dumps(users_all_v1())
 
 # Other routes
 @APP.route("/get_data", methods=['GET'])
