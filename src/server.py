@@ -4,8 +4,7 @@ from json import dumps
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from src import config
-from src.error import InputError
-from src.admin import admin_userpermission_change_v1
+from src.admin import admin_userpermission_change_v1, admin_user_remove_v1
 from src.auth import auth_register_v1, auth_login_v1, auth_logout_v1
 from src.channel import channel_messages_v1, channel_details_v1, channel_join_v1, channel_leave_v1, \
     channel_invite_v1, channel_addowner_v1, channel_removeowner_v1
@@ -13,9 +12,9 @@ from src.channels import channels_create_v1, channels_listall_v1, channels_list_
 from src.other import check_valid_token, clear_v1,return_token
 from src.data_store import data_store
 from src.message import message_send_v1,message_remove_v1,message_edit_v1,message_send_dm_v1
-from src.user import user_profile_v1, user_profile_setname_v1, user_profile_setemail_v1
+from src.user import user_profile_v1, user_profile_setname_v1, user_profile_setemail_v1, user_profile_sethandle_v1
 from src.users import users_all_v1
-from src.dm import dm_create_v1, dm_list_v1, dm_details_v1, dm_leave_v1, dm_remove_v1
+from src.dm import dm_create_v1, dm_list_v1, dm_details_v1, dm_leave_v1, dm_remove_v1, dm_messages_v1
 import pickle
 
 try:
@@ -51,6 +50,14 @@ APP.register_error_handler(Exception, defaultHandler)
 #### NO NEED TO MODIFY ABOVE THIS POINT, EXCEPT IMPORTS
 
 # Admin Routes
+@APP.route("/admin/user/remove/v1", methods=['DELETE'])
+def delete_admin_user_remove_v1():
+    request_data = request.get_json()
+    token = request_data['token']
+    u_id = request_data['u_id']
+    decoded_token = check_valid_token(token)
+    return dumps(admin_user_remove_v1(decoded_token['auth_user_id'], u_id))
+    
 @APP.route("/admin/userpermission/change/v1", methods=['POST'])
 def post_admin_userpermission_change_v1():
     request_data = request.get_json()
@@ -355,7 +362,6 @@ def post_message_dm_send():
         request_data['dm_id'],
         request_data['message']
     )
-    data_store.save()
     return dumps(message_id)
 
 @APP.route("/message/edit/v1", methods=['PUT'])
@@ -366,22 +372,20 @@ def put_message_edit():
 
     Arguments:
         token (string)      - Unique encrypted concat of auth_user_id and session_id
-        message_id (int)         - Unique ID of dm
+        message_id (int)    - Unique ID of message
         message (string)    - Message that will be sent to channel.
 
     Exceptions:
         Input Error:
-        - message_id does not refer to a valid message within a channel/dm
+        - message_id does not refer to a valid message
         - length of message is less than 1 or over 1000 characters
         Access Error:
-        - token is invalid
-        - authorised user is not an owner of the channel/dm nor made the message
+        - the auth_user_id is neither the message creator nor has permissions as owner in the channel/dm
+        - Thrown when the token passed in is invalid
 
 
     Return Value:
-    {   
-        message_id (int) - Unique message_id in the unique dm.
-    }
+        {  }
     '''
     request_data = request.get_json()
     _ = message_edit_v1(
@@ -395,24 +399,22 @@ def put_message_edit():
 @APP.route("/message/remove/v1", methods=['DELETE'])
 def delete_message_remove():
     '''
-    Given a message, update its text with new text. 
-    If the new message is an empty string, the message is deleted.
-
+    Given a message_id for a message, this message is removed from the channel/DM
     Arguments:
         token (string)      - Unique encrypted concat of auth_user_id and session_id
-        message_id (int)         - Unique ID of message
-
+        message_id (int)    - Unique ID of message
 
     Exceptions:
         Input Error:
-        - message_id does not refer to a valid message within a channel/dm+
+        - message_id does not refer to a valid message
+
         Access Error:
-        - token is invalid
-        - authorised user is not an owner of the channel/dm nor made the message
+        - the auth_user_id is neither the message creator nor has permissions as owner in the channel/dm
+        - Thrown when the token passed in is invalid
 
 
     Return Value:
-        {   }
+        {  }
     '''
     request_data = request.get_json()
     _ = message_remove_v1(
@@ -425,6 +427,19 @@ def delete_message_remove():
 # Dm Routes
 @APP.route("/dm/create/v1", methods=['POST'])
 def dm_create_v1_post():
+    '''
+    Creates a dm as specified by the parameters.
+
+    Arguments:
+        token(str)          - Unique encrypted concat of auth_user_id and session_id.
+        u_ids (list)        - The u_id list of the member to be added in.
+    
+    Exceptions:
+        AccessError  - Occurs when token does not refer to a valid token.
+
+    Return Value:
+        Returns { dm_id, name, owner, all members, messages } on successful completion.
+    '''
     request_data = request.get_json()
     token = request_data['token']
     u_ids = request_data['u_ids']
@@ -433,12 +448,42 @@ def dm_create_v1_post():
 
 @APP.route("/dm/list/v1", methods=['GET'])
 def dm_list_v1_get():
+    ''' 
+    Lists all dms that exist.
+
+        Arguments:
+            Token (str)    -  Unique encrypted concat of auth_user_id and session_id.
+
+        Exceptions:
+            AccessError  - Occurs when token does not refer to a valid token.
+
+        Return Value:
+            Returns { dms } on successful completion.
+    '''
     token = request.args.get('token')
     decoded_token = check_valid_token(token)
     return dumps(dm_list_v1(decoded_token['auth_user_id']))
 
 @APP.route("/dm/details/v1", methods=['GET'])
 def dm_details_v1_get():
+    '''
+     Given a dm with ID dm_id that the authorised user is a member of, provide basic
+        details about the dm.
+
+        Arguments:
+            Token(str)          - Unique encrypted concat of auth_user_id and session_id.
+            dm_id (int)         - Dm ID of the dm the user is a member of.
+
+        Exceptions:
+            InputError  - Occurs when dm_id does not refer to a valid dm.
+                            
+            AccessError - Occurs when dm_id is valid and the authorised user is
+                          not a member of the dm.
+                        - Occurs when token does not refer to a valid token.
+
+        Return Value:
+            Returns { name, owner, all_members } on successful completion.
+    '''
     token = request.args.get('token')
     dm_id = int(request.args.get('dm_id'))
     decoded_token = check_valid_token(token)
@@ -446,6 +491,25 @@ def dm_details_v1_get():
 
 @APP.route("/dm/leave/v1", methods=['POST'])
 def dm_leave_v1_post():
+    '''
+    Given a dm with ID dm_id that authorised user is a member of,
+    remove them as a member of the dm. Their messages should remain in the dm.
+    If the only dm owner leaves, the dm will remain.
+
+        Arguments:
+            Token (str)      - Unique encrypted concat of auth_user_id and session_id.
+            dm_id (int)      - Dm ID of the dm the user is a member of.
+
+        Exceptions:
+            InputError  - Occurs when dm_id does not refer to a valid dm.
+
+            AccessError - Occurs when dm_id is valid and the authorised user is
+                          not a member of the dm.
+                        - Occurs when token does not refer to a valid token.
+
+        Return Value:
+            Returns { } on successful completion.
+    '''
     request_data = request.get_json()
     token = request_data['token']
     dm_id = request_data['dm_id']
@@ -454,12 +518,67 @@ def dm_leave_v1_post():
 
 @APP.route("/dm/remove/v1", methods=['DELETE'])
 def dm_remove_delete():
+    '''
+    Given a dm with ID dm_id that the authorised user is a member of,
+    removing an existing dm, so all members are no longer in the dm. This can only
+    done by the original creator of the dm.
+
+        Arguments:
+            Token (str)      - Unique encrypted concat of auth_user_id and session_id.
+            dm_id (int)      - Dm ID of the dm the user is a member of.
+
+        Exceptions:
+            InputError  - Occurs when dm_id does not refer to a valid dm.
+
+            AccessError - Occurs when dm_id is valid and the authorised user is
+                          not the creator of the dm.
+                        - Occurs when token does not refer to a valid token.
+
+        Return Value:
+            Returns { } on successful completion.
+    '''
     request_data = request.get_json()
     token = request_data['token']
     dm_id = request_data['dm_id']
     decoded_token = check_valid_token(token)
     return dumps(dm_remove_v1(decoded_token['auth_user_id'], dm_id))
-    
+
+@APP.route("/dm/messages/v1", methods=['GET'])
+def dm_messages_get():
+    '''
+    Given a dm with ID dm_id that the authorised user is a member of and and the 
+    starting index of messages to be displayed from. Lists the 50
+    most recent messages from start.
+
+        Arguments:
+            Tokem (str)        - Unique encrypted concat of auth_user_id and session_id.
+            dm_id (int)        - Dm ID of the dm the user is a member of.
+            start (int)             - Starting index of messages to be displayed.
+
+        Exceptions:
+            InputError  - Occurs when dm_id does not refer to a valid dm or
+                          start is greater than the total number of messages in the dm
+                          or less that 0 which refers to a invalid Start Index.
+
+            AccessError - Occurs when dm_id is valid and the authorised user is not a
+                          member of the dm.
+                        - Occurs when token does not refer to a valid token.
+
+        Return Value:
+            Returns { messages, start, end } on successful completion.
+    '''
+    token = request.args.get('token')
+    dm_id = int(request.args.get('dm_id'))
+    start = int(request.args.get('start'))
+    decoded_token = check_valid_token(token)
+    dm_messages = dm_messages_v1(
+        decoded_token['auth_user_id'],
+        dm_id,
+        start
+    )
+    print(f"\n\n{dm_messages}\n\n")
+    return jsonify(dm_messages)
+
 # User Routes
 @APP.route("/user/profile/v1", methods=['GET'])
 def user_profile_v1_get():
@@ -483,12 +602,19 @@ def put_user_profile_setemail_v1():
     email = request_data['email']
     return dumps(user_profile_setemail_v1(token, email))
 
+@APP.route("/user/profile/sethandle/v1", methods=['PUT'])
+def put_user_profile_sethandle_v1():
+    request_data = request.get_json()
+    token = request_data['token']
+    handle_str = request_data['handle_str']
+    return dumps(user_profile_sethandle_v1(token, handle_str))
+
 # Users Routes
 @APP.route("/users/all/v1", methods=['GET'])
 def users_all_v1_get():
     token = request.args.get('token')
-    decoded_token = check_valid_token(token)
-    return dumps(users_all_v1(decoded_token['auth_user_id']))
+    _ = check_valid_token(token)
+    return dumps(users_all_v1())
 
 # Other routes
 @APP.route("/get_data", methods=['GET'])

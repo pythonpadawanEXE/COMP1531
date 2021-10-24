@@ -14,13 +14,6 @@ def test_invalid_channel_id():
     with pytest.raises(InputError):
         assert(channel_join_v1(user["auth_user_id"], 999) == {})
         
-def test_invalid_auth_user_id():
-    clear_v1()
-    user = auth_register_v1("b@email.com", "ABCDEF123", "Cal", "Watts")
-    channel = channels_create_v1(user["auth_user_id"], "Channel 1", True)
-    with pytest.raises(AccessError):
-        assert(channel_join_v1(999, channel["channel_id"]) == {})
-        
 def test_already_joined():
     clear_v1()
     user = auth_register_v1("b@email.com", "ABCDEF123", "Cal", "Watts")
@@ -37,6 +30,13 @@ def test_join_private_channel():
         assert(channel_join_v1(user["auth_user_id"], channel["channel_id"]) == {})
 
 # Commented out these tests as implementation has changed in order to accomadate HTTP Level requests
+
+# def test_invalid_auth_user_id():
+#     clear_v1()
+#     user = auth_register_v1("b@email.com", "ABCDEF123", "Cal", "Watts")
+#     channel = channels_create_v1(user["auth_user_id"], "Channel 1", True)
+#     with pytest.raises(AccessError):
+#         assert(channel_join_v1(999, channel["channel_id"]) == {})
 
 # def test_join_public_channel():
 #     clear_v1()

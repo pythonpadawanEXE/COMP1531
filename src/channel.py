@@ -39,9 +39,6 @@ def channel_invite_v1(auth_user_id, channel_id, u_id):
     """
 
     # Verify the user IDs
-    if not verify_user_id(auth_user_id):
-        raise AccessError
-
     if not verify_user_id(u_id):
         raise InputError
 
@@ -91,12 +88,12 @@ def channel_details_v1(token, channel_id):
             Returns { name, is_public, owner_members, all_members } on successful completion.
     """
 
+    # Get the auth_user_id from the token
+    auth_user_id = check_valid_token(token)['auth_user_id']
+
     # channel_id does not refer to a valid channel
     if not is_channel_valid(channel_id):
         raise InputError(description="channel_id does not refer to a valid channel")
-
-    # Get the auth_user_id from the token
-    auth_user_id = check_valid_token(token)['auth_user_id']
 
     # channel_id is valid and the authorised user is not a member of the channel
     if not is_user_authorised(auth_user_id, channel_id):
@@ -135,8 +132,7 @@ def channel_messages_v1(auth_user_id, channel_id, start):
             Returns { messages, start, end } on successful completion
     """
     store = data_store.get()
-    # if len(store['users'])+len(store['channels'])+len(store['passwords']) == 0:
-    #     raise InputError("Empty Database")
+    
     start = int(start)
     if start < 0:
         raise InputError("Invalid Start Index")
@@ -145,23 +141,23 @@ def channel_messages_v1(auth_user_id, channel_id, start):
         raise InputError("No Channels")
     messages = None
     channel_exists = False
-    print(f"Channel Id {channel_id} Channels in channel.py {channels}")
+    
+    #check if channel provided exists in datastore and auth_user is a member
     for channel in channels:
-        print(f"Channel is {channel} channel_id is {channel['id']}")
         if int(channel['id']) == int(channel_id):
             channel_exists = True
-            if auth_user_id not in channel["all_members"] \
-            and auth_user_id not in channel["owner_members"]:
+            if auth_user_id not in channel["all_members"]:
                 raise AccessError("User is not an owner or member of this channel")
             
             
-
+    # if channel doesn't exist raise error
     if channel_exists == False:
         raise InputError("Channel ID is not valid or does not exist.")
     messages = channel['messages']
     
     if len(messages)-1 < start:
         raise InputError("Start is greater than the total number of messages in the channel")
+
     # 50 is the pagination block of messages
     end = start + 50
     return_messages = []
@@ -169,8 +165,9 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     for idx,_ in enumerate(messages):
         if start <= idx < end:
             return_messages.append(store_messages[messages[idx]]['message'])
-    #end - start is 50
-    if len(return_messages) < end-start:
+    
+    #check if more messages to return
+    if len(messages) < end:
         end = -1
 
     return {
@@ -198,10 +195,6 @@ def channel_join_v1(auth_user_id, channel_id):
         Return Value:
             Returns { } on successful completion.
     """
-
-    # Verify the user ID
-    if not verify_user_id(auth_user_id):
-        raise AccessError(description="Bad user id")
 
     store = data_store.get()
 
