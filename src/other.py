@@ -1,8 +1,8 @@
 import re
-from src.data_store import data_store
-from src.error import InputError,AccessError
 import hashlib
 import jwt
+from src.data_store import data_store
+from src.error import InputError,AccessError
 
 SESSION_TRACKER = 0
 SECRET = 'COMP1531'
@@ -146,8 +146,6 @@ def check_email_validity(email):
     max_len_email_path_char = 256
     if None == re.fullmatch(r'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$',email):
         raise InputError("Invalid Email")
-    
-    #https://stackoverflow.com/questions/45082170/regex-to-split-the-email-address-in-python
     email_list = re.findall(r'(.+)@(.+)\.(.+)', email)
 
     if len(email_list[0][0]) > max_len_email_user_char or len(email_list[0][1]) > max_len_email_domain_char or len(email_list[0][2]) > max_len_email_path_char:
@@ -210,23 +208,12 @@ def is_handle_exist(handle_str):
             return True
     return False
 
-# '''
-# Search for Handle given auth user id
-# '''
-# def search_handle(auth_user_id):
-#     store = data_store.get()
-#     users = store['users']
-#     for user in users:
-#         if user['u_id'] == auth_user_id:
-#             return user['handle_str']
-#     return None
 '''
 Searches for existing handles and appends a number as a string to create a unique and valid handle
 '''
 def make_handle(name_first,name_last):
     store = data_store.get()
     users = store['users']
-    print(f"handle: {users}")
     len_trunc = 20
     count = 0
     #make lowercase then remove non-alphanumeric characters
@@ -262,19 +249,6 @@ def is_global_owner(auth_user_id):
             else:
                 return False
     return False
-
-# def make_token(auth_user_id,session_id):
-#     '''
-    
-#     Makes a  new JWT. 
-
-#     Arguments:
-#         auth_user_id (int) - Unique ID of authorised user
-#         session_id (int) - Unique ID of Session
-#     Return Value:   
-#         token (string) on Successful completion.
-#     '''
-#     return generate_jwt(auth_user_id, session_id)
 
 def return_token(auth_user_id):
     '''
@@ -325,9 +299,6 @@ def check_valid_token(token):
                 if session_id == decoded_token['session_id']:
                     return {'auth_user_id':decoded_token['auth_user_id'],'session_id':decoded_token['session_id']}
     raise AccessError(description="Invalid Token")
-    
-
-
 
 def generate_new_session_id():
     """Generates a new sequential session ID
@@ -339,7 +310,6 @@ def generate_new_session_id():
     SESSION_TRACKER += 1
     return SESSION_TRACKER
 
-
 def hash(input_string):
     """Hashes the input string with sha256
 
@@ -350,7 +320,6 @@ def hash(input_string):
         string: The hexidigest of the encoded string
     """
     return hashlib.sha256(input_string.encode()).hexdigest()
-
 
 def generate_jwt(auth_user_id, session_id):
     """Generates a JWT using the global SECRET
@@ -364,7 +333,6 @@ def generate_jwt(auth_user_id, session_id):
         string: A JWT encoded string
     """
     return jwt.encode({'auth_user_id': auth_user_id, 'session_id': session_id}, SECRET, algorithm='HS256')
-
 
 def decode_jwt(encoded_jwt):
     """Decodes a JWT string into an object of the data
@@ -422,7 +390,6 @@ def generate_dm_name(all_members):
     
     name = ', '.join(sorted(name_list))
     return name
-    
 
 def is_dm_valid(dm_id):
     '''
@@ -444,7 +411,6 @@ def is_dm_valid(dm_id):
             
     return is_dm_valid
 
-
 def is_user_authorised_dm(auth_user_id, dm_id):
     '''
     Check if a user is a member of the given dm
@@ -459,15 +425,12 @@ def is_user_authorised_dm(auth_user_id, dm_id):
     is_authorised = False
     store = data_store.get()
     dm_store = store['dms']
-    print(f"dm_store_authroised {dm_store}")
-    print(f"auth_user_id {auth_user_id} dm_id {dm_id}")
     for dm in dm_store:
         if dm['dm_id'] == dm_id:
             if auth_user_id in dm['all_members']:
                 is_authorised = True
                 
     return is_authorised
-
 
 def get_all_user_id_dm(dm_id):
     '''
@@ -529,7 +492,6 @@ def get_dm_owner(dm_id):
             
     return owner
 
-
 def is_user_creator_dm(auth_user_id, dm_id):
     '''
     Check if a user is the owner of the given dm
@@ -544,12 +506,8 @@ def is_user_creator_dm(auth_user_id, dm_id):
     is_creator = False
     store = data_store.get()
     dm_store = store['dms']
-    print(f"dm_store_authroised {dm_store}")
-    print(f"auth_user_id {auth_user_id} dm_id {dm_id}")
     for dm in dm_store:
         if dm['dm_id'] == dm_id:
             if dm['owner'] == auth_user_id:
                 is_creator = True
-
     return is_creator
-        
