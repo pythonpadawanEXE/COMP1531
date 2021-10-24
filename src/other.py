@@ -387,29 +387,62 @@ def is_user_in_dm(auth_user_id, dm_id):
     return is_user_in_dm
 
 def generate_dm_name(all_members):
+    '''
+    Generate an alphabetically-sored, comma-and-space-seperated
+    list of user handles, e.g. 'ahandle1, bhandle2, chandle3'.
+
+    Args:
+        all_members (list)  - list of added users include creator of the dm
+
+    Returns:
+        name (str)  - alphabetically-sored, comma-and-space-seperated
+                      list of user handles name string
+    '''
     store = data_store.get()
     users = store['users']
     name_list = []
+
     for member in all_members:
         for user in users:
             if member == user['u_id']:
                 name_list.append(user['handle_str'])
+    
     name = ', '.join(sorted(name_list))
     return name
     
-def is_dm_valid(dm_id):
 
-    dm_valid = False
+def is_dm_valid(dm_id):
+    '''
+    Check whether the given dm is in dms in data store or not
+
+    Args:
+        dm_id (int)         -Dm ID of the dm the user is a member of
+    
+    Returns:
+        is_dm_valid (bool)  -whether the dm in dms in dm store or not (True/False)
+    '''
+    is_dm_valid = False
     store = data_store.get()
     dm_store = store['dms']
 
     for dm in dm_store:
         if dm['dm_id'] == dm_id:
-            dm_valid = True
+            is_dm_valid = True
+            
+    return is_dm_valid
 
-    return dm_valid
 
 def is_user_authorised_dm(auth_user_id, dm_id):
+    '''
+    Check if a user is a member of the given dm
+
+    Args:
+        auth_user_id (int)  - Unique authenticated user id.
+        dm_id (int)         - Unique direct message id.
+    
+    Returns:
+        is_user_in_dm (bool) - whether the user is in the given dm or not (True/False)
+    '''
     is_authorised = False
     store = data_store.get()
     dm_store = store['dms']
@@ -419,34 +452,82 @@ def is_user_authorised_dm(auth_user_id, dm_id):
         if dm['dm_id'] == dm_id:
             if auth_user_id in dm['all_members']:
                 is_authorised = True
-
+                
     return is_authorised
 
+
 def get_all_user_id_dm(dm_id):
+    '''
+    Grab all_member list for the given dm with dm id
+
+    Args:
+        dm_id (int)         - Unique direct message id.
+    
+    Returns:
+        all_user_ids        - all_member list of the given dm
+    '''
     store = data_store.get()
     dm_store = store['dms']
+    all_user_ids = None
 
     for dm in dm_store:
         if dm['dm_id'] == dm_id:
-            return dm['all_members']
+            all_user_ids = dm['all_members']
+            
+    return all_user_ids
 
 def get_dm_name(dm_id):
+    '''
+    Grab the name for the given dm with dm id
+
+    Args:
+        dm_id (int)         - Unique direct message id.
+    
+    Returns:
+        name                - name of the given dm
+    '''
     store = data_store.get()
     dm_store = store['dms']
+    name = None
 
     for dm in dm_store:
         if dm['dm_id'] == dm_id:
-            return dm['name']
+            name = dm['name']
+            
+    return name
 
 def get_dm_owner(dm_id):
+    '''
+    Grab owner for the given dm with dm id
+
+    Args:
+        dm_id (int)         - Unique direct message id.
+    
+    Returns:
+        owner               - owner of the given dm
+    '''
     store = data_store.get()
     dm_store = store['dms']
+    owner = None
 
     for dm in dm_store:
         if dm['dm_id'] == dm_id:
-            return dm['owner']
+            owner = dm['owner']
+            
+    return owner
+
 
 def is_user_creator_dm(auth_user_id, dm_id):
+    '''
+    Check if a user is the owner of the given dm
+
+    Args:
+        auth_user_id (int)  - Unique authenticated user id.
+        dm_id (int)         - Unique direct message id.
+    
+    Returns:
+        is_user_in_dm (bool) - whether the user is the owener of the given dm or not (True/False)
+    '''
     is_creator = False
     store = data_store.get()
     dm_store = store['dms']
@@ -456,6 +537,6 @@ def is_user_creator_dm(auth_user_id, dm_id):
         if dm['dm_id'] == dm_id:
             if dm['owner'] == auth_user_id:
                 is_creator = True
-                
+
     return is_creator
         
