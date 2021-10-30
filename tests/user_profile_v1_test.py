@@ -49,5 +49,5 @@ def test_valid_use(setup):
     users = setup
     resp = requests.get(config.url + 'user/profile/v1', params={'token': users[1]['token'], 'u_id': users[0]['auth_user_id']})
     assert resp.status_code == 200
-    response_data = resp.json()
+    response_data = resp.json()['user']
     assert response_data == {'u_id': users[0]['auth_user_id'], 'email': 'validemail@gmail.com', 'name_first': 'Hayden', 'name_last': 'Everest', 'handle_str': 'haydeneverest'}

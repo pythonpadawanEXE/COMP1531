@@ -46,12 +46,13 @@ def user_profile_v1(auth_user_id, u_id):
     if not found:
         raise InputError(description="u_id does not refer to a valid user")
 
-    return {
-        'u_id': target_user['u_id'],
-        'email' : target_user['email'],
-        'name_first' : target_user['name_first'],
-        'name_last'  : target_user['name_last'],
-        'handle_str' : target_user['handle_str']
+    return {'user' : {
+            'u_id': target_user['u_id'],
+            'email' : target_user['email'],
+            'name_first' : target_user['name_first'],
+            'name_last'  : target_user['name_last'],
+            'handle_str' : target_user['handle_str']
+        }
     }
 
 def user_profile_setname_v1(token, name_first, name_last):
