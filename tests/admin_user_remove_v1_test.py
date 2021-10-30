@@ -82,7 +82,7 @@ def test_valid_removal(setup):
 
     # Check user in any dms
     dm_details = requests.get(config.url + 'dm/details/v1', params={'token': users[0]['token'], 'dm_id': dm_id})
-    dm_membership = json.loads(dm_details.text)['all_members']
+    dm_membership = json.loads(dm_details.text)['members']
     assert {'u_id': users[1]['auth_user_id'], 'email' : 'validemail2@gmail.com', 'name_first' : 'Robert', 'name_last' : 'Reid', 'handle_str': 'robertreid'} not in dm_membership
 
     # Check channel message history for user
@@ -137,7 +137,7 @@ def test_valid_removal_channel_owner(setup):
 
     # Check user in any dms
     dm_details = requests.get(config.url + 'dm/details/v1', params={'token': users[0]['token'], 'dm_id': dm_id})
-    dm_membership = json.loads(dm_details.text)['all_members']
+    dm_membership = json.loads(dm_details.text)['members']
     assert {'u_id': users[1]['auth_user_id'], 'email' : 'validemail2@gmail.com', 'name_first' : 'Robert', 'name_last' : 'Reid', 'handle_str': 'robertreid'} not in dm_membership
 
     # Check channel message history for user
