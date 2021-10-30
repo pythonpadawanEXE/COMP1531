@@ -74,7 +74,7 @@ def test_valid_dm_details():
     # User_ids
     auth_user_id_list = [creator['auth_user_id'], member['auth_user_id']]
     # Loop through the dm details and find if auth_user_id is in all_members
-    for user in details['all_members']:
+    for user in details['members']:
         assert(user['u_id'] in auth_user_id_list)
 
 def test_invalid_token():
@@ -127,5 +127,5 @@ def test_details_for_multi_dms():
     # User_ids
     auth_user_id_list = [creator['auth_user_id'], member2['auth_user_id']]
     # Loop through the dm details and find if auth_user_id is in all_members
-    for user in details['all_members']:
+    for user in details['members']:
         assert(user['u_id'] in auth_user_id_list)
