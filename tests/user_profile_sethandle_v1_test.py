@@ -45,7 +45,7 @@ def user_profile_details(token, u_id):
 
     response = requests.get(f"{BASE_URL}user/profile/v1?token={token}&u_id={u_id}")
     assert response.status_code == 200
-    response_data = response.json()
+    response_data = response.json()['user']
     return response_data
 
 def update_handle(token, handle_str):

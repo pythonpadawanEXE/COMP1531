@@ -71,7 +71,7 @@ def test_valid_removal(setup):
 
     # Check user profile
     profile = requests.get(config.url + 'user/profile/v1', params={'token': users[0]['token'], 'u_id': users[1]['auth_user_id']})
-    removed_profile = json.loads(profile.text)
+    removed_profile = json.loads(profile.text)['user']
     assert removed_profile['name_first'] == "Removed"
     assert removed_profile['name_last'] == "user"
 
@@ -126,7 +126,7 @@ def test_valid_removal_channel_owner(setup):
 
     # Check user profile
     profile = requests.get(config.url + 'user/profile/v1', params={'token': users[0]['token'], 'u_id': users[1]['auth_user_id']})
-    removed_profile = json.loads(profile.text)
+    removed_profile = json.loads(profile.text)['user']
     assert removed_profile['name_first'] == "Removed"
     assert removed_profile['name_last'] == "user"
 
