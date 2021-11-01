@@ -178,6 +178,7 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     if len(messages) < end:
         end = -1
 
+    #return messages is a dict following messages type in spec
     return {
         'messages': return_messages,
         'start': start,
