@@ -162,9 +162,17 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     end = start + 50
     return_messages = []
     store_messages = store['messages']
+    #note the messages variable is being used to index message_ids
     for idx,_ in enumerate(messages):
         if start <= idx < end:
-            return_messages.append(store_messages[messages[idx]]['message'])
+            return_messages.append({
+                'message_id': store_messages[messages[idx]]['message_id'],
+                'u_id': store_messages[messages[idx]]['u_id'],
+                'message': store_messages[messages[idx]]['message'],
+                'time_created': store_messages[messages[idx]]['time_created'],
+
+                
+            })
     
     #check if more messages to return
     if len(messages) < end:
