@@ -138,7 +138,7 @@ def test_valid_message(dm_endpoint):
     })
     msg = response.json()
     
-    dm_msgs,status_code = dm_messages_endpoint(token,dm['dm_id'], 0)
+    dm_msgs,_ = dm_messages_endpoint(token,dm['dm_id'], 0)
     
     assert dm_msgs['messages'][0]['message_id'] == msg['message_id']
 

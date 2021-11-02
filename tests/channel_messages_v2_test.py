@@ -119,7 +119,7 @@ def test_valid_message():
     channel = create_channel_endpoint(user['token'],'Channel',True)
     msg = message_send_endpoint(user['token'],channel['channel_id'], msg_text)
     
-    ch_msgs,status_code = channel_messages_endpoint(user['token'],channel['channel_id'], 0)
+    ch_msgs,_ = channel_messages_endpoint(user['token'],channel['channel_id'], 0)
     
     assert ch_msgs['messages'][0]['message_id'] == msg['message_id']
 
