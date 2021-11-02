@@ -71,7 +71,7 @@ def message_send_dm_v1(auth_user_id, dm_id, message_input):
             }
     #insert message id into dm['messages']    
     messages.insert(0,message_id)
-    # messages.append(message_id)
+    
     #insert message details into datastore
     store_messages.append(new_message)
 
@@ -144,7 +144,7 @@ def message_send_v1(auth_user_id, channel_id, message_input):
             }
     #insert message id into channel['messages']      
     messages.insert(0,message_id)
-    # messages.append(message_id)
+    
     #insert message details into datastore
     store_messages.append(new_message)
     data_store.set(store)
