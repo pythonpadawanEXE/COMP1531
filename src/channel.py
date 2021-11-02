@@ -134,11 +134,9 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     store = data_store.get()
     
     start = int(start)
-    if start < 0:
-        raise InputError("Invalid Start Index")
+    
     channels = store['channels']
-    if len(channels) == 0:
-        raise InputError("No Channels")
+    
     messages = None
     channel_exists = False
     
@@ -148,7 +146,11 @@ def channel_messages_v1(auth_user_id, channel_id, start):
             channel_exists = True
             if auth_user_id not in channel["all_members"]:
                 raise AccessError("User is not an owner or member of this channel")
-            
+
+    if start < 0:
+        raise InputError("Invalid Start Index")   
+    if len(channels) == 0:
+        raise InputError("No Channels")
             
     # if channel doesn't exist raise error
     if channel_exists == False:
@@ -169,7 +171,7 @@ def channel_messages_v1(auth_user_id, channel_id, start):
                 'message_id': store_messages[messages[idx]]['message_id'],
                 'u_id': store_messages[messages[idx]]['u_id'],
                 'message': store_messages[messages[idx]]['message'],
-                'time_created': store_messages[messages[idx]]['time_created'],
+                'time_created': store_messages[messages[idx]]['time_created']
 
                 
             })
