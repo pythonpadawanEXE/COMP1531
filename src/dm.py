@@ -15,7 +15,7 @@ Functions:
 
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import verify_user_id, generate_dm_name, is_dm_valid, get_all_user_id_dm, get_dm_name, is_user_authorised_dm, get_dm_owner, user_details, get_all_members, is_user_creator_dm
+from src.other import verify_user_id, generate_dm_name, is_dm_valid, get_all_user_id_dm, get_dm_name, is_user_authorised_dm, user_details, get_all_members, is_user_creator_dm
 
 def dm_create_v1(auth_user_id, u_ids):
     ''' 
