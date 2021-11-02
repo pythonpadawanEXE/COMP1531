@@ -127,8 +127,6 @@ def test_dm_owner_leave():
     # Loop through the dm details and find if removed creater is still in all_members of dm
     for user in details_after['members']:
         assert(creator['auth_user_id'] != user['u_id'])
-    # Dm owner should be empty after the owner leave
-    assert(details_after['owner'] == [])
     # As the creator leaves, calling the dm/detail_v1 function would raise AccessError
     response = requests.get(f"{BASE_URL}dm/details/v1?token={creator_token}&dm_id={dm_id}")
     assert response.status_code == 403
