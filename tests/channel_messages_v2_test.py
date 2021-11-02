@@ -91,6 +91,15 @@ def create_channel_endpoint(token,name,is_public):
     assert response.status_code == 200 
     return response.json()
 
+def message_send_endpoint(token,channel_id,message):
+    response = requests.post(f"{BASE_URL}/message/send/v1",json={
+        'token' : token,
+        'channel_id' : channel_id,
+        'message' : message
+    })
+    assert response.status_code == 200 
+    return response.json()
+
 """
 Valid Input
 """
@@ -102,6 +111,17 @@ def test_valid_start_index_0_endpoint(create_messages_endpoint):
     result,status_code = channel_messages_endpoint(token,new_channel['channel_id'],1)
     assert status_code == 200
     assert result["end"] == -1
+
+
+def test_valid_message():
+    msg_text = "hello, world"
+    user = register_valid_user()
+    channel = create_channel_endpoint(user['token'],'Channel',True)
+    msg = message_send_endpoint(user['token'],channel['channel_id'], msg_text)
+    
+    ch_msgs,status_code = channel_messages_endpoint(user['token'],channel['channel_id'], 0)
+    
+    assert ch_msgs['messages'][0]['message_id'] == msg['message_id']
 
 def test_valid_start_index_1_endpoint(create_messages_endpoint):
     new_channel,token = create_messages_endpoint
