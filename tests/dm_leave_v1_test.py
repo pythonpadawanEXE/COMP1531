@@ -89,7 +89,7 @@ def test_dm_member_leave():
     # User_ids in dm before member leave
     auth_user_id_list = [creator['auth_user_id'], member['auth_user_id']]
     # Loop through the dm details and find if auth_user_ids are in all_members
-    for user in details_before['all_members']:
+    for user in details_before['members']:
         assert(user['u_id'] in auth_user_id_list)
     
     # Member leave
@@ -97,7 +97,7 @@ def test_dm_member_leave():
     #Dm details after member leave
     details_after = dm_details(creator_token, dm_id)
     # Loop through the dm details and find if removed member is still in all_members of dm
-    for user in details_after['all_members']:
+    for user in details_after['members']:
         assert(member['auth_user_id'] != user['u_id'] )
     # As the member leaves, calling the dm/detail_v1 function would raise AccessError
     response = requests.get(f"{BASE_URL}dm/details/v1?token={member_token}&dm_id={dm_id}")
@@ -117,7 +117,7 @@ def test_dm_owner_leave():
     # User_ids in dm before owner leave
     auth_user_id_list = [creator['auth_user_id'], member['auth_user_id']]
     # Loop through the dm details and find if auth_user_id is in all_members
-    for user in details_before['all_members']:
+    for user in details_before['members']:
         assert(user['u_id'] in auth_user_id_list)
     
     # Owner leave
@@ -125,10 +125,8 @@ def test_dm_owner_leave():
     # Dm details after owner leave
     details_after = dm_details(member_token, dm_id)
     # Loop through the dm details and find if removed creater is still in all_members of dm
-    for user in details_after['all_members']:
+    for user in details_after['members']:
         assert(creator['auth_user_id'] != user['u_id'])
-    # Dm owner should be empty after the owner leave
-    assert(details_after['owner'] == [])
     # As the creator leaves, calling the dm/detail_v1 function would raise AccessError
     response = requests.get(f"{BASE_URL}dm/details/v1?token={creator_token}&dm_id={dm_id}")
     assert response.status_code == 403
@@ -181,7 +179,7 @@ def test_dm_member_leave__for_multi_dm():
     # User_ids in dm before member leave
     auth_user_id_list = [creator['auth_user_id'], member1['auth_user_id']]
     # Loop through the dm details and find if auth_user_ids are in all_members
-    for user in details_before['all_members']:
+    for user in details_before['members']:
         assert(user['u_id'] in auth_user_id_list)
     
     # Member leave
@@ -189,7 +187,7 @@ def test_dm_member_leave__for_multi_dm():
     # Dm details after member leave
     details_after = dm_details(creator_token, dm_id)
     # Loop through the dm details and find if removed member is still in all_members of dm
-    for user in details_after['all_members']:
+    for user in details_after['members']:
         assert(member1['auth_user_id'] != user['u_id'])
     # As the member leaves, calling the dm/detail_v1 function would raise AccessError
     response = requests.get(f"{BASE_URL}dm/details/v1?token={member1_token}&dm_id={dm_id}")
