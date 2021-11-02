@@ -472,26 +472,6 @@ def get_dm_name(dm_id):
             
     return name
 
-def get_dm_owner(dm_id):
-    '''
-    Grab owner for the given dm with dm id
-
-    Args:
-        dm_id (int)         - Unique direct message id.
-    
-    Returns:
-        owner               - owner of the given dm
-    '''
-    store = data_store.get()
-    dm_store = store['dms']
-    owner = None
-
-    for dm in dm_store:
-        if dm['dm_id'] == dm_id:
-            owner = dm['owner']
-            
-    return owner
-
 def is_user_creator_dm(auth_user_id, dm_id):
     '''
     Check if a user is the owner of the given dm

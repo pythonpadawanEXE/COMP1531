@@ -114,16 +114,12 @@ def dm_details_v1(auth_user_id, dm_id):
     if not is_user_authorised_dm(auth_user_id, dm_id):
         raise AccessError(description = "User not exist in this dm")
     
-    # list of auth_user_id of the dm owner of ID dm_id 
-    dm_owner_id = get_dm_owner(dm_id)
-
     # List of auth_user_id of all the members in the dm of ID dm_id
     all_members_id_list = get_all_user_id_dm(dm_id)
 
     # Return dm details
     return {
         'name': get_dm_name(dm_id),
-        'owner': user_details([dm_owner_id]),
         'members': get_all_members(all_members_id_list)
     }
     
