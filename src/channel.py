@@ -144,7 +144,7 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     for channel in channels:
         if int(channel['id']) == int(channel_id):
             channel_exists = True
-            if auth_user_id not in channel["all_members"]:
+            if auth_user_id not in channel["all_members"] and is_global_owner(auth_user_id) == False:
                 raise AccessError("User is not an owner or member of this channel")
 
     if start < 0:
