@@ -279,7 +279,12 @@ def dm_messages_v1(auth_user_id, dm_id, start):
         if start <= idx < end:
 
             # Add the 50 messages from the start index to the returned message list
-            returned_messages.append(messages_store[messages_dm[idx]]['message'])
+            returned_messages.append({
+                'message_id': messages_store[messages_dm[idx]]['message_id'],
+                'u_id': messages_store[messages_dm[idx]]['u_id'],
+                'message': messages_store[messages_dm[idx]]['message'],
+                'time_created': messages_store[messages_dm[idx]]['time_created']  
+            })
 
     # If there's nore more messages to load after this return
     if len(dm['messages']) < end:
