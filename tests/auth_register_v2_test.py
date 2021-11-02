@@ -28,7 +28,14 @@ def register_valid_user(email = 'validemail@gmail.com',password = '123abc!@#',na
     assert isinstance(response_data['token'],str)
     assert isinstance(response_data['auth_user_id'],int)
     return response_data
-    
+
+def get_profile(token,u_id):   
+    response = requests.get(f"{BASE_URL}/user/profile/v1",params={
+        'token' : token,
+        'u_id' : u_id
+    }) 
+    assert response.status_code == 200
+    return response.json()
 '''
 Valid Input
 '''
@@ -47,6 +54,16 @@ def test_valid_email_1_endpoint():
     assert isinstance(response_data['token'],str)
     assert response_data['auth_user_id'] == 0
     #Valid Multiple Registrations with unique emails
+
+def test_removed_user_name():
+    response_data = register_valid_user('abc@gmail.com', 'password1', 'Removed', 'user')
+
+    profile = get_profile(response_data['token'], response_data['auth_user_id'])
+    print(profile)
+    assert profile['user']['name_first'] == 'Removed'
+    assert profile['user']['email'] == 'abc@gmail.com'
+    assert profile['user']['name_last'] == 'user'
+
 
 def test_multiple_emails_endpoint():
     _ = register_valid_user(email = 'validemail1@gmail.com',password= '123abc!@#1')

@@ -127,6 +127,21 @@ def test_valid_start_index_in_multi_messages_endpoint(create_messages_endpoint):
     # The message is less than 50 from the start possion, the end position is not expeced.
     assert result['end'] == -1
 
+def test_valid_message(dm_endpoint):
+    msg_text = "hello, world"
+    token, member_ids = dm_endpoint
+    dm = create_dm_endpoint(token,member_ids)
+    response = requests.post(f"{BASE_URL}/message/senddm/v1",json={
+        'token' : token,
+        'dm_id' : dm['dm_id'],
+        'message' : msg_text
+    })
+    msg = response.json()
+    
+    dm_msgs,status_code = dm_messages_endpoint(token,dm['dm_id'], 0)
+    
+    assert dm_msgs['messages'][0]['message_id'] == msg['message_id']
+
 def test_valid_start_index_in_extreme_messages_endpoint(create_extreme_messages_endpoint):
     new_dm,token = create_extreme_messages_endpoint
     result,status_code = dm_messages_endpoint(token,new_dm['dm_id'], 1) 
