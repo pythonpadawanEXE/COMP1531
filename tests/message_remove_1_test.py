@@ -141,13 +141,6 @@ def create_dms_endpoint(create_dm_3):
         message_ids.append(response_data['message_id'])
     return dm_data['dm_id'],token,message_ids
 
-def channel_messages_endpoint(token,channel_id,start):
-    response = requests.get(f"{BASE_URL}/channel/messages/v2",params={
-        'token' : token,
-        'channel_id' : channel_id,
-        'start' : start
-    })
-    return response.json(),response.status_code
 
 def message_send_endpoint(token,channel_id,message):
     response = requests.post(f"{BASE_URL}/message/send/v1",json={
@@ -165,13 +158,13 @@ def test_owner_global_owner_original_poster_can_remove_members_message():
     response_data = register_valid_user(email='first@gmail.com')
     msg_text = "hello, world"
     
-    message_ids = []
+    
     user = register_valid_user(email='valid1@gmail.com')
     user2 = register_valid_user(email='valid2@gmail.com')
 
     new_channel = create_channel_endpoint(user['token'],'name',True)
 
-    resp = requests.post(config.url + 'channel/join/v2', json={'token':user2['token'], 'channel_id': new_channel['channel_id']})
+    _ = requests.post(config.url + 'channel/join/v2', json={'token':user2['token'], 'channel_id': new_channel['channel_id']})
 
     msg0 = message_send_endpoint(user['token'],new_channel['channel_id'], msg_text)
     msg1 = message_send_endpoint(user['token'],new_channel['channel_id'], msg_text+"2")
