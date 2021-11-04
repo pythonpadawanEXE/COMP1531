@@ -96,6 +96,36 @@ def test_valid_send_message_endpoint(pub_chan_endpoint):
     _,status_code = create_message_endpoint(token,new_channel['channel_id'],"Howdy Partner!")
     assert status_code == 200
 
+
+def test_under_fifty_messages_sent(pub_chan_endpoint):
+    token, name, is_public = pub_chan_endpoint
+    new_channel = create_channel_endpoint(token,name,is_public)
+
+    message_ids = [
+        create_message_endpoint(token, new_channel['channel_id'], 'you are a toy')[0]['message_id'] for x in
+        range(10)
+    ]
+
+    ch_msgs,_ = channel_messages_endpoint(token, new_channel['channel_id'], 0)
+
+    assert ch_msgs['start'] == 0
+    assert ch_msgs['end'] == -1
+    assert message_ids[::-1] == [m['message_id'] for m in ch_msgs['messages']]
+
+def test_over_fifty_messages_sent(pub_chan_endpoint):
+    token, name, is_public = pub_chan_endpoint
+    new_channel = create_channel_endpoint(token,name,is_public)
+
+    message_ids = [
+        create_message_endpoint(token, new_channel['channel_id'], 'you are a toy')[0]['message_id'] for x in
+        range(51)
+    ]
+    message_ids.reverse()
+    ch_msgs,_ = channel_messages_endpoint(token, new_channel['channel_id'], 0)
+
+    assert ch_msgs['start'] == 0
+    assert ch_msgs['end'] == 50
+    assert message_ids[0:50] == [m['message_id'] for m in ch_msgs['messages']]
 '''
 Input Error
 '''

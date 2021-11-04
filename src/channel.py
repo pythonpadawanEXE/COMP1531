@@ -134,11 +134,9 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     store = data_store.get()
     
     start = int(start)
-    if start < 0:
-        raise InputError("Invalid Start Index")
+    
     channels = store['channels']
-    if len(channels) == 0:
-        raise InputError("No Channels")
+    
     messages = None
     channel_exists = False
     
@@ -146,9 +144,13 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     for channel in channels:
         if int(channel['id']) == int(channel_id):
             channel_exists = True
-            if auth_user_id not in channel["all_members"]:
+            if auth_user_id not in channel["all_members"] and is_global_owner(auth_user_id) == False:
                 raise AccessError("User is not an owner or member of this channel")
-            
+
+    if start < 0:
+        raise InputError("Invalid Start Index")   
+    if len(channels) == 0:
+        raise InputError("No Channels")
             
     # if channel doesn't exist raise error
     if channel_exists == False:
@@ -162,14 +164,23 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     end = start + 50
     return_messages = []
     store_messages = store['messages']
+    #note the messages variable is being used to index message_ids
     for idx,_ in enumerate(messages):
         if start <= idx < end:
-            return_messages.append(store_messages[messages[idx]]['message'])
+            return_messages.append({
+                'message_id': store_messages[messages[idx]]['message_id'],
+                'u_id': store_messages[messages[idx]]['u_id'],
+                'message': store_messages[messages[idx]]['message'],
+                'time_created': store_messages[messages[idx]]['time_created']
+
+                
+            })
     
     #check if more messages to return
     if len(messages) < end:
         end = -1
 
+    #return messages is a dict following messages type in spec
     return {
         'messages': return_messages,
         'start': start,

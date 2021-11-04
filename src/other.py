@@ -9,12 +9,12 @@ SECRET = 'COMP1531'
 
 def clear_v1():
     store = data_store.get()
-    store['users'] = []
-    store['channels'] = []
-    store['passwords'] = []
-    store['permissions'] = []
-    store['dms'] = []
-    store['messages'] = []
+    store['users'].clear()
+    store['channels'].clear()
+    store['passwords'].clear()
+    store['permissions'].clear()
+    store['dms'].clear()
+    store['messages'].clear()
     data_store.set(store)
     return {}
 

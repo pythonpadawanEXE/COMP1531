@@ -148,10 +148,47 @@ def remove_message_endpoint(token,message_id):
     })
     return response.json(),response.status_code
 
+def message_send_endpoint(token,channel_id,message):
+    response = requests.post(f"{BASE_URL}/message/send/v1",json={
+        'token' : token,
+        'channel_id' : channel_id,
+        'message' : message
+    })
+    assert response.status_code == 200 
+    return response.json()
+
 '''
 Valid Input
 '''
+def test_owner_global_owner_original_poster_can_edit_members_channel_message():
+    response_data = register_valid_user(email='first@gmail.com')
+    msg_text = "hello, world"
+    
+    
+    user = register_valid_user(email='valid1@gmail.com')
+    user2 = register_valid_user(email='valid2@gmail.com')
 
+    new_channel = create_channel_endpoint(user['token'],'name',True)
+
+    _ = requests.post(config.url + 'channel/join/v2', json={'token':user2['token'], 'channel_id': new_channel['channel_id']})
+
+    msg0 = message_send_endpoint(user['token'],new_channel['channel_id'], msg_text)
+    msg1 = message_send_endpoint(user['token'],new_channel['channel_id'], msg_text+"2")
+    
+
+    edit_message_endpoint(response_data['token'], msg0['message_id'],"hello_world0")
+    ch_msgs,_ = channel_messages_endpoint(response_data['token'], new_channel['channel_id'],0)
+    assert ch_msgs['messages'][0]['message_id'] == msg1['message_id']
+
+    msg2 = message_send_endpoint(user['token'],new_channel['channel_id'], msg_text+"3")
+    edit_message_endpoint(user['token'], msg1['message_id'],"hello_world1")
+    ch_msgs,_ = channel_messages_endpoint(response_data['token'], new_channel['channel_id'],0)
+    assert ch_msgs['messages'][0]['message_id'] == msg2['message_id']
+
+    msg3 = message_send_endpoint(user['token'],new_channel['channel_id'], msg_text+"4")
+    edit_message_endpoint(user2['token'], msg2['message_id'],"hello_world2")
+    ch_msgs,_ = channel_messages_endpoint(user2['token'], new_channel['channel_id'],0)
+    assert ch_msgs['messages'][0]['message_id'] == msg3['message_id']
 
 def test_channel_valid_message_edit_endpoint(create_messages_endpoint):
     _,token,message_ids =   create_messages_endpoint
