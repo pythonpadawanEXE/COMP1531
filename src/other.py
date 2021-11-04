@@ -491,3 +491,14 @@ def is_user_creator_dm(auth_user_id, dm_id):
             if dm['owner'] == auth_user_id:
                 is_creator = True
     return is_creator
+
+def get_global_owners():
+    """ Returns a list of the u_ids of all global owners """
+
+    store = data_store.get()
+    users_store = store['users']
+    global_owners = []
+    for user in users_store:
+        if user['permission_id'] == 1:
+            global_owners.append(user)
+    return global_owners

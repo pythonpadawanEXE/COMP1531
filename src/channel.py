@@ -16,7 +16,7 @@ from src.data_store import data_store
 from src.other import is_channel_valid, is_global_owner, is_user_authorised, \
     get_channel_name, is_channel_public, get_channel_owner, \
     user_details, get_all_user_id_channel, get_all_members, \
-    verify_user_id, check_valid_token
+    verify_user_id, check_valid_token, get_global_owners
 
 def channel_invite_v1(auth_user_id, channel_id, u_id):
     """ <Brief description of what the function does>
@@ -300,9 +300,15 @@ def channel_addowner_v1(token, channel_id, u_id):
     # Get the auth_user_id from the token
     auth_user_id = check_valid_token(token)['auth_user_id']
 
+    # List containing channel owners
+    channel_owners_list = get_channel_owner(channel_id)
+
+    # List containing global owners
+    global_owners_list = get_global_owners()
+    
     # channel_id is valid and the authorised user does not have owner permissions in the channel
-    if (is_channel_valid(channel_id) and auth_user_id not in channel_owners_list):
-        raise AccessError(description="channel_id is valid and the authorised user does not have owner permissions in the channel")
+    if (is_channel_valid(channel_id) and auth_user_id not in channel_owners_list and auth_user_id not in global_owners_list):
+        raise AccessError(description="channel_id is valid and the authorised user does not have owner permissions in the channel.")
 
     # channel_id does not refer to a valid channel
     if not is_channel_valid(channel_id):
@@ -315,9 +321,6 @@ def channel_addowner_v1(token, channel_id, u_id):
     # u_id refers to a user who is not a member of the channel
     if not is_user_authorised(u_id, channel_id):
         raise InputError(description="u_id refers to a user who is not a member of the channel")
-
-    # List containing channel owners
-    channel_owners_list = get_channel_owner(channel_id)
 
     # u_id refers to a user who is already an owner of the channel
     if (u_id in channel_owners_list):
@@ -362,9 +365,15 @@ def channel_removeowner_v1(token, channel_id, u_id):
     # Get the auth_user_id from the token
     auth_user_id = check_valid_token(token)['auth_user_id']
 
+    # List containing channel owners
+    channel_owners_list = get_channel_owner(channel_id)
+
+    # List containing global owners
+    global_owners_list = get_global_owners()
+    
     # channel_id is valid and the authorised user does not have owner permissions in the channel
-    if (is_channel_valid(channel_id) and auth_user_id not in channel_owners_list):
-        raise AccessError(description="channel_id is valid and the authorised user does not have owner permissions in the channel")
+    if (is_channel_valid(channel_id) and auth_user_id not in channel_owners_list and auth_user_id not in global_owners_list):
+        raise AccessError(description="channel_id is valid and the authorised user does not have owner permissions in the channel.")
 
     # channel_id does not refer to a valid channel
     if not is_channel_valid(channel_id):
@@ -374,8 +383,7 @@ def channel_removeowner_v1(token, channel_id, u_id):
     if not verify_user_id(u_id):
         raise InputError(description="u_id does not refer to a valid user")
 
-    # List containing channel owners
-    channel_owners_list = get_channel_owner(channel_id)
+
 
     # u_id refers to a user who is not an owner of the channel
     if (u_id not in channel_owners_list):
