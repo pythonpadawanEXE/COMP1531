@@ -74,7 +74,7 @@ def channel_invite_v1(auth_user_id, channel_id, u_id):
         if auth_user_id == user['u_id']:
             handle = user['handle_str']
     
-    create_notification(u_id, target_channel['channel_id'], -1, f"{handle} added you to {target_channel['name']}")
+    create_notification(u_id, target_channel['id'], -1, f"{handle} added you to {target_channel['name']}")
     
     data_store.set(store)
 

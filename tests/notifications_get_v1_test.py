@@ -32,7 +32,7 @@ def register_user(email, password, name_first, name_last):
     response_data = response.json()
     assert isinstance(response_data['token'],str)
     assert isinstance(response_data['auth_user_id'],int)
-    return response_data['token']
+    return response_data
 
 def channels_create(token, name, is_public):
 
@@ -51,7 +51,7 @@ def channels_create(token, name, is_public):
     return response_data
 
 def invite(token, channel_id, u_id):
-    response = requests.post(f"{BASE_URL}channels/invite/v2", json={
+    response = requests.post(f"{BASE_URL}channel/invite/v2", json={
         'token' : token,
         'channel_id' : channel_id,
         'u_id' : u_id
