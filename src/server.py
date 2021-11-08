@@ -13,7 +13,8 @@ from src.channels import channels_create_v1, channels_listall_v1, channels_list_
 from src.other import check_valid_token, clear_v1,return_token
 from src.data_store import data_store
 from src.message import message_send_v1,message_remove_v1,message_edit_v1,message_send_dm_v1
-from src.user import user_profile_v1, user_profile_setname_v1, user_profile_setemail_v1, user_profile_sethandle_v1
+from src.user import user_profile_v1, user_profile_setname_v1, user_profile_setemail_v1, user_profile_sethandle_v1, \
+                    notifications_get
 from src.users import users_all_v1
 from src.dm import dm_create_v1, dm_list_v1, dm_details_v1, dm_leave_v1, dm_remove_v1, dm_messages_v1
 
@@ -323,6 +324,11 @@ def put_user_profile_sethandle_v1():
     token = request_data['token']
     handle_str = request_data['handle_str']
     return dumps(user_profile_sethandle_v1(token, handle_str))
+
+@APP.route("/notifications/get/v1", methods=['GET'])
+def notifications_get_v1():
+    token = request.args.get('token')
+    return dumps(notifications_get(token))
 
 # Users Routes
 
