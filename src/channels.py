@@ -110,7 +110,6 @@ def channels_create_v1(auth_user_id, name, is_public):
         'messages' :[],
         }
     channels.append(new_channel)
-    update_user_stats_channel_join(auth_user_id)
     data_store.set(store)
     return {
         'channel_id' : new_channel['id']
