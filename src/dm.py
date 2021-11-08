@@ -15,7 +15,7 @@ Functions:
 
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import verify_user_id, generate_dm_name, is_dm_valid, get_all_user_id_dm, get_dm_name, is_user_authorised_dm, user_details, get_all_members, is_user_creator_dm
+from src.other import verify_user_id, generate_dm_name, is_dm_valid, get_all_user_id_dm, get_dm_name, is_user_authorised_dm, get_all_members, is_user_creator_dm, get_user_handle, create_notification
 
 def dm_create_v1(auth_user_id, u_ids):
     ''' 
@@ -59,6 +59,9 @@ def dm_create_v1(auth_user_id, u_ids):
         'messages' : [],
     }
     dms.append(new_dm)
+    
+    for u_id in u_ids:
+        create_notification(u_id, -1, new_dm['dm_id'], f"{get_user_handle(creator_u_id)} added you to {new_dm['name']}")
     data_store.set(store)
     return{'dm_id': new_dm['dm_id']}
 
