@@ -7,6 +7,7 @@ Functions:
     auth_login_v1(email, password) -> { auth_user_id }
     auth_register_v1(email, password, name_first, name_last) -> { auth_user_id }
 """
+import datetime
 import re
 from src.data_store import data_store
 from src.error import InputError,AccessError
@@ -102,7 +103,10 @@ def auth_register_v1(email, password, name_first, name_last):
             'name_last'  : name_last,
             'handle_str' : make_handle(name_first,name_last),
             'permission_id': permission_id,
-            'sessions' : []
+            'sessions' : [],
+            'channels_joined': [],
+            'dms_joined': [],
+            'messages_sent': []
         })
     passwords.append({
             'u_id': u_id,
