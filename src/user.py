@@ -192,7 +192,7 @@ def user_profile_sethandle_v1(token, handle_str):
 
     return {}
 
-def notifications_get_v1(token):
+def notifications_get(token):
     """ Return the user's most recent 20 notifications, ordered from most recent to least recent.
     
         Arguments:

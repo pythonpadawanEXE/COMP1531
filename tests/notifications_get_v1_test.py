@@ -73,7 +73,7 @@ def test_invite_notification():
     channel = channels_create(owner['token'], 'My Channel', True)
     _ = invite(owner['token'], channel['channel_id'], user['auth_user_id'])
     # List of dictionaries
-    notifications = get_notifications(user['token'])
+    notifications = get_notifications(user['token'])['notifications']
     assert {
         'channel_id' : channel['channel_id'],
         'dm_id' : -1,
