@@ -19,7 +19,7 @@ def users_all_v1():
     users_store = store['users']
     users = {'users' : []}
     for user in users_store:
-        if user['name_first'] == "Removed":
+        if user['email'] == "":
             continue
         
         users['users'].append({
