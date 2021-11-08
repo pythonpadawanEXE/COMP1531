@@ -111,6 +111,7 @@ def channels_create_v1(auth_user_id, name, is_public):
         }
     channels.append(new_channel)
     data_store.set(store)
+    update_user_stats_channel_join(auth_user_id)
     return {
         'channel_id' : new_channel['id']
     }
