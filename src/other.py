@@ -529,7 +529,7 @@ def get_user_handle(u_id):
     
     return handle
 
-def user_stats_channel_join(auth_user_id):
+def update_user_stats_channel_join(auth_user_id):
     store = data_store.get()
     users_store = store['users']
 
@@ -542,4 +542,3 @@ def user_stats_channel_join(auth_user_id):
             user['user_stats']['channels_joined'].append(new_channel_joined_stats)
 
     data_store.set(store)
-    return {}
