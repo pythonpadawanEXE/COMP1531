@@ -16,7 +16,8 @@ from src.data_store import data_store
 from src.other import is_channel_valid, is_global_owner, is_user_authorised, \
     get_channel_name, is_channel_public, get_channel_owner, \
     user_details, get_all_user_id_channel, get_all_members, \
-    verify_user_id, check_valid_token, get_global_owners, create_notification
+    verify_user_id, check_valid_token, get_global_owners, create_notification, \
+    get_user_handle
 
 def channel_invite_v1(auth_user_id, channel_id, u_id):
     """ <Brief description of what the function does>
@@ -67,14 +68,8 @@ def channel_invite_v1(auth_user_id, channel_id, u_id):
     # Add user to the target_channel
     target_channel["all_members"].append(u_id)
     
-    # Notify user
-    users = store['users']
-    handle = ''
-    for user in users:
-        if auth_user_id == user['u_id']:
-            handle = user['handle_str']
-    
-    create_notification(u_id, target_channel['id'], -1, f"{handle} added you to {target_channel['name']}")
+    # Notify user    
+    create_notification(u_id, target_channel['id'], -1, f"{get_user_handle(auth_user_id)} added you to {target_channel['name']}")
     
     data_store.set(store)
 
