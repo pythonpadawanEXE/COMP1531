@@ -564,7 +564,7 @@ def update_user_stats_dm_join(auth_user_id):
     for user in users_store:
         if user['u_id'] == auth_user_id:
             new_dm_joined_stats = {
-                'num_channels_joined': int(user['user_stats']['dms_joined'][-1]['num_dms_joined']) + 1,
+                'num_dms_joined': int(user['user_stats']['dms_joined'][-1]['num_dms_joined']) + 1,
                 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
             }
             user['user_stats']['dms_joined'].append(new_dm_joined_stats)
@@ -578,7 +578,7 @@ def update_user_stats_dm_leave(auth_user_id):
     for user in users_store:
         if user['u_id'] == auth_user_id:
             new_dm_joined_stats = {
-                'num_channels_joined': int(user['user_stats']['dms_joined'][-1]['num_dms_joined']) - 1,
+                'num_dms_joined': int(user['user_stats']['dms_joined'][-1]['num_dms_joined']) - 1,
                 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
             }
             user['user_stats']['dms_joined'].append(new_dm_joined_stats)
