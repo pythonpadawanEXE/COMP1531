@@ -208,7 +208,7 @@ def dm_remove_v1(auth_user_id, dm_id):
     # Loop through and find the authorised dm
     for dm in dm_store:
         if dm['dm_id'] == dm_id:
-            for member in dm[get_all_members]:
+            for member in dm['all_members']:
                 update_user_stats_dm_leave(member)
             # remove the authorised dm from dms in data store
             dm_store.remove(dm)
