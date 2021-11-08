@@ -502,3 +502,17 @@ def get_global_owners():
         if user['permission_id'] == 1:
             global_owners.append(user)
     return global_owners
+
+def create_notification(uid, channel_id, dm_id, notification_message):
+    """ Creates a notification and appends to uid user datastore """
+
+    store = data_store.get()
+    users = store['users']
+
+    for user in users:
+        if user['u_id'] == uid:
+            user['notifications'].append({
+                'channel_id': channel_id,
+                'dm_id': dm_id,
+                'notification_message': notification_message
+            })
