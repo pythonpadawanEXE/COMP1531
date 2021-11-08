@@ -62,18 +62,21 @@ def invite(token, channel_id, u_id):
     return response_data
 
 def get_notifications(token):
-    pass
+    response = requests.get(f"{BASE_URL}notifications/get/v1?token={token}")
+    assert response.status_code == 200
+    response_data = response.json()
+    return response_data
 
 def test_invite_notification():
     owner = register_user('a@email.com', 'Pass123456!', 'Jade', 'Painter')
     user = register_user('b@email.com', 'Pass123456!', 'Kayla', 'Monk')
     channel = channels_create(owner['token'], 'My Channel', True)
     _ = invite(owner['token'], channel['channel_id'], user['auth_user_id'])
-    # notifications = get_notifications(user['token'])['notifications']
-    # assert {
-    #     'u_id': user['auth_user_id'], 
-    #     'channel_id' : channel['channel_id'],
-    #     'dm_id' : -1, 
-    #     'notification_message' : "jadepainter added you to My Channel"
-    #     } in notifications
+    # List of dictionaries
+    notifications = get_notifications(user['token'])
+    assert {
+        'channel_id' : channel['channel_id'],
+        'dm_id' : -1,
+        'notification_message' : "jadepainter added you to My Channel"
+        } in notifications
     
