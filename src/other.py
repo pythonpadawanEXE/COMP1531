@@ -516,3 +516,14 @@ def create_notification(uid, channel_id, dm_id, notification_message):
                 'dm_id': dm_id,
                 'notification_message': notification_message
             })
+            
+def get_user_handle(u_id):
+    """ Gets the handle of a given user """
+    store = data_store.get()
+    users = store['users']
+    handle = ''
+    for user in users:
+        if u_id == user['u_id']:
+            handle = user['handle_str']
+    
+    return handle
