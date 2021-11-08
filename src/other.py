@@ -1,6 +1,7 @@
 import re
 import hashlib
 import jwt
+import datetime
 from src.data_store import data_store
 from src.error import InputError,AccessError
 
@@ -527,3 +528,18 @@ def get_user_handle(u_id):
             handle = user['handle_str']
     
     return handle
+
+def user_stats_channel_join(auth_user_id):
+    store = data_store.get()
+    users_store = store['users']
+
+    for user in users_store:
+        if user['u_id'] == auth_user_id:
+            new_channel_joined_stats = {
+                'num_channels_joined': int(user['channels_joined'][-1]['num_channels_joined']) + 1,
+                'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
+            }
+            user['user_stats']['channels_joined'].append(new_channel_joined_stats)
+
+    data_store.set(store)
+    return {}
