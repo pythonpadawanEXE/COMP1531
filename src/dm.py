@@ -15,7 +15,7 @@ Functions:
 
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import verify_user_id, generate_dm_name, is_dm_valid, get_all_user_id_dm, get_dm_name, is_user_authorised_dm, user_details, get_all_members, is_user_creator_dm
+from src.other import verify_user_id, generate_dm_name, is_dm_valid, get_all_user_id_dm, get_dm_name, is_user_authorised_dm, get_all_members, is_user_creator_dm, update_user_stats_dm_join, update_user_stats_dm_leave
 
 def dm_create_v1(auth_user_id, u_ids):
     ''' 
@@ -60,6 +60,8 @@ def dm_create_v1(auth_user_id, u_ids):
     }
     dms.append(new_dm)
     data_store.set(store)
+    for member in all_members:
+        update_user_stats_dm_join(member)
     return{'dm_id': new_dm['dm_id']}
 
 def dm_list_v1(auth_user_id):
@@ -168,7 +170,7 @@ def dm_leave_v1(auth_user_id, dm_id):
 
     # Save the data store           
     data_store.set(store)
-    
+    update_user_stats_dm_leave(auth_user_id)
     return {}
 
 def dm_remove_v1(auth_user_id, dm_id):
@@ -206,6 +208,8 @@ def dm_remove_v1(auth_user_id, dm_id):
     # Loop through and find the authorised dm
     for dm in dm_store:
         if dm['dm_id'] == dm_id:
+            for member in dm[get_all_members]:
+                update_user_stats_dm_leave(member['u_id'])
             # remove the authorised dm from dms in data store
             dm_store.remove(dm)
     data_store.set(store)
