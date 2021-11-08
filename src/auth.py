@@ -104,9 +104,10 @@ def auth_register_v1(email, password, name_first, name_last):
             'handle_str' : make_handle(name_first,name_last),
             'permission_id': permission_id,
             'sessions' : [],
-            'channels_joined': [],
-            'dms_joined': [],
-            'messages_sent': []
+            'user_stats': {'channels_joined': [{'num_channels_joined': 0, 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}],
+                           'dms_joined': [{'num_dms_joined': 0, 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}],
+                           'messages_sent': [{'num_message_sent': 0, 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}]
+            }
         })
     passwords.append({
             'u_id': u_id,
