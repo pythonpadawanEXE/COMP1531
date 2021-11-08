@@ -191,3 +191,30 @@ def user_profile_sethandle_v1(token, handle_str):
     data_store.save()
 
     return {}
+
+def notifications_get_v1(token):
+    """ Return the user's most recent 20 notifications, ordered from most recent to least recent.
+    
+        Arguments:
+            token (string)  - The token of the user who is calling notifications_get_v1.
+
+        Exceptions:
+            AccessError     - the authorised user does not exist
+
+        Return Value:
+            Returns { notifications } on successful completion.
+    """
+
+    # Get the u_id from the token
+    u_id = check_valid_token(token)['auth_user_id']
+
+    # Get data store
+    store = data_store.get()
+    users = store['users']
+
+    # Find the last 20 notifications for the authorised user
+    for user in users:
+        if (u_id == user['u_id']):
+            user_notifications = user['notifications'][-20:][::-1]
+
+    return {'notifications' : user_notifications}
