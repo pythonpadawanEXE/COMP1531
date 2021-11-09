@@ -100,6 +100,15 @@ def test_valid_removal(setup):
     users_list = json.loads(users_list.text)
     for user in users_list:
         assert {'u_id': users[1]['auth_user_id'], 'email' : '', 'name_first' : 'Removed', 'name_last' : 'user', 'handle_str': 'Removed user'} != user
+    
+    # Check removed user cannot do anything
+    resp = requests.get(config.url + 'users/all/v1', params={'token': users[1]['token']})
+    assert resp.status_code == 403
+    
+    # Check profile exists
+    resp = requests.get(config.url + 'user/profile/v1', params={'token': users[0]['token'], 'u_id': users[1]['auth_user_id']})
+    response_data = resp.json()['user']
+    assert response_data == {'u_id': users[1]['auth_user_id'], 'email': '', 'name_first': 'Removed', 'name_last': 'user', 'handle_str': 'Removed user'}
 
 def test_valid_removal_channel_owner(setup):
     users = setup

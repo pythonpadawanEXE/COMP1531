@@ -12,18 +12,7 @@ Functions:
 from src.data_store import data_store
 from src.dm import dm_leave_v1, dm_list_v1
 from src.error import InputError, AccessError
-from src.other import is_global_owner
-
-def get_global_owners():
-    """ Returns a list of the u_ids of all global owners """
-
-    store = data_store.get()
-    users_store = store['users']
-    global_owners = []
-    for user in users_store:
-        if user['permission_id'] == 1:
-            global_owners.append(user)
-    return global_owners
+from src.other import is_global_owner, get_global_owners
 
 def admin_user_remove_v1(auth_user_id, u_id):
     """ Given a user by their u_id, remove them from the Streams. 
@@ -66,6 +55,7 @@ def admin_user_remove_v1(auth_user_id, u_id):
     target_user['name_last'] = 'user'
     target_user['email'] = ""
     target_user['handle_str'] = "Removed user"
+    target_user['sessions'] = []
     
     # Purge user from channel membership
     channels_store = store['channels']
