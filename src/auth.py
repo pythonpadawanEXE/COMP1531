@@ -107,7 +107,7 @@ def auth_register_v1(email, password, name_first, name_last):
             'notifications' : [],
             'user_stats': {'channels_joined': [{'num_channels_joined': 0, 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}],
                            'dms_joined': [{'num_dms_joined': 0, 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}],
-                           'messages_sent': [{'num_message_sent': 0, 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}]
+                           'messages_sent': [{'num_messages_sent': 0, 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}]
             }
         })
     passwords.append({
