@@ -55,6 +55,7 @@ def admin_user_remove_v1(auth_user_id, u_id):
     target_user['name_last'] = 'user'
     target_user['email'] = ""
     target_user['handle_str'] = "Removed user"
+    target_user['sessions'] = []
     
     # Purge user from channel membership
     channels_store = store['channels']
