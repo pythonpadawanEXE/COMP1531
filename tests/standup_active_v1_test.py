@@ -1,5 +1,6 @@
 import pytest
 import requests
+from time import sleep
 from src import config
 
 @pytest.fixture(autouse=True)
@@ -99,5 +100,38 @@ def standup_send(token, channel_id, message):
     assert response.status_code == 200
     
 def test_invalid_channel_id(setup):
+    users, _ = setup
+    response = requests.post(config.url + "standup/active/v1", params={
+        'token' : users[0]['token'],
+        'channel_id' : 999
+    })
+    
+    assert response.status_code == 400
+    
+def test_user_not_channel_member(setup):
     users, channel = setup
-    pass
+    standup_start(users[0]['token'], channel['channel_id'], 60)
+    response = requests.post(config.url + "standup/active/v1", json={
+        'token' : users[1]['token'],
+        'channel_id' : channel['channel_id']
+    })
+    
+    assert response.status_code == 403
+
+def test_bad_token(setup):
+    users, channel = setup
+    standup_start(users[0]['token'], channel['channel_id'], 60)
+    response = requests.post(config.url + "standup/active/v1", json={
+        'token' : "",
+        'channel_id' : channel['channel_id']
+    })
+    
+    assert response.status_code == 403
+    
+def test_valid_standup_active(setup):
+    users, channel = setup
+    finish_time = standup_start(users[0]['token'], channel['channel_id'], 10)
+    assert finish_time == standup_active(users[0]['token'], channel['channel_id'])['time_finish']
+    assert standup_active(users[0]['token'], channel['channel_id'])['is_active'] == True
+    sleep(10)
+    assert standup_active(users[0]['token'], channel['channel_id'])['is_active'] == False
