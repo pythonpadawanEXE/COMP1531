@@ -50,6 +50,21 @@ def channels_create(token, name, is_public):
     response_data = response.json()
     return response_data
 
+def dm_create(token, u_ids):
+
+    '''
+    Creates a dm for user with given token and other's u_ids returns the dm ID
+    '''
+
+    response = requests.post(f"{BASE_URL}dm/create/v1", json={
+        'token' : token,
+        'u_ids' : u_ids,
+    })
+
+    assert response.status_code == 200
+    response_data = response.json()
+    return response_data
+
 def invite(token, channel_id, u_id):
     response = requests.post(f"{BASE_URL}channel/invite/v2", json={
         'token' : token,
@@ -79,4 +94,15 @@ def test_invite_notification():
         'dm_id' : -1,
         'notification_message' : "jadepainter added you to My Channel"
         } in notifications
-    
+
+def test_dm_creation_notification():
+    owner = register_user('a@email.com', 'Pass123456!', 'Jade', 'Painter')
+    user = register_user('b@email.com', 'Pass123456!', 'Kayla', 'Monk')
+    dm = dm_create(owner['token'], [user['auth_user_id']])
+    # List of dictionaries
+    notifications = get_notifications(user['token'])['notifications']
+    assert {
+        'channel_id' : -1,
+        'dm_id' : dm['dm_id'],
+        'notification_message' : "jadepainter added you to jadepainter, kaylamonk"
+        } in notifications
