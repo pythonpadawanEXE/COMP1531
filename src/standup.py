@@ -86,8 +86,6 @@ def standup_active_v1(auth_user_id, channel_id):
             target_channel = channel
     standup = target_channel['standup']
     
-    print(standup)
-    
     # Update return values
     if standup != {}:
         is_active = True
@@ -111,7 +109,6 @@ def standup_end(channel_id):
 
     # Send standup message as author
     message = standup['standup_message']
-    print(message)
     standup_message(standup['author'], channel_id, message)
     
     # Reset standup dict in channel
