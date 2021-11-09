@@ -348,7 +348,7 @@ def standup_start_v1_post():
     decoded_token = check_valid_token(token)
     return dumps(standup_start_v1(decoded_token['auth_user_id'], channel_id, length))
 
-@APP.route("/standup/active/v1", methods=['POST'])
+@APP.route("/standup/active/v1", methods=['GET'])
 def standup_active_v1_post():
     token = request.args.get('token')
     channel_id = int(request.args.get('channel_id'))
