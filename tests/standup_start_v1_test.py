@@ -1,6 +1,9 @@
 import pytest
 import requests
+from time import sleep
 from src import config
+
+# Fixtures and Helpers
 
 @pytest.fixture(autouse=True)
 def clear():
@@ -98,6 +101,8 @@ def standup_send(token, channel_id, message):
     
     assert response.status_code == 200
     
+# Tests
+    
 def test_invalid_channel_id(setup):
     users, _ = setup
     response = requests.post(config.url + "standup/start/v1", json={
@@ -152,5 +157,8 @@ def test_bad_token(setup):
 
 def test_valid_standup_start(setup):
     users, channel = setup
-    finish_time = standup_start(users[0]['token'], channel['channel_id'], 60)
+    finish_time = standup_start(users[0]['token'], channel['channel_id'], 10)
     assert finish_time == standup_active(users[0]['token'], channel['channel_id'])['time_finish']
+    assert standup_active(users[0]['token'], channel['channel_id'])['is_active'] == True
+    sleep(10)
+    assert standup_active(users[0]['token'], channel['channel_id'])['is_active'] == False
