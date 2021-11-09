@@ -98,6 +98,5 @@ def standup_send(token, channel_id, message):
     
     assert response.status_code == 200
     
-def test_invalid_channel_id(setup):
-    users, channel = setup
+def test_invalid_channel_id():
     pass
