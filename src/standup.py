@@ -63,7 +63,36 @@ def standup_send_v1(auth_user_id, channel_id, message):
     pass
 
 def standup_active_v1(auth_user_id, channel_id):
-    pass
+    
+    # Check valid call
+    if not is_channel_valid(channel_id):
+        raise InputError(description="channel_id does not refer to a valid channel")
+    
+    if auth_user_id not in get_all_user_id_channel(channel_id):
+        raise AccessError(description="channel_id is valid and the authorised user is not a member of the channel")
+    
+    # Set initial return values
+    is_active = False
+    time_finish = None
+    
+    # Get standup dict in channel
+    store = data_store.get()
+    channels = store['channels']
+    target_channel = {}
+    for channel in channels:
+        if channel['id'] == channel_id:
+            target_channel = channel
+    standup = target_channel['standup']
+    
+    # Update return values
+    if standup != {}:
+        is_active = True
+        time_finish = standup['time_finish']
+    
+    return {
+        'is_active' : is_active,
+        'time_finish' : time_finish
+    }
 
 def standup_end(channel_id):
     
