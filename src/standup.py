@@ -52,9 +52,11 @@ def standup_start_v1(auth_user_id, channel_id, length):
         'standup_message' : ""
     }
     
-    # Start timer in seperate thread to end standup
-    threading.Timer(length, standup_end, [channel_id])
     data_store.set(store)
+    
+    # Start timer in seperate thread to end standup
+    t = threading.Timer(length, standup_end, [channel_id])
+    t.start()
     
     return {'time_finish' : time_finish}
 
@@ -84,6 +86,8 @@ def standup_active_v1(auth_user_id, channel_id):
             target_channel = channel
     standup = target_channel['standup']
     
+    print(standup)
+    
     # Update return values
     if standup != {}:
         is_active = True
@@ -104,11 +108,52 @@ def standup_end(channel_id):
         if channel['id'] == channel_id:
             target_channel = channel
     standup = target_channel['standup']
-    
+
     # Send standup message as author
     message = standup['standup_message']
-    message_send_v1(standup['author'], channel_id, message) #TODO: Edit to ignore the 1000 char limit as standup message permitted to be longer
+    print(message)
+    standup_message(standup['author'], channel_id, message)
     
     # Reset standup dict in channel
     target_channel['standup'] = {}
+    data_store.set(store)
+    
+def standup_message(auth_user_id, channel_id, message_input):
+    store = data_store.get()
+    channels = store['channels']
+    store_messages = store['messages']
+    messages = None
+    channel_exists = False
+
+    #check if channel exists and auth_user_id in channel members
+    for channel in channels:
+        if channel['id'] == channel_id:
+            channel_exists = True
+            if auth_user_id not in channel["all_members"]:
+                raise AccessError("User is not an owner or member of this channel.")
+            
+            
+    #raise error if channel does not exist
+    if channel_exists == False:
+        raise InputError("Channel ID is not valid or does not exist.")
+
+    messages = channel['messages']
+    
+
+    message_id = len(store_messages)
+    #create new message
+    new_message ={
+            'dm_id': None,
+            'channel_id':  channel_id,
+            'message_id': message_id,
+            'u_id': auth_user_id,
+            'message': message_input,
+            'time_created': int(datetime.datetime.utcnow()
+                            .replace(tzinfo= datetime.timezone.utc).timestamp()),
+            }
+    #insert message id into channel['messages']      
+    messages.insert(0,message_id)
+    
+    #insert message details into datastore
+    store_messages.append(new_message)
     data_store.set(store)
