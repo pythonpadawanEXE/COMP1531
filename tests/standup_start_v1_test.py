@@ -99,5 +99,58 @@ def standup_send(token, channel_id, message):
     assert response.status_code == 200
     
 def test_invalid_channel_id(setup):
+    users, _ = setup
+    response = requests.post(config.url + "standup/start/v1", json={
+        'token' : users[0]['token'],
+        'channel_id' : 999,
+        'length' : 60
+    })
+    
+    assert response.status_code == 400
+
+def test_length_negative(setup):
     users, channel = setup
-    pass
+    response = requests.post(config.url + "standup/start/v1", json={
+        'token' : users[0]['token'],
+        'channel_id' : channel['channel_id'],
+        'length' : -1
+    })
+    
+    assert response.status_code == 400
+
+def test_standup_already_active(setup):
+    users, channel = setup
+    standup_start(users[0]['token'], channel['channel_id'], 60)
+    response = requests.post(config.url + "standup/start/v1", json={
+        'token' : users[0]['token'],
+        'channel_id' : channel['channel_id'],
+        'length' : 60
+    })
+    
+    assert response.status_code == 400
+    
+
+def test_user_not_channel_member(setup):
+    users, channel = setup
+    response = requests.post(config.url + "standup/start/v1", json={
+        'token' : users[1]['token'],
+        'channel_id' : channel['channel_id'],
+        'length' : 60
+    })
+    
+    assert response.status_code == 403
+
+def test_bad_token(setup):
+    _, channel = setup
+    response = requests.post(config.url + "standup/start/v1", json={
+        'token' : "",
+        'channel_id' : channel['channel_id'],
+        'length' : 60
+    })
+    
+    assert response.status_code == 403
+
+def test_valid_standup_start(setup):
+    users, channel = setup
+    finish_time = standup_start(users[0]['token'], channel['channel_id'], 60)
+    assert finish_time == standup_active(users[0]['token'], channel['channel_id'])['time_finish']
