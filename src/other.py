@@ -584,3 +584,17 @@ def update_user_stats_dm_leave(auth_user_id):
             user['user_stats']['dms_joined'].append(new_dm_joined_stats)
 
     data_store.set(store)
+
+def update_user_stats_messages_sent(auth_user_id, time_stamp):
+    store = data_store.get()
+    users_store = store['users']
+
+    for user in users_store:
+        if user['u_id'] == auth_user_id:
+            new_message_sent_stats = {
+                'num_messages_sent': int(user['user_stats']['messages_sent'][-1]['num_messages_sent']) + 1,
+                'time_stamp': time_stamp
+            }
+            user['user_stats']['messages_sent'].append(new_message_sent_stats)
+
+    data_store.set(store)
