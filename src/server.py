@@ -13,6 +13,7 @@ from src.channels import channels_create_v1, channels_listall_v1, channels_list_
 from src.other import check_valid_token, clear_v1,return_token
 from src.data_store import data_store
 from src.message import message_send_v1,message_remove_v1,message_edit_v1,message_send_dm_v1
+from src.standup import standup_active_v1, standup_start_v1
 from src.user import user_profile_v1, user_profile_setname_v1, user_profile_setemail_v1, user_profile_sethandle_v1, \
                     notifications_get
 from src.users import users_all_v1
@@ -337,6 +338,22 @@ def users_all_v1_get():
     token = request.args.get('token')
     _ = check_valid_token(token)
     return dumps(users_all_v1())
+
+@APP.route("/standup/start/v1", methods=['POST'])
+def standup_start_v1_post():
+    request_data = request.get_json()
+    token = request_data['token']
+    channel_id = int(request_data['channel_id'])
+    length = int(request_data['length'])
+    decoded_token = check_valid_token(token)
+    return dumps(standup_start_v1(decoded_token['auth_user_id'], channel_id, length))
+
+@APP.route("/standup/active/v1", methods=['POST'])
+def standup_active_v1_post():
+    token = request.args.get('token')
+    channel_id = int(request.args.get('channel_id'))
+    decoded_token = check_valid_token(token)
+    return dumps(standup_active_v1(decoded_token['auth_user_id'], channel_id))
 
 # Other routes
 
