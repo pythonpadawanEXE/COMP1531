@@ -13,7 +13,7 @@ Functions:
 
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import verify_user_id, check_valid_token, check_email_validity, search_duplicate_email, is_handle_exist
+from src.other import verify_user_id, check_valid_token, check_email_validity, search_duplicate_email, is_handle_exist, get_user_involvement_rate
 
 def user_profile_v1(auth_user_id, u_id):
     """ For a valid user, returns information about their user_id, email, first name, last name, and handle
@@ -230,5 +230,5 @@ def user_stats_v1(token):
             user_stats.setdefault('channels_joined', user['user_stats']['channels_joined'])
             user_stats.setdefault('dms_joined', user['user_stats']['dms_joined'])
             user_stats.setdefault('messages_sent', user['user_stats']['messages_sent'])
-    
+            user_stats.setdefault('involvement_rate', get_user_involvement_rate(auth_user_id))
     return user_stats
