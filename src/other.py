@@ -598,3 +598,21 @@ def update_user_stats_messages_sent(auth_user_id, time_stamp):
             user['user_stats']['messages_sent'].append(new_message_sent_stats)
 
     data_store.set(store)
+
+def get_user_involvement_rate(auth_user_id):
+    store = data_store.get()
+    dms_store = store['dms']
+    channels_store = store['channels']
+    messages_store = store['messages']
+    users_store = store['users']
+    
+    involvement_rate = 0
+
+    for user in users_store:
+        if user['u_id'] == auth_user_id:
+            num_channels_user_joined = int(user['user_stats']['channels_joined'][-1]['num_channels_joined'])
+            num_dms_user_joined = int(user['user_stats']['dms_joined'][-1]['num_dms_joined'])
+            num_message_user_sent = int(user['user_stats']['messages_sent'][-1]['num_messages_sent'])
+            involvement_rate = float(sum(num_channels_user_joined, num_dms_user_joined, num_message_user_sent)/sum(len(channels_store), len(dms_store), len(messages_store)))
+    
+    return involvement_rate
