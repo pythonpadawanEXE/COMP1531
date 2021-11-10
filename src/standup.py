@@ -13,7 +13,6 @@ import datetime
 import threading
 from src.data_store import data_store
 from src.error import AccessError, InputError
-from src.message import message_send_v1
 from src.other import get_all_user_id_channel, is_channel_valid
 
 def standup_start_v1(auth_user_id, channel_id, length):
@@ -105,6 +104,8 @@ def standup_end(channel_id):
     for channel in channels:
         if channel['id'] == channel_id:
             target_channel = channel
+    print("TARGET CHANNEL")
+    print(target_channel)
     standup = target_channel['standup']
 
     # Send standup message as author
@@ -114,6 +115,7 @@ def standup_end(channel_id):
     # Reset standup dict in channel
     target_channel['standup'] = {}
     data_store.set(store)
+    print(f"FINISHED {int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}")
     
 def standup_message(auth_user_id, channel_id, message_input):
     store = data_store.get()

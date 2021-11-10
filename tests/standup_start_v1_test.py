@@ -158,7 +158,8 @@ def test_bad_token(setup):
 def test_valid_standup_start(setup):
     users, channel = setup
     finish_time = standup_start(users[0]['token'], channel['channel_id'], 10)
-    assert finish_time == standup_active(users[0]['token'], channel['channel_id'])['time_finish']
-    assert standup_active(users[0]['token'], channel['channel_id'])['is_active'] == True
+    deets = standup_active(users[0]['token'], channel['channel_id'])
+    assert finish_time == deets['time_finish']
+    assert deets['is_active'] == True
     sleep(10)
     assert standup_active(users[0]['token'], channel['channel_id'])['is_active'] == False

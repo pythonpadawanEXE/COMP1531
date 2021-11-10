@@ -1,5 +1,7 @@
 import pytest
 import requests
+import json
+from time import sleep
 from src import config
 
 @pytest.fixture(autouse=True)
@@ -47,6 +49,22 @@ def channels_create(token, name, is_public):
     assert response.status_code == 200
     response_data = response.json()
     return response_data
+
+def channel_join(token, channel_id):
+
+    '''
+    Joins a channel for user with given token and channel ID
+    '''
+
+    response = requests.post(config.url + "channel/join/v2", json={
+        'token' : token,
+        'channel_id' : channel_id
+    })
+
+    assert response.status_code == 200
+    response_data = response.json()
+    return response_data
+
 
 @pytest.fixture
 def setup():
@@ -98,5 +116,78 @@ def standup_send(token, channel_id, message):
     
     assert response.status_code == 200
     
-def test_invalid_channel_id():
-    pass
+# Tests
+    
+def test_invalid_channel_id(setup):
+    users, channel = setup
+    standup_start(users[0]['token'], channel['channel_id'], 3)
+    response = requests.post(config.url + "standup/send/v1", json={
+        'token' : users[0]['token'],
+        'channel_id' : 999,
+        'message' : "Invalid Channel"
+    })
+    
+    assert response.status_code == 400
+
+def test_message_too_long(setup):
+    users, channel = setup
+    standup_start(users[0]['token'], channel['channel_id'], 3)
+    response = requests.post(config.url + "standup/send/v1", json={
+        'token' : users[0]['token'],
+        'channel_id' : channel['channel_id'],
+        'message' : "a"*1001
+    })
+    
+    assert response.status_code == 400
+
+def test_standup_not_active(setup):
+    users, channel = setup
+    response = requests.post(config.url + "standup/send/v1", json={
+        'token' : users[0]['token'],
+        'channel_id' : channel['channel_id'],
+        'message' : "Not Active"
+    })
+    
+    assert response.status_code == 400
+    
+
+def test_user_not_channel_member(setup):
+    users, channel = setup
+    standup_start(users[0]['token'], channel['channel_id'], 3)
+    response = requests.post(config.url + "standup/send/v1", json={
+        'token' : users[1]['token'],
+        'channel_id' : channel['channel_id'],
+        'length' : 60
+    })
+    
+    assert response.status_code == 403
+
+def test_bad_token(setup):
+    _, channel = setup
+    response = requests.post(config.url + "standup/send/v1", json={
+        'token' : "",
+        'channel_id' : channel['channel_id'],
+        'length' : 60
+    })
+    
+    assert response.status_code == 403
+    
+def test_valid_send(setup):
+    users, channel = setup
+    channel_join(users[1]['token'], channel['channel_id'])
+    
+    _ = standup_start(users[0]['token'], channel['channel_id'], 10)
+    
+    standup_send(users[0]['token'], channel['channel_id'], "A")
+    standup_send(users[1]['token'], channel['channel_id'], "B")
+    
+    sleep(10)
+    assert standup_active(users[0]['token'], channel['channel_id'])['is_active'] == False
+    
+    channel_messages = requests.get(config.url + 'channel/messages/v2', params={
+        'token': users[0]['token'],
+        'channel_id': channel['channel_id'],
+        'start': 0
+    })
+    messages = json.loads(channel_messages.text)['messages']
+    assert messages[0]['message'] == f"jadepainter: A\nsethtilley: B"
