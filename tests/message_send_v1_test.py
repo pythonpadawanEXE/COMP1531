@@ -126,6 +126,17 @@ def test_over_fifty_messages_sent(pub_chan_endpoint):
     assert ch_msgs['start'] == 0
     assert ch_msgs['end'] == 50
     assert message_ids[0:50] == [m['message_id'] for m in ch_msgs['messages']]
+
+def test_removal_by_edit_reflected(pub_chan_endpoint):
+    token, name, is_public = pub_chan_endpoint
+    new_channel = create_channel_endpoint(token,name,is_public)
+    msg = create_message_endpoint(token, new_channel['channel_id'], 'you are a toy')[0]['message_id']
+    
+    ch_msgs,_ = channel_messages_endpoint(token, new_channel['channel_id'], 0)
+    assert ch_msgs['start'] == 0
+    assert ch_msgs['end'] == -1
+    assert msg in [m['message_id'] for m in ch_msgs['messages']]
+
 '''
 Input Error
 '''
