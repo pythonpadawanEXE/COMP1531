@@ -131,8 +131,6 @@ def standup_end(channel_id):
     for channel in channels:
         if channel['id'] == channel_id:
             target_channel = channel
-    print("TARGET CHANNEL")
-    print(target_channel)
     standup = target_channel['standup']
 
     # Send standup message as author
@@ -142,7 +140,6 @@ def standup_end(channel_id):
     # Reset standup dict in channel
     target_channel['standup'] = {}
     data_store.set(store)
-    print(f"FINISHED {int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}")
     
 def standup_message(auth_user_id, channel_id, message_input):
     store = data_store.get()
@@ -154,17 +151,9 @@ def standup_message(auth_user_id, channel_id, message_input):
     #check if channel exists and auth_user_id in channel members
     for channel in channels:
         if channel['id'] == channel_id:
-            channel_exists = True
-            if auth_user_id not in channel["all_members"]:
-                raise AccessError("User is not an owner or member of this channel.")
-            
-            
-    #raise error if channel does not exist
-    if channel_exists == False:
-        raise InputError("Channel ID is not valid or does not exist.")
+            break
 
     messages = channel['messages']
-    
 
     message_id = len(store_messages)
     #create new message
