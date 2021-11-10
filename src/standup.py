@@ -13,7 +13,7 @@ import datetime
 import threading
 from src.data_store import data_store
 from src.error import AccessError, InputError
-from src.other import get_all_user_id_channel, is_channel_valid
+from src.other import get_all_user_id_channel, get_user_handle, is_channel_valid
 
 def standup_start_v1(auth_user_id, channel_id, length):
     
@@ -61,7 +61,34 @@ def standup_start_v1(auth_user_id, channel_id, length):
 
 
 def standup_send_v1(auth_user_id, channel_id, message):
-    pass
+    # Check valid call
+    if not is_channel_valid(channel_id):
+        raise InputError(description="channel_id does not refer to a valid channel")
+    
+    if auth_user_id not in get_all_user_id_channel(channel_id):
+        raise AccessError(description="channel_id is valid and the authorised user is not a member of the channel")
+    
+    if len(message) > 1000:
+        raise InputError(description="length of message is over 1000 characters")
+    
+    if not standup_active_v1(auth_user_id, channel_id)['is_active']:
+        raise InputError(description="an active standup is not currently running in the channel")
+    
+    # Get standup dict in channel
+    store = data_store.get()
+    channels = store['channels']
+    target_channel = {}
+    for channel in channels:
+        if channel['id'] == channel_id:
+            target_channel = channel
+    standup = target_channel['standup']
+    
+    if standup['standup_message'] != "":
+         standup['standup_message'] += f"\n"
+         
+    standup['standup_message'] += f"{get_user_handle(auth_user_id)}: {message}"
+    
+    return {}    
 
 def standup_active_v1(auth_user_id, channel_id):
     

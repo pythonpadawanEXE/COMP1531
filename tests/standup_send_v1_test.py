@@ -157,17 +157,18 @@ def test_user_not_channel_member(setup):
     response = requests.post(config.url + "standup/send/v1", json={
         'token' : users[1]['token'],
         'channel_id' : channel['channel_id'],
-        'length' : 60
+        'message' : "Not Channel Member"
     })
     
     assert response.status_code == 403
 
 def test_bad_token(setup):
-    _, channel = setup
+    users, channel = setup
+    standup_start(users[0]['token'], channel['channel_id'], 3)
     response = requests.post(config.url + "standup/send/v1", json={
         'token' : "",
         'channel_id' : channel['channel_id'],
-        'length' : 60
+        'message' : "Bad Token"
     })
     
     assert response.status_code == 403
