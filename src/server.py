@@ -6,7 +6,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from src import config
 from src.admin import admin_userpermission_change_v1, admin_user_remove_v1
-from src.auth import auth_register_v1, auth_login_v1, auth_logout_v1
+from src.auth import auth_register_v1, auth_login_v1, auth_logout_v1,auth_password_reset_request,\
+    auth_password_reset
 from src.channel import channel_messages_v1, channel_details_v1, channel_join_v1, channel_leave_v1, \
     channel_invite_v1, channel_addowner_v1, channel_removeowner_v1
 from src.channels import channels_create_v1, channels_listall_v1, channels_list_v1
@@ -109,6 +110,22 @@ def post_auth_logout():
     _ = auth_logout_v1(
         request_data['token']
     )
+    data_store.save()
+    return dumps({})
+
+@APP.route("/auth/passwordreset/request/v1", methods=['POST'])
+def post_auth_password_reset_request():
+    request_data = request.get_json()
+    _ = auth_password_reset_request(request_data['email'])
+    
+    data_store.save()
+    return dumps({})
+
+@APP.route("/auth/passwordreset/reset/v1", methods=['POST'])
+def post_auth_password_reset():
+    request_data = request.get_json()
+    _ = auth_password_reset(request_data['reset_code'],request_data['new_password'])
+    
     data_store.save()
     return dumps({})
 

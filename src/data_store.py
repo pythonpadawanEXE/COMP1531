@@ -32,7 +32,8 @@ initial_object = {
 'passwords' : [],
 'permissions': [],
 'dms': [],
-'messages': []
+'messages': [],
+'password_reset_codes' : []
 }
 
 

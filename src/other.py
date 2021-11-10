@@ -3,6 +3,8 @@ import hashlib
 import jwt
 from src.data_store import data_store
 from src.error import InputError,AccessError
+import random
+import string
 
 SESSION_TRACKER = 0
 SECRET = 'COMP1531'
@@ -15,6 +17,7 @@ def clear_v1():
     store['permissions'].clear()
     store['dms'].clear()
     store['messages'].clear()
+    store['password_reset_codes'].clear()
     data_store.set(store)
     return {}
 
@@ -198,6 +201,29 @@ def search_duplicate_email(email):
         if Object['email'] == email:
             count += 1
     return count
+
+def generate_password_reset_code(email):
+    store = data_store.get()
+    users = store['users']
+    count = 0
+    for Object in users:
+        if Object['email'] == email:
+            output_string = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(24))
+            store['password_reset_codes'] = {
+                'auth_user_id' : Object['u_id'],
+                'password_reset_code' : output_string
+            }
+            data_store.set(store) 
+            return output_string
+
+def is_valid_reset_code(reset_code):
+    store = data_store.get()
+    email_code_pairs = store['password_reset_codes']
+    for pair in email_code_pairs:
+        if pair['password_reset_code'] == reset_code:
+            return pair['u_id']
+    return None
+
 
 # Check if a given handle already exists in the datastore
 def is_handle_exist(handle_str):
