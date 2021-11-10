@@ -146,7 +146,6 @@ def standup_message(auth_user_id, channel_id, message_input):
     channels = store['channels']
     store_messages = store['messages']
     messages = None
-    channel_exists = False
 
     #check if channel exists and auth_user_id in channel members
     for channel in channels:
