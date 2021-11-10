@@ -116,7 +116,7 @@ def post_auth_logout():
 @APP.route("/auth/passwordreset/request/v1", methods=['POST'])
 def post_auth_password_reset_request():
     request_data = request.get_json()
-    _ = auth_password_reset_request(request_data['email'])
+    auth_password_reset_request(request_data['email'])
     
     data_store.save()
     return dumps({})
@@ -124,7 +124,7 @@ def post_auth_password_reset_request():
 @APP.route("/auth/passwordreset/reset/v1", methods=['POST'])
 def post_auth_password_reset():
     request_data = request.get_json()
-    _ = auth_password_reset(request_data['reset_code'],request_data['new_password'])
+    auth_password_reset(request_data['reset_code'],request_data['new_password'])
     
     data_store.save()
     return dumps({})

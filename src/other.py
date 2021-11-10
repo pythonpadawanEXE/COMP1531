@@ -201,27 +201,31 @@ def search_duplicate_email(email):
         if Object['email'] == email:
             count += 1
     return count
-
+'''
+generates a password resetcode and creates a resetcode email dict pair
+'''
 def generate_password_reset_code(email):
     store = data_store.get()
     users = store['users']
-    count = 0
     for Object in users:
         if Object['email'] == email:
             output_string = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(24))
-            store['password_reset_codes'] = {
+            store['password_reset_codes'].append({
                 'auth_user_id' : Object['u_id'],
                 'password_reset_code' : output_string
-            }
+            })
             data_store.set(store) 
             return output_string
+'''
+checks reset code exists in the list of reset codes
+'''
 
 def is_valid_reset_code(reset_code):
     store = data_store.get()
     email_code_pairs = store['password_reset_codes']
     for pair in email_code_pairs:
         if pair['password_reset_code'] == reset_code:
-            return pair['u_id']
+            return pair['auth_user_id']
     return None
 
 

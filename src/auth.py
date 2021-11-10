@@ -151,6 +151,23 @@ def auth_logout_v1(token):
    
     
 def auth_password_reset_request(email):
+    """ 
+    Given an email address, if the user is a registered user, 
+    sends them an email containing a specific secret code, that when 
+    entered in auth/passwordreset/reset, shows that the user trying to reset 
+    the password is the one who got sent this email. No error should be raised 
+    when passed an invalid email, as that would pose a security/privacy concern. 
+    When a user requests a password reset, they should be logged out of all current 
+    sessions.
+
+    Arguments:
+        email (string)        - The email of the user who is requesting a password reset
+
+
+    Return Values:
+        None                      
+        
+    """
     #check valid email
     if search_duplicate_email(email) != 1:
         return
@@ -169,6 +186,20 @@ def auth_password_reset_request(email):
 
 #how to match reset_code with email or make certain reset code is unique to user?
 def auth_password_reset(reset_code,new_password):
+    """ 
+    Given a reset code for a user, set that user's new password to the password provided.
+
+    Arguments:
+        reset_code (string)        - The reset_code of the user who is requesting a password reset
+                                        received via email.
+        
+        new_password (string)      -The password that will replace the old password.
+
+
+    Return Values:
+        None                      
+        
+    """
     auth_user_id = is_valid_reset_code(reset_code)
     if  auth_user_id == None:
         raise InputError("Invalid Reset Code")
@@ -182,6 +213,7 @@ def auth_password_reset(reset_code,new_password):
         for reset_code_pair in reset_code_pairs:
             if reset_code_pair['password_reset_code'] == reset_code and auth_user_id == password_dict['u_id']:
                 password_dict['password'] = hash(new_password)
-                data_store.set()
-                reset_code_pair.remove()
+                reset_code_pairs.remove(reset_code_pair)
+                data_store.set(store)
+                
 

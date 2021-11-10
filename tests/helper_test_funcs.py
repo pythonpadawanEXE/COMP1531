@@ -110,14 +110,6 @@ def logout_valid_user(token):
     with pytest.raises(AccessError):
         token_validity_check_pytest(token,store)
 
-def create_message_endpoint(token,channel_id,message):
-    response = requests.post(f"{BASE_URL}/message/send/v1",json={
-        'token' : token,
-        'channel_id' : channel_id,
-        'message' : message
-    })
-    return response.json(),response.status_code
-
 def edit_message_endpoint(token,message_id,message):
     response = requests.put(f"{BASE_URL}/message/edit/v1",json={
         'token' : token,
@@ -125,15 +117,6 @@ def edit_message_endpoint(token,message_id,message):
         'message' : message
     })
     return response.json(),response.status_code
-
-def message_send_endpoint(token,channel_id,message):
-    response = requests.post(f"{BASE_URL}/message/send/v1",json={
-        'token' : token,
-        'channel_id' : channel_id,
-        'message' : message
-    })
-    assert response.status_code == 200 
-    return response.json()
 
 def remove_message_endpoint(token,message_id):
     response = requests.delete(f"{BASE_URL}/message/remove/v1",json={
