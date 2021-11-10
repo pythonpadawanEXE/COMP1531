@@ -332,9 +332,9 @@ def notifications_get_v1():
 
 @APP.route("/user/stats/v1", methods=['GET'])
 def user_stats_v1_get():
-    request_data = request.get_json()
-    token = request_data['token']
-    return dumps(user_stats_v1(token))
+    token = request.args.get('token')
+    return jsonify(user_stats_v1(token))
+
 # Users Routes
 
 @APP.route("/users/all/v1", methods=['GET'])

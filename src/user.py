@@ -220,15 +220,23 @@ def notifications_get(token):
     return {'notifications' : user_notifications}
 
 def user_stats_v1(token):
-    auth_user_id = check_valid_token(token)
+    auth_user_id = check_valid_token(token)['auth_user_id']
     
     store = data_store.get()
     user_store = store['users']
-    user_stats = {}
+
     for user in user_store:
         if user['u_id'] == auth_user_id:
-            user_stats.setdefault('channels_joined', user['user_stats']['channels_joined'])
-            user_stats.setdefault('dms_joined', user['user_stats']['dms_joined'])
-            user_stats.setdefault('messages_sent', user['user_stats']['messages_sent'])
-            user_stats.setdefault('involvement_rate', get_user_involvement_rate(auth_user_id))
-    return user_stats
+            channels_joined = user['user_stats']['channels_joined']
+            dms_joined = user['user_stats']['dms_joined']
+            messages_sent = user['user_stats']['messages_sent']
+            involvement_rate = get_user_involvement_rate(auth_user_id)
+    print(channels_joined)
+    print(dms_joined)
+    print(messages_sent)
+    
+    return {'channels_joined': channels_joined,
+            'dms_joined': dms_joined,
+            'messages_sent': messages_sent,
+            'involvement_rate': involvement_rate
+            }
