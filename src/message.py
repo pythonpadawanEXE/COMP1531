@@ -1,7 +1,7 @@
 from src.data_store import data_store
 from src.error import InputError,AccessError
 from src.other import check_valid_token,is_user_channel_owner,is_user_dm_owner,\
-is_global_owner
+is_global_owner, update_user_stats_messages_sent
 import datetime
 
 def message_send_dm_v1(auth_user_id, dm_id, message_input):
@@ -76,6 +76,8 @@ def message_send_dm_v1(auth_user_id, dm_id, message_input):
     store_messages.append(new_message)
 
     data_store.set(store)
+
+    update_user_stats_messages_sent(auth_user_id, new_message['time_created'])
     return {'message_id': message_id}
 
 
@@ -148,6 +150,7 @@ def message_send_v1(auth_user_id, channel_id, message_input):
     #insert message details into datastore
     store_messages.append(new_message)
     data_store.set(store)
+    update_user_stats_messages_sent(auth_user_id, new_message['time_created'])
     return {'message_id': message_id}
 
 def message_edit_v1(token,message_id,message):
