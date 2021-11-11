@@ -15,7 +15,7 @@ Functions:
 
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import verify_user_id, generate_dm_name, is_dm_valid, get_all_user_id_dm, get_dm_name, is_user_authorised_dm, get_all_members, is_user_creator_dm, get_user_handle, create_notification, update_user_stats_dm_join, update_user_stats_dm_leave
+from src.other import verify_user_id, generate_dm_name, is_dm_valid, get_all_user_id_dm, get_dm_name, is_user_authorised_dm, get_all_members, is_user_creator_dm, get_user_handle, create_notification, update_user_stats_dm_join, update_user_stats_dm_leave, update_users_stats_dms_exist
 
 
 def dm_create_v1(auth_user_id, u_ids):
@@ -66,6 +66,7 @@ def dm_create_v1(auth_user_id, u_ids):
     data_store.set(store)
     for member in all_members:
         update_user_stats_dm_join(member)
+    update_users_stats_dms_exist(int(1))
     return{'dm_id': new_dm['dm_id']}
 
 def dm_list_v1(auth_user_id):
@@ -216,6 +217,7 @@ def dm_remove_v1(auth_user_id, dm_id):
                 update_user_stats_dm_leave(member)
             # remove the authorised dm from dms in data store
             dm_store.remove(dm)
+    update_users_stats_dms_exist(int(-1))
     data_store.set(store)
     return{}
 
