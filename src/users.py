@@ -36,8 +36,10 @@ def users_stats_v1(token):
     check_valid_token(token)
     store = data_store.get()
     workspace_stats = store['workspace_stats']
-    utilization_rate = get_utilization_rate
-    
+    utilization_rate = get_utilization_rate()
+    print(workspace_stats['channels_exist'])
+    print(workspace_stats['dms_exist'])
+    print(workspace_stats['messages_exist'])
     return {'channels_exist': workspace_stats['channels_exist'],
             'dms_exist': workspace_stats['dms_exist'],
             'messages_exist': workspace_stats['messages_exist'],
