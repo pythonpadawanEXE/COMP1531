@@ -229,7 +229,7 @@ def message_remove_v1(token,message_id):
 
 
     Return Value:
-        None
+        { }
     '''
     auth_user_id = check_valid_token(token)['auth_user_id']
     store = data_store.get()
@@ -272,12 +272,49 @@ def message_remove_v1(token,message_id):
             if message_id_dm ==  message_id:
                 del dm['messages'][idx]  
 
-    
-
-   
-
     #make the message_dict None
     store['messages'][message_id] = None
     data_store.set(store)
     return {}
     
+def message_search_v1(token, query_str):
+    '''
+    Given a query string, return a collection of messages in all of the channels/DMs that the user has joined that contain the query.
+    Arguments:
+        token (string)      - token of user we are searching messages for
+        query_str  (string)    - Message query to search for
+
+    Exceptions:
+        Input Error:
+        - length of query_str is less than 1 or over 1000 characters
+
+    Return Value:
+        { messages }
+    '''
+    # Check if user is valid
+    auth_user_id = check_valid_token(token)['auth_user_id']
+
+    # Check valid query length
+    if len(query_str) < 1 or len(query_str) > 1000:
+        raise InputError("Invalid query, length is less than 1 or over 1000 characters.")
+
+    # Get data store
+    store = data_store.get()
+    messages = store['messages']
+
+    matched_messages = []
+    for message in messages:
+        #if message is not None:
+        if (message['message'].lower()).find(query_str.lower()) != -1:
+            matched_messages.append(
+                {
+                'message_id': message['message_id'],
+                'u_id' : message['u_id'],
+                'message' : message['message'],
+                'time_created' : message['time_created'],
+                'reacts' : message['reacts'],
+                'is_pinned' : message['is_pinned'],
+                }
+            )
+
+    return {'messages' : matched_messages}
