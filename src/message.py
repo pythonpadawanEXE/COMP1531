@@ -1,8 +1,9 @@
 from src.data_store import data_store
 from src.error import InputError,AccessError
 from src.other import check_valid_token,is_user_channel_owner,is_user_dm_owner,\
-is_global_owner, update_user_stats_messages_sent
+is_global_owner, update_user_stats_messages_sent, is_user_member_of_channel, is_channel_valid
 import datetime
+import threading
 
 def message_send_dm_v1(auth_user_id, dm_id, message_input):
     '''
@@ -81,7 +82,7 @@ def message_send_dm_v1(auth_user_id, dm_id, message_input):
     return {'message_id': message_id}
 
 
-def message_send_v1(auth_user_id, channel_id, message_input):
+def message_send_v1(auth_user_id, channel_id, message_input, message_id=None):
     '''
     Send a message from the authorised user to the 
     channel specified by channel_id. Note: Each message 
@@ -151,6 +152,62 @@ def message_send_v1(auth_user_id, channel_id, message_input):
     store_messages.append(new_message)
     data_store.set(store)
     update_user_stats_messages_sent(auth_user_id, new_message['time_created'])
+    return {'message_id': message_id}
+
+def message_sendlater_v1(token, channel_id, message, time_sent):
+    '''
+    Send a message from the authorised user to the channel specified by channel_id automatically at a specified time in the future
+    Arguments:
+        token (string)      - Token of user sending the message
+        channel_id (int)    - Unique ID of channel
+        message (string)    - Message user is sending
+        time_sent (int)     - The time the user message is executed
+
+    Exceptions:
+        Input Error:
+        - channel_id does not refer to a valid channel
+        - length of message is less than 1 or over 1000 characters
+        - time_sent is a time in the past
+
+        Access Error:
+        - channel_id is valid and the authorised user is not a member of the channel they are trying to post to
+
+    Return Value:
+        { message_id }
+    '''
+
+    # Verify user
+    auth_user_id = check_valid_token(token)['auth_user_id']
+
+    # channel_id is valid and the authorised user is not a member of the channel they are trying to post to
+    if (is_channel_valid(channel_id) and not is_user_member_of_channel(auth_user_id, channel_id)):
+        raise AccessError("channel_id is valid and the authorised user is not a member of the channel they are trying to post to")
+
+    # Check if channel is valid
+    if (not is_channel_valid(channel_id)):
+        raise InputError("channel_id does not refer to a valid channel")
+
+    # Check valid length of message
+    if (len(message) < 1 or len(message) > 1000):
+        raise InputError("length of message is less than 1 or over 1000 characters")
+
+    # Check if time_sent is in the past
+    if time_sent < int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()):
+        raise InputError("time_sent is in the past")
+
+    send_time = time_sent - int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
+    # Start timer in seperate thread
+    t = threading.Timer(send_time, message_send_v1, [auth_user_id, channel_id, message])
+    t.start()
+
+    '''
+    You will need to implement it differently. 
+    Either by not calling message_send, or by adding an
+    optional 'message_id' parameter to message_send so 
+    that you can generate the id in advance (though 
+    I'm sure many other methods that will work).
+    '''
+
     return {'message_id': message_id}
 
 def message_edit_v1(token,message_id,message):
