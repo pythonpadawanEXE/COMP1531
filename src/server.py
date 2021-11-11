@@ -16,7 +16,7 @@ from src.message import message_send_v1,message_remove_v1,message_edit_v1,messag
 from src.standup import standup_active_v1, standup_send_v1, standup_start_v1
 from src.user import user_profile_v1, user_profile_setname_v1, user_profile_setemail_v1, user_profile_sethandle_v1, \
                     notifications_get, user_stats_v1
-from src.users import users_all_v1
+from src.users import users_all_v1, users_stats_v1
 from src.dm import dm_create_v1, dm_list_v1, dm_details_v1, dm_leave_v1, dm_remove_v1, dm_messages_v1
 
 try:
@@ -343,6 +343,11 @@ def users_all_v1_get():
     token = request.args.get('token')
     _ = check_valid_token(token)
     return dumps(users_all_v1())
+
+@APP.route("/users/stats/v1", methods=['GET'])
+def users_stats_v1_get():
+    token = request.args.get('token')
+    return jsonify(users_stats_v1(token))
 
 # Standup routes
 
