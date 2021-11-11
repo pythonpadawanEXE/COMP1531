@@ -111,6 +111,7 @@ def setup():
     users = []
     users.append(register_user('a@email.com', 'Pass123456!', 'Jade', 'Painter'))
     users.append(register_user('b@email.com', 'Pass123456!', 'Seth', 'Tilley'))
+    users.append(register_user('c@email.com', 'Pass123456!', 'Hannah', 'Buttsworth'))
     channel = channels_create(users[0]['token'], "My channel", True)
     channel_join(users[1]['token'], channel['channel_id'])
     dm = dm_create(users[0]['token'], [users[1]['auth_user_id']])
@@ -118,7 +119,7 @@ def setup():
 
 # Tests
 
-def test_message_id_not_valid_in_channel(setup):
+def test_message_id_not_exist(setup):
     users, channel, _ = setup
     id = message_channel(users[0]['token'], channel['channel_id'], "Howdy")['message_id']
     response = requests.post(config.url + "message/react/v1", json={
@@ -129,12 +130,23 @@ def test_message_id_not_valid_in_channel(setup):
 
     assert response.status_code == 400
 
+def test_message_id_not_valid_in_channel(setup):
+    users, channel, _ = setup
+    id = message_channel(users[0]['token'], channel['channel_id'], "Howdy")['message_id']
+    response = requests.post(config.url + "message/react/v1", json={
+        'token' : users[2]['token'],
+        'message_id' : id,
+        'react_id' : 1
+    })
+
+    assert response.status_code == 400
+
 def test_message_id_not_valid_in_dm(setup):
     users, _, dm = setup
     id = message_dm(users[0]['token'], dm['dm_id'], "Howdy")['message_id']
     response = requests.post(config.url + "message/react/v1", json={
-        'token' : users[1]['token'],
-        'message_id' : id + 1,
+        'token' : users[2]['token'],
+        'message_id' : id,
         'react_id' : 1
     })
 
@@ -183,3 +195,4 @@ def test_valid_react_in_dm(setup):
     users, _, dm = setup
     id = message_dm(users[0]['token'], dm['dm_id'], "Howdy")['message_id']
     _ = message_react(users[1]['token'], id, 1)
+    _ = message_react(users[0]['token'], id, 1)
