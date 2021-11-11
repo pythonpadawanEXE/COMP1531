@@ -64,7 +64,7 @@ def channel_join(token, channel_id):
     return response_data
 
 def message_channel(token, channel_id, message):
-    response = requests.post(config.url + "/message/send/v1", json={
+    response = requests.post(config.url + "message/send/v1", json={
         'token' : token,
         'channel_id' : channel_id,
         'message' : message
@@ -85,7 +85,7 @@ def dm_create(token, u_ids):
     return response_data
 
 def message_dm(token, dm_id, message):
-    response = requests.post(config.url + "/message/senddm/v1", json={
+    response = requests.post(config.url + "message/senddm/v1", json={
         'token' : token,
         'dm_id' : dm_id,
         'message' : message
@@ -96,7 +96,7 @@ def message_dm(token, dm_id, message):
     return response_data
 
 def message_react(token, message_id, react_id):
-    response = requests.post(config.url + "/message/react/v1", json={
+    response = requests.post(config.url + "message/react/v1", json={
         'token' : token,
         'message_id' : message_id,
         'react_id' : react_id
@@ -112,16 +112,16 @@ def setup():
     users.append(register_user('a@email.com', 'Pass123456!', 'Jade', 'Painter'))
     users.append(register_user('b@email.com', 'Pass123456!', 'Seth', 'Tilley'))
     channel = channels_create(users[0]['token'], "My channel", True)
-    channel_join(users[1]['token'], channel[0]['channel_id'])
+    channel_join(users[1]['token'], channel['channel_id'])
     dm = dm_create(users[0]['token'], [users[1]['auth_user_id']])
     return (users, channel, dm)
 
 # Tests
 
-def message_id_not_valid_in_channel(setup):
+def test_message_id_not_valid_in_channel(setup):
     users, channel, _ = setup
     id = message_channel(users[0]['token'], channel['channel_id'], "Howdy")['message_id']
-    response = requests.post(config.url + "/message/react/v1", json={
+    response = requests.post(config.url + "message/react/v1", json={
         'token' : users[1]['token'],
         'message_id' : id + 1,
         'react_id' : 1
@@ -129,10 +129,10 @@ def message_id_not_valid_in_channel(setup):
 
     assert response.status_code == 400
 
-def message_id_not_valid_in_dm(setup):
+def test_message_id_not_valid_in_dm(setup):
     users, _, dm = setup
-    id = message_dm(users[0]['token'], dm['message_id'], "Howdy")['message_id']
-    response = requests.post(config.url + "/message/react/v1", json={
+    id = message_dm(users[0]['token'], dm['dm_id'], "Howdy")['message_id']
+    response = requests.post(config.url + "message/react/v1", json={
         'token' : users[1]['token'],
         'message_id' : id + 1,
         'react_id' : 1
@@ -140,10 +140,10 @@ def message_id_not_valid_in_dm(setup):
 
     assert response.status_code == 400
 
-def react_id_not_valid(setup):
+def test_react_id_not_valid(setup):
     users, channel, _ = setup
     id = message_channel(users[0]['token'], channel['channel_id'], "Howdy")['message_id']
-    response = requests.post(config.url + "/message/react/v1", json={
+    response = requests.post(config.url + "message/react/v1", json={
         'token' : users[1]['token'],
         'message_id' : id,
         'react_id' : 0
@@ -151,11 +151,11 @@ def react_id_not_valid(setup):
 
     assert response.status_code == 400
 
-def already_reacted(setup):
+def test_already_reacted(setup):
     users, channel, _ = setup
     id = message_channel(users[0]['token'], channel['channel_id'], "Howdy")['message_id']
     _ = message_react(users[1]['token'], id, 1)
-    response = requests.post(config.url + "/message/react/v1", json={
+    response = requests.post(config.url + "message/react/v1", json={
         'token' : users[1]['token'],
         'message_id' : id,
         'react_id' : 1
@@ -163,10 +163,10 @@ def already_reacted(setup):
 
     assert response.status_code == 400
 
-def invalid_token(setup):
+def test_invalid_token(setup):
     users, channel, _ = setup
     id = message_channel(users[0]['token'], channel['channel_id'], "Howdy")['message_id']
-    response = requests.post(config.url + "/message/react/v1", json={
+    response = requests.post(config.url + "message/react/v1", json={
         'token' : "",
         'message_id' : id,
         'react_id' : 1
@@ -174,12 +174,12 @@ def invalid_token(setup):
 
     assert response.status_code == 403
 
-def valid_react_in_channel(setup):
+def test_valid_react_in_channel(setup):
     users, channel, _ = setup
     id = message_channel(users[0]['token'], channel['channel_id'], "Howdy")['message_id']
     _ = message_react(users[1]['token'], id, 1)
 
-def valid_react_in_dm(setup):
+def test_valid_react_in_dm(setup):
     users, _, dm = setup
-    id = message_dm(users[0]['token'], dm['message_id'], "Howdy")['message_id']
+    id = message_dm(users[0]['token'], dm['dm_id'], "Howdy")['message_id']
     _ = message_react(users[1]['token'], id, 1)
