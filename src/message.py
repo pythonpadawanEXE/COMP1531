@@ -1,6 +1,6 @@
 from src.data_store import data_store
 from src.error import InputError,AccessError
-from src.other import check_valid_token,is_user_channel_owner,is_user_dm_owner,\
+from src.other import check_valid_token, get_all_user_id_channel, is_user_authorised_dm,is_user_channel_owner,is_user_dm_owner,\
 is_global_owner, update_user_stats_messages_sent
 import datetime
 
@@ -68,6 +68,7 @@ def message_send_dm_v1(auth_user_id, dm_id, message_input):
             'message': message_input,
             'time_created': int(datetime.datetime.utcnow()
                             .replace(tzinfo= datetime.timezone.utc).timestamp()),
+            'reacts' : []
             }
     #insert message id into dm['messages']    
     messages.insert(0,message_id)
@@ -143,6 +144,7 @@ def message_send_v1(auth_user_id, channel_id, message_input):
             'message': message_input,
             'time_created': int(datetime.datetime.utcnow()
                             .replace(tzinfo= datetime.timezone.utc).timestamp()),
+            'reacts' : []
             }
     #insert message id into channel['messages']      
     messages.insert(0,message_id)
@@ -281,3 +283,53 @@ def message_remove_v1(token,message_id):
     data_store.set(store)
     return {}
     
+def message_react(auth_user_id, message_id, react_id):
+    valid_reacts = [1]
+    
+    # Find the target message
+    store = data_store.get()
+    messages = store['messages']
+    target_message = {}
+    for message in messages:
+        if message['message_id'] == message_id:
+            target_message = message
+    
+    if target_message == {}:
+        raise InputError(description="message_id is not a valid message within a channel or DM that the authorised user has joined (Does not exist)")
+            
+    is_dm = target_message['dm_id'] != None
+    
+    # Check they are in the channel where the message has been sent if not dm
+    if not is_dm and auth_user_id not in get_all_user_id_channel(target_message['channel_id']):
+        raise InputError(description="message_id is not a valid message within a channel or DM that the authorised user has joined (Channel)")
+    
+    # Check they are in the dm where the message has been sent if is dm
+    if is_dm and not is_user_authorised_dm(auth_user_id, target_message['dm_id']):
+        raise InputError(description="message_id is not a valid message within a channel or DM that the authorised user has joined (DM)")
+    
+    # Check react ID is valid
+    if react_id not in valid_reacts:
+        raise InputError(description="react_id is not a valid react ID - currently, the only valid react ID the frontend has is 1")
+    
+    # Check already reacted
+    if len(target_message['reacts']) != 0:
+        for react_type in target_message['reacts']:
+            if react_type['react_id'] == react_id and auth_user_id in react_type['u_ids']:
+                raise InputError(description="the message already contains a react with ID react_id from the authorised user")
+    
+    # React to message
+    ## if no reacts
+    if len(target_message['reacts']) == 0:
+        target_message['reacts'].append({
+            'react_id' : react_id, 
+            'u_ids' : [auth_user_id]
+        })
+    ## if react of same type
+    else:
+        for react_type in target_message['reacts']:
+            if react_type['react_id'] == react_id:
+                react_type['u_ids'].append(auth_user_id)
+                
+    data_store.set(store)
+    
+    return {}
