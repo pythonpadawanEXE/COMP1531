@@ -655,3 +655,17 @@ def update_users_stats_messages_exist(change):
     messages_exist_stats.append(new_messages_exist_stats)
 
     data_store.set(store)
+
+def get_utilization_rate():
+    store  = data_store.get()
+    users_store = store['users']
+    num_users_who_have_joined_at_least_one_channel_or_dm = 0
+    num_user = len(users_store)
+    for user in users_store:
+        if user['user_stats'][-1]['channels_joined'][-1]['num_channels_joined'] != 0 or user['user_stats'][-1]['dms_joined'][-1]['num_dms_joined'] != 0:
+            num_users_who_have_joined_at_least_one_channel_or_dm = num_users_who_have_joined_at_least_one_channel_or_dm + 1
+    
+    utilization_rate = float(num_users_who_have_joined_at_least_one_channel_or_dm / num_user)
+
+    return utilization_rate
+
