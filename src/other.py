@@ -619,3 +619,39 @@ def get_user_involvement_rate(auth_user_id):
         involvement_rate = 1
     
     return involvement_rate
+
+def update_users_stats_channels_exist(change):
+    store  = data_store.get()
+    workspace_stats = store['workspace_stats']
+    channels_exist_stats = workspace_stats['channels_exist']
+
+    new_channels_exist_stats = {'num_channels_exist': channels_exist_stats[-1]['num_channels_exist'] + int(change), 
+                                'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}
+    
+    channels_exist_stats.append(new_channels_exist_stats)
+
+    data_store.set(store)
+
+def update_users_stats_dms_exist(change):
+    store  = data_store.get()
+    workspace_stats = store['workspace_stats']
+    dms_exist_stats = workspace_stats['dms_exist']
+
+    new_dms_exist_stats = {'num_dms_exist': dms_exist_stats[-1]['num_dms_exist'] + int(change), 
+                           'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}
+    
+    dms_exist_stats.append(new_dms_exist_stats)
+
+    data_store.set(store)
+
+def update_users_stats_messages_exist(change):
+    store  = data_store.get()
+    workspace_stats = store['workspace_stats']
+    messages_exist_stats = workspace_stats['messages_exist']
+
+    new_messages_exist_stats = {'num_messages_exist': messages_exist_stats[-1]['num_messages_exist'] + int(change), 
+                               'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}
+    
+    messages_exist_stats.append(new_messages_exist_stats)
+
+    data_store.set(store)
