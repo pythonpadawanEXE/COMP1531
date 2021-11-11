@@ -11,7 +11,7 @@ Functions:
 
 from src.data_store import data_store
 from src.error import InputError
-from src.other import check_valid_token, update_user_stats_channel_join
+from src.other import check_valid_token, update_user_stats_channel_join, update_users_stats_channels_exist
 
 def channels_list_v1(auth_user_id):
     """ Lists all channels that the given user id is a member of.
@@ -114,6 +114,7 @@ def channels_create_v1(auth_user_id, name, is_public):
     channels.append(new_channel)
     data_store.set(store)
     update_user_stats_channel_join(auth_user_id)
+    update_users_stats_channels_exist(int(1))
     return {
         'channel_id' : new_channel['id']
     }
