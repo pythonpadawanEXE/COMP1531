@@ -1,7 +1,7 @@
 from src.data_store import data_store
 from src.error import InputError,AccessError
 from src.other import check_valid_token, get_all_user_id_channel, is_user_authorised_dm,is_user_channel_owner,is_user_dm_owner,\
-is_global_owner, update_user_stats_messages_sent
+is_global_owner, update_user_stats_messages_sent, update_users_stats_messages_exist
 import datetime
 
 def message_send_dm_v1(auth_user_id, dm_id, message_input):
@@ -79,6 +79,7 @@ def message_send_dm_v1(auth_user_id, dm_id, message_input):
     data_store.set(store)
 
     update_user_stats_messages_sent(auth_user_id, new_message['time_created'])
+    update_users_stats_messages_exist(int(1))
     return {'message_id': message_id}
 
 
@@ -153,6 +154,7 @@ def message_send_v1(auth_user_id, channel_id, message_input):
     store_messages.append(new_message)
     data_store.set(store)
     update_user_stats_messages_sent(auth_user_id, new_message['time_created'])
+    update_users_stats_messages_exist(int(1))
     return {'message_id': message_id}
 
 def message_edit_v1(token,message_id,message):
@@ -281,6 +283,7 @@ def message_remove_v1(token,message_id):
     #make the message_dict None
     store['messages'][message_id] = None
     data_store.set(store)
+    update_users_stats_messages_exist(int(-1))
     return {}
     
 def message_react(auth_user_id, message_id, react_id):

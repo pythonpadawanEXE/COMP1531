@@ -16,6 +16,9 @@ def clear_v1():
     store['permissions'].clear()
     store['dms'].clear()
     store['messages'].clear()
+    store['workspace_stats']['channels_exist'].clear()
+    store['workspace_stats']['dms_exist'].clear()
+    store['workspace_stats']['messages_exist'].clear()
     data_store.set(store)
     return {}
 
@@ -619,3 +622,53 @@ def get_user_involvement_rate(auth_user_id):
         involvement_rate = 1
     
     return involvement_rate
+
+def update_users_stats_channels_exist(change):
+    store  = data_store.get()
+    workspace_stats = store['workspace_stats']
+    channels_exist_stats = workspace_stats['channels_exist']
+
+    new_channels_exist_stats = {'num_channels_exist': channels_exist_stats[-1]['num_channels_exist'] + int(change), 
+                                'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}
+    
+    channels_exist_stats.append(new_channels_exist_stats)
+
+    data_store.set(store)
+
+def update_users_stats_dms_exist(change):
+    store  = data_store.get()
+    workspace_stats = store['workspace_stats']
+    dms_exist_stats = workspace_stats['dms_exist']
+
+    new_dms_exist_stats = {'num_dms_exist': dms_exist_stats[-1]['num_dms_exist'] + int(change), 
+                           'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}
+    
+    dms_exist_stats.append(new_dms_exist_stats)
+
+    data_store.set(store)
+
+def update_users_stats_messages_exist(change):
+    store  = data_store.get()
+    workspace_stats = store['workspace_stats']
+    messages_exist_stats = workspace_stats['messages_exist']
+
+    new_messages_exist_stats = {'num_messages_exist': messages_exist_stats[-1]['num_messages_exist'] + int(change), 
+                                'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}
+    
+    messages_exist_stats.append(new_messages_exist_stats)
+
+    data_store.set(store)
+
+def get_utilization_rate():
+    store  = data_store.get()
+    users_store = store['users']
+    num_users_who_have_joined_at_least_one_channel_or_dm = 0
+    num_user = len(users_store)
+    for user in users_store:
+        if user['user_stats']['channels_joined'][-1]['num_channels_joined'] != 0 or user['user_stats']['dms_joined'][-1]['num_dms_joined'] != 0:
+            num_users_who_have_joined_at_least_one_channel_or_dm = num_users_who_have_joined_at_least_one_channel_or_dm + 1
+    
+    utilization_rate = float(num_users_who_have_joined_at_least_one_channel_or_dm / num_user)
+
+    return utilization_rate
+

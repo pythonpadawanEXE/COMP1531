@@ -24,6 +24,7 @@ Example usage:
     data_store.set(store)
 '''
 import pickle
+import datetime
 ## YOU SHOULD MODIFY THIS OBJECT BELOW
 
 initial_object = {
@@ -32,7 +33,11 @@ initial_object = {
 'passwords' : [],
 'permissions': [],
 'dms': [],
-'messages': []
+'messages': [],
+'workspace_stats': {'channels_exist': [],
+                    'dms_exist': [],
+                    'messages_exist': []
+                   }
 }
 
 
