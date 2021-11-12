@@ -19,9 +19,6 @@ def clear_v1():
     store['workspace_stats']['channels_exist'].clear()
     store['workspace_stats']['dms_exist'].clear()
     store['workspace_stats']['messages_exist'].clear()
-    store['workspace_stats']['channels_exist'].append({'num_channels_exist': 0, 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())})
-    store['workspace_stats']['dms_exist'].append({'num_dms_exist': 0, 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())})
-    store['workspace_stats']['messages_exist'].append({'num_messages_exist': 0, 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())})
     data_store.set(store)
     return {}
 

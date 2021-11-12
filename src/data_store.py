@@ -34,9 +34,9 @@ initial_object = {
 'permissions': [],
 'dms': [],
 'messages': [],
-'workspace_stats': {'channels_exist': [{'num_channels_exist': 0, 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}],
-                    'dms_exist': [{'num_dms_exist': 0, 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}],
-                    'messages_exist': [{'num_messages_exist': 0, 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}]
+'workspace_stats': {'channels_exist': [],
+                    'dms_exist': [],
+                    'messages_exist': []
                    }
 }
 

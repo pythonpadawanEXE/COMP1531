@@ -94,7 +94,7 @@ def auth_register_v1(email, password, name_first, name_last):
     #if user is first one created give global owner permission
     if len(users) == 0:
         permission_id = 1
-
+    time_stamp = int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}
     #add new user to users
     users.append({
             'u_id': u_id,
@@ -105,17 +105,20 @@ def auth_register_v1(email, password, name_first, name_last):
             'permission_id': permission_id,
             'sessions' : [],
             'notifications' : [],
-            'user_stats': {'channels_joined': [{'num_channels_joined': 0, 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}],
-                           'dms_joined': [{'num_dms_joined': 0, 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}],
-                           'messages_sent': [{'num_messages_sent': 0, 'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}]
+            'user_stats': {'channels_joined': [{'num_channels_joined': 0, 'time_stamp': time_stamp}],
+                           'dms_joined': [{'num_dms_joined': 0, 'time_stamp': time_stamp}],
+                           'messages_sent': [{'num_messages_sent': 0, 'time_stamp': time_stamp}]
             }
         })
     passwords.append({
             'u_id': u_id,
             'password': hash(password),
         })
+    store['workspace_stats']['channels_exist'].append({'num_channels_exist': 0, 'time_stamp': time_stamp})
+    store['workspace_stats']['dms_exist'].append({'num_dms_exist': 0, 'time_stamp': time_stamp})
+    store['workspace_stats'][{'num_messages_exist': 0, 'time_stamp': time_stamp}]
     data_store.set(store)
-
+     
     return {
         'auth_user_id': u_id,
     }
