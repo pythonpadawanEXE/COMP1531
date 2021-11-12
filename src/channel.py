@@ -243,7 +243,7 @@ def channel_join_v1(auth_user_id, channel_id):
     # Add user to the target_channel
     target_channel["all_members"].append(auth_user_id)
     data_store.set(store)
-    update_user_stats_channel_join(auth_user_id)
+    update_user_stats_channel_join(auth_user_id, int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()))
     return {}
 
 def channel_leave_v1(token, channel_id):
