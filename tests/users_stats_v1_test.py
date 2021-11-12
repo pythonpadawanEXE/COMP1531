@@ -102,13 +102,13 @@ def test_valid_user_stats(setup):
     send_message_dm(users[1]['token'], 1, "Hello world")
     stats = users_stats(users[1]['token'])
 
-    assert stats['channels_exist'][0]['num_channels_exist'] == 0
-    assert stats['dms_exist'][0]['num_dms_exist'] == 0
-    assert stats['dms_exist'][1]['num_dms_exist'] == 1
-    assert stats['messages_exist'][0]['num_messages_exist'] == 0
-    assert stats['messages_exist'][1]['num_messages_exist'] == 1
-    assert stats['messages_exist'][2]['num_messages_exist'] == 2
-    assert stats['utilization_rate'] == float(2/3)
+    assert stats['workspace_stats']['channels_exist'][0]['num_channels_exist'] == 0
+    assert stats['workspace_stats']['dms_exist'][0]['num_dms_exist'] == 0
+    assert stats['workspace_stats']['dms_exist'][1]['num_dms_exist'] == 1
+    assert stats['workspace_stats']['messages_exist'][0]['num_messages_exist'] == 0
+    assert stats['workspace_stats']['messages_exist'][1]['num_messages_exist'] == 1
+    assert stats['workspace_stats']['messages_exist'][2]['num_messages_exist'] == 2
+    assert stats['workspace_stats']['utilization_rate'] == float(2/3)
 
 def test_valid_user_stats_dm_remove(setup):
     users = setup
@@ -119,14 +119,14 @@ def test_valid_user_stats_dm_remove(setup):
     dm_remove(users[1]['token'],1)
     stats = users_stats(users[1]['token'])
 
-    assert stats['channels_exist'][0]['num_channels_exist'] == 0
-    assert stats['dms_exist'][0]['num_dms_exist'] == 0
-    assert stats['dms_exist'][1]['num_dms_exist'] == 1
-    assert stats['dms_exist'][2]['num_dms_exist'] == 0
-    assert stats['messages_exist'][0]['num_messages_exist'] == 0
-    assert stats['messages_exist'][1]['num_messages_exist'] == 1
-    assert stats['messages_exist'][2]['num_messages_exist'] == 2
-    assert stats['utilization_rate'] == float(1/3)
+    assert stats['workspace_stats']['channels_exist'][0]['num_channels_exist'] == 0
+    assert stats['workspace_stats']['dms_exist'][0]['num_dms_exist'] == 0
+    assert stats['workspace_stats']['dms_exist'][1]['num_dms_exist'] == 1
+    assert stats['workspace_stats']['dms_exist'][2]['num_dms_exist'] == 0
+    assert stats['workspace_stats']['messages_exist'][0]['num_messages_exist'] == 0
+    assert stats['workspace_stats']['messages_exist'][1]['num_messages_exist'] == 1
+    assert stats['workspace_stats']['messages_exist'][2]['num_messages_exist'] == 2
+    assert stats['workspace_stats']['utilization_rate'] == float(1/3)
 
 def test_valid_user_stats_message_remove(setup):
     users = setup
@@ -137,12 +137,12 @@ def test_valid_user_stats_message_remove(setup):
     message_remove(users[0]['token'], 0)
     stats = users_stats(users[1]['token'])
 
-    assert stats['channels_exist'][0]['num_channels_exist'] == 0
-    assert stats['dms_exist'][0]['num_dms_exist'] == 0
-    assert stats['dms_exist'][1]['num_dms_exist'] == 1
-    assert stats['messages_exist'][0]['num_messages_exist'] == 0
-    assert stats['messages_exist'][1]['num_messages_exist'] == 1
-    assert stats['messages_exist'][2]['num_messages_exist'] == 2
-    assert stats['messages_exist'][3]['num_messages_exist'] == 1
-    assert stats['utilization_rate'] == float(2/3)
+    assert stats['workspace_stats']['channels_exist'][0]['num_channels_exist'] == 0
+    assert stats['workspace_stats']['dms_exist'][0]['num_dms_exist'] == 0
+    assert stats['workspace_stats']['dms_exist'][1]['num_dms_exist'] == 1
+    assert stats['workspace_stats']['messages_exist'][0]['num_messages_exist'] == 0
+    assert stats['workspace_stats']['messages_exist'][1]['num_messages_exist'] == 1
+    assert stats['workspace_stats']['messages_exist'][2]['num_messages_exist'] == 2
+    assert stats['workspace_stats']['messages_exist'][3]['num_messages_exist'] == 1
+    assert stats['workspace_stats']['utilization_rate'] == float(2/3)
 

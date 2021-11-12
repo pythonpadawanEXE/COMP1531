@@ -40,10 +40,10 @@ def users_stats_v1(token):
     print(workspace_stats['channels_exist'])
     print(workspace_stats['dms_exist'])
     print(workspace_stats['messages_exist'])
-    return {'channels_exist': workspace_stats['channels_exist'],
-            'dms_exist': workspace_stats['dms_exist'],
-            'messages_exist': workspace_stats['messages_exist'],
-            'utilization_rate': utilization_rate
-
-    }
+    return {'workspace_stats': {'channels_exist': workspace_stats['channels_exist'],
+                                'dms_exist': workspace_stats['dms_exist'],
+                                'messages_exist': workspace_stats['messages_exist'],
+                                'utilization_rate': utilization_rate
+                                }
+            }
     

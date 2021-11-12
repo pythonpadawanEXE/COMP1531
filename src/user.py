@@ -235,8 +235,9 @@ def user_stats_v1(token):
     print(dms_joined)
     print(messages_sent)
     
-    return {'channels_joined': channels_joined,
-            'dms_joined': dms_joined,
-            'messages_sent': messages_sent,
-            'involvement_rate': involvement_rate
+    return {'user_stats':{'channels_joined': channels_joined,
+                           'dms_joined': dms_joined,
+                           'messages_sent': messages_sent,
+                           'involvement_rate': involvement_rate
+                          }       
             }
