@@ -116,7 +116,7 @@ def auth_register_v1(email, password, name_first, name_last):
         })
     store['workspace_stats']['channels_exist'].append({'num_channels_exist': 0, 'time_stamp': time_stamp})
     store['workspace_stats']['dms_exist'].append({'num_dms_exist': 0, 'time_stamp': time_stamp})
-    store['workspace_stats'][{'num_messages_exist': 0, 'time_stamp': time_stamp}]
+    store['workspace_stats'].append([{'num_messages_exist': 0, 'time_stamp': time_stamp}])
     data_store.set(store)
      
     return {
