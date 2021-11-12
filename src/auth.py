@@ -94,7 +94,7 @@ def auth_register_v1(email, password, name_first, name_last):
     #if user is first one created give global owner permission
     if len(users) == 0:
         permission_id = 1
-    time_stamp = int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}
+    time_stamp = int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
     #add new user to users
     users.append({
             'u_id': u_id,
