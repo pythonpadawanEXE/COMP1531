@@ -8,3 +8,5 @@ omit =
     test_*.py
     *_test.py
     src/server.py
+	conftest.py
+	helper_test_funcs.py
