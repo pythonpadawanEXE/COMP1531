@@ -1,7 +1,7 @@
 from src.data_store import data_store
 from src.error import InputError,AccessError
 from src.other import check_valid_token, get_all_user_id_channel, is_user_authorised_dm,is_user_channel_owner,is_user_dm_owner,\
-is_global_owner, update_user_stats_messages_sent, update_users_stats_messages_exist
+is_global_owner, update_user_stats_messages_sent, update_users_stats_messages_exist, is_user_authorised
 import datetime
 
 def message_send_dm_v1(auth_user_id, dm_id, message_input):
@@ -68,7 +68,8 @@ def message_send_dm_v1(auth_user_id, dm_id, message_input):
             'message': message_input,
             'time_created': int(datetime.datetime.utcnow()
                             .replace(tzinfo= datetime.timezone.utc).timestamp()),
-            'reacts' : []
+            'reacts' : [],
+            'is_pinned': False
             }
     #insert message id into dm['messages']    
     messages.insert(0,message_id)
@@ -145,7 +146,8 @@ def message_send_v1(auth_user_id, channel_id, message_input):
             'message': message_input,
             'time_created': int(datetime.datetime.utcnow()
                             .replace(tzinfo= datetime.timezone.utc).timestamp()),
-            'reacts' : []
+            'reacts' : [],
+            'is_pinned': False
             }
     #insert message id into channel['messages']      
     messages.insert(0,message_id)
@@ -337,6 +339,51 @@ def message_react(auth_user_id, message_id, react_id):
     
     return {}
 
+
+def message_pin(auth_user_id, message_id):
+    
+    # Find the target message
+    store = data_store.get()
+    messages = store['messages']
+    target_message = {}
+    for message in messages:
+        if message['message_id'] == message_id:
+            target_message = message
+    
+    if target_message == {}:
+        raise InputError(description="message_id is not a valid message within a channel or DM (Does not exist)")
+
+    #Process if message in channel
+    if target_message['channel_id'] is not None:
+        channel_id = target_message['channel_id'] 
+        if is_user_channel_owner(auth_user_id, channel_id) == False and is_global_owner(auth_user_id) == False and\
+            is_user_authorised(auth_user_id, channel_id) == True:
+           raise AccessError("The authorised user does not have owner permissions in the channel/DM (channel).")
+        elif auth_user_id not in get_all_user_id_channel(target_message['channel_id']):
+            raise InputError(description="message_id is not a valid message within a channel or DM that the authorised user has joined (Channel)")
+        
+    #Process if message in dm
+    elif target_message['dm_id'] is not None:     
+        dm_id = target_message['dm_id'] 
+        if is_user_dm_owner(auth_user_id, dm_id) == False and is_user_authorised_dm(auth_user_id, target_message['dm_id']) == True:
+           raise AccessError("The authorised user does not have owner permissions in the channel/DM (dm).")
+        # Check they are in the dm where the message has been sent if is dm
+        elif not is_user_authorised_dm(auth_user_id, target_message['dm_id']):
+            raise InputError(description="message_id is not a valid message within a channel or DM that the authorised user has joined (DM)")
+    
+    #check if already pinned
+    if target_message['is_pinned'] == True:
+            raise InputError("The message is already pinned.")
+    #set pinned
+    else:
+        target_message['is_pinned'] = True
+    
+    data_store.set(store)
+    
+    return {}
+
+
+
 def message_unreact(token, message_id, react_id):
 
     # Verify the token is valid
@@ -351,7 +398,7 @@ def message_unreact(token, message_id, react_id):
     for message in messages:
         if message['message_id'] == message_id:
             target_message = message
-    
+
     # message_id is not a valid message within a channel or DM that the authorised user has joined
 
     if target_message == {}:
@@ -381,6 +428,43 @@ def message_unreact(token, message_id, react_id):
 
     if no_react_id_from_auth_user:
         raise InputError(description="the message does not contain a react with ID react_id from the authorised user")
+def message_unpin(auth_user_id, message_id):
+    # Find the target message
+    store = data_store.get()
+    messages = store['messages']
+    target_message = {}
+    for message in messages:
+        if message['message_id'] == message_id:
+            target_message = message
+    
+    if target_message == {}:
+        raise InputError(description="message_id is not a valid message within a channel or DM (Does not exist)")
+
+    #Process if message in channel
+    if target_message['channel_id'] is not None:
+        channel_id = target_message['channel_id'] 
+        if is_user_channel_owner(auth_user_id, channel_id) == False and is_global_owner(auth_user_id) == False and\
+            is_user_authorised(auth_user_id, channel_id) == True:
+           raise AccessError("The authorised user does not have owner permissions in the channel/DM (channel).")
+        elif auth_user_id not in get_all_user_id_channel(target_message['channel_id']):
+            raise InputError(description="message_id is not a valid message within a channel or DM that the authorised user has joined (Channel)")
+        
+    #Process if message in dm
+    elif target_message['dm_id'] is not None:     
+        dm_id = target_message['dm_id'] 
+        if is_user_dm_owner(auth_user_id, dm_id) == False and is_user_authorised_dm(auth_user_id, target_message['dm_id']) == True:
+           raise AccessError("The authorised user does not have owner permissions in the channel/DM (dm).")
+        # Check they are in the dm where the message has been sent if is dm
+        elif not is_user_authorised_dm(auth_user_id, target_message['dm_id']):
+            raise InputError(description="message_id is not a valid message within a channel or DM that the authorised user has joined (DM)")
+    
+    #check if already unpinned
+    if target_message['is_pinned'] == False:
+            raise InputError("The message is already unpinned.")
+    #set unpinned
+    else:
+        target_message['is_pinned'] = False
+
     
     data_store.set(store)
     

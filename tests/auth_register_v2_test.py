@@ -4,38 +4,11 @@ import pytest
 from src.data_store import data_store
 from src.error import InputError
 import requests
-
+from tests.helper_test_funcs import  register_valid_user,get_profile
 
 BASE_URL = config.url
 
-@pytest.fixture(autouse=True)
-def setup():
-    #set to clear memory state for blackbox testing
-    '''A fixture to clear the state for each test'''
-    response = requests.delete(f"{BASE_URL}/clear/v1")
-    assert response.status_code == 200
-    assert response.json() == {}
 
-def register_valid_user(email = 'validemail@gmail.com',password = '123abc!@#',name_first ='Hayden',name_last = 'Everest' ):
-    response = requests.post(f"{BASE_URL}/auth/register/v2",json={
-        'email' : email,
-        'password' : password,
-        'name_first' : name_first,
-        'name_last' : name_last
-    })
-    assert response.status_code == 200
-    response_data = response.json()
-    assert isinstance(response_data['token'],str)
-    assert isinstance(response_data['auth_user_id'],int)
-    return response_data
-
-def get_profile(token,u_id):   
-    response = requests.get(f"{BASE_URL}/user/profile/v1",params={
-        'token' : token,
-        'u_id' : u_id
-    }) 
-    assert response.status_code == 200
-    return response.json()
 '''
 Valid Input
 '''

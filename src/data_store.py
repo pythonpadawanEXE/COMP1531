@@ -34,6 +34,7 @@ initial_object = {
 'permissions': [],
 'dms': [],
 'messages': [],
+'password_reset_codes' : [],
 'workspace_stats': {'channels_exist': [],
                     'dms_exist': [],
                     'messages_exist': []
