@@ -569,7 +569,6 @@ def get_message_string(message_id):
     for message in messages:
         if message['message_id'] == message_id:
             message_string = message['message']
-            break
 
     return message_string
 
