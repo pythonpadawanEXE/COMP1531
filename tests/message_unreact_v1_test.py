@@ -125,7 +125,7 @@ def setup():
     users.append(register_user('c@email.com', 'Pass123456!', 'Hannah', 'Buttsworth'))
     channel = channels_create(users[0]['token'], "My channel", True)
     channel_join(users[1]['token'], channel['channel_id'])
-    channel_join(users[2]['token'], channel['channel_id'])
+    #channel_join(users[2]['token'], channel['channel_id'])
     dm = dm_create(users[0]['token'], [users[1]['auth_user_id']])
     return (users, channel, dm)
 
@@ -145,6 +145,44 @@ def test_invalid_message_id(setup):
     response = requests.post(config.url + "message/unreact/v1", json={
         'token' : users[1]['token'],
         'message_id' : id + 1,
+        'react_id' : 1
+    })
+
+    assert response.status_code == 400
+
+# message_id is not a valid message within a channel or DM that the authorised user has joined (Channel)
+def test_user_not_in_channel(setup):
+    users, channel, _ = setup
+
+    # User 0 creates a message
+    id = message_channel(users[0]['token'], channel['channel_id'], "Howdy")['message_id']
+
+    # User 1 reacts to the message
+    message_react(users[1]['token'], id, 1)
+
+    # User 1 tries to unreact to the message but message is wrong ID
+    response = requests.post(config.url + "message/unreact/v1", json={
+        'token' : users[2]['token'],
+        'message_id' : id,
+        'react_id' : 1
+    })
+
+    assert response.status_code == 400
+
+# message_id is not a valid message within a channel or DM that the authorised user has joined (DM)
+def test_user_not_in_dm(setup):
+    users, _, dm = setup
+
+    # User 0 creates a message in DM
+    id = message_dm(users[0]['token'], dm['dm_id'], "Howdy")['message_id']
+
+    # User 1 reacts to the message
+    message_react(users[1]['token'], id, 1)
+
+    # User 2 tries to unreact to the message but user is not in DM
+    response = requests.post(config.url + "message/unreact/v1", json={
+        'token' : users[2]['token'],
+        'message_id' : id,
         'react_id' : 1
     })
 
