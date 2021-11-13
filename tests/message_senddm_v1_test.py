@@ -27,7 +27,18 @@ def test_send_dms_2_endpoint_dm_maker(create_dm_2):
         Message = "message" + str(i)
         _ , status_code =  send_msg(token,dm_data['dm_id'],Message)
         assert status_code == 200
+
+def test_send_dms_valid_tag_2_endpoint_dm_maker(create_dm_2):
+    dm_data, status_code,token,_ = create_dm_2
+    register_valid_user(email="jake@gmail.com",password="1234567",name_first="jake")
+    assert status_code == 200
+
     
+    for i in range(5):
+        Message = "message @haydeneverest @haydeneverest1 @jakeeverest" + str(i)
+        _ , status_code =  send_msg(token,dm_data['dm_id'],Message)
+        assert status_code == 200
+
 def test_send_dms_3_endpoint_dm_maker(create_dm_3):
     dm_data, status_code,_,token = create_dm_3
     assert status_code == 200

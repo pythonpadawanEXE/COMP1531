@@ -12,75 +12,6 @@ from tests.helper_test_funcs import  register_valid_user,get_profile,channel_mes
 BASE_URL = config.url
 
 
-
-
-# def register_valid_user(email = 'validemail@gmail.com',password = '123abc!@#',name_first ='Hayden',name_last = 'Everest' ):
-#     response = requests.post(f"{BASE_URL}/auth/register/v2",json={
-#         'email' : email,
-#         'password' : password,
-#         'name_first' : name_first,
-#         'name_last' : name_last
-#     })
-#     assert response.status_code == 200
-#     response_data = response.json()
-#     assert isinstance(response_data['token'],str)
-#     assert isinstance(response_data['auth_user_id'],int)
-#     return response_data
-
-# #user for private channel
-# @pytest.fixture
-# def priv_chan_endpoint():
-#     other.clear_v1()
-#     token = (register_valid_user())['token']
-#     return (token, 'My Channel', False)
-
-# #user public channel 
-# @pytest.fixture
-# def pub_chan_endpoint():
-#     other.clear_v1()
-#     token = (register_valid_user())['token']
-#     return (token, 'My Channel', True)
-
-
-# #create multiple messages in a public channel
-# @pytest.fixture
-# def create_messages_endpoint(pub_chan_endpoint):
-#     token, name, is_public = pub_chan_endpoint
-#     new_channel = create_channel_endpoint(token,name,is_public)
-#     for i in range(5):
-#         Message = "message" + str(i)
-#         _ = requests.post(f"{BASE_URL}/message/send/v1",json={
-#         'token' : token,
-#         'channel_id' : new_channel['channel_id'],
-#         'message' : Message
-#     })
-#     return new_channel,token
-
-# def channel_messages_endpoint(token,channel_id,start):
-#     response = requests.get(f"{BASE_URL}/channel/messages/v2",params={
-#         'token' : token,
-#         'channel_id' : channel_id,
-#         'start' : start
-#     })
-#     return response.json(),response.status_code
-
-# def create_channel_endpoint(token,name,is_public):
-#     response = requests.post(f"{BASE_URL}/channels/create/v2",json={
-#         'token' : token,
-#         'name' : name,
-#         'is_public' : is_public
-#     })
-#     assert response.status_code == 200 
-#     return response.json()
-
-# def create_message_endpoint(token,channel_id,message):
-#     response = requests.post(f"{BASE_URL}/message/send/v1",json={
-#         'token' : token,
-#         'channel_id' : channel_id,
-#         'message' : message
-#     })
-#     return response.json(),response.status_code
-
 '''
 Valid Input
 '''
@@ -91,6 +22,13 @@ def test_valid_send_message_endpoint(pub_chan_endpoint):
     _,status_code = create_message_endpoint(token,new_channel['channel_id'],"Howdy Partner!")
     assert status_code == 200
 
+def test_valid_tag_send_message_endpoint(pub_chan_endpoint):
+    token, name, is_public = pub_chan_endpoint
+    register_valid_user(email="jake@gmail.com",password="1234567",name_first="jake")
+    new_channel = create_channel_endpoint(token,name,is_public)
+    _,status_code = create_message_endpoint(token,new_channel['channel_id'],"Howdy Partner @haydeneverest @jakeeverest !")
+    assert status_code == 200
+    
 
 def test_under_fifty_messages_sent(pub_chan_endpoint):
     token, name, is_public = pub_chan_endpoint

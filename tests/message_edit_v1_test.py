@@ -49,6 +49,13 @@ def test_channel_valid_message_edit_endpoint(create_messages_endpoint):
     assert status_code == 200
     assert data == {}
 
+def test_valid_tag_endpoint(create_messages_endpoint):
+    _,token,message_ids =   create_messages_endpoint
+    register_valid_user(email="jake@gmail.com",password="1234567",name_first="jake")
+    data,status_code = edit_message_endpoint(token,message_ids[0],"Modified message @haydeneverest @jakeeverest .")
+    assert status_code == 200
+    assert data == {}
+
 def test_dm_valid_message_edit_endpoint(create_dms_endpoint):
     _, token,message_ids = create_dms_endpoint
     data,status_code = edit_message_endpoint(token,message_ids[0],"Modified message.")

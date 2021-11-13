@@ -1,9 +1,9 @@
 from src.data_store import data_store
 from src.error import InputError,AccessError
 from src.other import check_valid_token, get_all_user_id_channel, is_user_authorised_dm,is_user_channel_owner,is_user_dm_owner,\
-is_global_owner, update_user_stats_messages_sent, update_users_stats_messages_exist, is_user_authorised
+is_global_owner, update_user_stats_messages_sent, update_users_stats_messages_exist, is_user_authorised,get_channel_name,get_dm_name
 import datetime
-
+import re
 def message_send_dm_v1(auth_user_id, dm_id, message_input):
     '''
     Send a message from the authorised user to the 
@@ -42,11 +42,12 @@ def message_send_dm_v1(auth_user_id, dm_id, message_input):
     store_messages = store['messages']
     messages = None
     dm_exists = False
-
+    dm_name = None
     #check if dm exists and auth_user_id in dm members
     for dm in dms:
         if dm['dm_id'] == dm_id:
             dm_exists = True
+            dm_name = dm['name'] 
             if auth_user_id not in dm["all_members"]:
                 raise AccessError("User is not an owner or member of this dm.")
             
@@ -76,7 +77,16 @@ def message_send_dm_v1(auth_user_id, dm_id, message_input):
     
     #insert message details into datastore
     store_messages.append(new_message)
-
+    #if message tags a user(s)
+    possible_tags = re.findall(r'(?<=@)[a-zA-Z0-9]*',message_input)
+    for tag in possible_tags:
+        for user in store['users']:
+            if tag == user['handle_str'] and is_user_authorised_dm(user['u_id'],dm_id):
+                user['notifications'].append({
+                    'channel_id' : -1 ,
+                    'dm_id': dm_id,
+                    'notification_message':  f"{tag} tagged you in {dm_name}: {message_input[:20]}"  
+                })
     data_store.set(store)
 
     update_user_stats_messages_sent(auth_user_id, new_message['time_created'])
@@ -120,10 +130,11 @@ def message_send_v1(auth_user_id, channel_id, message_input):
     store_messages = store['messages']
     messages = None
     channel_exists = False
-
+    channel_name = None
     #check if channel exists and auth_user_id in channel members
     for channel in channels:
         if channel['id'] == channel_id:
+            channel_name = channel['name']
             channel_exists = True
             if auth_user_id not in channel["all_members"]:
                 raise AccessError("User is not an owner or member of this channel.")
@@ -154,6 +165,16 @@ def message_send_v1(auth_user_id, channel_id, message_input):
     
     #insert message details into datastore
     store_messages.append(new_message)
+    #if message tags a user(s)
+    possible_tags = re.findall(r'(?<=@)[a-zA-Z0-9]*',message_input)
+    for tag in possible_tags:
+        for user in store['users']:
+            if tag == user['handle_str'] and is_user_authorised(user['u_id'], channel_id) == True:
+                user['notifications'].append({
+                    'channel_id' : channel_id ,
+                    'dm_id': -1,
+                    'notification_message':  f"{tag} tagged you in {channel_name}: {message_input[:20]}"  
+                })
     data_store.set(store)
     update_user_stats_messages_sent(auth_user_id, new_message['time_created'])
     update_users_stats_messages_exist(int(1), new_message['time_created'])
@@ -206,8 +227,19 @@ def message_edit_v1(token,message_id,message):
     (channel_id is None and is_user_dm_owner(auth_user_id, dm_id) == False)) and store['messages'][message_id]['u_id'] != auth_user_id:
         raise AccessError("The user is not authorised in this dm/channel.")
 
+    dm_or_channel_name = get_channel_name(channel_id) if dm_id is None else get_dm_name(dm_id)
     
-
+    #if message tags a user(s)
+    possible_tags = re.findall(r'(?<=@)[a-zA-Z0-9]*',message)
+    for tag in possible_tags:
+        for user in store['users']:
+            if tag == user['handle_str'] and \
+                (is_user_authorised(user['u_id'],channel_id) if dm_id is None else is_user_authorised_dm(user['u_id'],dm_id)):
+                user['notifications'].append({
+                    'channel_id' : -1 ,
+                    'dm_id': dm_id,
+                    'notification_message':  f"{tag} tagged you in {dm_or_channel_name}: {message[:20]}"  
+                })
     
 
     if message == "":
@@ -363,7 +395,7 @@ def message_pin(auth_user_id, message_id):
             raise InputError(description="message_id is not a valid message within a channel or DM that the authorised user has joined (Channel)")
         
     #Process if message in dm
-    elif target_message['dm_id'] is not None:     
+    else:   
         dm_id = target_message['dm_id'] 
         if is_user_dm_owner(auth_user_id, dm_id) == False and is_user_authorised_dm(auth_user_id, target_message['dm_id']) == True:
            raise AccessError("The authorised user does not have owner permissions in the channel/DM (dm).")
@@ -390,7 +422,7 @@ def message_unreact(token, message_id, react_id):
     auth_user_id = check_valid_token(token)['auth_user_id']
 
     valid_reacts = [1]
-    
+
     # Find the target message
     store = data_store.get()
     messages = store['messages']
@@ -450,7 +482,7 @@ def message_unpin(auth_user_id, message_id):
             raise InputError(description="message_id is not a valid message within a channel or DM that the authorised user has joined (Channel)")
         
     #Process if message in dm
-    elif target_message['dm_id'] is not None:     
+    else:    
         dm_id = target_message['dm_id'] 
         if is_user_dm_owner(auth_user_id, dm_id) == False and is_user_authorised_dm(auth_user_id, target_message['dm_id']) == True:
            raise AccessError("The authorised user does not have owner permissions in the channel/DM (dm).")
