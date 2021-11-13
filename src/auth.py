@@ -178,19 +178,18 @@ def auth_password_reset_request(email):
         
     """
     #check valid email
-    if search_duplicate_email(email) != 1:
-        return
-    code = generate_password_reset_code(email)    
-    smtp = smtplib.SMTP('smtp.gmail.com', 587)
-    smtp.ehlo()
-    smtp.starttls()
-    smtp.login('dodostreams2021t3', 'dodo123456!')
-    msg = MIMEMultipart()
-    msg['Subject'] = "Password Reset"
-    msg.attach(MIMEText(f"Use the following 24 digit-code to reset your password: {code}"))
-    smtp.sendmail(from_addr="hello@gmail.com",
-              to_addrs=[email], msg=msg.as_string())
-    smtp.quit()
+    if search_duplicate_email(email) == 1:
+        code = generate_password_reset_code(email)    
+        smtp = smtplib.SMTP('smtp.gmail.com', 587)
+        smtp.ehlo()
+        smtp.starttls()
+        smtp.login('dodostreams2021t3', 'dodo123456!')
+        msg = MIMEMultipart()
+        msg['Subject'] = "Password Reset"
+        msg.attach(MIMEText(f"Use the following 24 digit-code to reset your password: {code}"))
+        smtp.sendmail(from_addr="hello@gmail.com",
+                to_addrs=[email], msg=msg.as_string())
+        smtp.quit()
 
 
 #how to match reset_code with email or make certain reset code is unique to user?
