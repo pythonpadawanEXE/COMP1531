@@ -280,8 +280,7 @@ def is_global_owner(auth_user_id):
         if auth_user_id == user['u_id']:
             if user['permission_id'] == 1:
                 return True
-            else:
-                return False
+
     return False
 
 def return_token(auth_user_id):
