@@ -80,7 +80,7 @@ def message_send_dm_v1(auth_user_id, dm_id, message_input):
     data_store.set(store)
 
     update_user_stats_messages_sent(auth_user_id, new_message['time_created'])
-    update_users_stats_messages_exist(int(1))
+    update_users_stats_messages_exist(int(1), new_message['time_created'])
     return {'message_id': message_id}
 
 
@@ -156,7 +156,7 @@ def message_send_v1(auth_user_id, channel_id, message_input):
     store_messages.append(new_message)
     data_store.set(store)
     update_user_stats_messages_sent(auth_user_id, new_message['time_created'])
-    update_users_stats_messages_exist(int(1))
+    update_users_stats_messages_exist(int(1), new_message['time_created'])
     return {'message_id': message_id}
 
 def message_edit_v1(token,message_id,message):
@@ -285,7 +285,7 @@ def message_remove_v1(token,message_id):
     #make the message_dict None
     store['messages'][message_id] = None
     data_store.set(store)
-    update_users_stats_messages_exist(int(-1))
+    update_users_stats_messages_exist(int(-1), int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()))
     return {}
     
 def message_react(auth_user_id, message_id, react_id):
@@ -383,8 +383,52 @@ def message_pin(auth_user_id, message_id):
     return {}
 
 
-def message_unpin(auth_user_id, message_id):
+
+def message_unreact(token, message_id, react_id):
+
+    # Verify the token is valid
+    auth_user_id = check_valid_token(token)['auth_user_id']
+
+    valid_reacts = [1]
     
+    # Find the target message
+    store = data_store.get()
+    messages = store['messages']
+    target_message = {}
+    for message in messages:
+        if message['message_id'] == message_id:
+            target_message = message
+
+    # message_id is not a valid message within a channel or DM that the authorised user has joined
+
+    if target_message == {}:
+        raise InputError(description="message_id is not a valid message within a channel or DM that the authorised user has joined (Does not exist)")
+            
+    is_dm = target_message['dm_id'] != None
+    
+    # Check they are in the channel where the message has been sent if not dm
+    if not is_dm and auth_user_id not in get_all_user_id_channel(target_message['channel_id']):
+        raise InputError(description="message_id is not a valid message within a channel or DM that the authorised user has joined (Channel)")
+    
+    # Check they are in the dm where the message has been sent if is dm
+    if is_dm and not is_user_authorised_dm(auth_user_id, target_message['dm_id']):
+        raise InputError(description="message_id is not a valid message within a channel or DM that the authorised user has joined (DM)")
+    
+    # react_id is not a valid react ID
+    if react_id not in valid_reacts:
+        raise InputError(description="react_id is not a valid react ID - currently, the only valid react ID the frontend has is 1")
+    
+    # the message does not contain a react with ID react_id from the authorised user
+    no_react_id_from_auth_user = True
+    for react_type in target_message['reacts']:
+        if react_type['react_id'] == react_id and auth_user_id in react_type['u_ids']:
+            react_type['u_ids'].remove(auth_user_id)
+            no_react_id_from_auth_user = False
+            break
+
+    if no_react_id_from_auth_user:
+        raise InputError(description="the message does not contain a react with ID react_id from the authorised user")
+def message_unpin(auth_user_id, message_id):
     # Find the target message
     store = data_store.get()
     messages = store['messages']
@@ -420,6 +464,7 @@ def message_unpin(auth_user_id, message_id):
     #set unpinned
     else:
         target_message['is_pinned'] = False
+
     
     data_store.set(store)
     

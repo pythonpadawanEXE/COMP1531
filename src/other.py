@@ -562,7 +562,7 @@ def get_user_handle(u_id):
     
     return handle
 
-def update_user_stats_channel_join(auth_user_id):
+def update_user_stats_channel_join(auth_user_id, time_stamp):
     store = data_store.get()
     users_store = store['users']
 
@@ -570,13 +570,13 @@ def update_user_stats_channel_join(auth_user_id):
         if user['u_id'] == auth_user_id:
             new_channel_joined_stats = {
                 'num_channels_joined': int(user['user_stats']['channels_joined'][-1]['num_channels_joined']) + 1,
-                'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
+                'time_stamp': time_stamp
             }
             user['user_stats']['channels_joined'].append(new_channel_joined_stats)
 
     data_store.set(store)
 
-def update_user_stats_channel_leave(auth_user_id):
+def update_user_stats_channel_leave(auth_user_id, time_stamp):
     store = data_store.get()
     users_store = store['users']
 
@@ -584,13 +584,13 @@ def update_user_stats_channel_leave(auth_user_id):
         if user['u_id'] == auth_user_id:
             new_channel_joined_stats = {
                 'num_channels_joined': int(user['user_stats']['channels_joined'][-1]['num_channels_joined']) - 1,
-                'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
+                'time_stamp': time_stamp
             }
             user['user_stats']['channels_joined'].append(new_channel_joined_stats)
 
     data_store.set(store)
 
-def update_user_stats_dm_join(auth_user_id):
+def update_user_stats_dm_join(auth_user_id, time_stamp):
     store = data_store.get()
     users_store = store['users']
 
@@ -598,13 +598,13 @@ def update_user_stats_dm_join(auth_user_id):
         if user['u_id'] == auth_user_id:
             new_dm_joined_stats = {
                 'num_dms_joined': int(user['user_stats']['dms_joined'][-1]['num_dms_joined']) + 1,
-                'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
+                'time_stamp': time_stamp
             }
             user['user_stats']['dms_joined'].append(new_dm_joined_stats)
 
     data_store.set(store)
 
-def update_user_stats_dm_leave(auth_user_id):
+def update_user_stats_dm_leave(auth_user_id, time_stamp):
     store = data_store.get()
     users_store = store['users']
 
@@ -612,7 +612,7 @@ def update_user_stats_dm_leave(auth_user_id):
         if user['u_id'] == auth_user_id:
             new_dm_joined_stats = {
                 'num_dms_joined': int(user['user_stats']['dms_joined'][-1]['num_dms_joined']) - 1,
-                'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
+                'time_stamp': time_stamp
             }
             user['user_stats']['dms_joined'].append(new_dm_joined_stats)
 
@@ -653,37 +653,37 @@ def get_user_involvement_rate(auth_user_id):
     
     return involvement_rate
 
-def update_users_stats_channels_exist(change):
+def update_users_stats_channels_exist(change, time_stamp):
     store  = data_store.get()
     workspace_stats = store['workspace_stats']
     channels_exist_stats = workspace_stats['channels_exist']
 
     new_channels_exist_stats = {'num_channels_exist': channels_exist_stats[-1]['num_channels_exist'] + int(change), 
-                                'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}
+                                'time_stamp': time_stamp}
     
     channels_exist_stats.append(new_channels_exist_stats)
 
     data_store.set(store)
 
-def update_users_stats_dms_exist(change):
+def update_users_stats_dms_exist(change, time_stamp):
     store  = data_store.get()
     workspace_stats = store['workspace_stats']
     dms_exist_stats = workspace_stats['dms_exist']
 
     new_dms_exist_stats = {'num_dms_exist': dms_exist_stats[-1]['num_dms_exist'] + int(change), 
-                           'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}
+                           'time_stamp': time_stamp}
     
     dms_exist_stats.append(new_dms_exist_stats)
 
     data_store.set(store)
 
-def update_users_stats_messages_exist(change):
+def update_users_stats_messages_exist(change, time_stamp):
     store  = data_store.get()
     workspace_stats = store['workspace_stats']
     messages_exist_stats = workspace_stats['messages_exist']
 
     new_messages_exist_stats = {'num_messages_exist': messages_exist_stats[-1]['num_messages_exist'] + int(change), 
-                                'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())}
+                                'time_stamp': time_stamp}
     
     messages_exist_stats.append(new_messages_exist_stats)
 
