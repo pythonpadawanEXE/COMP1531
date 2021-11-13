@@ -79,7 +79,7 @@ def message_send_dm_v1(auth_user_id, dm_id, message_input):
     data_store.set(store)
 
     update_user_stats_messages_sent(auth_user_id, new_message['time_created'])
-    update_users_stats_messages_exist(int(1))
+    update_users_stats_messages_exist(int(1), new_message['time_created'])
     return {'message_id': message_id}
 
 
@@ -154,7 +154,7 @@ def message_send_v1(auth_user_id, channel_id, message_input):
     store_messages.append(new_message)
     data_store.set(store)
     update_user_stats_messages_sent(auth_user_id, new_message['time_created'])
-    update_users_stats_messages_exist(int(1))
+    update_users_stats_messages_exist(int(1), new_message['time_created'])
     return {'message_id': message_id}
 
 def message_edit_v1(token,message_id,message):
@@ -283,7 +283,7 @@ def message_remove_v1(token,message_id):
     #make the message_dict None
     store['messages'][message_id] = None
     data_store.set(store)
-    update_users_stats_messages_exist(int(-1))
+    update_users_stats_messages_exist(int(-1), int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()))
     return {}
     
 def message_react(auth_user_id, message_id, react_id):
