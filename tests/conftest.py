@@ -32,7 +32,6 @@ def pub_chan_endpoint():
     token = (register_valid_user())['token']
     return (token, 'My Channel', True)
 
-
 #create multiple messages in a public channel
 @pytest.fixture
 def create_messages_endpoint(pub_chan_endpoint):
@@ -88,6 +87,7 @@ def create_dm_3():
     return response.json(),response.status_code,response_data1['token'],response_data2['token']
 
     #create dm between 2 people
+
 @pytest.fixture
 def create_dm_2():
     response_data1 = register_valid_user()

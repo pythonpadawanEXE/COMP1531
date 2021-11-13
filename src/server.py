@@ -14,7 +14,7 @@ from src.channels import channels_create_v1, channels_listall_v1, channels_list_
 from src.other import check_valid_token, clear_v1,return_token
 from src.data_store import data_store
 from src.message import message_pin, message_react, message_send_v1,message_remove_v1,message_edit_v1,message_send_dm_v1,\
-        message_unpin, message_unreact, message_share
+        message_unpin, message_unreact, message_share, message_search
 from src.standup import standup_active_v1, standup_send_v1, standup_start_v1
 from src.user import user_profile_v1, user_profile_setname_v1, user_profile_setemail_v1, user_profile_sethandle_v1, \
                     notifications_get, user_stats_v1
@@ -316,6 +316,12 @@ def message_share_v1():
     dm_id = int(request_data['dm_id'])
     
     return(dumps(message_share(token, og_message_id, channel_id, dm_id, message)))
+
+@APP.route("/search/v1", methods=['GET'])
+def search_v1():
+    token = request.args.get('token')
+    query_str = request.args.get('query_str')
+    return dumps(message_search(token, query_str))
 
 # Dm Routes
 
