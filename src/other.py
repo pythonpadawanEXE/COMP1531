@@ -4,6 +4,8 @@ import jwt
 import datetime
 from src.data_store import data_store
 from src.error import InputError,AccessError
+import random
+import string
 
 SESSION_TRACKER = 0
 SECRET = 'COMP1531'
@@ -16,6 +18,7 @@ def clear_v1():
     store['permissions'].clear()
     store['dms'].clear()
     store['messages'].clear()
+    store['password_reset_codes'].clear()
     store['workspace_stats']['channels_exist'].clear()
     store['workspace_stats']['dms_exist'].clear()
     store['workspace_stats']['messages_exist'].clear()
@@ -202,6 +205,33 @@ def search_duplicate_email(email):
         if Object['email'] == email:
             count += 1
     return count
+'''
+generates a password resetcode and creates a resetcode email dict pair
+'''
+def generate_password_reset_code(email):
+    store = data_store.get()
+    users = store['users']
+    for Object in users:
+        if Object['email'] == email:
+            output_string = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(24))
+            store['password_reset_codes'].append({
+                'auth_user_id' : Object['u_id'],
+                'password_reset_code' : output_string
+            })
+            data_store.set(store) 
+            return output_string
+'''
+checks reset code exists in the list of reset codes
+'''
+
+def is_valid_reset_code(reset_code):
+    store = data_store.get()
+    email_code_pairs = store['password_reset_codes']
+    for pair in email_code_pairs:
+        if pair['password_reset_code'] == reset_code:
+            return pair['auth_user_id']
+    return None
+
 
 # Check if a given handle already exists in the datastore
 def is_handle_exist(handle_str):
@@ -250,8 +280,7 @@ def is_global_owner(auth_user_id):
         if auth_user_id == user['u_id']:
             if user['permission_id'] == 1:
                 return True
-            else:
-                return False
+
     return False
 
 def return_token(auth_user_id):
