@@ -18,13 +18,10 @@ def clear_v1():
     store['permissions'].clear()
     store['dms'].clear()
     store['messages'].clear()
-<<<<<<< HEAD
     store['password_reset_codes'].clear()
-=======
     store['workspace_stats']['channels_exist'].clear()
     store['workspace_stats']['dms_exist'].clear()
     store['workspace_stats']['messages_exist'].clear()
->>>>>>> master
     data_store.set(store)
     return {}
 

@@ -11,7 +11,7 @@ from tests.helper_test_funcs import  register_valid_user,create_channel_endpoint
 BASE_URL = config.url
 
 @pytest.fixture(scope='function',autouse=True)
-def setup():
+def clear_all():
     #set to clear memory state for blackbox testing
     '''A fixture to clear the state for each test'''
     response = requests.delete(f"{BASE_URL}/clear/v1")
