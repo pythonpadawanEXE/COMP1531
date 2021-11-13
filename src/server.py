@@ -6,17 +6,19 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from src import config
 from src.admin import admin_userpermission_change_v1, admin_user_remove_v1
-from src.auth import auth_register_v1, auth_login_v1, auth_logout_v1
+from src.auth import auth_register_v1, auth_login_v1, auth_logout_v1,auth_password_reset_request,\
+    auth_password_reset
 from src.channel import channel_messages_v1, channel_details_v1, channel_join_v1, channel_leave_v1, \
     channel_invite_v1, channel_addowner_v1, channel_removeowner_v1
 from src.channels import channels_create_v1, channels_listall_v1, channels_list_v1
 from src.other import check_valid_token, clear_v1,return_token
 from src.data_store import data_store
-from src.message import message_send_v1,message_remove_v1,message_edit_v1,message_send_dm_v1
+from src.message import message_pin, message_react, message_send_v1,message_remove_v1,message_edit_v1,message_send_dm_v1,\
+        message_unpin, message_unreact, message_share
 from src.standup import standup_active_v1, standup_send_v1, standup_start_v1
 from src.user import user_profile_v1, user_profile_setname_v1, user_profile_setemail_v1, user_profile_sethandle_v1, \
                     notifications_get, user_stats_v1
-from src.users import users_all_v1
+from src.users import users_all_v1, users_stats_v1
 from src.dm import dm_create_v1, dm_list_v1, dm_details_v1, dm_leave_v1, dm_remove_v1, dm_messages_v1
 
 try:
@@ -113,6 +115,22 @@ def post_auth_logout():
     data_store.save()
     return dumps({})
 
+@APP.route("/auth/passwordreset/request/v1", methods=['POST'])
+def post_auth_password_reset_request():
+    request_data = request.get_json()
+    auth_password_reset_request(request_data['email'])
+    
+    data_store.save()
+    return dumps({})
+
+@APP.route("/auth/passwordreset/reset/v1", methods=['POST'])
+def post_auth_password_reset():
+    request_data = request.get_json()
+    auth_password_reset(request_data['reset_code'],request_data['new_password'])
+    
+    data_store.save()
+    return dumps({})
+
 # Channel Routes
 
 @APP.route("/channel/details/v2", methods=['GET'])
@@ -199,6 +217,8 @@ def channels_list_v2():
     decoded_token = check_valid_token(token)
     return dumps(channels_list_v1(decoded_token['auth_user_id']))
 
+# Message routes
+
 @APP.route("/message/send/v1", methods=['POST'])
 def post_message_send():
     request_data = request.get_json()
@@ -242,6 +262,60 @@ def delete_message_remove():
         )
     data_store.save()
     return dumps({})
+
+@APP.route("/message/react/v1", methods=['POST'])
+def message_react_v1_post():
+    request_data = request.get_json()
+    token = request_data['token']
+    message_id = int(request_data['message_id'])
+    react_id = int(request_data['react_id'])
+    decoded_token = check_valid_token(token)
+    return(dumps(message_react(decoded_token['auth_user_id'], message_id, react_id)))
+
+@APP.route("/message/pin/v1", methods=['POST'])
+def message_pin_v1_post():
+    request_data = request.get_json()
+    decoded_token = check_valid_token(request_data['token'])
+    _ = message_pin(
+        decoded_token['auth_user_id'],
+        request_data['message_id']
+
+    )
+
+    data_store.save()
+    return dumps({})
+
+@APP.route("/message/unpin/v1", methods=['POST'])
+def message_unpin_v1_post():
+    request_data = request.get_json()
+    decoded_token = check_valid_token(request_data['token'])
+    _ = message_unpin(
+        decoded_token['auth_user_id'],
+        request_data['message_id']
+
+    )
+
+    data_store.save()
+    return dumps({})
+@APP.route("/message/unreact/v1", methods=['POST'])
+def message_unreact_v1():
+    request_data = request.get_json()
+    token = request_data['token']
+    message_id = int(request_data['message_id'])
+    react_id = int(request_data['react_id'])
+    
+    return(dumps(message_unreact(token, message_id, react_id)))
+
+@APP.route("/message/share/v1", methods=['POST'])
+def message_share_v1():
+    request_data = request.get_json()
+    token = request_data['token']
+    og_message_id = int(request_data['og_message_id'])
+    message = request_data['message']
+    channel_id = int(request_data['channel_id'])
+    dm_id = int(request_data['dm_id'])
+    
+    return(dumps(message_share(token, og_message_id, channel_id, dm_id, message)))
 
 # Dm Routes
 
@@ -343,6 +417,11 @@ def users_all_v1_get():
     token = request.args.get('token')
     _ = check_valid_token(token)
     return dumps(users_all_v1())
+
+@APP.route("/users/stats/v1", methods=['GET'])
+def users_stats_v1_get():
+    token = request.args.get('token')
+    return jsonify(users_stats_v1(token))
 
 # Standup routes
 

@@ -30,9 +30,6 @@ def user_profile_v1(auth_user_id, u_id):
         Return Value:
             Returns { user } on successful completion.
     """
-    
-    if not verify_user_id(auth_user_id):
-        raise AccessError(description="User ID does not exist.")
 
     found = False
     target_user = {}
@@ -235,8 +232,9 @@ def user_stats_v1(token):
     print(dms_joined)
     print(messages_sent)
     
-    return {'channels_joined': channels_joined,
-            'dms_joined': dms_joined,
-            'messages_sent': messages_sent,
-            'involvement_rate': involvement_rate
+    return {'user_stats':{'channels_joined': channels_joined,
+                           'dms_joined': dms_joined,
+                           'messages_sent': messages_sent,
+                           'involvement_rate': involvement_rate
+                          }       
             }

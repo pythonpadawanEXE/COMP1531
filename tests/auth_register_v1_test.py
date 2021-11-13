@@ -159,15 +159,4 @@ def test_name_last_invalid_length_long():
     with pytest.raises(InputError):
         auth.auth_register_v1('validemail9@gmail.com', '123ab78', 'Firstname', str_name)
 
-'''
-Stress Test
-'''
 
-#Test Max Users Assumption
-
-def test_valid_max_users_registration():
-    other.clear_v1()
-    for i in range(2000):
-        str_name = 'John' + f'{i}'
-        result = auth.auth_register_v1('validemail10'+f'{i}'+ '@gmail.com', '123ab78', 'Firstname', str_name)
-        assert isinstance(result['auth_user_id'],int)
