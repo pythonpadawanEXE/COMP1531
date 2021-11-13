@@ -82,7 +82,6 @@ def message_send_dm_v1(auth_user_id, dm_id, message_input):
     update_users_stats_messages_exist(int(1), new_message['time_created'])
     return {'message_id': message_id}
 
-
 def message_send_v1(auth_user_id, channel_id, message_input):
     '''
     Send a message from the authorised user to the 
@@ -338,7 +337,22 @@ def message_react(auth_user_id, message_id, react_id):
     return {}
 
 def message_unreact(token, message_id, react_id):
+    '''
+    Given a message within a channel or DM the authorised user is part of, remove a "react" to that particular message.
+    Arguments:
+        token (string)      - User who is attempting to react
+        message_id (int)    - Unique ID of message
+        react_id (int)      - Unique ID of react
 
+    Exceptions:
+        Input Error:
+        - message_id is not a valid message within a channel or DM that the authorised user has joined
+        - react_id is not a valid react ID
+        - the message does not contain a react with ID react_id from the authorised user
+
+    Return Value:
+        { }
+    '''
     # Verify the token is valid
     auth_user_id = check_valid_token(token)['auth_user_id']
 
@@ -385,3 +399,82 @@ def message_unreact(token, message_id, react_id):
     data_store.set(store)
     
     return {}
+
+def message_share(token, og_message_id, channel_id, dm_id, message=''):
+    '''
+    og_message_id is the ID of the original message. channel_id is the channel that the message
+    is being shared to, and is -1 if it is being sent to a DM. dm_id is the DM that the message
+    is being shared to, and is -1 if it is being sent to a channel. message is the optional message
+    in addition to the shared message, and will be an empty string '' if no message is given. A
+    new message should be sent to the channel/DM identified by the channel_id/dm_id that contains
+    the contents of both the original message and the optional message. The format does not matter
+    as long as both the original and optional message exist as a substring within the new message.
+    Arguments:
+        token (string)      - Token of the user who is trying to share the message
+        og_message_id (int) - Unique ID of original message
+        message (string)    - Optional message to be added to the shared message
+        channel_id (int)    - Unique ID of channel
+        dm_id (int)         - Unique ID of DM
+
+    Exceptions:
+        Input Error:
+        - both channel_id and dm_id are invalid
+        - neither channel_id nor dm_id are -1
+        - og_message_id does not refer to a valid message within a channel/DM that the authorised user has joined
+        - length of message is more than 1000 characters
+
+        Access Error:
+        - the pair of channel_id and dm_id are valid (i.e. one is -1, the other is valid) and the authorised user 
+          has not joined the channel or DM they are trying to share the message to
+
+    Return Value:
+        { shared_message_id }
+    '''
+    # Verify the token is valid
+    auth_user_id = check_valid_token(token)['auth_user_id']
+
+    # the pair of channel_id and dm_id are valid (i.e. one is -1, the other is valid) 
+    # and the authorised user has not joined the channel they are trying to share the message to
+    if is_channel_valid(channel_id) and dm_id == -1:
+        if auth_user_id not in get_all_user_id_channel(channel_id):
+            raise InputError(description="the pair of channel_id and dm_id are valid (i.e. one is -1, the other is valid) and the authorised user has not joined the channel they are trying to share the message to")
+
+    # the pair of channel_id and dm_id are valid (i.e. one is -1, the other is valid) 
+    # and the authorised user has not joined the DM they are trying to share the message to
+    if channel_id == -1 and is_dm_valid(dm_id):
+        if not is_user_authorised_dm(auth_user_id, dm_id):
+            raise InputError(description="the pair of channel_id and dm_id are valid (i.e. one is -1, the other is valid) and the authorised user has not joined the DM they are trying to share the message to")
+
+    # both channel_id and dm_id are invalid
+    if (not is_channel_valid(channel_id) and not is_dm_valid(dm_id)):
+        raise InputError(description="both channel_id and dm_id are invalid")
+
+    # neither channel_id nor dm_id are -1
+    if (channel_id != -1 and dm_id != -1):
+        raise InputError(description="neither channel_id nor dm_id are -1")
+    
+    # og_message_id does not refer to a valid message within a channel that the authorised user has joined
+    # find all the messages in a channel where the user is apart of and check if og_message_id is in them
+    channel_message_ids = get_all_messages_channel(channel_id, auth_user_id)
+    if (og_message_id not in channel_message_ids):
+        raise InputError(description="og_message_id does not refer to a valid message within a channel that the authorised user has joined")
+
+    # og_message_id does not refer to a valid message within a DM that the authorised user has joined
+    # find all the messages in a DM where the user is apart of and check if og_message_id is in them
+    dm_message_ids = get_all_messages_dm(dm_id, auth_user_id)
+    if (og_message_id not in dm_message_ids):
+        raise InputError(description="og_message_id does not refer to a valid message within a DM that the authorised user has joined")
+
+    # length of message is more than 1000 characters
+    if len(message) > 1000:
+        raise InputError(description="length of message is more than 1000 characters")
+
+    original_msg_str = get_message_string(og_message_id)
+
+    if (channel_id != -1):
+        shared_message_id = message_send_v1(auth_user_id, channel_id, f"{original_msg_str} {message}")
+
+    if (dm_id != -1):
+        shared_message_id = message_send_dm_v1(auth_user_id, dm_id, f"{original_msg_str} {message}")
+
+    return {'shared_message_id': shared_message_id}

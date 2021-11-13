@@ -507,6 +507,43 @@ def get_global_owners():
             global_owners.append(user)
     return global_owners
 
+def get_all_messages_channel(channel_id, auth_user_id):
+    """ Returns a list of all message_id's of a channel"""
+    store = data_store.get()
+    messages = store['messages']
+    message_ids = []
+
+    for message in messages:
+        if message['channel_id'] == channel_id and auth_user_id in get_all_user_id_channel(channel_id):
+            message_ids.append(message['message_id'])
+
+    return message_ids
+
+def get_all_messages_dm(dm_id, auth_user_id):
+    """ Returns a list of all message_id's of a DM"""
+    store = data_store.get()
+    messages = store['messages']
+    message_ids = []
+
+    for message in messages:
+        if message['dm_id'] == dm_id and is_user_authorised_dm(auth_user_id, dm_id):
+            message_ids.append(message['message_id'])
+
+    return message_ids
+
+def get_message_string(message_id):
+    """ Returns the string of a message"""
+    store = data_store.get()
+    messages = store['messages']
+    message_string = ""
+
+    for message in messages:
+        if message['message_id'] == message_id:
+            message_string = message['message']
+            break
+
+    return message_string
+
 def create_notification(uid, channel_id, dm_id, notification_message):
     """ Creates a notification and appends to uid user datastore """
 
