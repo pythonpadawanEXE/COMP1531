@@ -133,3 +133,13 @@ def test_valid_search(setup):
     # Search with query how
     response_data = message_search(users[1]['token'], "how")['messages']
     assert response_data[0]['message'] == 'Howdy'
+
+def test_valid_search_no_matches(setup):
+    users, channel, _ = setup
+
+    # User 0 creates a message
+    _ = message_channel(users[1]['token'], channel['channel_id'], "Howdy")['message_id']
+
+    # Search with query how
+    response_data = message_search(users[2]['token'], "how")['messages']
+    assert len(response_data) == 0
