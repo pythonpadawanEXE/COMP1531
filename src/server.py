@@ -12,7 +12,7 @@ from src.channel import channel_messages_v1, channel_details_v1, channel_join_v1
 from src.channels import channels_create_v1, channels_listall_v1, channels_list_v1
 from src.other import check_valid_token, clear_v1,return_token
 from src.data_store import data_store
-from src.message import message_react, message_send_v1,message_remove_v1,message_edit_v1,message_send_dm_v1
+from src.message import message_react, message_unreact, message_send_v1,message_remove_v1,message_edit_v1,message_send_dm_v1
 from src.standup import standup_active_v1, standup_send_v1, standup_start_v1
 from src.user import user_profile_v1, user_profile_setname_v1, user_profile_setemail_v1, user_profile_sethandle_v1, \
                     notifications_get, user_stats_v1
@@ -253,6 +253,15 @@ def message_react_v1_post():
     react_id = int(request_data['react_id'])
     decoded_token = check_valid_token(token)
     return(dumps(message_react(decoded_token['auth_user_id'], message_id, react_id)))
+
+@APP.route("/message/unreact/v1", methods=['POST'])
+def message_unreact_v1():
+    request_data = request.get_json()
+    token = request_data['token']
+    message_id = int(request_data['message_id'])
+    react_id = int(request_data['react_id'])
+    
+    return(dumps(message_unreact(token, message_id, react_id)))
 
 # Dm Routes
 
