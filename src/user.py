@@ -30,9 +30,6 @@ def user_profile_v1(auth_user_id, u_id):
         Return Value:
             Returns { user } on successful completion.
     """
-    
-    if not verify_user_id(auth_user_id):
-        raise AccessError(description="User ID does not exist.")
 
     found = False
     target_user = {}
