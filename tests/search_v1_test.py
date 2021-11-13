@@ -116,7 +116,7 @@ def test_invalid_search(setup):
     users, channel, _ = setup
 
     # User 0 creates a message
-    id = message_channel(users[0]['token'], channel['channel_id'], "Howdy")['message_id']
+    _ = message_channel(users[0]['token'], channel['channel_id'], "Howdy")['message_id']
 
     response = requests.get(f"{config.url}search/v1?token={users[0]['token']}&query_str={''}")
     assert response.status_code == 400
@@ -128,7 +128,7 @@ def test_valid_search(setup):
     users, channel, _ = setup
 
     # User 0 creates a message
-    id = message_channel(users[0]['token'], channel['channel_id'], "Howdy")['message_id']
+    _ = message_channel(users[0]['token'], channel['channel_id'], "Howdy")['message_id']
 
     # Search with query how
     response_data = message_search(users[1]['token'], "how")['messages']
