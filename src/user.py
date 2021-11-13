@@ -13,7 +13,7 @@ Functions:
 
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import verify_user_id, check_valid_token, check_email_validity, search_duplicate_email, is_handle_exist
+from src.other import verify_user_id, check_valid_token, check_email_validity, search_duplicate_email, is_handle_exist, get_user_involvement_rate
 
 def user_profile_v1(auth_user_id, u_id):
     """ For a valid user, returns information about their user_id, email, first name, last name, and handle
@@ -218,3 +218,26 @@ def notifications_get(token):
             user_notifications = user['notifications'][-20:][::-1]
 
     return {'notifications' : user_notifications}
+
+def user_stats_v1(token):
+    auth_user_id = check_valid_token(token)['auth_user_id']
+    
+    store = data_store.get()
+    user_store = store['users']
+
+    for user in user_store:
+        if user['u_id'] == auth_user_id:
+            channels_joined = user['user_stats']['channels_joined']
+            dms_joined = user['user_stats']['dms_joined']
+            messages_sent = user['user_stats']['messages_sent']
+            involvement_rate = get_user_involvement_rate(auth_user_id)
+    print(channels_joined)
+    print(dms_joined)
+    print(messages_sent)
+    
+    return {'user_stats':{'channels_joined': channels_joined,
+                           'dms_joined': dms_joined,
+                           'messages_sent': messages_sent,
+                           'involvement_rate': involvement_rate
+                          }       
+            }
