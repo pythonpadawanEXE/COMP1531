@@ -485,7 +485,7 @@ def message_search_v1(token, query_str):
     Given a query string, return a collection of messages in all of the channels/DMs that the user has joined that contain the query.
     Arguments:
         token (string)      - token of user we are searching messages for
-        query_str  (string)    - Message query to search for
+        query_str  (string) - Message query to search for
 
     Exceptions:
         Input Error:
@@ -507,18 +507,21 @@ def message_search_v1(token, query_str):
 
     matched_messages = []
     for message in messages:
-        #if message is not None:
-        if (message['message'].lower()).find(query_str.lower()) != -1:
-            matched_messages.append(
-                {
-                'message_id': message['message_id'],
-                'u_id' : message['u_id'],
-                'message' : message['message'],
-                'time_created' : message['time_created'],
-                'reacts' : message['reacts'],
-                'is_pinned' : message['is_pinned'],
-                }
-            )
+        # Check if authorised user is in the channel or DM of where the message was sent
+        if (auth_user_id in get_all_user_id_channel(message['channel_id']) or is_user_authorised_dm(auth_user_id, message['dm_id'])):
+            # Check if message contains the query
+            if (message['message'].lower()).find(query_str.lower()) != -1:
+                # Add message to list of matched messages
+                matched_messages.append(
+                    {
+                    'message_id': message['message_id'],
+                    'u_id' : message['u_id'],
+                    'message' : message['message'],
+                    'time_created' : message['time_created'],
+                    'reacts' : message['reacts'],
+                    'is_pinned' : message['is_pinned'],
+                    }
+                )
 
     return {'messages' : matched_messages}
 
