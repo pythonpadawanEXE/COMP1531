@@ -372,12 +372,16 @@ def message_unreact(token, message_id, react_id):
         raise InputError(description="react_id is not a valid react ID - currently, the only valid react ID the frontend has is 1")
     
     # the message does not contain a react with ID react_id from the authorised user
+    no_react_id_from_auth_user = True
     for react_type in target_message['reacts']:
         if react_type['react_id'] == react_id and auth_user_id in react_type['u_ids']:
             react_type['u_ids'].remove(auth_user_id)
+            no_react_id_from_auth_user = False
             break
-        else:
-            raise InputError(description="the message does not contain a react with ID react_id from the authorised user")
 
+    if no_react_id_from_auth_user:
+        raise InputError(description="the message does not contain a react with ID react_id from the authorised user")
+    
     data_store.set(store)
+    
     return {}

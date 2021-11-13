@@ -170,8 +170,8 @@ def test_invalid_react_id(setup):
     assert response.status_code == 400
 
 # the message does not contain a react with ID react_id from the authorised user
-def test_message_id_not_valid_in_dm(setup):
-    users, _, dm = setup
+def test_message_not_contain_react_id(setup):
+    users, channel, _ = setup
 
     # User 0 creates a message
     id = message_channel(users[0]['token'], channel['channel_id'], "Howdy")['message_id']
