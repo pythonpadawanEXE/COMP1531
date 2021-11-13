@@ -96,7 +96,7 @@ def message_dm(token, dm_id, message):
     return response_data
 
 def message_search(token, query):
-    response = requests.get(f"{BASE_URL}search/v1?token={token}&query={query}")
+    response = requests.get(f"{config.url}search/v1?token={token}&query_str={query}")
     assert response.status_code == 200
     response_data = response.json()
     return response_data
@@ -116,21 +116,20 @@ def test_invalid_search(setup):
     users, channel, _ = setup
 
     # User 0 creates a message
-    id = (users[0]['token'], channel['channel_id'], "Howdy")['message_id']
+    id = message_channel(users[0]['token'], channel['channel_id'], "Howdy")['message_id']
 
-    response = requests.get(f"{BASE_URL}search/v1?token={users[0]['token']}&query={''}")
+    response = requests.get(f"{config.url}search/v1?token={users[0]['token']}&query_str={''}")
     assert response.status_code == 400
 
-    response = requests.get(f"{BASE_URL}search/v1?token={users[0]['token']}&query={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum volutpat nulla massa, in laoreet magna blandit id. Vivamus vitae magna sit amet lorem commodo tincidunt sed id risus. Pellentesque finibus mollis efficitur. Ut id risus eget justo rhoncus feugiat. Vivamus commodo urna id augue placerat vestibulum in ut sapien. Phasellus tempus dignissim finibus. Nullam nulla velit, lobortis eu auctor ut, faucibus id risus. Donec non erat quam. Cras accumsan a mi eu pellentesque. Nullam ultricies egestas commodo. Morbi gravida risus at condimentum auctor. Suspendisse mi quam, ultrices eget rhoncus et, sodales vitae lacus. Nam sed mattis massa, ac fringilla nulla. Nam sed imperdiet augue. Sed eu velit nisl. Quisque dignissim nulla sodales sem pellentesque. Nullam ultricies egestas commodo. Morbi gravida risus at condimentum auctor. Suspendisse mi quam, ultrices eget rhoncus et, sodales vitae lacus. Nam sed mattis massa, ac fringilla nulla. Nam sed imperdiet augue. Sed eu velit nisl. Quisque dignissim nulla sodales sem'}")
+    response = requests.get(f"{config.url}search/v1?token={users[0]['token']}&query_str={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum volutpat nulla massa, in laoreet magna blandit id. Vivamus vitae magna sit amet lorem commodo tincidunt sed id risus. Pellentesque finibus mollis efficitur. Ut id risus eget justo rhoncus feugiat. Vivamus commodo urna id augue placerat vestibulum in ut sapien. Phasellus tempus dignissim finibus. Nullam nulla velit, lobortis eu auctor ut, faucibus id risus. Donec non erat quam. Cras accumsan a mi eu pellentesque. Nullam ultricies egestas commodo. Morbi gravida risus at condimentum auctor. Suspendisse mi quam, ultrices eget rhoncus et, sodales vitae lacus. Nam sed mattis massa, ac fringilla nulla. Nam sed imperdiet augue. Sed eu velit nisl. Quisque dignissim nulla sodales sem pellentesque. Nullam ultricies egestas commodo. Morbi gravida risus at condimentum auctor. Suspendisse mi quam, ultrices eget rhoncus et, sodales vitae lacus. Nam sed mattis massa, ac fringilla nulla. Nam sed imperdiet augue. Sed eu velit nisl. Quisque dignissim nulla sodales sem'}")
     assert response.status_code == 400
 
 def test_valid_search(setup):
     users, channel, _ = setup
 
     # User 0 creates a message
-    id = (users[0]['token'], channel['channel_id'], "Howdy")['message_id']
+    id = message_channel(users[0]['token'], channel['channel_id'], "Howdy")['message_id']
 
     # Search with query how
-    response_data = search_endpoint(users[1]['token'], "message")
-
+    response_data = message_search(users[1]['token'], "how")['messages']
     assert response_data[0]['message'] == 'Howdy'

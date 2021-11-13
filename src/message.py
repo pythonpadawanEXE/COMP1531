@@ -480,7 +480,7 @@ def message_unpin(auth_user_id, message_id):
 
     return {}
     
-def message_search_v1(token, query_str):
+def message_search(token, query_str):
     '''
     Given a query string, return a collection of messages in all of the channels/DMs that the user has joined that contain the query.
     Arguments:
