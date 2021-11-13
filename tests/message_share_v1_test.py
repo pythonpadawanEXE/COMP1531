@@ -117,11 +117,11 @@ def setup():
     channel = channels_create(users[0]['token'], "My channel", True)
     channel_join(users[1]['token'], channel['channel_id'])
     dm = dm_create(users[0]['token'], [users[1]['auth_user_id']])
-    return (users, channel, dm)
+    return (users, channel['channel_id'], dm)
 
 # the pair of channel_id and dm_id are valid (i.e. one is -1, the other is valid)
 # and the authorised user has not joined the channel or DM they are trying to share the message to
-def valid_channel_dm_id_not_member(setup):
+def test_valid_channel_dm_id_not_member(setup):
     users, channel_id, dm_id = setup
 
     og_message_id = message_channel(users[1]['token'], channel_id, "First!!!")['message_id']
@@ -137,7 +137,7 @@ def valid_channel_dm_id_not_member(setup):
     assert response.status_code == 403
 
 # both channel_id and dm_id are invalid
-def invalid_channel_dm_id(setup):
+def test_invalid_channel_dm_id(setup):
     users, channel_id, dm_id = setup
 
     og_message_id = message_channel(users[1]['token'], channel_id, "First!!!")['message_id']
@@ -153,7 +153,7 @@ def invalid_channel_dm_id(setup):
     assert response.status_code == 400
 
 # neither channel_id nor dm_id are -1
-def invalid_channel_dm_id_2(setup):
+def test_invalid_channel_dm_id_2(setup):
     users, channel_id, dm_id = setup
 
     og_message_id = message_channel(users[1]['token'], channel_id, "First!!!")['message_id']
@@ -169,7 +169,7 @@ def invalid_channel_dm_id_2(setup):
     assert response.status_code == 400
         
 # og_message_id does not refer to a valid message within a channel/DM that the authorised user has joined
-def invalid_og_message_id(setup):
+def test_invalid_og_message_id(setup):
     users, channel_id, dm_id = setup
 
     og_message_id = message_channel(users[1]['token'], channel_id, "First!!!")['message_id']
@@ -185,7 +185,7 @@ def invalid_og_message_id(setup):
     assert response.status_code == 400
 
 # length of message is more than 1000 characters
-def invalid_message_length(setup):
+def test_invalid_message_length(setup):
     users, channel_id, dm_id = setup
 
     og_message_id = message_channel(users[1]['token'], channel_id, "First!!!")['message_id']
@@ -200,8 +200,9 @@ def invalid_message_length(setup):
 
     assert response.status_code == 400
 
-def valid_message_share(setup):
+def test_valid_message_share(setup):
     users, channel_id, dm_id = setup
 
     og_message_id = message_channel(users[1]['token'], channel_id, "First!!!")['message_id']
+
     message_share(users[1]['token'], og_message_id, "I am sharing this MSG", channel_id, -1)

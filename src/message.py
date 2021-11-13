@@ -438,13 +438,13 @@ def message_share(token, og_message_id, channel_id, dm_id, message=''):
     # and the authorised user has not joined the channel they are trying to share the message to
     if is_channel_valid(channel_id) and dm_id == -1:
         if auth_user_id not in get_all_user_id_channel(channel_id):
-            raise InputError(description="the pair of channel_id and dm_id are valid (i.e. one is -1, the other is valid) and the authorised user has not joined the channel they are trying to share the message to")
+            raise AccessError(description="the pair of channel_id and dm_id are valid (i.e. one is -1, the other is valid) and the authorised user has not joined the channel they are trying to share the message to")
 
     # the pair of channel_id and dm_id are valid (i.e. one is -1, the other is valid) 
     # and the authorised user has not joined the DM they are trying to share the message to
     if channel_id == -1 and is_dm_valid(dm_id):
         if not is_user_authorised_dm(auth_user_id, dm_id):
-            raise InputError(description="the pair of channel_id and dm_id are valid (i.e. one is -1, the other is valid) and the authorised user has not joined the DM they are trying to share the message to")
+            raise AccessError(description="the pair of channel_id and dm_id are valid (i.e. one is -1, the other is valid) and the authorised user has not joined the DM they are trying to share the message to")
 
     # both channel_id and dm_id are invalid
     if (not is_channel_valid(channel_id) and not is_dm_valid(dm_id)):
@@ -453,18 +453,14 @@ def message_share(token, og_message_id, channel_id, dm_id, message=''):
     # neither channel_id nor dm_id are -1
     if (channel_id != -1 and dm_id != -1):
         raise InputError(description="neither channel_id nor dm_id are -1")
-    
-    # og_message_id does not refer to a valid message within a channel that the authorised user has joined
-    # find all the messages in a channel where the user is apart of and check if og_message_id is in them
-    channel_message_ids = get_all_messages_channel(channel_id, auth_user_id)
-    if (og_message_id not in channel_message_ids):
-        raise InputError(description="og_message_id does not refer to a valid message within a channel that the authorised user has joined")
 
-    # og_message_id does not refer to a valid message within a DM that the authorised user has joined
-    # find all the messages in a DM where the user is apart of and check if og_message_id is in them
+    # og_message_id does not refer to a valid message within a channel/DM that the authorised user has joined
+    # find all the messages in a channel/dm where the user is apart of and check if og_message_id is in them
+    channel_message_ids = get_all_messages_channel(channel_id, auth_user_id)
     dm_message_ids = get_all_messages_dm(dm_id, auth_user_id)
-    if (og_message_id not in dm_message_ids):
-        raise InputError(description="og_message_id does not refer to a valid message within a DM that the authorised user has joined")
+
+    if (og_message_id not in channel_message_ids and og_message_id not in dm_message_ids):
+        raise InputError(description="og_message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
 
     # length of message is more than 1000 characters
     if len(message) > 1000:
