@@ -117,11 +117,11 @@ def setup():
     channel = channels_create(users[0]['token'], "My channel", True)
     channel_join(users[1]['token'], channel['channel_id'])
     dm = dm_create(users[0]['token'], [users[1]['auth_user_id']])
-    return (users, channel['channel_id'], dm)
+    return (users, channel['channel_id'], dm['dm_id'])
 
 # the pair of channel_id and dm_id are valid (i.e. one is -1, the other is valid)
-# and the authorised user has not joined the channel or DM they are trying to share the message to
-def test_valid_channel_dm_id_not_member(setup):
+# and the authorised user has not joined the channel they are trying to share the message to
+def test_valid_channel_id_not_member(setup):
     users, channel_id, _ = setup
 
     og_message_id = message_channel(users[1]['token'], channel_id, "First!!!")['message_id']
@@ -132,6 +132,23 @@ def test_valid_channel_dm_id_not_member(setup):
         'message' : "I am sharing this MSG",
         'channel_id' : channel_id,
         'dm_id' : -1
+    })
+
+    assert response.status_code == 403\
+
+# the pair of channel_id and dm_id are valid (i.e. one is -1, the other is valid)
+# and the authorised user has not joined the DM they are trying to share the message to
+def test_valid_dm_id_not_member(setup):
+    users, _, dm_id = setup
+
+    og_message_id = message_dm(users[1]['token'], dm_id, "First!!!")['message_id']
+
+    response = requests.post(config.url + "message/share/v1", json={
+        'token' : users[2]['token'],
+        'og_message_id' : og_message_id,
+        'message' : "I am sharing this MSG",
+        'channel_id' : -1,
+        'dm_id' : dm_id
     })
 
     assert response.status_code == 403
@@ -200,9 +217,16 @@ def test_invalid_message_length(setup):
 
     assert response.status_code == 400
 
-def test_valid_message_share(setup):
+def test_valid_message_share_channel(setup):
     users, channel_id, _ = setup
 
     og_message_id = message_channel(users[1]['token'], channel_id, "First!!!")['message_id']
 
     message_share(users[1]['token'], og_message_id, "I am sharing this MSG", channel_id, -1)
+
+def test_valid_message_share_dm(setup):
+    users, _, dm_id = setup
+
+    og_message_id = message_dm(users[1]['token'], dm_id, "First!!!")['message_id']
+
+    message_share(users[1]['token'], og_message_id, "I am sharing this MSG", -1, dm_id)
