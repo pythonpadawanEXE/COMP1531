@@ -122,7 +122,7 @@ def setup():
 # the pair of channel_id and dm_id are valid (i.e. one is -1, the other is valid)
 # and the authorised user has not joined the channel or DM they are trying to share the message to
 def test_valid_channel_dm_id_not_member(setup):
-    users, channel_id, dm_id = setup
+    users, channel_id, _ = setup
 
     og_message_id = message_channel(users[1]['token'], channel_id, "First!!!")['message_id']
 
@@ -138,7 +138,7 @@ def test_valid_channel_dm_id_not_member(setup):
 
 # both channel_id and dm_id are invalid
 def test_invalid_channel_dm_id(setup):
-    users, channel_id, dm_id = setup
+    users, channel_id, _ = setup
 
     og_message_id = message_channel(users[1]['token'], channel_id, "First!!!")['message_id']
 
@@ -154,7 +154,7 @@ def test_invalid_channel_dm_id(setup):
 
 # neither channel_id nor dm_id are -1
 def test_invalid_channel_dm_id_2(setup):
-    users, channel_id, dm_id = setup
+    users, channel_id, _ = setup
 
     og_message_id = message_channel(users[1]['token'], channel_id, "First!!!")['message_id']
 
@@ -170,7 +170,7 @@ def test_invalid_channel_dm_id_2(setup):
         
 # og_message_id does not refer to a valid message within a channel/DM that the authorised user has joined
 def test_invalid_og_message_id(setup):
-    users, channel_id, dm_id = setup
+    users, channel_id, _ = setup
 
     og_message_id = message_channel(users[1]['token'], channel_id, "First!!!")['message_id']
 
@@ -186,7 +186,7 @@ def test_invalid_og_message_id(setup):
 
 # length of message is more than 1000 characters
 def test_invalid_message_length(setup):
-    users, channel_id, dm_id = setup
+    users, channel_id, _ = setup
 
     og_message_id = message_channel(users[1]['token'], channel_id, "First!!!")['message_id']
 
@@ -201,7 +201,7 @@ def test_invalid_message_length(setup):
     assert response.status_code == 400
 
 def test_valid_message_share(setup):
-    users, channel_id, dm_id = setup
+    users, channel_id, _ = setup
 
     og_message_id = message_channel(users[1]['token'], channel_id, "First!!!")['message_id']
 
