@@ -4,8 +4,6 @@ from time import sleep
 from src import config
 import datetime
 
-BASE_URL = config.url
-
 @pytest.fixture(autouse=True)
 def clear():
 
@@ -36,23 +34,30 @@ def register_user(email, password, name_first, name_last):
     assert isinstance(response_data['auth_user_id'],int)
     return response_data
 
-def dm_create_endpoint(token, u_ids):
-    response = requests.post(f"{BASE_URL}dm/create/v1", json={
+def channels_create(token, name, is_public):
+
+    '''
+    Creates a channel for user with given token and returns the channel ID
+    '''
+
+    response = requests.post(config.url + "channels/create/v2", json={
         'token' : token,
-        'u_ids' : u_ids,
+        'name' : name,
+        'is_public' : is_public
     })
+
     assert response.status_code == 200
     response_data = response.json()
     return response_data
 
-def sendlaterdm(token, dm_id, message, time_sent):
+def sendlater(token, channel_id, message, time_sent):
     '''
     Sends msg after x time
     '''
     
-    response = requests.post(config.url + "message/sendlaterdm/v1", json={
+    response = requests.post(config.url + "message/sendlater/v1", json={
         'token' : token,
-        'dm_id' : dm_id,
+        'channel_id' : channel_id,
         'message' : message,
         'time_sent' : time_sent
     })
@@ -60,13 +65,10 @@ def sendlaterdm(token, dm_id, message, time_sent):
     response_data = response.json()
     return response_data
 
-def dm_messages_endpoint(token,dm_id,start):
-    '''
-    Calling dm messages to list the most recent 50 messages in dm from start index
-    '''
-    response = requests.get(f"{BASE_URL}/dm/messages/v1",params={
+def channel_messages_endpoint(token,channel_id,start):
+    response = requests.get(f"{config.url}/channel/messages/v2",params={
         'token' : token,
-        'dm_id' : dm_id,
+        'channel_id' : channel_id,
         'start' : start
     })
     assert response.status_code == 200
@@ -79,61 +81,61 @@ def setup():
     users.append(register_user('a@email.com', 'Pass123456!', 'Jade', 'Painter'))
     users.append(register_user('b@email.com', 'Pass123456!', 'Seth', 'Tilley'))
     users.append(register_user('c@email.com', 'Pass123456!', 'Hannah', 'Buttsworth'))
-    dm = dm_create_endpoint(users[0]['token'], [users[1]['auth_user_id']])
-    return (users, dm)
+    channel = channels_create(users[0]['token'], "My channel", True)
+    return (users, channel)
 
-def test_invalid_dm_id(setup):
-    users, dm = setup
-    response = requests.post(config.url + "message/sendlaterdm/v1", json={
+def test_invalid_channel_id(setup):
+    users, channel = setup
+    response = requests.post(config.url + "message/sendlater/v1", json={
         'token' : users[0]['token'],
-        'dm_id' : dm['dm_id'] + 1,
+        'channel_id' : channel['channel_id'] + 1,
         'message' : "Hello",
         'time_sent' : int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
     })
     assert response.status_code == 400
 
-def test_invalid_dm_length(setup):
-    users, dm = setup
-    response = requests.post(config.url + "message/sendlaterdm/v1", json={
+def test_invalid_channel_length(setup):
+    users, channel = setup
+    response = requests.post(config.url + "message/sendlater/v1", json={
         'token' : users[0]['token'],
-        'dm_id' : dm['dm_id'],
+        'channel_id' : channel['channel_id'],
         'message' : "HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelHelloHelloHelloloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelHelloHelloHelloloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelHelloHelloHelloloHelloHelloHelloHellooHelloHelloloHelloHelloHelloHellooHelloHelloloHelloHelloHelloHellooHelloHelloloHelloHelloHelloHellooHelloHelloloHelloHelloHelloHellooHelloHelloloHelloHelloHelloHello",
         'time_sent' : int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
     })
     assert response.status_code == 400
 
 def test_invalid_time(setup):
-    users, dm = setup
-    response = requests.post(config.url + "message/sendlaterdm/v1", json={
+    users, channel = setup
+    response = requests.post(config.url + "message/sendlater/v1", json={
         'token' : users[0]['token'],
-        'dm_id' : dm['dm_id'],
+        'channel_id' : channel['channel_id'],
         'message' : "Hello",
         'time_sent' : int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()) - 1
     })
     assert response.status_code == 400
 
-def test_valid_dm_user_nonmember(setup):
-    users, dm = setup
-    response = requests.post(config.url + "message/sendlaterdm/v1", json={
+def test_valid_channel_user_nonmember(setup):
+    users, channel = setup
+    response = requests.post(config.url + "message/sendlater/v1", json={
         'token' : users[2]['token'],
-        'dm_id' : dm['dm_id'],
+        'channel_id' : channel['channel_id'],
         'message' : "Hello",
         'time_sent' : int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
     })
     assert response.status_code == 403
 
 def test_valid_sendlater(setup):
-    users, dm = setup
-    sendlaterdm(users[0]['token'], dm['dm_id'], "Hello", int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()) + 5)
+    users, channel = setup
+    _ = sendlater(users[0]['token'], channel['channel_id'], "Hello", int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()) + 5)
     sleep(5)
-    messages= dm_messages_endpoint(users[0]['token'],dm['dm_id'],0)['messages']
+    messages = channel_messages_endpoint(users[0]['token'],channel['channel_id'],0)['messages']
     for message in messages:
         assert message['message'] == "Hello"
 
 def test_valid_sendlater_user_handle(setup):
-    users, dm = setup
-    sendlaterdm(users[0]['token'], dm['dm_id'], "@sethtilley, Hello", int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()) + 5)
+    users, channel = setup
+    _ = sendlater(users[0]['token'], channel['channel_id'], "@sethtilley, Hello", int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()) + 5)
     sleep(5)
-    messages= dm_messages_endpoint(users[0]['token'],dm['dm_id'],0)['messages']
+    messages = channel_messages_endpoint(users[0]['token'],channel['channel_id'],0)['messages']
     for message in messages:
         assert message['message'] == "@sethtilley, Hello"

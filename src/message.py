@@ -1,8 +1,8 @@
 from src.data_store import data_store
 from src.error import InputError,AccessError
-from src.other import check_valid_token, get_all_user_id_channel, is_user_authorised_dm,is_user_channel_owner,is_user_dm_owner,\
+from src.other import check_valid_token, get_all_user_id_channel, is_user_authorised, is_user_authorised_dm,is_user_channel_owner,is_user_dm_owner,\
 is_global_owner, update_user_stats_messages_sent, update_users_stats_messages_exist, is_channel_valid, is_dm_valid, \
-get_all_messages_channel, get_all_messages_dm, get_message_string, is_user_authorised,is_user_authorised,get_channel_name,get_dm_name
+get_all_messages_channel, get_all_messages_dm, get_message_string, get_channel_name, get_dm_name
 import datetime
 import threading
 import re
@@ -152,9 +152,6 @@ def message_send_v1(auth_user_id, channel_id, message_input):
     #raise error if channel does not exist
     if channel_exists == False:
         raise InputError("Channel ID is not valid or does not exist.")
-
-    
-    
 
     message_id = len(store_messages)
     #create new message
@@ -710,6 +707,98 @@ def message_share(token, og_message_id, channel_id, dm_id, message=''):
 
     return {'shared_message_id': shared_message_id}
 
+def message_sendlater(token, channel_id, message, time_sent):
+    '''
+    Send a message from the authorised user to the channel specified by channel_id automatically at a specified time in the future
+    Arguments:
+        token (string)      - Token of user sending the message
+        channel_id (int)    - Unique ID of channel
+        message (string)    - Message user is sending
+        time_sent (int)     - The time the user message is executed
+
+    Exceptions:
+        Input Error:
+        - channel_id does not refer to a valid channel
+        - length of message is less than 1 or over 1000 characters
+        - time_sent is a time in the past
+
+        Access Error:
+        - channel_id is valid and the authorised user is not a member of the channel they are trying to post to
+
+    Return Value:
+        { message_id }
+    '''
+
+    # Verify user
+    auth_user_id = check_valid_token(token)['auth_user_id']
+
+    # channel_id is valid and the authorised user is not a member of the channel they are trying to post to
+    if (is_channel_valid(channel_id) and not is_user_authorised(auth_user_id, channel_id)):
+        raise AccessError("channel_id is valid and the authorised user is not a member of the channel they are trying to post to")
+
+    # Check if channel is valid
+    if (not is_channel_valid(channel_id)):
+        raise InputError("channel_id does not refer to a valid channel")
+
+    # Check valid length of message
+    if (len(message) < 1 or len(message) > 1000):
+        raise InputError("length of message is less than 1 or over 1000 characters")
+
+    # Check if time_sent is in the past
+    if time_sent < int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()):
+        raise InputError("time_sent is in the past")
+
+    store = data_store.get()
+    store_messages = store['messages']
+    message_id = len(store_messages)
+
+    # create new message
+    new_message = {
+            'dm_id': None,
+            'channel_id':  channel_id,
+            'message_id': message_id,
+            'u_id': auth_user_id,
+            'message': message,
+            'time_created': int(datetime.datetime.utcnow()
+                            .replace(tzinfo= datetime.timezone.utc).timestamp()),
+            'reacts' : [],
+            'is_pinned': False
+            }
+    #insert message details into datastore
+    store_messages.append(new_message)
+
+    send_time = time_sent - int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
+    # Start timer in seperate thread
+    t = threading.Timer(send_time, append_message_to_channel, [auth_user_id, channel_id, message_id, new_message, message])
+    t.start()
+
+    data_store.set(store)
+    return {'message_id': message_id}
+
+def append_message_to_channel(auth_user_id, channel_id, message_id, new_message, message_input):
+    store = data_store.get()
+    channels = store['channels']
+
+    for channel in channels:
+        if channel['id'] == channel_id:
+            channel['messages'].insert(0,message_id)
+
+    #if message tags a user(s)
+    possible_tags = re.findall(r'(?<=@)[a-zA-Z0-9]*',message_input)
+    for tag in possible_tags:
+        for user in store['users']:
+            if tag == user['handle_str'] and is_user_authorised(user['u_id'], channel_id) == True:
+                user['notifications'].append({
+                    'channel_id' : channel_id ,
+                    'dm_id': -1,
+                    'notification_message':  f"{tag} tagged you in {get_channel_name(channel_id)}: {message_input[:20]}"  
+                })
+
+    data_store.set(store)
+    update_user_stats_messages_sent(auth_user_id, new_message['time_created'])
+    update_users_stats_messages_exist(int(1), new_message['time_created'])
+
+
 def message_sendlaterdm_v1(token, dm_id, message, time_sent):
     '''
     Send a message from the authorised user to the dm specified by dm_id automatically at a specified time in the future
@@ -802,4 +891,3 @@ def append_message_to_dm(auth_user_id, dm_id, message_id, new_message, message_i
     data_store.set(store)
     update_user_stats_messages_sent(auth_user_id, new_message['time_created'])
     update_users_stats_messages_exist(int(1), new_message['time_created'])
-
