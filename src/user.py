@@ -14,6 +14,11 @@ Functions:
 from src.data_store import data_store
 from src.error import InputError, AccessError
 from src.other import verify_user_id, check_valid_token, check_email_validity, search_duplicate_email, is_handle_exist, get_user_involvement_rate
+import sys
+import urllib.request
+import requests
+from PIL import Image
+
 
 def user_profile_v1(auth_user_id, u_id):
     """ For a valid user, returns information about their user_id, email, first name, last name, and handle
@@ -238,3 +243,56 @@ def user_stats_v1(token):
                            'involvement_rate': involvement_rate
                           }       
             }
+
+def user_profile_uploadphoto_v1(token, img_url, x_start, y_start, x_end, y_end):
+    auth_user_id = check_valid_token(token)
+
+    store = data_store.get()
+
+    #check whether the img_url returns an HTTP status other than 200 or not
+    check_status = requests.head(img_url)
+    if check_status.status_code != 200:
+        raise InputError(description = "img_url returns an HTTP status other than 200")
+
+    #check whether the image is not a jpg or not
+    if '.jpg' not in img_url:
+        raise InputError(description = "image uploaded is not a JPG") 
+
+    #check whether x_end is less than x_start or y_end is less than y_start or not 
+    if x_end < x_start:
+        raise InputError(description = "x_end less than x_start")
+    elif y_end < y_start:
+        raise InputError( description = "y_end less than y_start")
+
+    #count number of times change
+    for user in store['users']:
+        if user['u_id'] == auth_user_id:
+            change_times = user['upload_photo_time']
+            change_times += 1
+            user['upload_photo_time'] = change_times
+    
+    #download image by given url
+    directory = 'src/static/' + str(auth_user_id) + '_' + str(change_times) +'.jpg'
+    urllib.request.urlretrieve(img_url, directory)
+
+    #check whether x_start, y_start, x_end, y_end are within the dimensions of the image at the URL or not
+    imageObject = Image.open(directory)
+    width, height = imageObject.size
+    if x_start not in range(0,width) or x_end not in range(0,width):
+        raise InputError("x_start or x_end not within image dimensions")
+    if y_start not in range(0,height) or y_end not in range(0,height):
+        raise InputError("y_start or y_end not within image dimensions")
+
+    #crop image
+    cropped = imageObject.crop((x_start, y_start, x_end, y_end))
+    cropped.save(directory)
+
+    local_img_url = config.url + 'static/' + str(auth_user_id) + '_' + str(change_times) + '.jpg'
+    #update user profile
+    for user in data['users']:
+        if user['u_id'] == auth_user_id:
+            user['profile_img_url'] = local_img_url
+    
+    data_store.save()
+
+    return {}
