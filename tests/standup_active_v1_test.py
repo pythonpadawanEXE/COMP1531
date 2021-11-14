@@ -110,7 +110,7 @@ def test_invalid_channel_id(setup):
     
 def test_user_not_channel_member(setup):
     users, channel = setup
-    standup_start(users[0]['token'], channel['channel_id'], 30)
+    standup_start(users[0]['token'], channel['channel_id'], 1)
     response = requests.get(config.url + "standup/active/v1", params={
         'token' : users[1]['token'],
         'channel_id' : channel['channel_id']
@@ -120,7 +120,7 @@ def test_user_not_channel_member(setup):
 
 def test_bad_token(setup):
     users, channel = setup
-    standup_start(users[0]['token'], channel['channel_id'], 30)
+    standup_start(users[0]['token'], channel['channel_id'], 1)
     response = requests.get(config.url + "standup/active/v1", params={
         'token' : "",
         'channel_id' : channel['channel_id']

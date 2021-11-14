@@ -120,7 +120,7 @@ def standup_send(token, channel_id, message):
     
 def test_invalid_channel_id(setup):
     users, channel = setup
-    standup_start(users[0]['token'], channel['channel_id'], 3)
+    standup_start(users[0]['token'], channel['channel_id'], 1)
     response = requests.post(config.url + "standup/send/v1", json={
         'token' : users[0]['token'],
         'channel_id' : 999,
@@ -131,7 +131,7 @@ def test_invalid_channel_id(setup):
 
 def test_message_too_long(setup):
     users, channel = setup
-    standup_start(users[0]['token'], channel['channel_id'], 3)
+    standup_start(users[0]['token'], channel['channel_id'], 1)
     response = requests.post(config.url + "standup/send/v1", json={
         'token' : users[0]['token'],
         'channel_id' : channel['channel_id'],
@@ -153,7 +153,7 @@ def test_standup_not_active(setup):
 
 def test_user_not_channel_member(setup):
     users, channel = setup
-    standup_start(users[0]['token'], channel['channel_id'], 3)
+    standup_start(users[0]['token'], channel['channel_id'], 1)
     response = requests.post(config.url + "standup/send/v1", json={
         'token' : users[1]['token'],
         'channel_id' : channel['channel_id'],
@@ -164,7 +164,7 @@ def test_user_not_channel_member(setup):
 
 def test_bad_token(setup):
     users, channel = setup
-    standup_start(users[0]['token'], channel['channel_id'], 3)
+    standup_start(users[0]['token'], channel['channel_id'], 1)
     response = requests.post(config.url + "standup/send/v1", json={
         'token' : "",
         'channel_id' : channel['channel_id'],
@@ -177,12 +177,12 @@ def test_valid_send(setup):
     users, channel = setup
     channel_join(users[1]['token'], channel['channel_id'])
     
-    _ = standup_start(users[0]['token'], channel['channel_id'], 10)
+    _ = standup_start(users[0]['token'], channel['channel_id'], 1)
     
     standup_send(users[0]['token'], channel['channel_id'], "A")
     standup_send(users[1]['token'], channel['channel_id'], "B")
     
-    sleep(10)
+    sleep(1)
     assert standup_active(users[0]['token'], channel['channel_id'])['is_active'] == False
     
     channel_messages = requests.get(config.url + 'channel/messages/v2', params={

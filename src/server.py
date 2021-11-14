@@ -4,6 +4,7 @@ import pickle
 from json import dumps
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from flask import Flask, request, send_from_directory
 from src import config
 from src.admin import admin_userpermission_change_v1, admin_user_remove_v1
 from src.auth import auth_register_v1, auth_login_v1, auth_logout_v1,auth_password_reset_request,\
@@ -17,7 +18,7 @@ from src.message import message_pin, message_react, message_send_v1,message_remo
         message_unpin, message_unreact, message_share, message_search, message_sendlater
 from src.standup import standup_active_v1, standup_send_v1, standup_start_v1
 from src.user import user_profile_v1, user_profile_setname_v1, user_profile_setemail_v1, user_profile_sethandle_v1, \
-                    notifications_get, user_stats_v1
+                    notifications_get, user_stats_v1, user_profile_uploadphoto_v1
 from src.users import users_all_v1, users_stats_v1
 from src.dm import dm_create_v1, dm_list_v1, dm_details_v1, dm_leave_v1, dm_remove_v1, dm_messages_v1
 
@@ -1100,6 +1101,23 @@ def user_stats_v1_get():
     """
     token = request.args.get('token')
     return jsonify(user_stats_v1(token))
+
+# user_profile_uploadphoto_v1
+@APP.route("/user/profile/uploadphoto/v1", methods=['POST'])
+def user_profile_uploadphoto_v1_post():
+    request_data = request.get_json()
+    token = request_data['token']
+    img_url = request_data['img_url']
+    x_start = int(request_data['x_start'])
+    y_start = int(request_data['y_start'])
+    x_end = int(request_data['x_end'])
+    y_end = int(request_data['y_end'])
+
+    return dumps(user_profile_uploadphoto_v1(token, img_url, x_start, y_start, x_end, y_end))
+
+@APP.route('/static/<path:path>')
+def send_js(path):
+    return send_from_directory('', path)
 
 # Users Routes
 

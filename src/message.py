@@ -72,7 +72,13 @@ def message_send_dm_v1(auth_user_id, dm_id, message_input):
             'message': message_input,
             'time_created': int(datetime.datetime.utcnow()
                             .replace(tzinfo= datetime.timezone.utc).timestamp()),
-            'reacts' : [],
+            'reacts' : [
+                {
+                    'react_id': 1,
+                    'u_ids' : [],
+                    'is_this_user_reacted' : False
+                }
+            ],
             'is_pinned': False
             }
     #insert message id into dm['messages']    
@@ -157,7 +163,13 @@ def message_send_v1(auth_user_id, channel_id, message_input):
             'message': message_input,
             'time_created': int(datetime.datetime.utcnow()
                             .replace(tzinfo= datetime.timezone.utc).timestamp()),
-            'reacts' : [],
+            'reacts' : [
+                {
+                    'react_id': 1,
+                    'u_ids' : [],
+                    'is_this_user_reacted' : False
+                }
+            ],
             'is_pinned': False
             }
     #insert message id into channel['messages']      
@@ -370,16 +382,17 @@ def message_react(auth_user_id, message_id, react_id):
     
     # React to message
     ## if no reacts
-    if len(target_message['reacts']) == 0:
-        target_message['reacts'].append({
-            'react_id' : react_id, 
-            'u_ids' : [auth_user_id]
-        })
+    # if len(target_message['reacts']) == 0:
+    #     target_message['reacts'].append({
+    #         'react_id' : react_id, 
+    #         'u_ids' : [auth_user_id],
+    #         'is_this_user_reacted': True
+    #     })
     ## if react of same type
-    else:
         for react_type in target_message['reacts']:
             if react_type['react_id'] == react_id:
                 react_type['u_ids'].append(auth_user_id)
+                react_type['is_this_user_reacted'] = True
                 
     data_store.set(store)
     
@@ -441,7 +454,7 @@ def message_pin(auth_user_id, message_id):
     #set pinned
     else:
         target_message['is_pinned'] = True
-    
+    print(messages)
     data_store.set(store)
     
     return {}
@@ -502,12 +515,13 @@ def message_unreact(token, message_id, react_id):
     for react_type in target_message['reacts']:
         if react_type['react_id'] == react_id and auth_user_id in react_type['u_ids']:
             react_type['u_ids'].remove(auth_user_id)
+            react_type['is_this_user_reacted'] = False
             no_react_id_from_auth_user = False
             break
 
     if no_react_id_from_auth_user:
         raise InputError(description="the message does not contain a react with ID react_id from the authorised user")
-
+    data_store.set(store)
     return {}
 
 def message_unpin(auth_user_id, message_id):
