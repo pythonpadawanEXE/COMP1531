@@ -96,7 +96,7 @@ def message_send_dm_v1(auth_user_id, dm_id, message_input):
     update_users_stats_messages_exist(int(1), new_message['time_created'])
     return {'message_id': message_id}
 
-def message_send_v1(auth_user_id, channel_id, message_input):
+def message_send_v1(auth_user_id, channel_id, message_input, message_id=len(store_messages)):
     '''
     Send a message from the authorised user to the 
     channel specified by channel_id. Note: Each message 
@@ -147,10 +147,6 @@ def message_send_v1(auth_user_id, channel_id, message_input):
     if channel_exists == False:
         raise InputError("Channel ID is not valid or does not exist.")
 
-    
-    
-
-    message_id = len(store_messages)
     #create new message
     new_message ={
             'dm_id': None,
