@@ -247,7 +247,7 @@ def user_stats_v1(token):
             }
 
 def user_profile_uploadphoto_v1(token, img_url, x_start, y_start, x_end, y_end):
-    auth_user_id = check_valid_token(token)
+    auth_user_id = check_valid_token(token)['auth_user_id']
 
     store = data_store.get()
 
