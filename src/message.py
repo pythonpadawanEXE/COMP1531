@@ -1,6 +1,6 @@
 from src.data_store import data_store
 from src.error import InputError,AccessError
-from src.other import check_valid_token, get_all_user_id_channel, is_user_authorised_dm, is_user_authorised, is_user_channel_owner,is_user_dm_owner,\
+from src.other import check_valid_token, get_all_user_id_channel, is_user_authorised, is_user_authorised_dm,is_user_channel_owner,is_user_dm_owner,\
 is_global_owner, update_user_stats_messages_sent, update_users_stats_messages_exist, is_channel_valid, is_dm_valid, \
 get_all_messages_channel, get_all_messages_dm, get_message_string, get_channel_name, get_dm_name
 import datetime
@@ -96,7 +96,7 @@ def message_send_dm_v1(auth_user_id, dm_id, message_input):
     update_users_stats_messages_exist(int(1), new_message['time_created'])
     return {'message_id': message_id}
 
-def message_send_v1(auth_user_id, channel_id, message_input, message_id=None):
+def message_send_v1(auth_user_id, channel_id, message_input):
     '''
     Send a message from the authorised user to the 
     channel specified by channel_id. Note: Each message 
@@ -147,10 +147,7 @@ def message_send_v1(auth_user_id, channel_id, message_input, message_id=None):
     if channel_exists == False:
         raise InputError("Channel ID is not valid or does not exist.")
 
-    # Get new message ID if none is provided
-    if message_id == None:
-        message_id = len(store_messages)
-
+    message_id = len(store_messages)
     #create new message
     new_message ={
             'dm_id': None,
@@ -696,7 +693,7 @@ def message_share(token, og_message_id, channel_id, dm_id, message=''):
 
     return {'shared_message_id': shared_message_id}
 
-def message_sendlater_v1(token, channel_id, message, time_sent):
+def message_sendlater(token, channel_id, message, time_sent):
     '''
     Send a message from the authorised user to the channel specified by channel_id automatically at a specified time in the future
     Arguments:
@@ -737,17 +734,52 @@ def message_sendlater_v1(token, channel_id, message, time_sent):
     if time_sent < int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()):
         raise InputError("time_sent is in the past")
 
+    store = data_store.get()
+    store_messages = store['messages']
+    message_id = len(store_messages)
+
+    # create new message
+    new_message = {
+            'dm_id': None,
+            'channel_id':  channel_id,
+            'message_id': message_id,
+            'u_id': auth_user_id,
+            'message': message,
+            'time_created': int(datetime.datetime.utcnow()
+                            .replace(tzinfo= datetime.timezone.utc).timestamp()),
+            'reacts' : [],
+            'is_pinned': False
+            }
+    #insert message details into datastore
+    store_messages.append(new_message)
+
     send_time = time_sent - int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
     # Start timer in seperate thread
-    t = threading.Timer(send_time, message_send_v1, [auth_user_id, channel_id, message])
+    t = threading.Timer(send_time, append_message_to_channel, [channel_id, message_id, new_message, message])
     t.start()
 
-    '''
-    You will need to implement it differently. 
-    Either by not calling message_send, or by adding an
-    optional 'message_id' parameter to message_send so 
-    that you can generate the id in advance (though 
-    I'm sure many other methods that will work).
-    '''
-
+    data_store.set(store)
     return {'message_id': message_id}
+
+def append_message_to_channel(channel_id, message_id, new_message, message_input):
+    store = data_store.get()
+    channels = store['channels']
+
+    for channel in channels:
+        if channel['id'] == channel_id:
+            channel['messages'].insert(0,message_id)
+
+    #if message tags a user(s)
+    possible_tags = re.findall(r'(?<=@)[a-zA-Z0-9]*',message_input)
+    for tag in possible_tags:
+        for user in store['users']:
+            if tag == user['handle_str'] and is_user_authorised(user['u_id'], channel_id) == True:
+                user['notifications'].append({
+                    'channel_id' : channel_id ,
+                    'dm_id': -1,
+                    'notification_message':  f"{tag} tagged you in {channel_name}: {message_input[:20]}"  
+                })
+
+    data_store.set(store)
+    update_user_stats_messages_sent(auth_user_id, new_message['time_created'])
+    update_users_stats_messages_exist(int(1), new_message['time_created'])
