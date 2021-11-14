@@ -16,7 +16,32 @@ from src.error import AccessError, InputError
 from src.other import get_all_user_id_channel, get_user_handle, is_channel_valid
 
 def standup_start_v1(auth_user_id, channel_id, length):
-    
+    """
+    For a given channel, start the standup period whereby for the next "length" 
+    seconds if someone calls "standup/send" with a message, it is buffered during 
+    the X second window then at the end of the X second window a message will be 
+    added to the message queue in the channel from the user who started the standup. 
+    "length" is an integer that denotes the number of seconds that the standup occurs for.
+
+    Arguments:
+        token (string) - Token of the user who is making the standup.
+        channel_id (int)    - channel_id of channel to contain standup
+        length  (int)       - delay of standup in seconds
+
+    Exceptions:
+
+        AccessError:
+        -invalid token
+        - channel_id is valid and the authorised user is not a member of the channel
+        
+        InputError:
+        -channel_id does not refer to a valid channel
+        -length is a negative integer
+        -an active standup is currently running in the channel
+
+    Return
+        {time_finish } on successful completion
+    """
     # Check valid call
     if not is_channel_valid(channel_id):
         raise InputError(description="channel_id does not refer to a valid channel")
@@ -61,6 +86,31 @@ def standup_start_v1(auth_user_id, channel_id, length):
 
 
 def standup_send_v1(auth_user_id, channel_id, message):
+    """
+    Sending a message to get buffered in the standup queue, 
+    assuming a standup is currently active. Note: We do not 
+    expect @ tags to be parsed as proper tags when sending to 
+    standup/send
+
+    Arguments:
+        token (string) - Token of the user who is making the standup.
+        channel_id (int)    - channel_id of channel to contain standup
+        message (dict)        -  message contents
+
+    Exceptions:
+
+        AccessError:
+        -invalid token
+        - channel_id is valid and the authorised user is not a member of the channel
+        
+        InputError:
+        -channel_id does not refer to a valid channel
+        -length of message is over 1000 characters
+        -an active standup is currently running in the channel
+
+    Return
+        {} on successful completion
+    """
     # Check valid call
     if not is_channel_valid(channel_id):
         raise InputError(description="channel_id does not refer to a valid channel")
@@ -91,7 +141,28 @@ def standup_send_v1(auth_user_id, channel_id, message):
     return {}    
 
 def standup_active_v1(auth_user_id, channel_id):
-    
+    """
+    For a given channel, return whether a standup is active in it, 
+    and what time the standup finishes. If no standup is active, 
+    then time_finish returns None.
+
+    Arguments:
+        token (string) - Token of the user who is making the standup.
+        channel_id (int)    - channel_id of channel to contain standup
+
+    Exceptions:
+
+        AccessError:
+        -invalid token
+        - channel_id is valid and the authorised user is not a member of the channel
+        
+        InputError:
+        -channel_id does not refer to a valid channel
+        
+
+    Return
+        {is_active, time_finish} on successful completion
+    """
     # Check valid call
     if not is_channel_valid(channel_id):
         raise InputError(description="channel_id does not refer to a valid channel")
@@ -123,7 +194,15 @@ def standup_active_v1(auth_user_id, channel_id):
     }
 
 def standup_end(channel_id):
-    
+    """
+    Ends a given startup within a channel
+
+    Arguments:
+        channel_id  (int) - id of channel to have startup ended
+
+    Return
+        None
+    """
     # Get active standup
     store = data_store.get()
     channels = store['channels']
@@ -142,6 +221,17 @@ def standup_end(channel_id):
     data_store.set(store)
     
 def standup_message(auth_user_id, channel_id, message_input):
+    """
+   Creates a standup message with given message input in the data store
+
+    Arguments:
+        auth_user_id (int) - unique id of atuhorised user
+        channel_id  (int) - id of channel to have startup ended
+        message_input (string) -  input of string message
+
+    Return
+        None
+    """
     store = data_store.get()
     channels = store['channels']
     store_messages = store['messages']

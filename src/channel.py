@@ -21,8 +21,10 @@ from src.other import is_channel_valid, is_global_owner, is_user_authorised, \
 import datetime
 
 def channel_invite_v1(auth_user_id, channel_id, u_id):
-    """ <Brief description of what the function does>
-
+    """ 
+        Invites a user with ID u_id to join a channel with ID channel_id. 
+        Once invited, the user is added to the channel immediately. 
+        In both public and private channels, all members are able to invite users.
         Arguments:
             auth_user_id (int)    - The user ID of the user who is inviting u_id.
             channel_id (int)      - The channel ID that user u_id is being invited to.
@@ -152,9 +154,11 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     for channel in channels:
         if int(channel['id']) == int(channel_id):
             channel_exists = True
+            messages = channel['messages']
+            print(channel)
             if auth_user_id not in channel["all_members"] and is_global_owner(auth_user_id) == False:
                 raise AccessError("User is not an owner or member of this channel")
-
+    
     if start < 0:
         raise InputError("Invalid Start Index")   
     if len(channels) == 0:
@@ -163,9 +167,9 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     # if channel doesn't exist raise error
     if channel_exists == False:
         raise InputError("Channel ID is not valid or does not exist.")
-    messages = channel['messages']
+   
     
-    if len(messages)-1 < start:
+    if len(messages) <= start and start != 0:
         raise InputError("Start is greater than the total number of messages in the channel")
 
     # 50 is the pagination block of messages
