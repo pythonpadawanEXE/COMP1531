@@ -134,11 +134,11 @@ def test_valid_pin_in_dm(setup):
 
 def test_message_pin_remove(setup):
     users, _, dm = setup
-    message_dm(users[0]['token'], dm['dm_id'], "Howdy2")
+    id0 = message_dm(users[0]['token'], dm['dm_id'], "Howdy2")['message_id']
     id = message_dm(users[0]['token'], dm['dm_id'], "Howdy")['message_id']
     _,status_code = message_pin(users[0]['token'], id)
     assert status_code == 200
-    remove_message_endpoint(users[0]['token'],id)
+    remove_message_endpoint(users[0]['token'],id0)
     _ = message_pin(users[0]['token'], id)
 
 '''
