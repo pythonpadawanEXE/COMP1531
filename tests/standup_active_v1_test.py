@@ -110,7 +110,7 @@ def test_invalid_channel_id(setup):
     
 def test_user_not_channel_member(setup):
     users, channel = setup
-    standup_start(users[0]['token'], channel['channel_id'], 30)
+    standup_start(users[0]['token'], channel['channel_id'], 1)
     response = requests.get(config.url + "standup/active/v1", params={
         'token' : users[1]['token'],
         'channel_id' : channel['channel_id']
@@ -120,7 +120,7 @@ def test_user_not_channel_member(setup):
 
 def test_bad_token(setup):
     users, channel = setup
-    standup_start(users[0]['token'], channel['channel_id'], 30)
+    standup_start(users[0]['token'], channel['channel_id'], 1)
     response = requests.get(config.url + "standup/active/v1", params={
         'token' : "",
         'channel_id' : channel['channel_id']
@@ -130,8 +130,8 @@ def test_bad_token(setup):
     
 def test_valid_standup_active(setup):
     users, channel = setup
-    finish_time = standup_start(users[0]['token'], channel['channel_id'], 10)
+    finish_time = standup_start(users[0]['token'], channel['channel_id'], 1)
     assert finish_time == standup_active(users[0]['token'], channel['channel_id'])['time_finish']
     assert standup_active(users[0]['token'], channel['channel_id'])['is_active'] == True
-    sleep(10)
+    sleep(1)
     assert standup_active(users[0]['token'], channel['channel_id'])['is_active'] == False

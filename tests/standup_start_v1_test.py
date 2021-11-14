@@ -108,7 +108,7 @@ def test_invalid_channel_id(setup):
     response = requests.post(config.url + "standup/start/v1", json={
         'token' : users[0]['token'],
         'channel_id' : 999,
-        'length' : 60
+        'length' : 1
     })
     
     assert response.status_code == 400
@@ -125,11 +125,11 @@ def test_length_negative(setup):
 
 def test_standup_already_active(setup):
     users, channel = setup
-    standup_start(users[0]['token'], channel['channel_id'], 60)
+    standup_start(users[0]['token'], channel['channel_id'], 1)
     response = requests.post(config.url + "standup/start/v1", json={
         'token' : users[0]['token'],
         'channel_id' : channel['channel_id'],
-        'length' : 60
+        'length' : 1
     })
     
     assert response.status_code == 400
@@ -140,7 +140,7 @@ def test_user_not_channel_member(setup):
     response = requests.post(config.url + "standup/start/v1", json={
         'token' : users[1]['token'],
         'channel_id' : channel['channel_id'],
-        'length' : 60
+        'length' : 1
     })
     
     assert response.status_code == 403
@@ -150,16 +150,16 @@ def test_bad_token(setup):
     response = requests.post(config.url + "standup/start/v1", json={
         'token' : "",
         'channel_id' : channel['channel_id'],
-        'length' : 60
+        'length' : 1
     })
     
     assert response.status_code == 403
 
 def test_valid_standup_start(setup):
     users, channel = setup
-    finish_time = standup_start(users[0]['token'], channel['channel_id'], 10)
+    finish_time = standup_start(users[0]['token'], channel['channel_id'], 1)
     deets = standup_active(users[0]['token'], channel['channel_id'])
     assert finish_time == deets['time_finish']
     assert deets['is_active'] == True
-    sleep(10)
+    sleep(1)
     assert standup_active(users[0]['token'], channel['channel_id'])['is_active'] == False
