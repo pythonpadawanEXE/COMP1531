@@ -1,7 +1,7 @@
 import pytest
 import requests
 from src import config
-
+from tests.helper_test_funcs import remove_message_endpoint
 @pytest.fixture(autouse=True)
 def clear():
 
@@ -132,6 +132,14 @@ def test_valid_pin_in_dm(setup):
     _,status_code = message_pin(users[0]['token'], id)
     assert status_code == 200
 
+def test_message_pin_remove(setup):
+    users, _, dm = setup
+    message_dm(users[0]['token'], dm['dm_id'], "Howdy2")
+    id = message_dm(users[0]['token'], dm['dm_id'], "Howdy")['message_id']
+    _,status_code = message_pin(users[0]['token'], id)
+    assert status_code == 200
+    remove_message_endpoint(users[0]['token'],id)
+    _ = message_pin(users[0]['token'], id)
 
 '''
 Input Error

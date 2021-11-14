@@ -1,7 +1,7 @@
 import pytest
 import requests
 from src import config
-
+from tests.helper_test_funcs import remove_message_endpoint
 @pytest.fixture(autouse=True)
 def clear():
 
@@ -195,4 +195,12 @@ def test_valid_react_in_dm(setup):
     users, _, dm = setup
     id = message_dm(users[0]['token'], dm['dm_id'], "Howdy")['message_id']
     _ = message_react(users[1]['token'], id, 1)
+    _ = message_react(users[0]['token'], id, 1)
+
+def test_message_react_remove(setup):
+    users, _, dm = setup
+    message_dm(users[0]['token'], dm['dm_id'], "Howdy2")
+    id = message_dm(users[0]['token'], dm['dm_id'], "Howdy")['message_id']
+    _ = message_react(users[1]['token'], id, 1)
+    remove_message_endpoint(users[0]['token'],id)
     _ = message_react(users[0]['token'], id, 1)
