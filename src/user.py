@@ -217,6 +217,15 @@ def notifications_get(token):
     return {'notifications' : user_notifications}
 
 def user_stats_v1(token):
+    """ Return the user's statistics in channels_joined, dms_joined, messages_sent and involvement_rate with time stamps for every changes they made
+    
+        Arguments:
+            token (string)  - The token of the user who is calling notifications_get_v1.
+
+
+        Return Value:
+            Returns { user_stats }
+    """
     auth_user_id = check_valid_token(token)['auth_user_id']
     
     store = data_store.get()

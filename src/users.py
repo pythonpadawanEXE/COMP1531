@@ -33,6 +33,15 @@ def users_all_v1():
     return users
 
 def users_stats_v1(token):
+    """ Return the workspaces' statistics in channels_joined, dms_joined, messages_sent and utilization_rate with time stamps for every changes they made
+    
+        Arguments:
+            token (string)  - The token of the user who is calling notifications_get_v1.
+
+
+        Return Value:
+            Returns { user_stats }
+    """
     check_valid_token(token)
     store = data_store.get()
     workspace_stats = store['workspace_stats']
