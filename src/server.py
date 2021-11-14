@@ -419,7 +419,7 @@ def user_stats_v1_get():
 
 # user_profile_uploadphoto_v1
 @APP.route("/user/profile/uploadphoto/v1", methods=['POST'])
-def user_profile_uploadphoto_v1():
+def user_profile_uploadphoto_v1_post():
     request_data = request.get_json()
     token = request_data['token']
     img_url = request_data['img_url']
