@@ -130,8 +130,8 @@ def test_bad_token(setup):
     
 def test_valid_standup_active(setup):
     users, channel = setup
-    finish_time = standup_start(users[0]['token'], channel['channel_id'], 10)
+    finish_time = standup_start(users[0]['token'], channel['channel_id'], 1)
     assert finish_time == standup_active(users[0]['token'], channel['channel_id'])['time_finish']
     assert standup_active(users[0]['token'], channel['channel_id'])['is_active'] == True
-    sleep(10)
+    sleep(1)
     assert standup_active(users[0]['token'], channel['channel_id'])['is_active'] == False
