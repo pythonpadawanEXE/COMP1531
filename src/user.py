@@ -250,6 +250,7 @@ def user_profile_uploadphoto_v1(token, img_url, x_start, y_start, x_end, y_end):
     auth_user_id = check_valid_token(token)['auth_user_id']
 
     store = data_store.get()
+    user_store = store['users']
 
     #check whether the img_url returns an HTTP status other than 200 or not
     check_status = requests.head(img_url)
@@ -264,10 +265,10 @@ def user_profile_uploadphoto_v1(token, img_url, x_start, y_start, x_end, y_end):
     if x_end < x_start:
         raise InputError(description = "x_end less than x_start")
     elif y_end < y_start:
-        raise InputError( description = "y_end less than y_start")
+        raise InputError(description = "y_end less than y_start")
 
     #count number of times change
-    for user in store['users']:
+    for user in user_store:
         if user['u_id'] == auth_user_id:
             change_times = user['upload_photo_time']
             change_times += 1
@@ -291,7 +292,7 @@ def user_profile_uploadphoto_v1(token, img_url, x_start, y_start, x_end, y_end):
 
     local_img_url = config.url + 'static/' + str(auth_user_id) + '_' + str(change_times) + '.jpg'
     #update user profile
-    for user in store['users']:
+    for user in user_store:
         if user['u_id'] == auth_user_id:
             user['profile_img_url'] = local_img_url
     

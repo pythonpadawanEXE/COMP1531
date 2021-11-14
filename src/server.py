@@ -427,9 +427,8 @@ def user_profile_uploadphoto_v1_post():
     y_start = int(request_data['y_start'])
     x_end = int(request_data['x_end'])
     y_end = int(request_data['y_end'])
-    user.user_profile_uploadphoto_v1('token', request_data['img_url'], request_data['x_start'], request_data['y_start'], request_data['x_end'], request_data['y_end'])
 
-    return dumps(user.user_profile_uploadphoto_v1(token, img_url, x_start, y_start, x_end, y_end))
+    return dumps(user_profile_uploadphoto_v1(token, img_url, x_start, y_start, x_end, y_end))
 
 @APP.route('/static/<path:path>')
 def send_js(path):

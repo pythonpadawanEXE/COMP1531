@@ -121,7 +121,7 @@ def auth_register_v1(email, password, name_first, name_last):
                            'messages_sent': [{'num_messages_sent': 0, 'time_stamp': time_stamp}]
             },
             'profile_img_url': config.url +'static/default.jpg',
-            'uploaded_photo_time': 0
+            'upload_photo_time': 0
         })
     passwords.append({
             'u_id': u_id,
