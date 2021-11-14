@@ -48,7 +48,8 @@ def message_send_dm_v1(auth_user_id, dm_id, message_input):
     for dm in dms:
         if dm['dm_id'] == dm_id:
             dm_exists = True
-            dm_name = dm['name'] 
+            dm_name = dm['name']
+            messages = dm['messages'] 
             if auth_user_id not in dm["all_members"]:
                 raise AccessError("User is not an owner or member of this dm.")
             
@@ -57,7 +58,7 @@ def message_send_dm_v1(auth_user_id, dm_id, message_input):
     if dm_exists == False:
         raise InputError("dm_id is not valid or does not exist.")
 
-    messages = dm['messages']
+   
     
     message_id = len(store_messages)
 
@@ -135,6 +136,7 @@ def message_send_v1(auth_user_id, channel_id, message_input):
     for channel in channels:
         if channel['id'] == channel_id:
             channel_name = channel['name']
+            messages = channel['messages']
             channel_exists = True
             if auth_user_id not in channel["all_members"]:
                 raise AccessError("User is not an owner or member of this channel.")
@@ -144,7 +146,7 @@ def message_send_v1(auth_user_id, channel_id, message_input):
     if channel_exists == False:
         raise InputError("Channel ID is not valid or does not exist.")
 
-    messages = channel['messages']
+    
     
 
     message_id = len(store_messages)
@@ -210,7 +212,7 @@ def message_edit_v1(token,message_id,message):
         raise InputError("Message_id does not refer to a valid message.")
 
     #check if message has been deleted
-    if store['messages'][message_id] is None:
+    if store['messages'][message_id]['message'] is None:
         raise InputError("Message has already been deleted")
 
     #check valid message length
@@ -276,7 +278,7 @@ def message_remove_v1(token,message_id):
         raise InputError("Message_id does not refer to a valid message.")
 
     #check message is not deleted
-    if store['messages'][message_id] is None:
+    if store['messages'][message_id]['message'] is None:
         raise InputError("Message has already been deleted")
 
     channel_id = store['messages'][message_id]['channel_id']
@@ -310,13 +312,29 @@ def message_remove_v1(token,message_id):
             if message_id_dm ==  message_id:
                 del dm['messages'][idx]  
 
-    #make the message_dict None
-    store['messages'][message_id] = None
+    #make the message_dict message string None
+    store['messages'][message_id]['message'] = None
     data_store.set(store)
     update_users_stats_messages_exist(int(-1), int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()))
     return {}
     
 def message_react(auth_user_id, message_id, react_id):
+    '''
+    Given a message within a channel or DM the authorised user is part of, add a "react" to that particular message.
+    Arguments:
+        token (string)      - User who is attempting to react
+        message_id (int)    - Unique ID of message
+        react_id (int)      - Unique ID of react
+
+    Exceptions:
+        Input Error:
+        - message_id is not a valid message within a channel or DM that the authorised user has joined
+        - react_id is not a valid react ID
+        - the message does not contain a react with ID react_id from the authorised user
+
+    Return Value:
+        { }
+    '''
     valid_reacts = [1]
     
     # Find the target message
@@ -324,6 +342,8 @@ def message_react(auth_user_id, message_id, react_id):
     messages = store['messages']
     target_message = {}
     for message in messages:
+        if message['message'] is None:
+            continue
         if message['message_id'] == message_id:
             target_message = message
     
@@ -368,12 +388,32 @@ def message_react(auth_user_id, message_id, react_id):
     return {}
 
 def message_pin(auth_user_id, message_id):
-    
+    '''
+    Given a message within a channel or DM, mark it as "pinned"
+    Arguments:
+        token (string)      - User who is attempting to react
+        message_id (int)    - Unique ID of message
+
+    Exceptions:
+        Input Error:
+        - message_id is not a valid message within a channel or DM that the authorised user has joined
+        - the message is already pinned
+        Access Error:
+        -message_id refers to a valid message in a joined channel/DM and the authorised user does not have 
+        owner permissions in the channel/DM
+        -invalid token
+
+    Return Value:
+        { }
+    '''
     # Find the target message
     store = data_store.get()
     messages = store['messages']
+    print(messages)
     target_message = {}
     for message in messages:
+        if message['message'] is None:
+            continue
         if message['message_id'] == message_id:
             target_message = message
     
@@ -436,6 +476,8 @@ def message_unreact(token, message_id, react_id):
     messages = store['messages']
     target_message = {}
     for message in messages:
+        if message['message'] is None:
+            continue
         if message['message_id'] == message_id:
             target_message = message
 
@@ -472,11 +514,31 @@ def message_unreact(token, message_id, react_id):
     return {}
 
 def message_unpin(auth_user_id, message_id):
+    '''
+    Given a message within a channel or DM, mark it as not "pinned"
+    Arguments:
+        token (string)      - User who is attempting to react
+        message_id (int)    - Unique ID of message
+
+    Exceptions:
+        Input Error:
+        - message_id is not a valid message within a channel or DM that the authorised user has joined
+        - the message is already unpinned
+        Access Error:
+        -message_id refers to a valid message in a joined channel/DM and the authorised user does not have 
+        owner permissions in the channel/DM
+        -invalid token
+
+    Return Value:
+        { }
+    '''
     # Find the target message
     store = data_store.get()
     messages = store['messages']
     target_message = {}
     for message in messages:
+        if message['message'] is None:
+            continue
         if message['message_id'] == message_id:
             target_message = message
     
@@ -539,6 +601,8 @@ def message_search(token, query_str):
 
     matched_messages = []
     for message in messages:
+        if message['message'] is None:
+            continue
         # Check if authorised user is in the channel or DM of where the message was sent
         if (auth_user_id in get_all_user_id_channel(message['channel_id']) or is_user_authorised_dm(auth_user_id, message['dm_id'])):
             # Check if message contains the query
