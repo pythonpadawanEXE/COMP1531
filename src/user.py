@@ -14,6 +14,7 @@ Functions:
 from src.data_store import data_store
 from src.error import InputError, AccessError
 from src.other import verify_user_id, check_valid_token, check_email_validity, search_duplicate_email, is_handle_exist, get_user_involvement_rate
+from src import config
 import sys
 import urllib.request
 import requests
@@ -279,9 +280,9 @@ def user_profile_uploadphoto_v1(token, img_url, x_start, y_start, x_end, y_end):
     imageObject = Image.open(directory)
     width, height = imageObject.size
     if x_start not in range(0,width) or x_end not in range(0,width):
-        raise InputError("x_start or x_end not within image dimensions")
+        raise InputError(description = "x_start or x_end not within image dimensions")
     if y_start not in range(0,height) or y_end not in range(0,height):
-        raise InputError("y_start or y_end not within image dimensions")
+        raise InputError(description = "y_start or y_end not within image dimensions")
 
     #crop image
     cropped = imageObject.crop((x_start, y_start, x_end, y_end))
@@ -289,7 +290,7 @@ def user_profile_uploadphoto_v1(token, img_url, x_start, y_start, x_end, y_end):
 
     local_img_url = config.url + 'static/' + str(auth_user_id) + '_' + str(change_times) + '.jpg'
     #update user profile
-    for user in data['users']:
+    for user in store['users']:
         if user['u_id'] == auth_user_id:
             user['profile_img_url'] = local_img_url
     
