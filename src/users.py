@@ -33,6 +33,17 @@ def users_all_v1():
     return users
 
 def users_stats_v1(token):
+    """
+    Fetches the required statistics about the use of UNSW Streams.
+    Arguments:
+        token (string)  - The token of the user who is calling notifications_get_v1.
+
+    Exception:
+        AccessError
+        - Invalid token
+    Return Value:
+            Returns { workspace_stats } on successful completion.    
+    """
     check_valid_token(token)
     store = data_store.get()
     workspace_stats = store['workspace_stats']

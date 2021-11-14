@@ -263,13 +263,13 @@ def dm_messages_v1(auth_user_id, dm_id, start):
     # Loop through and find the authorised dm
     for dm in dm_store:
         if dm['dm_id'] == dm_id:
-
+            # Get  messages in the authorised dm
+            messages_dm = dm['messages']
             # Start index is invalid if it is greater than the total number of messages in the dm
-            if len(dm['messages']) - 1 < start:
+            if len(dm['messages'])<= start and start != 0:
                 raise InputError(description = "Invalid Start Index")
 
-    # Get  messages in the authorised dm
-    messages_dm = dm['messages']
+    
 
     # Get all messages
     messages_store = store['messages']
@@ -281,7 +281,7 @@ def dm_messages_v1(auth_user_id, dm_id, start):
     end = start + 50
     
     # Loop through and find the authorised message in dm 
-    for idx , _ in enumerate(messages_dm):
+    for idx ,_ in enumerate(messages_dm):
         if start <= idx < end:
 
             # Add the 50 messages from the start index to the returned message list
