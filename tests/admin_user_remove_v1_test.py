@@ -108,7 +108,7 @@ def test_valid_removal(setup):
     # Check profile exists
     resp = requests.get(config.url + 'user/profile/v1', params={'token': users[0]['token'], 'u_id': users[1]['auth_user_id']})
     response_data = resp.json()['user']
-    assert response_data == {'u_id': users[1]['auth_user_id'], 'email': '', 'name_first': 'Removed', 'name_last': 'user', 'handle_str': 'Removed user'}
+    assert response_data == {'u_id': users[1]['auth_user_id'], 'email': '', 'name_first': 'Removed', 'name_last': 'user', 'handle_str': 'Removed user', 'profile_img_url': config.url +'static/default.jpg'}
 
 def test_valid_removal_channel_owner(setup):
     users = setup
