@@ -139,6 +139,9 @@ def auth_logout_v1(token):
     Arguments:
         token (string)        - The encoded token an amlagamation of auth_user_id and session_id
 
+    Exceptions:
+        AcessError
+        -invalid token
 
     Return Values:
         { session_id (int)     - Upon successful completion  of old session_id now invalid.

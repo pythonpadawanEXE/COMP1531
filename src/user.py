@@ -224,6 +224,15 @@ def notifications_get(token):
     return {'notifications' : user_notifications}
 
 def user_stats_v1(token):
+    """ Return the user's statistics in channels_joined, dms_joined, messages_sent and involvement_rate with time stamps for every changes they made
+    
+        Arguments:
+            token (string)  - The token of the user who is calling notifications_get_v1.
+
+
+        Return Value:
+            Returns { user_stats }
+    """
     auth_user_id = check_valid_token(token)['auth_user_id']
     
     store = data_store.get()
@@ -247,6 +256,25 @@ def user_stats_v1(token):
             }
 
 def user_profile_uploadphoto_v1(token, img_url, x_start, y_start, x_end, y_end):
+    """ Download the photo from url into local file, corp the photo within bounds, and upload the local image url to user profile
+    
+        Arguments:
+            token (string)  - The token of the user who is calling notifications_get_v1.
+            img_url (string) - The url of an image on the internet
+            x_start (int) - bound
+            y_statr (int) - bound
+            x_end (int) - bound
+            y_end (int) - bound
+
+        Exceptions:
+            Inputerror - img_url returns an HTTP status other than 200
+                       - any of x_start, y_start, x_end, y_end are not within the dimensions of the image at the URL
+                       - x_end is less than x_start or y_end is less that y_start
+                       - image uploaded is not a JPG
+
+        Return Value:
+            Returns {}
+    """
     auth_user_id = check_valid_token(token)['auth_user_id']
 
     store = data_store.get()
