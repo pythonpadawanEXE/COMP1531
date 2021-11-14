@@ -21,6 +21,7 @@ from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 import smtplib
 import os
+from src import config
 
 def auth_login_v1(email, password):
     """ Checks if valid email password combination and returns auth_user_id.
@@ -118,7 +119,9 @@ def auth_register_v1(email, password, name_first, name_last):
             'user_stats': {'channels_joined': [{'num_channels_joined': 0, 'time_stamp': time_stamp}],
                            'dms_joined': [{'num_dms_joined': 0, 'time_stamp': time_stamp}],
                            'messages_sent': [{'num_messages_sent': 0, 'time_stamp': time_stamp}]
-            }
+            },
+            'profile_img_url': config.url +'static/default.jpg',
+            'uploaded_photo_time': 0
         })
     passwords.append({
             'u_id': u_id,
