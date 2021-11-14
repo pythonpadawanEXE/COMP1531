@@ -107,9 +107,12 @@ def get_all_user_id_channel(channel_id):
     store = data_store.get()
     channel_store = store['channels']
 
+    members = []
     for chan in channel_store:
         if chan['id'] == channel_id:
-            return chan['all_members']
+            members = chan['all_members']
+            
+    return members
 
 # Returns a list of all members and associated details corresponding to their u_id in auth_id_list
 def get_all_members(auth_id_list):
@@ -536,26 +539,26 @@ def get_global_owners():
             global_owners.append(user)
     return global_owners
 
-def get_all_messages_channel(channel_id, auth_user_id):
+def get_all_messages_channel(auth_user_id):
     """ Returns a list of all message_id's of a channel"""
     store = data_store.get()
     messages = store['messages']
     message_ids = []
 
     for message in messages:
-        if message['channel_id'] == channel_id and auth_user_id in get_all_user_id_channel(channel_id):
+        if auth_user_id in get_all_user_id_channel(message['channel_id']):
             message_ids.append(message['message_id'])
 
     return message_ids
 
-def get_all_messages_dm(dm_id, auth_user_id):
+def get_all_messages_dm(auth_user_id):
     """ Returns a list of all message_id's of a DM"""
     store = data_store.get()
     messages = store['messages']
     message_ids = []
 
     for message in messages:
-        if message['dm_id'] == dm_id and is_user_authorised_dm(auth_user_id, dm_id):
+        if is_user_authorised_dm(auth_user_id, message['dm_id']):
             message_ids.append(message['message_id'])
 
     return message_ids
