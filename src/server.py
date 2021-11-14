@@ -15,7 +15,7 @@ from src.channels import channels_create_v1, channels_listall_v1, channels_list_
 from src.other import check_valid_token, clear_v1,return_token
 from src.data_store import data_store
 from src.message import message_pin, message_react, message_send_v1,message_remove_v1,message_edit_v1,message_send_dm_v1,\
-        message_unpin, message_unreact, message_share, message_search
+        message_unpin, message_unreact, message_share, message_search, message_sendlaterdm_v1
 from src.standup import standup_active_v1, standup_send_v1, standup_start_v1
 from src.user import user_profile_v1, user_profile_setname_v1, user_profile_setemail_v1, user_profile_sethandle_v1, \
                     notifications_get, user_stats_v1, user_profile_uploadphoto_v1
@@ -803,6 +803,35 @@ def search_v1():
     token = request.args.get('token')
     query_str = request.args.get('query_str')
     return dumps(message_search(token, query_str))
+
+@APP.route("/message/sendlaterdm/v1", methods=['POST'])
+def message_sendlaterdm_v1_post():
+    '''
+    Send a message from the authorised user to the dm specified by dm_id automatically at a specified time in the future
+    Arguments:
+        token (string)      - Token of user sending the message
+        dm_id (int)    - Unique ID of dm
+        message (string)    - Message user is sending
+        time_sent (int)     - The time the user message is executed
+
+    Exceptions:
+        Input Error:
+        - dm_id does not refer to a valid dm
+        - length of message is less than 1 or over 1000 characters
+        - time_sent is a time in the past
+
+        Access Error:
+        - dm_id is valid and the authorised user is not a member of the dm they are trying to post to
+
+    Return Value:
+        { message_id }
+    '''
+    request_data = request.get_json()
+    token = request_data['token']
+    dm_id = request_data['dm_id']
+    message = request_data['message']
+    time_sent = request_data['time_sent']
+    return dumps(message_sendlaterdm_v1(token, dm_id, message, time_sent))
 
 # Dm Routes
 

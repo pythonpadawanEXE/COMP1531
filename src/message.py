@@ -4,6 +4,7 @@ from src.other import check_valid_token, get_all_user_id_channel, is_user_author
 is_global_owner, update_user_stats_messages_sent, update_users_stats_messages_exist, is_channel_valid, is_dm_valid, \
 get_all_messages_channel, get_all_messages_dm, get_message_string, is_user_authorised,is_user_authorised,get_channel_name,get_dm_name
 import datetime
+import threading
 import re
 def message_send_dm_v1(auth_user_id, dm_id, message_input):
     '''
@@ -708,3 +709,97 @@ def message_share(token, og_message_id, channel_id, dm_id, message=''):
         shared_message_id = message_send_dm_v1(auth_user_id, dm_id, f"{original_msg_str} {message}")
 
     return {'shared_message_id': shared_message_id}
+
+def message_sendlaterdm_v1(token, dm_id, message, time_sent):
+    '''
+    Send a message from the authorised user to the dm specified by dm_id automatically at a specified time in the future
+    Arguments:
+        token (string)      - Token of user sending the message
+        dm_id (int)    - Unique ID of dm
+        message (string)    - Message user is sending
+        time_sent (int)     - The time the user message is executed
+
+    Exceptions:
+        Input Error:
+        - dm_id does not refer to a valid dm
+        - length of message is less than 1 or over 1000 characters
+        - time_sent is a time in the past
+
+        Access Error:
+        - dm_id is valid and the authorised user is not a member of the dm they are trying to post to
+
+    Return Value:
+        { message_id }
+    '''
+
+    # Verify user
+    auth_user_id = check_valid_token(token)['auth_user_id']
+
+    # dm_id is valid and the authorised user is not a member of the dm they are trying to post to
+    if (is_dm_valid(dm_id) and not is_user_authorised_dm(auth_user_id, dm_id)):
+        raise AccessError("dm_id is valid and the authorised user is not a member of the dm they are trying to post to")
+
+    # Check if dm is valid
+    if (not is_dm_valid(dm_id)):
+        raise InputError("dm_id does not refer to a valid dm")
+
+    # Check valid length of message
+    if (len(message) < 1 or len(message) > 1000):
+        raise InputError("length of message is less than 1 or over 1000 characters")
+
+    # Check if time_sent is in the past
+    if time_sent < int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()):
+        raise InputError("time_sent is in the past")
+
+    store = data_store.get()
+    store_messages = store['messages']
+    message_id = len(store_messages)
+
+    # create new message
+    new_message = {
+            'dm_id': dm_id,
+            'channel_id':  None,
+            'message_id': message_id,
+            'u_id': auth_user_id,
+            'message': message,
+            'time_created': int(datetime.datetime.utcnow()
+                            .replace(tzinfo= datetime.timezone.utc).timestamp()),
+            'reacts' : [],
+            'is_pinned': False
+            }
+    #insert message details into datastore
+    store_messages.append(new_message)
+
+    send_time = time_sent - int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
+    # Start timer in seperate thread
+    t = threading.Timer(send_time, append_message_to_dm, [auth_user_id, dm_id, message_id, new_message, message])
+    t.start()
+
+    data_store.set(store)
+    return {'message_id': message_id}
+
+def append_message_to_dm(auth_user_id, dm_id, message_id, new_message, message_input):
+    store = data_store.get()
+    dms = store['dms']
+
+    dm_name = None
+    for dm in dms:
+        if dm['dm_id'] == dm_id:
+            dm['messages'].insert(0,message_id)
+            dm_name = dm['name']
+            
+    #if message tags a user(s)
+    possible_tags = re.findall(r'(?<=@)[a-zA-Z0-9]*',message_input)
+    for tag in possible_tags:
+        for user in store['users']:
+            if tag == user['handle_str'] and is_user_authorised_dm(user['u_id'], dm_id) == True:
+                user['notifications'].append({
+                    'channel_id' : -1 ,
+                    'dm_id': dm_id,
+                    'notification_message':  f"{tag} tagged you in {dm_name}: {message_input[:20]}"  
+                })
+
+    data_store.set(store)
+    update_user_stats_messages_sent(auth_user_id, new_message['time_created'])
+    update_users_stats_messages_exist(int(1), new_message['time_created'])
+
