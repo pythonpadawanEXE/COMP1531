@@ -128,7 +128,14 @@ def test_valid_sendlater(setup):
     users, channel = setup
     _ = sendlater(users[0]['token'], channel['channel_id'], "Hello", int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()) + 5)
     sleep(5)
-    print(channel_messages_endpoint(users[0]['token'],channel['channel_id'],0)['messages'])
     messages = channel_messages_endpoint(users[0]['token'],channel['channel_id'],0)['messages']
     for message in messages:
         assert message['message'] == "Hello"
+
+def test_valid_sendlater_user_handle(setup):
+    users, channel = setup
+    _ = sendlater(users[0]['token'], channel['channel_id'], "@sethtilley, Hello", int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()) + 5)
+    sleep(5)
+    messages = channel_messages_endpoint(users[0]['token'],channel['channel_id'],0)['messages']
+    for message in messages:
+        assert message['message'] == "@sethtilley, Hello"

@@ -126,7 +126,6 @@ def test_valid_sendlater(setup):
     users, dm = setup
     sendlaterdm(users[0]['token'], dm['dm_id'], "Hello", int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()) + 5)
     sleep(5)
-    print(dm_messages_endpoint(users[0]['token'],dm['dm_id'],0)['messages'])
     messages= dm_messages_endpoint(users[0]['token'],dm['dm_id'],0)['messages']
     for message in messages:
         assert message['message'] == "Hello"
@@ -135,7 +134,6 @@ def test_valid_sendlater_user_handle(setup):
     users, dm = setup
     sendlaterdm(users[0]['token'], dm['dm_id'], "@sethtilley, Hello", int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp()) + 5)
     sleep(5)
-    print(dm_messages_endpoint(users[0]['token'],dm['dm_id'],0)['messages'])
     messages= dm_messages_endpoint(users[0]['token'],dm['dm_id'],0)['messages']
     for message in messages:
         assert message['message'] == "@sethtilley, Hello"
