@@ -54,7 +54,8 @@ def user_profile_v1(auth_user_id, u_id):
             'email' : target_user['email'],
             'name_first' : target_user['name_first'],
             'name_last'  : target_user['name_last'],
-            'handle_str' : target_user['handle_str']
+            'handle_str' : target_user['handle_str'],
+            'profile_img_url': target_user['profile_img_url']
         }
     }
 
