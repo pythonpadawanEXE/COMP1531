@@ -409,7 +409,6 @@ def message_pin(auth_user_id, message_id):
     # Find the target message
     store = data_store.get()
     messages = store['messages']
-    print(messages)
     target_message = {}
     for message in messages:
         if message['message'] is None:
@@ -676,8 +675,8 @@ def message_share(token, og_message_id, channel_id, dm_id, message=''):
 
     # og_message_id does not refer to a valid message within a channel/DM that the authorised user has joined
     # find all the messages in a channel/dm where the user is apart of and check if og_message_id is in them
-    channel_message_ids = get_all_messages_channel(channel_id, auth_user_id)
-    dm_message_ids = get_all_messages_dm(dm_id, auth_user_id)
+    channel_message_ids = get_all_messages_channel(auth_user_id)
+    dm_message_ids = get_all_messages_dm(auth_user_id)
 
     if (og_message_id not in channel_message_ids and og_message_id not in dm_message_ids):
         raise InputError(description="og_message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
