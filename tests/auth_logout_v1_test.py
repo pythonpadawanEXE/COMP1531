@@ -5,72 +5,74 @@ from src.error import InputError,AccessError
 import requests
 from src.data_store import data_store
 from src.other import check_valid_token,decode_jwt,clear_v1
+from tests.helper_test_funcs import  register_valid_user,login_invalid_user,\
+    login_valid_user,logout_invalid_user,logout_valid_user,token_validity_check_pytest
 
 BASE_URL = config.url
 
-@pytest.fixture(autouse=True)
-def setup():
-    #set to clear memory state for blackbox testing
-    '''A fixture to clear the state for each test'''
-    response = requests.delete(f"{BASE_URL}/clear/v1")
-    assert response.status_code == 200
-    assert response.json() == {}
+# @pytest.fixture(autouse=True)
+# def setup():
+#     #set to clear memory state for blackbox testing
+#     '''A fixture to clear the state for each test'''
+#     response = requests.delete(f"{BASE_URL}/clear/v1")
+#     assert response.status_code == 200
+#     assert response.json() == {}
 
-def token_validity_check_pytest(token,store):
-    decoded_token = decode_jwt(token)
-    users = store['users']
-    for user in users:
-        if user['u_id'] == decoded_token['auth_user_id']:
-            for session_id in user['sessions']:
-                if session_id == decoded_token['session_id']:
-                    return {'auth_user_id':decoded_token['auth_user_id'],'session_id':decoded_token['session_id']}
-    raise AccessError(description="Invalid Token")
+# def token_validity_check_pytest(token,store):
+#     decoded_token = decode_jwt(token)
+#     users = store['users']
+#     for user in users:
+#         if user['u_id'] == decoded_token['auth_user_id']:
+#             for session_id in user['sessions']:
+#                 if session_id == decoded_token['session_id']:
+#                     return {'auth_user_id':decoded_token['auth_user_id'],'session_id':decoded_token['session_id']}
+#     raise AccessError(description="Invalid Token")
 
-def register_valid_user(email = 'validemail@gmail.com',password = '123abc!@#',name_first ='Hayden',name_last = 'Everest' ):
-    response = requests.post(f"{BASE_URL}/auth/register/v2",json={
-        'email' : email,
-        'password' : password,
-        'name_first' : name_first,
-        'name_last' : name_last
-    })
-    assert response.status_code == 200
-    response_data = response.json()
-    assert isinstance(response_data['token'],str)
-    assert isinstance(response_data['auth_user_id'],int)
-    return response_data
+# def register_valid_user(email = 'validemail@gmail.com',password = '123abc!@#',name_first ='Hayden',name_last = 'Everest' ):
+#     response = requests.post(f"{BASE_URL}/auth/register/v2",json={
+#         'email' : email,
+#         'password' : password,
+#         'name_first' : name_first,
+#         'name_last' : name_last
+#     })
+#     assert response.status_code == 200
+#     response_data = response.json()
+#     assert isinstance(response_data['token'],str)
+#     assert isinstance(response_data['auth_user_id'],int)
+#     return response_data
 
-def login_valid_user(email = 'validemail@gmail.com',password = '123abc!@#'):
-    response = requests.post(f"{BASE_URL}/auth/login/v2",json={
-        'email' : email,
-        'password' : password
-    })
-    assert response.status_code == 200
-    response_data = response.json()
-    assert isinstance(response_data['token'],str)
-    assert isinstance(response_data['auth_user_id'],int)
-    return response_data
-
-
-def logout_invalid_user(token):
-    response = requests.post(f"{BASE_URL}/auth/logout/v1",json={
-        'token' : token
-    })
-    assert response.status_code == 403
+# def login_valid_user(email = 'validemail@gmail.com',password = '123abc!@#'):
+#     response = requests.post(f"{BASE_URL}/auth/login/v2",json={
+#         'email' : email,
+#         'password' : password
+#     })
+#     assert response.status_code == 200
+#     response_data = response.json()
+#     assert isinstance(response_data['token'],str)
+#     assert isinstance(response_data['auth_user_id'],int)
+#     return response_data
 
 
-def logout_valid_user(token):
-    response = requests.post(f"{BASE_URL}/auth/logout/v1",json={
-        'token' : token
-    })
-    assert response.status_code == 200
-    assert response.json() == {}
-    store = (requests.get(f"{BASE_URL}/get_data")).json()
-    with pytest.raises(AccessError):
-        token_validity_check_pytest(token,store)
+# def logout_invalid_user(token):
+#     response = requests.post(f"{BASE_URL}/auth/logout/v1",json={
+#         'token' : token
+#     })
+#     assert response.status_code == 403
+
+
+# def logout_valid_user(token):
+#     response = requests.post(f"{BASE_URL}/auth/logout/v1",json={
+#         'token' : token
+#     })
+#     assert response.status_code == 200
+#     assert response.json() == {}
+#     store = (requests.get(f"{BASE_URL}/get_data")).json()
+#     with pytest.raises(AccessError):
+#         token_validity_check_pytest(token,store)
 '''
 Valid Input
 '''
-def test_invalidate_token_one_user(setup):
+def test_invalidate_token_one_user():
     response_data = register_valid_user()
     response_data = login_valid_user()
     token = response_data['token']

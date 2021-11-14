@@ -4,6 +4,8 @@ import jwt
 import datetime
 from src.data_store import data_store
 from src.error import InputError,AccessError
+import random
+import string
 
 SESSION_TRACKER = 0
 SECRET = 'COMP1531'
@@ -16,6 +18,10 @@ def clear_v1():
     store['permissions'].clear()
     store['dms'].clear()
     store['messages'].clear()
+    store['password_reset_codes'].clear()
+    store['workspace_stats']['channels_exist'].clear()
+    store['workspace_stats']['dms_exist'].clear()
+    store['workspace_stats']['messages_exist'].clear()
     data_store.set(store)
     return {}
 
@@ -199,6 +205,33 @@ def search_duplicate_email(email):
         if Object['email'] == email:
             count += 1
     return count
+'''
+generates a password resetcode and creates a resetcode email dict pair
+'''
+def generate_password_reset_code(email):
+    store = data_store.get()
+    users = store['users']
+    for Object in users:
+        if Object['email'] == email:
+            output_string = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(24))
+            store['password_reset_codes'].append({
+                'auth_user_id' : Object['u_id'],
+                'password_reset_code' : output_string
+            })
+            data_store.set(store) 
+            return output_string
+'''
+checks reset code exists in the list of reset codes
+'''
+
+def is_valid_reset_code(reset_code):
+    store = data_store.get()
+    email_code_pairs = store['password_reset_codes']
+    for pair in email_code_pairs:
+        if pair['password_reset_code'] == reset_code:
+            return pair['auth_user_id']
+    return None
+
 
 # Check if a given handle already exists in the datastore
 def is_handle_exist(handle_str):
@@ -247,8 +280,7 @@ def is_global_owner(auth_user_id):
         if auth_user_id == user['u_id']:
             if user['permission_id'] == 1:
                 return True
-            else:
-                return False
+
     return False
 
 def return_token(auth_user_id):
@@ -504,6 +536,42 @@ def get_global_owners():
             global_owners.append(user)
     return global_owners
 
+def get_all_messages_channel(channel_id, auth_user_id):
+    """ Returns a list of all message_id's of a channel"""
+    store = data_store.get()
+    messages = store['messages']
+    message_ids = []
+
+    for message in messages:
+        if message['channel_id'] == channel_id and auth_user_id in get_all_user_id_channel(channel_id):
+            message_ids.append(message['message_id'])
+
+    return message_ids
+
+def get_all_messages_dm(dm_id, auth_user_id):
+    """ Returns a list of all message_id's of a DM"""
+    store = data_store.get()
+    messages = store['messages']
+    message_ids = []
+
+    for message in messages:
+        if message['dm_id'] == dm_id and is_user_authorised_dm(auth_user_id, dm_id):
+            message_ids.append(message['message_id'])
+
+    return message_ids
+
+def get_message_string(message_id):
+    """ Returns the string of a message"""
+    store = data_store.get()
+    messages = store['messages']
+    message_string = ""
+
+    for message in messages:
+        if message['message_id'] == message_id:
+            message_string = message['message']
+
+    return message_string
+
 def create_notification(uid, channel_id, dm_id, notification_message):
     """ Creates a notification and appends to uid user datastore """
 
@@ -529,7 +597,7 @@ def get_user_handle(u_id):
     
     return handle
 
-def update_user_stats_channel_join(auth_user_id):
+def update_user_stats_channel_join(auth_user_id, time_stamp):
     store = data_store.get()
     users_store = store['users']
 
@@ -537,13 +605,13 @@ def update_user_stats_channel_join(auth_user_id):
         if user['u_id'] == auth_user_id:
             new_channel_joined_stats = {
                 'num_channels_joined': int(user['user_stats']['channels_joined'][-1]['num_channels_joined']) + 1,
-                'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
+                'time_stamp': time_stamp
             }
             user['user_stats']['channels_joined'].append(new_channel_joined_stats)
 
     data_store.set(store)
 
-def update_user_stats_channel_leave(auth_user_id):
+def update_user_stats_channel_leave(auth_user_id, time_stamp):
     store = data_store.get()
     users_store = store['users']
 
@@ -551,13 +619,13 @@ def update_user_stats_channel_leave(auth_user_id):
         if user['u_id'] == auth_user_id:
             new_channel_joined_stats = {
                 'num_channels_joined': int(user['user_stats']['channels_joined'][-1]['num_channels_joined']) - 1,
-                'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
+                'time_stamp': time_stamp
             }
             user['user_stats']['channels_joined'].append(new_channel_joined_stats)
 
     data_store.set(store)
 
-def update_user_stats_dm_join(auth_user_id):
+def update_user_stats_dm_join(auth_user_id, time_stamp):
     store = data_store.get()
     users_store = store['users']
 
@@ -565,13 +633,13 @@ def update_user_stats_dm_join(auth_user_id):
         if user['u_id'] == auth_user_id:
             new_dm_joined_stats = {
                 'num_dms_joined': int(user['user_stats']['dms_joined'][-1]['num_dms_joined']) + 1,
-                'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
+                'time_stamp': time_stamp
             }
             user['user_stats']['dms_joined'].append(new_dm_joined_stats)
 
     data_store.set(store)
 
-def update_user_stats_dm_leave(auth_user_id):
+def update_user_stats_dm_leave(auth_user_id, time_stamp):
     store = data_store.get()
     users_store = store['users']
 
@@ -579,7 +647,7 @@ def update_user_stats_dm_leave(auth_user_id):
         if user['u_id'] == auth_user_id:
             new_dm_joined_stats = {
                 'num_dms_joined': int(user['user_stats']['dms_joined'][-1]['num_dms_joined']) - 1,
-                'time_stamp': int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
+                'time_stamp': time_stamp
             }
             user['user_stats']['dms_joined'].append(new_dm_joined_stats)
 
@@ -619,3 +687,53 @@ def get_user_involvement_rate(auth_user_id):
         involvement_rate = 1
     
     return involvement_rate
+
+def update_users_stats_channels_exist(change, time_stamp):
+    store  = data_store.get()
+    workspace_stats = store['workspace_stats']
+    channels_exist_stats = workspace_stats['channels_exist']
+
+    new_channels_exist_stats = {'num_channels_exist': channels_exist_stats[-1]['num_channels_exist'] + int(change), 
+                                'time_stamp': time_stamp}
+    
+    channels_exist_stats.append(new_channels_exist_stats)
+
+    data_store.set(store)
+
+def update_users_stats_dms_exist(change, time_stamp):
+    store  = data_store.get()
+    workspace_stats = store['workspace_stats']
+    dms_exist_stats = workspace_stats['dms_exist']
+
+    new_dms_exist_stats = {'num_dms_exist': dms_exist_stats[-1]['num_dms_exist'] + int(change), 
+                           'time_stamp': time_stamp}
+    
+    dms_exist_stats.append(new_dms_exist_stats)
+
+    data_store.set(store)
+
+def update_users_stats_messages_exist(change, time_stamp):
+    store  = data_store.get()
+    workspace_stats = store['workspace_stats']
+    messages_exist_stats = workspace_stats['messages_exist']
+
+    new_messages_exist_stats = {'num_messages_exist': messages_exist_stats[-1]['num_messages_exist'] + int(change), 
+                                'time_stamp': time_stamp}
+    
+    messages_exist_stats.append(new_messages_exist_stats)
+
+    data_store.set(store)
+
+def get_utilization_rate():
+    store  = data_store.get()
+    users_store = store['users']
+    num_users_who_have_joined_at_least_one_channel_or_dm = 0
+    num_user = len(users_store)
+    for user in users_store:
+        if user['user_stats']['channels_joined'][-1]['num_channels_joined'] != 0 or user['user_stats']['dms_joined'][-1]['num_dms_joined'] != 0:
+            num_users_who_have_joined_at_least_one_channel_or_dm = num_users_who_have_joined_at_least_one_channel_or_dm + 1
+    
+    utilization_rate = float(num_users_who_have_joined_at_least_one_channel_or_dm / num_user)
+
+    return utilization_rate
+

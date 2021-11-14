@@ -134,12 +134,12 @@ def test_valid_user_stats(setup):
     send_message_dm(users[1]['token'], 1, "Hello world")
     stats = user_stats(users[1]['token'])
 
-    assert stats['channels_joined'][0]['num_channels_joined'] == 0
-    assert stats['dms_joined'][0]['num_dms_joined'] == 0
-    assert stats['dms_joined'][1]['num_dms_joined'] == 1
-    assert stats['messages_sent'][0]['num_messages_sent'] == 0
-    assert stats['messages_sent'][1]['num_messages_sent'] == 1
-    assert stats['involvement_rate'] == float(1/2)
+    assert stats['user_stats']['channels_joined'][0]['num_channels_joined'] == 0
+    assert stats['user_stats']['dms_joined'][0]['num_dms_joined'] == 0
+    assert stats['user_stats']['dms_joined'][1]['num_dms_joined'] == 1
+    assert stats['user_stats']['messages_sent'][0]['num_messages_sent'] == 0
+    assert stats['user_stats']['messages_sent'][1]['num_messages_sent'] == 1
+    assert stats['user_stats']['involvement_rate'] == float(1/2)
 
 def test_user_stats_channel_join(setup):
     users = setup
@@ -150,13 +150,13 @@ def test_user_stats_channel_join(setup):
     send_message_dm(users[1]['token'], 1, "Hello world")
     stats = user_stats(users[1]['token'])
 
-    assert stats['channels_joined'][0]['num_channels_joined'] == 0
-    assert stats['channels_joined'][1]['num_channels_joined'] == 1
-    assert stats['dms_joined'][0]['num_dms_joined'] == 0
-    assert stats['dms_joined'][1]['num_dms_joined'] == 1
-    assert stats['messages_sent'][0]['num_messages_sent'] == 0
-    assert stats['messages_sent'][1]['num_messages_sent'] == 1
-    assert stats['involvement_rate'] == float(3/4)
+    assert stats['user_stats']['channels_joined'][0]['num_channels_joined'] == 0
+    assert stats['user_stats']['channels_joined'][1]['num_channels_joined'] == 1
+    assert stats['user_stats']['dms_joined'][0]['num_dms_joined'] == 0
+    assert stats['user_stats']['dms_joined'][1]['num_dms_joined'] == 1
+    assert stats['user_stats']['messages_sent'][0]['num_messages_sent'] == 0
+    assert stats['user_stats']['messages_sent'][1]['num_messages_sent'] == 1
+    assert stats['user_stats']['involvement_rate'] == float(3/4)
 
 def test_user_stats_channel_invite(setup):
     users = setup
@@ -167,13 +167,13 @@ def test_user_stats_channel_invite(setup):
     send_message_dm(users[1]['token'], 1, "Hello world")
     stats = user_stats(users[1]['token'])
 
-    assert stats['channels_joined'][0]['num_channels_joined'] == 0
-    assert stats['channels_joined'][1]['num_channels_joined'] == 1
-    assert stats['dms_joined'][0]['num_dms_joined'] == 0
-    assert stats['dms_joined'][1]['num_dms_joined'] == 1
-    assert stats['messages_sent'][0]['num_messages_sent'] == 0
-    assert stats['messages_sent'][1]['num_messages_sent'] == 1
-    assert stats['involvement_rate'] == float(3/4)
+    assert stats['user_stats']['channels_joined'][0]['num_channels_joined'] == 0
+    assert stats['user_stats']['channels_joined'][1]['num_channels_joined'] == 1
+    assert stats['user_stats']['dms_joined'][0]['num_dms_joined'] == 0
+    assert stats['user_stats']['dms_joined'][1]['num_dms_joined'] == 1
+    assert stats['user_stats']['messages_sent'][0]['num_messages_sent'] == 0
+    assert stats['user_stats']['messages_sent'][1]['num_messages_sent'] == 1
+    assert stats['user_stats']['involvement_rate'] == float(3/4)
 
 def test_user_stats_channel_leave(setup):
     users = setup
@@ -185,14 +185,14 @@ def test_user_stats_channel_leave(setup):
     send_message_dm(users[1]['token'], 1, "Hello world")
     stats = user_stats(users[1]['token'])
 
-    assert stats['channels_joined'][0]['num_channels_joined'] == 0
-    assert stats['channels_joined'][1]['num_channels_joined'] == 1
-    assert stats['channels_joined'][2]['num_channels_joined'] == 0
-    assert stats['dms_joined'][0]['num_dms_joined'] == 0
-    assert stats['dms_joined'][1]['num_dms_joined'] == 1
-    assert stats['messages_sent'][0]['num_messages_sent'] == 0
-    assert stats['messages_sent'][1]['num_messages_sent'] == 1
-    assert stats['involvement_rate'] == float(1/2)
+    assert stats['user_stats']['channels_joined'][0]['num_channels_joined'] == 0
+    assert stats['user_stats']['channels_joined'][1]['num_channels_joined'] == 1
+    assert stats['user_stats']['channels_joined'][2]['num_channels_joined'] == 0
+    assert stats['user_stats']['dms_joined'][0]['num_dms_joined'] == 0
+    assert stats['user_stats']['dms_joined'][1]['num_dms_joined'] == 1
+    assert stats['user_stats']['messages_sent'][0]['num_messages_sent'] == 0
+    assert stats['user_stats']['messages_sent'][1]['num_messages_sent'] == 1
+    assert stats['user_stats']['involvement_rate'] == float(1/2)
 
 def test_user_stats_dm_leave(setup):
     users = setup
@@ -203,13 +203,13 @@ def test_user_stats_dm_leave(setup):
     dm_leave(users[1]['token'], 1)
     stats = user_stats(users[1]['token'])
 
-    assert stats['channels_joined'][0]['num_channels_joined'] == 0
-    assert stats['dms_joined'][0]['num_dms_joined'] == 0
-    assert stats['dms_joined'][1]['num_dms_joined'] == 1
-    assert stats['dms_joined'][2]['num_dms_joined'] == 0
-    assert stats['messages_sent'][0]['num_messages_sent'] == 0
-    assert stats['messages_sent'][1]['num_messages_sent'] == 1
-    assert stats['involvement_rate'] == float(1/4)
+    assert stats['user_stats']['channels_joined'][0]['num_channels_joined'] == 0
+    assert stats['user_stats']['dms_joined'][0]['num_dms_joined'] == 0
+    assert stats['user_stats']['dms_joined'][1]['num_dms_joined'] == 1
+    assert stats['user_stats']['dms_joined'][2]['num_dms_joined'] == 0
+    assert stats['user_stats']['messages_sent'][0]['num_messages_sent'] == 0
+    assert stats['user_stats']['messages_sent'][1]['num_messages_sent'] == 1
+    assert stats['user_stats']['involvement_rate'] == float(1/4)
 
 def test_user_stats_dm_remove(setup):
     users = setup
@@ -220,10 +220,10 @@ def test_user_stats_dm_remove(setup):
     dm_remove(users[1]['token'], 1)
     stats = user_stats(users[1]['token'])
 
-    assert stats['channels_joined'][0]['num_channels_joined'] == 0
-    assert stats['dms_joined'][0]['num_dms_joined'] == 0
-    assert stats['dms_joined'][1]['num_dms_joined'] == 1
-    assert stats['dms_joined'][2]['num_dms_joined'] == 0
-    assert stats['messages_sent'][0]['num_messages_sent'] == 0
-    assert stats['messages_sent'][1]['num_messages_sent'] == 1
-    assert stats['involvement_rate'] == float(1/3)
+    assert stats['user_stats']['channels_joined'][0]['num_channels_joined'] == 0
+    assert stats['user_stats']['dms_joined'][0]['num_dms_joined'] == 0
+    assert stats['user_stats']['dms_joined'][1]['num_dms_joined'] == 1
+    assert stats['user_stats']['dms_joined'][2]['num_dms_joined'] == 0
+    assert stats['user_stats']['messages_sent'][0]['num_messages_sent'] == 0
+    assert stats['user_stats']['messages_sent'][1]['num_messages_sent'] == 1
+    assert stats['user_stats']['involvement_rate'] == float(1/3)

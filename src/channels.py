@@ -11,7 +11,8 @@ Functions:
 
 from src.data_store import data_store
 from src.error import InputError
-from src.other import check_valid_token, update_user_stats_channel_join
+from src.other import check_valid_token, update_user_stats_channel_join, update_users_stats_channels_exist
+import datetime
 
 def channels_list_v1(auth_user_id):
     """ Lists all channels that the given user id is a member of.
@@ -112,8 +113,10 @@ def channels_create_v1(auth_user_id, name, is_public):
         'standup' : {}
         }
     channels.append(new_channel)
+    time_stamp = int(datetime.datetime.utcnow().replace(tzinfo= datetime.timezone.utc).timestamp())
     data_store.set(store)
-    update_user_stats_channel_join(auth_user_id)
+    update_user_stats_channel_join(auth_user_id, time_stamp)
+    update_users_stats_channels_exist(int(1), time_stamp)
     return {
         'channel_id' : new_channel['id']
     }
