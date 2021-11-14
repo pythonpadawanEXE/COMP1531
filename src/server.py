@@ -15,7 +15,7 @@ from src.channels import channels_create_v1, channels_listall_v1, channels_list_
 from src.other import check_valid_token, clear_v1,return_token
 from src.data_store import data_store
 from src.message import message_pin, message_react, message_send_v1,message_remove_v1,message_edit_v1,message_send_dm_v1,\
-        message_unpin, message_unreact, message_share, message_search
+        message_unpin, message_unreact, message_share, message_search, message_sendlater, message_sendlaterdm_v1
 from src.standup import standup_active_v1, standup_send_v1, standup_start_v1
 from src.user import user_profile_v1, user_profile_setname_v1, user_profile_setemail_v1, user_profile_sethandle_v1, \
                     notifications_get, user_stats_v1, user_profile_uploadphoto_v1
@@ -538,6 +538,35 @@ def post_message_send():
     data_store.save()
     return dumps(message_id)
 
+@APP.route("/message/sendlater/v1", methods=['POST'])
+def message_sendlater_v1():
+    '''
+    Send a message from the authorised user to the channel specified by channel_id automatically at a specified time in the future
+    Arguments:
+        token (string)      - Token of user sending the message
+        channel_id (int)    - Unique ID of channel
+        message (string)    - Message user is sending
+        time_sent (int)     - The time the user message is executed
+
+    Exceptions:
+        Input Error:
+        - channel_id does not refer to a valid channel
+        - length of message is less than 1 or over 1000 characters
+        - time_sent is a time in the past
+
+        Access Error:
+        - channel_id is valid and the authorised user is not a member of the channel they are trying to post to
+
+    Return Value:
+        { message_id }
+    '''
+    request_data = request.get_json()
+    token = request_data['token']
+    channel_id = request_data['channel_id']
+    message = request_data['message']
+    time_sent = request_data['time_sent']
+    return dumps(message_sendlater(token, channel_id, message, time_sent))
+
 @APP.route("/message/senddm/v1", methods=['POST'])
 def post_message_dm_send():
     '''
@@ -803,6 +832,35 @@ def search_v1():
     token = request.args.get('token')
     query_str = request.args.get('query_str')
     return dumps(message_search(token, query_str))
+
+@APP.route("/message/sendlaterdm/v1", methods=['POST'])
+def message_sendlaterdm_v1_post():
+    '''
+    Send a message from the authorised user to the dm specified by dm_id automatically at a specified time in the future
+    Arguments:
+        token (string)      - Token of user sending the message
+        dm_id (int)    - Unique ID of dm
+        message (string)    - Message user is sending
+        time_sent (int)     - The time the user message is executed
+
+    Exceptions:
+        Input Error:
+        - dm_id does not refer to a valid dm
+        - length of message is less than 1 or over 1000 characters
+        - time_sent is a time in the past
+
+        Access Error:
+        - dm_id is valid and the authorised user is not a member of the dm they are trying to post to
+
+    Return Value:
+        { message_id }
+    '''
+    request_data = request.get_json()
+    token = request_data['token']
+    dm_id = request_data['dm_id']
+    message = request_data['message']
+    time_sent = request_data['time_sent']
+    return dumps(message_sendlaterdm_v1(token, dm_id, message, time_sent))
 
 # Dm Routes
 
@@ -1076,6 +1134,20 @@ def user_stats_v1_get():
 # user_profile_uploadphoto_v1
 @APP.route("/user/profile/uploadphoto/v1", methods=['POST'])
 def user_profile_uploadphoto_v1_post():
+    """ For a valid user, returns information about their user_id, email, first name, last name, and handle
+    
+        Arguments:
+            auth_user_id (int)    - The user ID of the user who is calling user_profile_v1.
+            u_id (int)            - The user ID of the user who's profile is being sent.
+
+        Exceptions:
+            InputError  - u_id does not refer to a valid user,
+
+            AccessError - the authorised user does not exist
+
+        Return Value:
+            Returns { user } on successful completion.
+    """
     request_data = request.get_json()
     token = request_data['token']
     img_url = request_data['img_url']
