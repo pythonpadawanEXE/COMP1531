@@ -1,8 +1,8 @@
 from src.data_store import data_store
 from src.error import InputError,AccessError
-from src.other import check_valid_token, get_all_user_id_channel, is_user_authorised_dm,is_user_channel_owner,is_user_dm_owner,\
+from src.other import check_valid_token, get_all_user_id_channel, is_user_authorised_dm, is_user_authorised, is_user_channel_owner,is_user_dm_owner,\
 is_global_owner, update_user_stats_messages_sent, update_users_stats_messages_exist, is_channel_valid, is_dm_valid, \
-get_all_messages_channel, get_all_messages_dm, get_message_string, is_user_authorised, is_user_member_of_channel, get_channel_name, get_dm_name
+get_all_messages_channel, get_all_messages_dm, get_message_string, get_channel_name, get_dm_name
 import datetime
 import threading
 import re
@@ -96,7 +96,7 @@ def message_send_dm_v1(auth_user_id, dm_id, message_input):
     update_users_stats_messages_exist(int(1), new_message['time_created'])
     return {'message_id': message_id}
 
-def message_send_v1(auth_user_id, channel_id, message_input, message_id=len(store_messages)):
+def message_send_v1(auth_user_id, channel_id, message_input, message_id=None):
     '''
     Send a message from the authorised user to the 
     channel specified by channel_id. Note: Each message 
@@ -146,6 +146,10 @@ def message_send_v1(auth_user_id, channel_id, message_input, message_id=len(stor
     #raise error if channel does not exist
     if channel_exists == False:
         raise InputError("Channel ID is not valid or does not exist.")
+
+    # Get new message ID if none is provided
+    if message_id == None:
+        message_id = len(store_messages)
 
     #create new message
     new_message ={
@@ -718,7 +722,7 @@ def message_sendlater_v1(token, channel_id, message, time_sent):
     auth_user_id = check_valid_token(token)['auth_user_id']
 
     # channel_id is valid and the authorised user is not a member of the channel they are trying to post to
-    if (is_channel_valid(channel_id) and not is_user_member_of_channel(auth_user_id, channel_id)):
+    if (is_channel_valid(channel_id) and not is_user_authorised(auth_user_id, channel_id)):
         raise AccessError("channel_id is valid and the authorised user is not a member of the channel they are trying to post to")
 
     # Check if channel is valid
