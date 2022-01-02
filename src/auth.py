@@ -133,6 +133,18 @@ def auth_register_v1(email, password, name_first, name_last):
         'auth_user_id': u_id,
     }
 
+def logout_everywhere(email):
+    '''
+    Logouts of all sessions by deleting all session IDs
+    '''
+    store = data_store.get()
+    users = store['users']
+    for user in users:
+        for idx,session in enumerate(user['sessions']):
+            if user['email'] == email:
+                del user['sessions'][idx]   
+
+
 def auth_logout_v1(token):
     """ Given a token deocdes the token and removes the session_id assosciated with that token from the database.
 
@@ -185,7 +197,8 @@ def auth_password_reset_request(email):
     """
     #check valid email
     if search_duplicate_email(email) == 1:
-        code = generate_password_reset_code(email)    
+        code = generate_password_reset_code(email)
+        logout_everywhere(email)    
         smtp = smtplib.SMTP('smtp.gmail.com', 587)
         smtp.ehlo()
         smtp.starttls()

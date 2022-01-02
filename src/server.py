@@ -1305,4 +1305,4 @@ def clear_all_data():
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, quit_gracefully)
-    APP.run(port=config.port)
+    APP.run(port=config.port,debug=True)

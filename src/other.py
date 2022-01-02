@@ -51,6 +51,7 @@ def is_user_channel_owner(auth_user_id, channel_id):
 
     return is_authorised
 
+
 # Checks if user with auth_user_id is in channel with channel_id
 def is_user_authorised(auth_user_id, channel_id):
     is_authorised = False
