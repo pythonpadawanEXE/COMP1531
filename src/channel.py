@@ -331,6 +331,7 @@ def channel_addowner_v1(token, channel_id, u_id):
     # List containing global owners
     global_owners_list = get_global_owners()
     
+    
     # channel_id is valid and the authorised user does not have owner permissions in the channel
     if (is_channel_valid(channel_id) and auth_user_id not in channel_owners_list and auth_user_id not in global_owners_list):
         raise AccessError(description="channel_id is valid and the authorised user does not have owner permissions in the channel.")

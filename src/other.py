@@ -537,7 +537,7 @@ def get_global_owners():
     global_owners = []
     for user in users_store:
         if user['permission_id'] == 1:
-            global_owners.append(user)
+            global_owners.append(user['u_id'])
     return global_owners
 
 def get_all_messages_channel(auth_user_id):

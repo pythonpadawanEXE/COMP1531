@@ -30,7 +30,7 @@ def test_valid_message():
     msg = message_send_endpoint(user['token'],channel['channel_id'], msg_text)
     
     ch_msgs,_ = channel_messages_endpoint(user['token'],channel['channel_id'], 0)
-    
+    print(ch_msgs)
     assert ch_msgs['messages'][0]['message_id'] == msg['message_id']
 
 def test_valid_start_index_1_endpoint(create_messages_endpoint):

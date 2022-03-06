@@ -1,0 +1,5643 @@
+[33mcommit c5258cfea2252c28a9f32f11447d41cdec131b9b[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Merge: 256b3dd b69b3f0
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Jan 2 17:58:13 2022 +1100
+
+    ..
+
+[33mcommit 256b3ddc24fac816eace9a05819a82bd6ce12c71[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Jan 2 17:56:36 2022 +1100
+
+    ...
+
+[33mcommit b69b3f0c9249608365b7ec8fef344aea2d13f559[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 47faeb2 57d2c77
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Mon Nov 15 09:55:49 2021 +1100
+
+    Merge branch 'revert-47faeb2d' into 'master'
+    
+    Revert "Merge branch 'z5364199-master-patch-75086' into 'master'"
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!149
+
+[33mcommit 57d2c777e90dd2ee6f55404d81b736acabc1b067[m
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Mon Nov 15 09:55:35 2021 +1100
+
+    Revert "Merge branch 'z5364199-master-patch-75086' into 'master'"
+    
+    This reverts merge request !148
+
+[33mcommit 47faeb2da2f04686c3807b2448a9e2d5dfbc0e3b[m
+Merge: c1efd16 1484c3d
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Mon Nov 15 09:35:56 2021 +1100
+
+    Merge branch 'z5364199-master-patch-75086' into 'master'
+    
+    Update config.py
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!148
+
+[33mcommit 1484c3d4dfa36fd329c31a6fc6ded4887765ffe7[m
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Mon Nov 15 09:35:50 2021 +1100
+
+    Update config.py
+
+[33mcommit c1efd16fafa24a27ffab7fa32344b19f34cbe54d[m
+Merge: 3b24bb8 b7118b6
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Mon Nov 15 09:24:58 2021 +1100
+
+    Merge branch 'z5364199-master-patch-12809' into 'master'
+    
+    Update config.py
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!147
+
+[33mcommit b7118b6996b8fd4900ef25298c5ca93418be5023[m
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Mon Nov 15 09:24:48 2021 +1100
+
+    Update config.py
+
+[33mcommit 3b24bb853e7411e2131e9f8fd7f7e2018e2ee95b[m
+Merge: 8965eae 33a0211
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Mon Nov 15 09:18:02 2021 +1100
+
+    Merge branch 'z5364199-master-patch-46895' into 'master'
+    
+    Update deploy.sh
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!146
+
+[33mcommit 33a02114315ae16e7e0591f40fffc6599c60e96b[m
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Mon Nov 15 09:17:42 2021 +1100
+
+    Update deploy.sh
+
+[33mcommit 8965eae3cf07dd58c33df903ecf6a9f2d6be00fb[m
+Merge: c9f98f6 4d47a41
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Mon Nov 15 07:55:10 2021 +1100
+
+    Merge branch 'revert-c9f98f69' into 'master'
+    
+    Revert "Merge branch 'deployment' into 'master'"
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!145
+
+[33mcommit 4d47a416dd5ae91e6d6747c5b7aa562b4b666d7f[m
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Mon Nov 15 07:50:12 2021 +1100
+
+    Revert "Merge branch 'deployment' into 'master'"
+    
+    This reverts merge request !144
+
+[33mcommit c9f98f69b964b7bf5a9ed4e2ff1d1302fccfc47f[m
+Merge: 20216a0 a584c78
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Mon Nov 15 07:35:29 2021 +1100
+
+    Merge branch 'deployment' into 'master'
+    
+    Deployment files
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!144
+
+[33mcommit a584c78ab14d989d39fa0145b71b008fc2e447d4[m[33m ([m[1;31morigin/deployment[m[33m)[m
+Author: Mahi <starexify@gmail.com>
+Date:   Mon Nov 15 07:32:27 2021 +1100
+
+    Added files for Heroku deployment
+
+[33mcommit ec400d6b7ba2eafd91a9a53cbf59618eefdce3b5[m
+Merge: fb98562 20216a0
+Author: Mahi <starexify@gmail.com>
+Date:   Mon Nov 15 07:29:03 2021 +1100
+
+    Merge branch 'master' into deployment
+
+[33mcommit 20216a0c45f7a683e112b327f6f52f42ed81ad9c[m
+Merge: a6f4977 024f05b
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Mon Nov 15 07:28:21 2021 +1100
+
+    Merge branch 'message_sendlater_v1' into 'master'
+    
+    Added tests and fixed function message_sendlater_v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!141
+
+[33mcommit 024f05b5fa1ab519afce2ac3798505e8ffe4c7d1[m[33m ([m[1;31morigin/message_sendlater_v1[m[33m)[m
+Author: Mahi <starexify@gmail.com>
+Date:   Mon Nov 15 07:26:47 2021 +1100
+
+    Added a test for tagging user in message sendlater
+
+[33mcommit b28f24ab2e5aef08b6693c59704fb63e5f3f640c[m
+Merge: 751d579 a6f4977
+Author: Mahi <starexify@gmail.com>
+Date:   Mon Nov 15 07:22:30 2021 +1100
+
+    Resolved conflicts
+
+[33mcommit a6f49778c65c4d44c4e6443f859489d8efe54433[m
+Merge: 83df9da 311bb9f
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Mon Nov 15 07:01:33 2021 +1100
+
+    Merge branch 'message_sendlaterdm_v1' into 'master'
+    
+    modified sendlaterdm
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!143
+
+[33mcommit 311bb9fef19bb00cc7889fc1a003b6a645f35226[m[33m ([m[1;31morigin/message_sendlaterdm_v1[m[33m)[m
+Merge: 4fbdd21 83df9da
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Mon Nov 15 01:49:51 2021 +0800
+
+    add 2 commit forward
+
+[33mcommit 4fbdd21e180ed4364a38f3dce2ac05fa0628e010[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Mon Nov 15 01:10:29 2021 +0800
+
+    improving coverage
+
+[33mcommit af98e9dc047ee5cd1f86bfe1806398027c70efd9[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Mon Nov 15 00:38:17 2021 +0800
+
+    modified sendlaterdm
+
+[33mcommit 83df9da75ae3f951e91f8dd3d0a59e8ef6478a4b[m
+Merge: fb77964 6ee8d68
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Mon Nov 15 03:07:47 2021 +1100
+
+    Merge branch 'z5165158-master-patch-82609' into 'master'
+    
+    Upload New File
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!142
+
+[33mcommit fb98562b24631f951b9ae093b16453194f2a1c0a[m
+Author: Mahi <starexify@gmail.com>
+Date:   Mon Nov 15 02:53:40 2021 +1100
+
+    added files for deployment
+
+[33mcommit 751d5796dcf5562fa4b8824567697a1641b243d4[m
+Merge: 0734e08 fb77964
+Author: Mahi <starexify@gmail.com>
+Date:   Mon Nov 15 02:39:06 2021 +1100
+
+    Merge branch 'master' into message_sendlater_v1
+
+[33mcommit 0734e081ccff621621fa17b29793cf02f2cc8270[m
+Author: Mahi <starexify@gmail.com>
+Date:   Mon Nov 15 02:38:35 2021 +1100
+
+    Removed unused print statements
+
+[33mcommit 6ee8d685a352059499e19a44f606dbf3e3e2e13a[m
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Mon Nov 15 02:36:32 2021 +1100
+
+    Upload New File
+
+[33mcommit 439a73eb8a0c59d25316a2d83d970ba5e7ccc942[m
+Author: Mahi <starexify@gmail.com>
+Date:   Mon Nov 15 02:34:40 2021 +1100
+
+    Added tests and fixed function message_sendlater_v1
+    * Tracking Issue: #75
+
+[33mcommit fb77964833f851a9cf33a72695a5a3a39de46972[m
+Merge: 77cdd23 c692ea1
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Mon Nov 15 01:23:14 2021 +1100
+
+    Merge branch 'feature/auth/iter3' into 'master'
+    
+    Feature/auth/iter3
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!138
+
+[33mcommit c692ea18aa472b338889fb3fa085dd4fa36e3eed[m[33m ([m[1;31morigin/feature/auth/iter3[m[33m, [m[1;32mfeature/auth/iter3[m[33m)[m
+Merge: e84bb99 77cdd23
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Mon Nov 15 00:26:58 2021 +1100
+
+    Merge branch 'master' into feature/auth/iter3
+
+[33mcommit 77cdd23bda1f97a813321efff617a12649fe5a50[m
+Merge: 3cdb2dd a99e992
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Mon Nov 15 00:26:22 2021 +1100
+
+    Merge branch 'user_profile_uploadphoto_v1_re' into 'master'
+    
+    User profile uploadphoto v1 re
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!137
+
+[33mcommit a99e99258b13c0ba6be683b275b22f5bae63af25[m[33m ([m[1;31morigin/user_profile_uploadphoto_v1_re[m[33m)[m
+Merge: 61452ed 3cdb2dd
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Nov 14 20:57:31 2021 +0800
+
+    fix merge conflict
+
+[33mcommit 64ba0b8c5c19e9a399ef77f8c206de27c3ef0521[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Nov 14 23:41:52 2021 +1100
+
+    Fixed NoneType messageID
+
+[33mcommit ba750b51b945ab3d0c986bb97241eb8f8bd5316f[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Nov 14 23:30:13 2021 +1100
+
+    Optional messageID argument
+
+[33mcommit e84bb99d729f0d892971064401d8b34bcf1d969d[m
+Merge: 425380e 3cdb2dd
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Nov 14 23:29:18 2021 +1100
+
+    Merge branch 'master' into feature/auth/iter3
+
+[33mcommit 425380eae271c3e92101ec2560dada10d13b7ccb[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Nov 14 23:28:15 2021 +1100
+
+    reduced pipeline time
+
+[33mcommit 61452ed2173f4d42f9de53740ba9bb20ded4ee7c[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Nov 14 20:22:40 2021 +0800
+
+    Assertion error
+
+[33mcommit 193f0121c28d6f13c79e4306e1f27663d53629be[m
+Merge: 163844b 3cdb2dd
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Nov 14 23:17:05 2021 +1100
+
+    Merge branch 'master' into message_sendlater_v1
+
+[33mcommit 3cdb2ddacd5c5eca25d1b169b7b4191f3d1c5133[m
+Merge: 542552f a6a3777
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sun Nov 14 23:16:39 2021 +1100
+
+    Merge branch 'message_share_v1' into 'master'
+    
+    Fixed share message to DM
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!136
+
+[33mcommit 04927ef19b4a9d2fb67f0fe37900f4618524f6d7[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Nov 14 20:16:31 2021 +0800
+
+    modified uploadphototest
+
+[33mcommit a6a37770022356c0d3cb4a672081d207f3e0402d[m[33m ([m[1;31morigin/message_share_v1[m[33m)[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Nov 14 22:54:27 2021 +1100
+
+    Fixed share message to DM
+
+[33mcommit f631b7bec1712ac2a0a95f0abafb86baad982dd3[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Nov 14 19:15:50 2021 +0800
+
+    fix error
+
+[33mcommit 163844b00408ea9271091eac79bcfd9c3c514e0b[m
+Merge: e12646b 542552f
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Nov 14 21:48:33 2021 +1100
+
+    Resolved conflicts
+
+[33mcommit 542552fc9234cf01cf822a0cc424e203093b5e3f[m
+Merge: c7d5601 5ba38fb
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Sun Nov 14 21:04:14 2021 +1100
+
+    Merge branch 'fix_styling_user_and_users_stats' into 'master'
+    
+    fix user and users stats commenting
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!135
+
+[33mcommit 5ba38fbfe8633125931f452d93e94d56d2ee56e4[m[33m ([m[1;31morigin/fix_styling_user_and_users_stats[m[33m)[m
+Merge: eb3c011 c7d5601
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Nov 14 17:53:20 2021 +0800
+
+    fix merge conflict
+
+[33mcommit 47431bdc4926609dc6b732559fd901fa5727f8a7[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Nov 14 17:49:21 2021 +0800
+
+    fixed decode process
+
+[33mcommit c7d5601738222cb6422c1ec3e47605127f3fd6f4[m
+Merge: 0d2df0f 5569636
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Sun Nov 14 20:35:53 2021 +1100
+
+    Merge branch 'feature/auth/iter3' into 'master'
+    
+    Feature/auth/iter3
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!134
+
+[33mcommit 5569636a35850904de53a19f4057d84b2d5c5da8[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Nov 14 20:30:55 2021 +1100
+
+    fixed pipeline issues
+
+[33mcommit be421fd484e93e05a4325c3e60ed26808741bcae[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Nov 14 20:22:38 2021 +1100
+
+    fix coverage tests
+
+[33mcommit eb3c01186f39a4b6ee4361556d7720ef31b97feb[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Nov 14 17:22:33 2021 +0800
+
+    fix user and users stats commenting
+
+[33mcommit 1250c10e6afc7221f520bd4034b0a2e459a0e1fe[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Nov 14 20:08:12 2021 +1100
+
+    coverage fix
+
+[33mcommit e12646b3696c66ad34e25f3710486c49a0c7f815[m
+Merge: ffa6598 0d2df0f
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Nov 14 19:38:04 2021 +1100
+
+    resoolved conflicts
+
+[33mcommit c7f6218d673332b6fd962aeb0e1610b41192a136[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Nov 14 13:16:00 2021 +0800
+
+    add profile img url in profile
+
+[33mcommit 42b8769a741ab181f6fc057ea81a48fff281000e[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Nov 14 12:51:48 2021 +0800
+
+    add photo directory
+
+[33mcommit 542575decb882cb765ef25ace736c1b080895bb0[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Nov 14 12:36:25 2021 +0800
+
+    .DS_Store
+
+[33mcommit a867eb019bbac54a00ebfbfce6aae01b72071b3a[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Nov 14 12:29:33 2021 +0800
+
+    add uploadphoto endpoint in server
+
+[33mcommit f5b196c742e17fadbfcf55bd719d79c5cb647af2[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Nov 14 12:28:23 2021 +0800
+
+    add uploadphoto endpoint in server
+
+[33mcommit 0c71a3cbd5a1bfcf843f23e94e43f56e45b7b991[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Nov 14 12:14:52 2021 +0800
+
+    add user_profile_uploadphoto in
+
+[33mcommit 25007cf10aadccae2f98c7a74677462ca141b754[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Nov 14 15:14:18 2021 +1100
+
+    fixed docstring styling #90 and did some fixes for UAT in terms of general bug fixes and front end and backend testing
+
+[33mcommit f6f44708c812410b4271c00772ba94bfac92cbb8[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Nov 14 12:13:41 2021 +0800
+
+    add user_profile_uploadphoto in
+
+[33mcommit 548f4e88daf10c69e18bc37a38af3d0b7c93b8e4[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Nov 14 12:00:51 2021 +0800
+
+    add profile_img_urlin user store
+
+[33mcommit 2ad4d8de61ac0e3898c3f6d3c7ec6c136274fc8d[m
+Merge: f62ae7a 0d2df0f
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Nov 14 00:13:14 2021 +1100
+
+    Merge branch 'master' into feature/auth/iter3
+
+[33mcommit 0d2df0fc6341f5d48cf6fb6b7054bbf00ec2bc31[m
+Merge: 258e8c5 cb3d0ff
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sun Nov 14 00:08:51 2021 +1100
+
+    Merge branch 'search_v1' into 'master'
+    
+    Implemented /search/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!133
+
+[33mcommit cb3d0ff588c5629be700f918386895c0102ef696[m[33m ([m[1;31morigin/search_v1[m[33m)[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 23:20:09 2021 +1100
+
+    No query match test for further coverage
+
+[33mcommit f62ae7a792a456252dee9f6dac7b9e17c36b1b66[m
+Merge: 5ce9fcf 258e8c5
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Nov 13 23:17:21 2021 +1100
+
+    fixed merge conflict
+
+[33mcommit d17be0770f788f19e0d8a7abd429bed05afda433[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 23:14:35 2021 +1100
+
+    Removed unused variables for pylint compliancy
+
+[33mcommit 175f1537b0dbfd812272fd2a95c5c23145a37814[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 23:10:45 2021 +1100
+
+    Added endpoint /search/v1
+    * Fixed tests
+    * Fixed function message_search_v1
+    * Tracking Issue: #73
+
+[33mcommit 5ce9fcf5f1f24cce517b90437509a3ecfbec0fd0[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Nov 13 23:09:09 2021 +1100
+
+    Implemented Notification Tagging #92
+
+[33mcommit dd20047e8eda38dc4bcf64453a38bbea1ac2d65b[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 22:42:21 2021 +1100
+
+    Added tests for search_v1
+    * Tracking Issue: #73
+
+[33mcommit 47fd37617363fff8d1643674e499cfd0ccdbfd10[m
+Merge: b547e6e 258e8c5
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 20:33:02 2021 +1100
+
+    Resolved conflicts
+
+[33mcommit 258e8c599498326b8c2ba1546902e11e20780077[m
+Merge: dd7e04f 7769b20
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sat Nov 13 20:26:43 2021 +1100
+
+    Merge branch 'message_share_v1' into 'master'
+    
+    Implemented message/share/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!132
+
+[33mcommit 7769b20c26a2d4eeb31b870da4ee295beadcf1f3[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 20:19:59 2021 +1100
+
+    Removed break to get coverage
+
+[33mcommit 6aeaea13b2e525068800a14d53f8bee941dfe31e[m
+Merge: 38d8bc7 dd7e04f
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 20:13:45 2021 +1100
+
+    Resolved conflicts
+
+[33mcommit 38d8bc7bbedf28c49647fb3f6581f425992162f4[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 20:08:15 2021 +1100
+
+    Added further coverage for testing
+
+[33mcommit c11cfa0c5e585c5bf68fbb750e6da4a4cee78b99[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 19:59:06 2021 +1100
+
+    Removed unused variables
+
+[33mcommit 683a1b2b4744f87f8cb2ae130c0275f28024ca1f[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 19:56:12 2021 +1100
+
+    Fixed test errors and incorrect InputErrors
+    * Tracking Issue: #74
+
+[33mcommit dd7e04f0942cc2e530eba87eca6e10eeea0a96c7[m
+Merge: eec2851 22e5fbe
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Nov 13 19:12:07 2021 +1100
+
+    Merge branch 'feature/auth/iter3' into 'master'
+    
+    Refactored Test Code
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!131
+
+[33mcommit 456cf89b2b9feecbfe80d5e6171dd1b1fc372c97[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 19:03:20 2021 +1100
+
+    Added endpoint message/share/v1
+    * Imported helper functions
+    * Tracking Issue: #74
+
+[33mcommit ef78f5fdb76d41199f95f0ff7baf3d9bdba05905[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 18:57:22 2021 +1100
+
+    Added function for message_share
+    * Added extra helper functions foor message_share
+    * Added docstrings for message_share and messsage_unreact
+    * Tracking Issue: #74
+
+[33mcommit 22e5fbed411cac573a8270a97c608fafb1c806ea[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Nov 13 18:42:27 2021 +1100
+
+    fixing coverage
+
+[33mcommit 1066221a68b8e875df3b4f724ebaac75c76f2814[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Nov 13 18:37:55 2021 +1100
+
+    coverage improvement
+
+[33mcommit c0ce5a37b387d8b2355ffdd6a7c72d1e23daaf41[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Nov 13 18:33:40 2021 +1100
+
+    fixed coverage gap
+
+[33mcommit 84a645ff02f8bf8ef5a3e07042099734e3a3e244[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Nov 13 18:28:58 2021 +1100
+
+    fixed coverage test helper function
+
+[33mcommit bdfcd0b1023cd16933412e8ed1a2a49789c6bbc1[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Nov 13 18:15:56 2021 +1100
+
+    updated coverage to ignore test helper functions
+
+[33mcommit 03fe1ce8417409b5cb429256c72361c3b22868e1[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Nov 13 18:09:13 2021 +1100
+
+    fixed pylint issue
+
+[33mcommit e522e4f035ae2adc95fd04a853eae261a32d284e[m
+Merge: aa871a2 eec2851
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Nov 13 17:46:27 2021 +1100
+
+    Fixed Merge Conflict
+
+[33mcommit aa871a2c4b521726c0738fdb2509a2a7c7fb6722[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Nov 13 17:31:35 2021 +1100
+
+    Completed tests and implementation of pin and unpin tracking: #80 #79
+
+[33mcommit b97581cf265f23fdc824fbbfabcc02a716b6439a[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 17:04:19 2021 +1100
+
+    Added blackbox testing
+    * Tracking Issue: #74
+
+[33mcommit eec2851d8e2a033286956cb2e3c3545d915f4e85[m
+Merge: a9af6f9 9118339
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sat Nov 13 15:58:28 2021 +1100
+
+    Merge branch 'message_unreact_v1' into 'master'
+    
+    Added blackbox tests to unreact
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!129
+
+[33mcommit 911833973e7dbc0331f36159e81ba2958b59f4d4[m[33m ([m[1;31morigin/message_unreact_v1[m[33m)[m
+Merge: 2d63f9e a9af6f9
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 15:43:16 2021 +1100
+
+    Merge branch 'master' into message_unreact_v1
+
+[33mcommit 2d63f9e505a3be6d8c08d85db50516fa409e25d1[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 15:41:43 2021 +1100
+
+    Further test coverage
+
+[33mcommit a9af6f9c6f42a7b186819535f44065c4b2257e3f[m
+Merge: 71c6a56 f0293ef
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Sat Nov 13 15:37:55 2021 +1100
+
+    Merge branch 'users_stats_v1_fix_timestamp' into 'master'
+    
+    Users stats v1 fix timestamp
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!128
+
+[33mcommit 5e8cf016d002982f9438481738e2fcb45a082ecc[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 15:29:05 2021 +1100
+
+    Fixed InputError for message does not contain a react with ID react_id
+    from auth_user_id
+    * Tracking Issue: #76
+
+[33mcommit 4ada86b2018b276c07300bb46cbd12bfd3136cdd[m
+Merge: bfbec1b 71c6a56
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Nov 13 13:14:40 2021 +1100
+
+    Fixed Merge Conflicts
+
+[33mcommit f0293ef2652842441a7eac76d7b6eb7cfbd3f07d[m[33m ([m[1;31morigin/users_stats_v1_fix_timestamp[m[33m)[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Nov 12 23:31:14 2021 +0800
+
+    fix timestamp difference between users and user stats
+
+[33mcommit 952ac9331c52b7b156a9ef4e95a0b3289042b560[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Nov 12 23:28:05 2021 +0800
+
+    fix timestamp difference between users and user stats
+
+[33mcommit ef6429759f1b6cb48dc3159569b6d4644927b388[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 01:00:14 2021 +1100
+
+    Added endpoint message/react/v1
+    * Tracking Issue: #76
+
+[33mcommit 78c1b656ea035afcd6af86e93b0b9ed48900d2cc[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 00:57:11 2021 +1100
+
+    Added function message_unreact(token, message_id, react_id)
+    * Tracking Issue: #76
+
+[33mcommit dd359c048073ef1a74c43c6574f5b27775aa3067[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Nov 13 00:36:03 2021 +1100
+
+    Added blackbox tests to unreact
+    * Tracking Issue: #76
+
+[33mcommit 71c6a56c506dc070c77e28de3e2152a715fbffbb[m
+Merge: 57d50b6 b0424a9
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Fri Nov 12 18:48:02 2021 +1100
+
+    Merge branch 'users_stats_v1' into 'master'
+    
+    Users stats v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!127
+
+[33mcommit b0424a908a7352fce6293f2d35908d7bb9f0fa5e[m[33m ([m[1;31morigin/users_stats_v1[m[33m)[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Nov 12 11:08:23 2021 +0800
+
+    add dictionary name in for user stats and workspace stats
+
+[33mcommit 8f7008fa5dea9389d851399fa627f10a3f886f72[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Nov 12 10:52:34 2021 +0800
+
+    fix type error
+
+[33mcommit 05d2735a3ddc6b6975df218ecd587020cf82ddab[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Nov 12 10:43:19 2021 +0800
+
+    fix type error
+
+[33mcommit 967f04a63b83cdd8361651df21730022b90e4ce3[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Nov 12 10:35:02 2021 +0800
+
+    fix type error
+
+[33mcommit 0944569e82af98a036175ae679fb8ddd7168ee8f[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Nov 12 10:31:37 2021 +0800
+
+    fix type error
+
+[33mcommit 5b4393a5f7980a54ab07dfeb9da95d1b440d4493[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Nov 12 10:30:59 2021 +0800
+
+    fix type error
+
+[33mcommit 8fa246e54716a04dc3e5e85f1d6b3430d6c0dc3e[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Nov 12 10:27:35 2021 +0800
+
+    fix the system error of first stamp
+
+[33mcommit 137d04bf6da0c16a541fd4f791108fd30d4872db[m
+Merge: 1312ba1 57d50b6
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Nov 12 10:16:22 2021 +0800
+
+    fix merge conflict
+
+[33mcommit 57d50b6454d6a2c30367e5fc8626df27c50e8f22[m
+Merge: 66c5e18 c29ee51
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Fri Nov 12 11:23:58 2021 +1100
+
+    Merge branch 'feature/message/react/v1' into 'master'
+    
+    Feature/message/react/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!126
+
+[33mcommit 1312ba19d9ddfb4a1e480f7b7a07b08027c16ff3[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Nov 11 23:33:27 2021 +0800
+
+    modified users_stats_v1_tests
+
+[33mcommit 02365f2bb0331e740d80bebdbd15df5770e262f8[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Nov 11 23:30:32 2021 +0800
+
+    fix Type error Object function is not JSON seriablise
+
+[33mcommit c94a575f62a27dd351df857384bffe42bccf148a[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Nov 11 23:29:10 2021 +0800
+
+    add reset workspace_stats in and fix type error in get_utilization_rate
+
+[33mcommit 573133008b40abeb424e0d7cda3577682d70b230[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Nov 11 16:56:52 2021 +0800
+
+    modified users_stats in
+
+[33mcommit a311c1201f01120d84bb7520fe3f126bef89cd36[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Nov 11 16:42:17 2021 +0800
+
+    add users_stats_v1 endpoint in
+
+[33mcommit 9ad0d94a51cd264c3b2c3d3d92ed996014d69ea0[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Nov 11 16:33:25 2021 +0800
+
+    modified users_stats in
+
+[33mcommit bf45aa1331c9a15ceded9840b076634fd1457593[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Nov 11 16:31:33 2021 +0800
+
+    add utilization rate helper function in
+
+[33mcommit c29ee51fc2caf4b3e462357ca38eff15b86c610d[m[33m ([m[1;31morigin/feature/message/react/v1[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Nov 11 18:35:13 2021 +1100
+
+    Expanded tests to improve coverage in message_react_v1_test.py
+
+[33mcommit 9b198ce15bef12828336a46ded583b2023a102d4[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Nov 11 18:27:59 2021 +1100
+
+    Implemented message/react in message.py and server.py
+
+[33mcommit 08036641e50007ee0b1426e99d2620fe733e5dcf[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Nov 11 18:27:14 2021 +1100
+
+    Fixed typos in message_react_v1_test.py
+
+[33mcommit 4fe65ff27a868038a112946d40d379cfe7eab27b[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Nov 11 16:58:15 2021 +1100
+
+    Implemented tests for message/react/v1 in message_react_v1_test.py
+
+[33mcommit ffa6598efbc340b64aa374fb52166c210198f09a[m
+Author: Mahi <starexify@gmail.com>
+Date:   Thu Nov 11 16:48:38 2021 +1100
+
+    Added sendlater/v1 function
+
+[33mcommit 232fb62cf1533823a0cb539bd86e4de5ec521cb0[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Nov 11 12:42:06 2021 +0800
+
+    add update_users_stats_messages_exist in messages
+
+[33mcommit dde547a2dce7590fe16311905efe692587502691[m
+Author: Mahi <starexify@gmail.com>
+Date:   Thu Nov 11 15:39:49 2021 +1100
+
+    Clean files
+
+[33mcommit b547e6e8b593ea77c9a7263827326497075e2f87[m
+Author: Mahi <starexify@gmail.com>
+Date:   Thu Nov 11 15:32:07 2021 +1100
+
+    Added function message_search_v1
+    * Tracking Issue: #73
+
+[33mcommit 4152c2ce0198ca3e1febbca61a9b6874b8c7ac2b[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Nov 11 12:17:07 2021 +0800
+
+    add update_users_stats_dms_exist in dms_create
+
+[33mcommit 2079e5f2af7b3ffe77ee8db19f29baa8f2f0cb04[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Nov 11 12:12:35 2021 +0800
+
+    add update_users_stats_channels_exist in channels_create
+
+[33mcommit d01ddf7349d9c8fa9314c36bb40bec3f97206ec4[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Nov 11 12:06:37 2021 +0800
+
+    add users_stats helperfunction in
+
+[33mcommit 311359a8d5dc3d7194566c6b1eb437dea4f75df2[m
+Author: Mahi <starexify@gmail.com>
+Date:   Thu Nov 11 15:01:12 2021 +1100
+
+    Added blackbox tests for search/v1
+    * Tracking Issue: #73
+
+[33mcommit 36229dda824d156dfe861bff589780ecbea14de0[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Nov 11 11:49:28 2021 +0800
+
+    add workspace_statsin data_store
+
+[33mcommit ed607533d913ff9723e4a996437982d7353e9d1c[m
+Merge: 000e499 66c5e18
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Nov 11 00:10:28 2021 +1100
+
+    Merge branch 'master' into feature/message/react/v1
+
+[33mcommit 66c5e180c1e16cd53e5f8391f25424c9b9be4200[m
+Merge: 509bf51 d8b5129
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Thu Nov 11 00:08:23 2021 +1100
+
+    Merge branch 'feature/standup' into 'master'
+    
+    Implemented the standup suite of features
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!125
+
+[33mcommit 000e499acb7414f96394b1d3e7da888b29678cfc[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Nov 10 23:55:43 2021 +1100
+
+    Created message_react_v1_test.py
+
+[33mcommit bfbec1bcb0aaab929ba1e94ef3dae2329b168cc2[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Wed Nov 10 22:37:28 2021 +1100
+
+    Fixed Pytest and Pylint
+    added comments
+    Tracking: #77 #78
+
+[33mcommit 1f95688f296b7d2ffc8224473dcd832a814831a3[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Wed Nov 10 21:42:51 2021 +1100
+
+    Added Password Reset and reset request
+    difficult adding testing may decide not to incorporate email
+    testing but check inputs and outputs
+    Tracking: #77 #78
+
+[33mcommit 509bf51405a90dfa191dde63dee873c5c55e9704[m
+Merge: be24f9a 9658788
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Wed Nov 10 20:27:54 2021 +1100
+
+    Merge branch 'user_stats_v1_new' into 'master'
+    
+    User stats v1 new
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!124
+
+[33mcommit d8b512996c346c7728407af9e070b6d03786b491[m[33m ([m[1;31morigin/feature/standup[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Nov 10 20:15:36 2021 +1100
+
+    Removed unused var from standup.py
+
+[33mcommit 73925f51e5975b63bd4a400aa171723ad71da73a[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Nov 10 20:11:05 2021 +1100
+
+    Removed redundant code from standup.py
+
+[33mcommit c67bfcfc5f82fd22e98fc69494c43943daeface9[m
+Merge: 56f4de4 be24f9a
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Nov 10 20:07:24 2021 +1100
+
+    Merge branch 'master' into feature/standup
+
+[33mcommit 56f4de4578536ddc54e76463ac004fb89af1d787[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Nov 10 19:56:29 2021 +1100
+
+    Implemented standup/send/v1 in standup.py and server.py
+
+[33mcommit 9658788fe275bc73cbf4088689bb0bc766c296b2[m[33m ([m[1;31morigin/user_stats_v1_new[m[33m)[m
+Merge: c4a7eee be24f9a
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Wed Nov 10 16:55:56 2021 +0800
+
+    fix merge conflict
+
+[33mcommit c4a7eee1ff3d27267fc25aea2ab86e0433e1b8ef[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Wed Nov 10 16:46:27 2021 +0800
+
+    modified user_stats_v1 completely
+
+[33mcommit 6349cabebf805c70beb67bbd4effe06119ee0924[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Nov 10 16:13:38 2021 +1100
+
+    Improved readability in standup_start_v1_test.py; Implemented tests for standup/send/v1 in standup_send_v1_test.py
+
+[33mcommit be24f9ac11d5137fe55bb0eab8eecb4127f67dc9[m
+Merge: c7efe2f 6b8d9e0
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Wed Nov 10 14:16:54 2021 +1100
+
+    Merge branch 'bugfixes/iter2/jake' into 'master'
+    
+    Bugfixes/iter2/jake
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!122
+
+[33mcommit 1cbc95843972c754b757efaa0ed0de451fa622bf[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Wed Nov 10 14:15:50 2021 +1100
+
+    Refactored Test Code
+    -refactored test code to reduce repetitiveness
+    -moved fixtures into conftest.py
+    -moved helper functions into helper_test_funcs.py
+
+[33mcommit 6b8d9e083d71c3f6be247a26a05a1934eac68080[m[33m ([m[1;31morigin/bugfixes/iter2/jake[m[33m, [m[1;32mbugfixes/iter2/jake[m[33m)[m
+Merge: 59da290 c7efe2f
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Wed Nov 10 09:34:54 2021 +1100
+
+    Merge branch 'master' into bugfixes/iter2/jake
+
+[33mcommit 59da2906c10739142fce26ad960b460992792c38[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Wed Nov 10 09:34:08 2021 +1100
+
+    Fixed error in test causing an assertion error
+
+[33mcommit 708e4ee68681483cbc3e77dc72a53e15e717e1b7[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Nov 10 03:42:47 2021 +1100
+
+    Pylint compliance in standup_send_v1_test.py
+
+[33mcommit 4c5a7e76a0a31a2c8e4d918d654ede1a991feb08[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Nov 10 03:40:10 2021 +1100
+
+    Added custom message func in standup.py to ignore message length rules
+
+[33mcommit d799806c5f11733d639d07f83f7f45abc6e9f5d1[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Nov 10 03:38:23 2021 +1100
+
+    Added custom message func in standup.py to ignore message length rules
+
+[33mcommit 9f75cded178b3e75dd76d1034fafd8aedad01e9a[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Nov 10 03:36:14 2021 +1100
+
+    Fixed typo in standup_active_v1_test.py
+
+[33mcommit 1e0589ded5e8be80be73925d7ddd90645e26bd72[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Nov 10 02:42:20 2021 +1100
+
+    Fixed wrong HTTP method for standup/active/v1 in server.py
+
+[33mcommit ccc50cdf2d4ed768c1dc25eec43f832434817eb4[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Nov 10 02:37:19 2021 +1100
+
+    Implemented standup/active/v1 and standup/start/v1 in server.py
+
+[33mcommit 62ae6adac891a981862ff51fa379929e58d7c4b7[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Nov 10 02:30:28 2021 +1100
+
+    Implemented standup/active/v1 in standup.py
+
+[33mcommit 7e5e236359afef00e56820d528c9d0d8f16391e4[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Nov 10 02:23:46 2021 +1100
+
+    Implemented tests for standup/active/v1 in standup_active_v1_test.py
+
+[33mcommit d6dbd04369a2e167a4ce09c2f791dd07ed79c803[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Nov 10 02:08:05 2021 +1100
+
+    Added implementation for standup/start/v1 in standup.py and channels.py
+
+[33mcommit f23c1e1fa08ddba5cc6a7e0b1953f84a8c56884d[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Nov 10 02:07:12 2021 +1100
+
+    Expanded tests in standup_start_v1_test.py to check when standup expires
+
+[33mcommit 39fe92364654e30f811e9c8aec292280eec55d46[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Nov 9 23:49:18 2021 +1100
+
+    created standup stubs in standup.py
+
+[33mcommit aa0fa1d0205a534997e484eeb0d41632d6c3edce[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Nov 9 23:38:18 2021 +1100
+
+    Implemented tests for standup/start/v1 in standup_start_v1_test.py
+
+[33mcommit e5101224e4ffcc4a92c2f94551bf8cdc590a3e1e[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Nov 9 23:15:05 2021 +1100
+
+    Created test files for standup set of functions
+
+[33mcommit c7efe2f2712406a1b82356302a4a424ae7dc7cb9[m
+Merge: bafcfb9 f3a8cb2
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Tue Nov 9 22:38:57 2021 +1100
+
+    Merge branch 'fix/admin/user/remove/v1/iter2' into 'master'
+    
+    Fixed iteration 2 bugs for admin remove
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!121
+
+[33mcommit f3a8cb2e19194934df74d7e3f34fbe95614a274e[m[33m ([m[1;31morigin/fix/admin/user/remove/v1/iter2[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Nov 9 22:31:37 2021 +1100
+
+    Fixed bug allowing removed users to still make requests in admin.py and expanded tests to cover this in admin_user_remove_v1_test.py
+
+[33mcommit b90de0bbe2740d5558205597648e0d7434c72814[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Tue Nov 9 17:25:45 2021 +0800
+
+    add user stats in server
+
+[33mcommit 1826da855b6ffe7594d76732e7bff7212caebf17[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Tue Nov 9 16:37:22 2021 +0800
+
+    add get user involvement rate helper function in
+
+[33mcommit 701318a76789976ac602d4f9872e80748d08b0f3[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Tue Nov 9 16:35:06 2021 +0800
+
+    add involvement rate in user/stats
+
+[33mcommit cf67aa62005066d7195e713750ecd097d1bf3831[m
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Tue Nov 9 16:18:37 2021 +1100
+
+    Delete .DS_Store
+
+[33mcommit 7ab069f35b93b4d1e45459aef0b4e4a9b2e5e216[m
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Tue Nov 9 16:18:26 2021 +1100
+
+    Delete .DS_Store
+
+[33mcommit c4a30e549753470a817b710cc9e9742603f94992[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Tue Nov 9 13:16:41 2021 +0800
+
+    fix key error in message sent
+
+[33mcommit fa7a9289480e5b96d21b19e213bb2881ce97e4f2[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Tue Nov 9 13:13:04 2021 +0800
+
+    .DS_Store
+
+[33mcommit 7936e24b032bced3994a6df06d8a8e0279313470[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Tue Nov 9 13:08:06 2021 +0800
+
+    add update messages sent helper function in message
+
+[33mcommit 13b5a51f4f6b758b6281ea77dfcc3f4ee38edfe7[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Tue Nov 9 11:44:51 2021 +0800
+
+    add update messages sent helper function in
+
+[33mcommit 9c6f1b798dd5e6d82a176092f686ede2e06fe26c[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Tue Nov 9 11:25:43 2021 +0800
+
+    add user/stats without involvement rate in
+
+[33mcommit bafcfb9ca8c2d358f8c69ccd78b47169be40182e[m
+Merge: 7792375 e444092
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Tue Nov 9 12:31:36 2021 +1100
+
+    Merge branch 'feature/dm_create_notification' into 'master'
+    
+    modified dm create notification
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!120
+
+[33mcommit e444092e4eb3886517cbb3af94919397e8d27b16[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Tue Nov 9 09:29:35 2021 +0800
+
+    add dm create notification tests in
+
+[33mcommit c50cdf5a0b6329a4f9932eb4facdafec7efbf8de[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Tue Nov 9 09:13:08 2021 +0800
+
+    .DS_store
+
+[33mcommit 7497ed4cbf6a376d56088df9b600e438d1b7d857[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Tue Nov 9 08:44:04 2021 +0800
+
+    add update user stats for channel invite join and leave
+
+[33mcommit 48a65def0f1f64ab59c3da939631fbbf7ff8ee57[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Mon Nov 8 22:58:29 2021 +0800
+
+    fix key error in update user stats dms joined
+
+[33mcommit ddf35725d5da2f050c8e3245fdb0ecdd444ccc1e[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Mon Nov 8 22:55:25 2021 +0800
+
+    fix key error in update user stats dms joined
+
+[33mcommit 53f2bbf98fd34d345bd936d493a761a0634ed18f[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Mon Nov 8 22:31:02 2021 +0800
+
+    modify update user stats for channel leave and dm join and leave
+
+[33mcommit 0959afcbac027339887d6c4940bcde6634c3ecd6[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Mon Nov 8 22:20:10 2021 +0800
+
+    fix error
+
+[33mcommit 8ec4d40c5441bc3b8b77d3e55b1dfc69d67d75c5[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Mon Nov 8 22:14:14 2021 +0800
+
+    fix error
+
+[33mcommit 50200a936c5aecf12e9636c96b8e677df2767806[m
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Tue Nov 9 01:03:41 2021 +1100
+
+    remove update user stats in channel creation
+
+[33mcommit e3f3d4a3cbfb5c1d5e999aaf1a7ce3f61b54974a[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Mon Nov 8 21:59:36 2021 +0800
+
+    remove update user stats in channel creation
+
+[33mcommit a0044565e1f22a8dad0cf05cbc48d57559fef808[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Mon Nov 8 21:51:34 2021 +0800
+
+    fix importerror
+
+[33mcommit ba1f9601ef10b9fb623b2edf08e48246a410e3da[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Mon Nov 8 21:46:39 2021 +0800
+
+    modified channel create status
+
+[33mcommit 0ea8a7fa6f5061b7127bd6ffbe107ee0101f38dc[m
+Merge: 5a2e652 7792375
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Mon Nov 8 21:30:39 2021 +0800
+
+    merged the latest update in
+
+[33mcommit eb8b71c31e3c53747f7b080d0f42964c9e31ad25[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Mon Nov 8 21:22:53 2021 +0800
+
+    modified dm create notification
+
+[33mcommit 7792375937c78467cd447821249f2da381e8df36[m
+Merge: 0046a44 c3ed816
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Tue Nov 9 00:02:28 2021 +1100
+
+    Merge branch 'notification_get_v1' into 'master'
+    
+    Completed notification/get/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!119
+
+[33mcommit c3ed81608e0c0b055d7d95d86211b638371b000e[m[33m ([m[1;31morigin/notification_get_v1[m[33m)[m
+Merge: c2847cc 0046a44
+Author: Mahi <starexify@gmail.com>
+Date:   Mon Nov 8 23:57:44 2021 +1100
+
+    Merge branch 'master' into notification_get_v1
+
+[33mcommit c2847cc5291eb81aa376f8f5646957df8b3a299f[m
+Author: Mahi <starexify@gmail.com>
+Date:   Mon Nov 8 23:54:22 2021 +1100
+
+    Added endpoint for notifications/get/v1
+    * Tracking Issue: #72
+
+[33mcommit 0ed4fc365a222c9b74a1e1efbe7dd81860b4016e[m
+Author: Mahi <starexify@gmail.com>
+Date:   Mon Nov 8 23:49:39 2021 +1100
+
+    Added function notifications_get()
+    * Tracking Issue: #72
+
+[33mcommit 0046a440c8ab76c5c3bb77ef62809d971b5678cf[m
+Merge: c12775f 54b070e
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Mon Nov 8 23:41:17 2021 +1100
+
+    Merge branch 'fix/users/all' into 'master'
+    
+    Changed method of determining if user removed in users.py
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!118
+
+[33mcommit 54b070e35e6e5d8c835b7c82180aa6ffc464fbb4[m[33m ([m[1;31morigin/fix/users/all[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Mon Nov 8 23:35:38 2021 +1100
+
+    Changed method of determining if user removed in users.py
+
+[33mcommit 3bfad7d9931ab2b7b0c0a056b067d9fd7afdede4[m
+Author: Mahi <starexify@gmail.com>
+Date:   Mon Nov 8 23:33:16 2021 +1100
+
+    Added endpoint to test
+    * Tracking Issue: #72
+
+[33mcommit c12775f7420db827fb0b85d12fc2be2613e7626d[m
+Merge: 87068ea e6e901c
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Mon Nov 8 23:22:24 2021 +1100
+
+    Merge branch 'feature/channel_invite_notification' into 'master'
+    
+    Update channel/invite/v2 to create notifications
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!117
+
+[33mcommit e6e901c758cd35259e9b5edd2ab6427c3c23c118[m[33m ([m[1;31morigin/feature/channel_invite_notification[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Mon Nov 8 23:16:12 2021 +1100
+
+    Created get_user_handle() in other.py
+
+[33mcommit 4aea2818fd4f5dff4e57b7b7d0020be82fab0b8b[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Mon Nov 8 23:03:20 2021 +1100
+
+    Fixed improper call for channel name in channel_invite_v1() in channel and bad call to channel/invite/v2 in notifications_get_v1_test.py
+
+[33mcommit f7bf7931ce2f45c60d1b0cd495ed7b13f7fc293b[m
+Author: hackermonke <caleb@justanotherhackerblog.xyz>
+Date:   Mon Nov 8 22:44:30 2021 +1100
+
+    Implemented notifications in channel_invite_v1() in channel.py
+
+[33mcommit b98cad98de8480def1c8ea51d693d0d8c8de70cf[m
+Author: hackermonke <caleb@justanotherhackerblog.xyz>
+Date:   Mon Nov 8 22:42:50 2021 +1100
+
+    Created invite notifications test in notification_get_v1_test.py
+
+[33mcommit 5a2e652baaffc7adddefac10703924abd630bd0a[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Mon Nov 8 18:34:44 2021 +0800
+
+    aggregate the user stats in dictionary
+
+[33mcommit 87068ea4a2e73d8bd4a9b123b7a65ab4c191ec1a[m
+Merge: a553b3a 37133c3
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Mon Nov 8 21:01:40 2021 +1100
+
+    Merge branch 'notification_get_v1' into 'master'
+    
+    Modified datastore and added helper function to create a notification
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!116
+
+[33mcommit 31aa5bf462039fbf76de96b85247c50729cf4fc8[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Mon Nov 8 16:49:45 2021 +0800
+
+    create a new branch to check the error occured, restruct user structure
+
+[33mcommit 37133c39945a9301ebb8670d4f3fc7fcb4e3cb06[m
+Author: Mahi <starexify@gmail.com>
+Date:   Mon Nov 8 17:35:44 2021 +1100
+
+    Modified datastore and added helper function to create a notification
+    * Tracking Issue: #71
+
+[33mcommit a553b3abef6e2c476232d4df0e455fb4a5ba4d83[m
+Merge: f66e82d 2424b70
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Thu Nov 4 22:47:08 2021 +1100
+
+    Merge branch 'update-8673d9faec8e84216201795dab57a87df2070ba7' into 'master'
+    
+    Updated starter code
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!115
+
+[33mcommit f66e82ddc62590437da921d624213553a1d5d1a6[m
+Merge: 3931543 44e3d9f
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Thu Nov 4 22:46:55 2021 +1100
+
+    Merge branch 'bugfixes/iter2/jake' into 'master'
+    
+    Bugfixes/iter2/jake
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!113
+
+[33mcommit 2424b7046826548ecf74c0445efa858a839a6374[m[33m ([m[1;31morigin/update-8673d9faec8e84216201795dab57a87df2070ba7[m[33m)[m
+Author: COMP1531 Bot <cs1531@cse.unsw.edu.au>
+Date:   Thu Nov 4 18:32:12 2021 +1100
+
+    Task update 8673d9faec8e84216201795dab57a87df2070ba7
+
+[33mcommit 8673d9faec8e84216201795dab57a87df2070ba7[m
+Author: Emily Luxa <e.luxa@student.unsw.edu.au>
+Date:   Thu Nov 4 18:16:22 2021 +1100
+
+    Clarified 'message/share' and edited a rogue 'auth_user_id' to say token instead
+
+[33mcommit 39315433db79e560e4d0bdaa2f87131c6b099ca7[m
+Merge: eb355b4 bb4d5a0
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Thu Nov 4 15:15:59 2021 +1100
+
+    Merge branch 'remove_add_owners_fixes' into 'master'
+    
+    Fixed issues with global owner adding or removing user.
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!114
+
+[33mcommit bb4d5a0183db340304e320100e6a4cad63026287[m[33m ([m[1;31morigin/remove_add_owners_fixes[m[33m)[m
+Author: Mahi <starexify@gmail.com>
+Date:   Thu Nov 4 15:09:31 2021 +1100
+
+    Fixed issues with global owner adding or removing user.
+    * Tracking Issue: #54 and #56
+
+[33mcommit a99427c4b9c4d383392611dc2b5bb55e2d6a8300[m
+Author: Mahi <starexify@gmail.com>
+Date:   Thu Nov 4 14:31:10 2021 +1100
+
+    Moved accesserrors to top
+
+[33mcommit 44e3d9f38213486da3865b9fcd3bab5209071f1f[m
+Merge: fdc0054 eb355b4
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Nov 2 20:50:16 2021 +1100
+
+    Merge branch 'master' into bugfixes/iter2/jake
+
+[33mcommit fdc0054616d9ac8d62ba9adbe403b77777351c43[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Nov 2 20:43:14 2021 +1100
+
+    removed unecessary comments
+
+[33mcommit e70487fc22c1c8f2f65ae7f19c44d26d0bceab42[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Nov 2 20:40:55 2021 +1100
+
+    Bug Fixing Tracking: #55
+
+[33mcommit d916197896967e7e644a04855f34aabfa3930738[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Nov 2 19:00:07 2021 +1100
+
+    Pylinted Bug Fixes
+    Tracking: #60
+
+[33mcommit 17f3de0e4caf089656af2a5618a46f9997294f52[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Nov 2 18:38:28 2021 +1100
+
+    Fix the Following Tests
+    test_original_poster_can_remove_message
+    test_owner_can_remove_members_message
+     test_global_owner_can_remove_members_message_channel
+    Tracking: #61
+
+[33mcommit f559355bb01d8459bad984229389db7f324ad0fd[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Nov 2 16:21:10 2021 +1100
+
+    Fixed Pylint
+
+[33mcommit ec9dade549a0be916babe8efcb019ae62bf48322[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Nov 2 16:15:03 2021 +1100
+
+    New Test to check key error
+
+[33mcommit dafdf48e352f39825db9ca4b171220edac0e818d[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Nov 2 15:15:26 2021 +1100
+
+    Changed tests to reflect different implementation of showing messages for dms and channels
+
+[33mcommit 93d44600a24c531c5ce00abf20951cfa01eb27d8[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Nov 2 15:14:44 2021 +1100
+
+    Modified Clear to be more pythonic
+
+[33mcommit 569ef0cffa3cf33c63dc195aed796ac2d4c30a71[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Nov 2 15:11:42 2021 +1100
+
+    Raise Access errors before input errors
+    Tracking: #70
+
+[33mcommit 11f4b6826878840be0a7798b39e941bbb0299b7f[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Nov 2 15:08:41 2021 +1100
+
+    Fixed Return/Output of messages dm
+    Tracking: #63
+
+[33mcommit eb355b4bcaf41fad234c9b9fb71c190291dc691d[m
+Merge: 10ae62d fcfb7d3
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Tue Nov 2 12:51:42 2021 +1100
+
+    Merge branch 're_dm_details_keyerror_fix' into 'master'
+    
+    Re dm details keyerror fix
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!112
+
+[33mcommit fcfb7d32d031501eb1d069229ce26c3917dba349[m[33m ([m[1;31morigin/re_dm_details_keyerror_fix[m[33m)[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Tue Nov 2 09:47:03 2021 +0800
+
+    fix keyerror effect to dm leave test
+
+[33mcommit d15242ddb0bc18290ad803b177e75463617a8eec[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Tue Nov 2 09:43:58 2021 +0800
+
+    remover owner from return detail
+
+[33mcommit ecc1291c37c5356eb771d8a553e250ba9d3a2ee5[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Tue Nov 2 09:42:14 2021 +0800
+
+    remover owner from return detail
+
+[33mcommit 9690841c0c0090fdaa3cf3ddf5e869e268ad175e[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Nov 2 09:54:11 2021 +1100
+
+    BUG FIX message_send
+    return messages should be list of dicts not list of strings
+    Tracking: #62
+
+[33mcommit 6944b801e82b3c1d0c1d70971d903ba7a2c8d337[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Nov 2 09:45:22 2021 +1100
+
+    BUG FIX test_valid_message
+    the list did not contain dictionaries only messages strings
+    fixed to contain dicts as per spec
+    
+    Tracking: #63
+
+[33mcommit 10ae62d5eb5bb9a2cf564a2a65f4504416b26601[m
+Merge: 423e17a 6030a35
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 30 21:42:49 2021 +1100
+
+    Merge branch 'fix/user_profile_iter2' into 'master'
+    
+    Fix/user profile iter2
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!110
+
+[33mcommit 6030a359c74f1232ace9af897d5275ea71158b37[m[33m ([m[1;31morigin/fix/user_profile_iter2[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 30 21:26:00 2021 +1100
+
+    Made changes to all tests calling user/profile/v1 including admin_user_remove_v1_test.py, user_profile_setemail_v1_test.py, user_profile_sethandle_v1_test.py, and user_profile_setname_v1_test.py
+
+[33mcommit 5336eef5ec2533a419ec90c292cf220097fe0c3f[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 30 20:48:51 2021 +1100
+
+    Fixed test to align with changes made to fix profile
+
+[33mcommit 412b8fed4ca5d74b71aee160e853765c6417e036[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 30 20:45:54 2021 +1100
+
+    Fixed return dictionary of user_profile_v1() in user.py
+
+[33mcommit 2b999e93b2ce7cb58ff084fa2d75380609566279[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sat Oct 30 10:15:42 2021 +0800
+
+    changed dm details key for accessing members
+
+[33mcommit 1050db59eb03d7f19f63d64e08c7c56316e50f05[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sat Oct 30 10:11:34 2021 +0800
+
+    dm details key error fix version 2
+
+[33mcommit 423e17ad6a347f6839f965080f9cca47758f6c6b[m
+Merge: 5dac31e 59815e8
+Author: COMP1531 Bot <cs1531@cse.unsw.edu.au>
+Date:   Tue Oct 26 10:40:47 2021 +1100
+
+    Merge changes from starter code into 'master'
+
+[33mcommit 59815e856673acc867fba2dae1e8b38be8f72625[m[33m ([m[1;31morigin/update-c4f53dd27b8e53996796da4c1a394fd478599ac9[m[33m)[m
+Author: COMP1531 Bot <cs1531@cse.unsw.edu.au>
+Date:   Tue Oct 26 10:40:46 2021 +1100
+
+    Task update c4f53dd27b8e53996796da4c1a394fd478599ac9
+
+[33mcommit c4f53dd27b8e53996796da4c1a394fd478599ac9[m
+Merge: 1694753 2937116
+Author: Hayden Smith <hayden.smith@unsw.edu.au>
+Date:   Mon Oct 25 22:05:53 2021 +1100
+
+    Merge branch 'iteration3' into 'master'
+    
+    Iteration 3
+    
+    See merge request COMP1531/21T3/STAFF/repos/project-backend!17
+
+[33mcommit 2937116e74dda2ea314b32dc57cb89b3d25b6005[m
+Author: Hayden Smith <mail@chambalam.com>
+Date:   Sat Oct 23 17:11:14 2021 +1100
+
+    Iteration 3
+
+[33mcommit 5dac31e9bce0c3eefe4c1713eb387070bc8b9c2c[m
+Merge: c404734 a0f9287
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sun Oct 24 23:20:06 2021 +1100
+
+    Merge branch 'fix_style_coverage' into 'master'
+    
+    Fix style coverage
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!108
+
+[33mcommit a0f9287e4165a8576939ff23590069460a70d92c[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 24 23:13:27 2021 +1100
+
+    Style change
+
+[33mcommit 6cf0732186a172782517523cf607bdeb0140fadb[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 24 23:01:45 2021 +1100
+
+    Revert changes to server.py
+
+[33mcommit f60c7d88939cf72acc69c9d429816c14ae5de074[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 24 22:59:49 2021 +1100
+
+    Reverted clear function name
+
+[33mcommit 00031d30887c0db3b3e1d9b28b2d20ff64983f8a[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 24 22:55:28 2021 +1100
+
+    Revert changes to oother.py
+
+[33mcommit 8f9d8f2ecd9faeff923d3c15a9505fd4e9c9da24[m
+Merge: cac049d e7c04b0
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 24 22:51:26 2021 +1100
+
+    Endpoint functions follow same name pattern'
+
+[33mcommit cac049db4a3ac604b9b237e827339bbc698e2075[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 24 22:49:28 2021 +1100
+
+    Endpoint functions follow same name pattern'
+
+[33mcommit c4047347ca3a31e466a43dc8de903aec0c5b2b07[m
+Merge: e7c04b0 cb1508f
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 22:35:43 2021 +1100
+
+    Merge branch 'fix/users_and_user_style' into 'master'
+    
+    Fixed style (added docstrings) to user.py and users.py
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!107
+
+[33mcommit cb1508f9b46ed1a3fa820cbf7fb5aac5fbd1244d[m[33m ([m[1;31morigin/fix/users_and_user_style[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 22:27:11 2021 +1100
+
+    Fixed style (added function comments) to user.py and users.py
+
+[33mcommit e7c04b0cc8444fbfd9532cee90ec49f6a59571f1[m
+Merge: f69799b d1a0612
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Sun Oct 24 20:54:11 2021 +1100
+
+    Merge branch 'tests_commenting_improving' into 'master'
+    
+    improved tests commenting
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!106
+
+[33mcommit d1a0612dfff9c0468f59658b7f3f6b343da0c31c[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Oct 24 17:51:08 2021 +0800
+
+    add dm assumptiosn in
+
+[33mcommit f1813dd8f21c71ef2d92110374fa8240f93ac718[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Oct 24 17:37:19 2021 +0800
+
+    improved tests commenting
+
+[33mcommit f69799bf39a9fb6e3acf92b1059a3b9a74670036[m
+Merge: 8818437 8c841b1
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Sun Oct 24 20:16:20 2021 +1100
+
+    Merge branch 'feature/message/senddm/v1' into 'master'
+    
+    Feature/message/senddm/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!105
+
+[33mcommit 8c841b1ce2418bcbd2cc33a80b1e7d2b22371646[m[33m ([m[1;31morigin/feature/message/senddm/v1[m[33m, [m[1;32mfeature/message/senddm/v1[m[33m)[m
+Merge: 041a460 7969d91
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Oct 24 20:08:11 2021 +1100
+
+    Fixed Merge Conflict
+
+[33mcommit 7969d9147affeacd26f48ef445bd0c572e1b480c[m[33m ([m[1;31morigin/feature/channel/messages/v2[m[33m, [m[1;32mfeature/channel/messages/v2[m[33m)[m
+Merge: 2292220 8818437
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Oct 24 20:06:02 2021 +1100
+
+    Merge branch 'master' into feature/channel/messages/v2
+
+[33mcommit 229222013bfd3c63f8417102879299d70561cc04[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Oct 24 20:05:14 2021 +1100
+
+    Fixed Style added comments
+
+[33mcommit 8818437432609a7abae3decb4eceb43c641bf25e[m
+Merge: 91c39e1 e6e3b5d
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Sun Oct 24 19:29:49 2021 +1100
+
+    Merge branch 'comment_improvement_re' into 'master'
+    
+    Comment improvement re
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!104
+
+[33mcommit 91c39e1152931a14f1651194460b3081d9b1c8f1[m
+Merge: 6c43cce 82acb31
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 19:27:14 2021 +1100
+
+    Merge branch 'fix/admin_style' into 'master'
+    
+    Fix/admin style
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!103
+
+[33mcommit e6e3b5da1bfbca0b4693c9190547d38bad09ccc7[m[33m ([m[1;31morigin/comment_improvement_re[m[33m)[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Oct 24 16:26:20 2021 +0800
+
+    comment improving based on latest master update
+
+[33mcommit 5e43d1d833d7ab395fd9fa117b479b5c5504cb84[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Oct 24 16:22:33 2021 +0800
+
+    comment improving based on latest master update
+
+[33mcommit 82acb31bf78bccc08a2f578ea860bd444e684d79[m[33m ([m[1;31morigin/fix/admin_style[m[33m)[m
+Merge: 49c69fe 6c43cce
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 19:12:45 2021 +1100
+
+    Merge branch 'master' into fix/admin_style
+
+[33mcommit 49c69fe799cef6f719ac8417b7a5770d4521d9b0[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 19:09:59 2021 +1100
+
+    Fixed style (fixed white space) in admin.py
+
+[33mcommit 4bc6fa0c037541c1b2667b937b03d518fc20b380[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 19:08:34 2021 +1100
+
+    Fixed style in admin.py
+
+[33mcommit 6c43cce2e439b8306f6982dc6ab00ce4b884647f[m
+Merge: 33dfdf9 38e3836
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 18:47:44 2021 +1100
+
+    Merge branch 'fix/channels_coverage' into 'master'
+    
+    Fix/channels coverage
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!102
+
+[33mcommit 38e38366508c578f2bc3bb1ec3d3bbfc43a8b0b9[m[33m ([m[1;31morigin/fix/channels_coverage[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 18:25:38 2021 +1100
+
+    Removed unused imports from channels.py
+
+[33mcommit f13163e56d95fb5d148f74793aa65461323b6e1d[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 18:22:27 2021 +1100
+
+    Removed auth_user_id validation from channels.py and associated tests
+
+[33mcommit 33dfdf95d7837afaabfcc868a16824a7d07419f1[m
+Merge: 4660393 b5b7cb2
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 18:16:24 2021 +1100
+
+    Merge branch 'fix/users_coverage' into 'master'
+    
+    Fix/users coverage
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!101
+
+[33mcommit b5b7cb2da2f9ebcc06bcf47231fb2b70c8c61d30[m[33m ([m[1;31morigin/fix/users_coverage[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 18:11:04 2021 +1100
+
+    Add check to admin_user_remove_v1_test.py to check that removed user not listed in users/all/v1
+
+[33mcommit 4660393e06188cc67a6ceab82a46c4d6646ede0b[m
+Merge: cd55b4e 8e40194
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 18:01:36 2021 +1100
+
+    Merge branch 'fix/channel_coverage' into 'master'
+    
+    Fix/channel coverage
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!100
+
+[33mcommit 05dda5c1f776add4b7bc2942d9708a7cf351c19c[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 18:00:59 2021 +1100
+
+    Removed auth_user_id parameter from users_all_v1() in seerver.py and users.py
+
+[33mcommit 64ff63b2bccfe503f749b09686fb8105ae2469eb[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 17:58:25 2021 +1100
+
+    Removed unneeded check from users.py to improve coverage
+
+[33mcommit 8e40194dfdac64522b4da8b5cf34462ce745dfb6[m[33m ([m[1;31morigin/fix/channel_coverage[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 17:44:05 2021 +1100
+
+    Removed unneeded auth_user_id validation test from channel_join_v1_test.py
+
+[33mcommit f8f1455cd6acb1ec8ce574580a0509aa7b252571[m
+Merge: 222f1cb cd55b4e
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Oct 24 17:42:58 2021 +1100
+
+    Merge branch 'master' into feature/channel/messages/v2
+
+[33mcommit 82859eab458f0940e2f87538200da40ee93ce15d[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 17:40:04 2021 +1100
+
+    Removed unneeded auth_user_id validation in channel.py funcs
+
+[33mcommit cd55b4e2aa25e40b01effc8b37e62e3369e797e0[m
+Merge: dc0c905 3f7bd9d
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sun Oct 24 17:30:52 2021 +1100
+
+    Merge branch 'fix_style_coverage' into 'master'
+    
+    Fix style coverage
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!99
+
+[33mcommit 3f7bd9d03d414b822caf42f193fadaa86810f4b1[m[33m ([m[1;31morigin/fix_style_coverage[m[33m)[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 24 17:26:07 2021 +1100
+
+    Removed unused variable
+
+[33mcommit 5715c9b3b675e28b7a2d262f4de00e29c9d2851c[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 24 17:24:50 2021 +1100
+
+    Improved coverage
+
+[33mcommit 68128e5a45fcedaf00bb16d15a5457af49b42665[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 24 17:14:44 2021 +1100
+
+    Fixed invalid auth_ID test
+
+[33mcommit a0b71e5a1d0f83bd4f78ce4168a681f075558046[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 24 17:10:08 2021 +1100
+
+    Added verify auth_id to channel_details and tests
+
+[33mcommit c7e44499614d308ff07c12014b225000bbdf43a0[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 24 17:03:46 2021 +1100
+
+    Added verify user_id and test
+
+[33mcommit dc0c905b2700f2c35dcaa0cb5a2abd059a763c60[m
+Merge: 574f355 d79dd50
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Sun Oct 24 12:11:09 2021 +1100
+
+    Merge branch 'fix/admin_coverage' into 'master'
+    
+    Fix/admin coverage
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!97
+
+[33mcommit 574f355e4b3b82218f7a602cb110d6fb3f82bbf1[m
+Merge: 9bd5fa8 6cf7c4b
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Sun Oct 24 12:08:58 2021 +1100
+
+    Merge branch 'coverage_improving_for_dm' into 'master'
+    
+    Coverage improving for dm
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!96
+
+[33mcommit d79dd500387a5246a2e8e8b0b713e1d1360a07fb[m[33m ([m[1;31morigin/fix/admin_coverage[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 12:04:58 2021 +1100
+
+    Fixed test_valid_removal after coverage improvements in admin_user_remove_v1_test.py
+
+[33mcommit 569155295d6f8d6fe978d91f7372a4e949fea124[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 12:03:26 2021 +1100
+
+    Fixed test after coverage improvements in admin_user_remove_v1_test.py
+
+[33mcommit 2347756b5468bdef460c6c2e63a79d120855951d[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 11:59:46 2021 +1100
+
+    Expanded test coverage in admin_user_remove_v1_test
+
+[33mcommit 6cf7c4b1e638daf215704f408fc3a46d0425bda7[m[33m ([m[1;31morigin/coverage_improving_for_dm[m[33m)[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Oct 24 00:13:51 2021 +0800
+
+    improve other.py coverage in helper functions for dm
+
+[33mcommit e2ad382a89a470d95df0f6466409126970f0e5dd[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sun Oct 24 00:01:26 2021 +0800
+
+    improve other.py coverage in helper functions for dm
+
+[33mcommit 9a0c03b335418c81ceb008e6feac10b2b50c7263[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sat Oct 23 23:45:28 2021 +0800
+
+    modified more tests for dm message to achieve 100% coverage
+
+[33mcommit 9bd5fa87a7b367d61ea02f71044f43508cd49e25[m
+Merge: 3877ce0 bcf92a8
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 01:34:45 2021 +1100
+
+    Merge branch 'feature/admin/user/remove/v1' into 'master'
+    
+    Feature/admin/user/remove/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!93
+
+[33mcommit bcf92a81825edcb36baf513e0f629710c9457c97[m[33m ([m[1;31morigin/feature/admin/user/remove/v1[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 00:35:25 2021 +1100
+
+    Expanded test coverage in admin_user_remove_v1_test; Removed unneeded check in admin.py
+
+[33mcommit 222f1cbd7f43ad238f4c62c213ee9d70f52ae2eb[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Oct 24 00:26:06 2021 +1100
+
+    added test for start index = 0
+
+[33mcommit 2eda10f857b98ae02c5b146605c487ee3b5c6d82[m
+Merge: fc716a6 3877ce0
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 00:25:23 2021 +1100
+
+    Merge branch 'master' into feature/admin/user/remove/v1
+
+[33mcommit fc716a6257639948c12a94c4d2f27df07df0405b[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 24 00:20:39 2021 +1100
+
+    Fixed bug in dm.py preventing tests from passing
+
+[33mcommit 3877ce07380028dcd21af112e6b5f0ff63bc3ef3[m
+Merge: 07f1315 3183bba
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Sun Oct 24 00:16:17 2021 +1100
+
+    Merge branch 'feature/dm/message_v1_new' into 'master'
+    
+    Feature/dm/message v1 new
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!91
+
+[33mcommit 8b74199b5eeb1cf392070bb4bd627d5eac64925e[m
+Merge: 4cdf9a0 3183bba
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 23 23:54:54 2021 +1100
+
+    Merge branch 'feature/dm/message_v1_new' into feature/admin/user/remove/v1
+
+[33mcommit 3183bba5b804d5db8675de4f3333c5e2bb1285ce[m[33m ([m[1;31morigin/feature/dm/message_v1_new[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 23 23:49:15 2021 +1100
+
+    Fixed bug causing 500 error when start greater than num messages in dm
+
+[33mcommit 5c6f4694da479de2361f6dd2fd3fc2282f892237[m
+Merge: cd1a294 07f1315
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 23 23:24:12 2021 +1100
+
+    Merge branch 'master' into feature/dm/message_v1_new
+
+[33mcommit cd1a294569cce62f30a4c12a1f297b8df34126ba[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 23 23:17:28 2021 +1100
+
+    Made changes to dm.py and server.py as requested by Jake in merge request.
+
+[33mcommit dbcf0499183ebb6ee81ad6dfb6c55a60b015776c[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 23 23:13:18 2021 +1100
+
+    Made changes to dm.py and server.py as requested by Jake in merge request.
+
+[33mcommit 07f13154b5e0a9740626a2302497d83026dee747[m
+Merge: 6fb2582 b6d236b
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Oct 23 22:16:47 2021 +1100
+
+    Merge branch 'feature/channel/messages/v2' into 'master'
+    
+    Feature/channel/messages/v2
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!92
+
+[33mcommit b6d236b910dd776ef03c5c38a49df81fad189ddb[m
+Merge: d3ea173 d3e757f
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Oct 23 21:45:03 2021 +1100
+
+    Fixed Merge Conflicts
+
+[33mcommit d3e757fc332510cc5df50b98b54aa168f6cdaba2[m
+Merge: 12e4e86 6fb2582
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Oct 23 21:43:33 2021 +1100
+
+    Merge branch 'master' of gitlab.cse.unsw.EDU.AU:COMP1531/21T3/groups/T11B_DODO/project-backend
+
+[33mcommit d3ea173ffa742742d2819ba36712001fe72b79cb[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Oct 23 21:42:50 2021 +1100
+
+    Pylinted message.py
+
+[33mcommit 12e4e867af6076c17fe2c0b7782416966ee005c8[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Oct 23 21:27:00 2021 +1100
+
+    Fixed Incorrect Logic for End value in channel messages
+
+[33mcommit 041a4605e2179175f8ecb802eda2f9dbf2e53fc1[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Oct 23 20:51:05 2021 +1100
+
+     Fixed Logic in Message Edit and Message Remove
+
+[33mcommit 3822e1fac0df9e7c770182acaa9543eadeda58f2[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sat Oct 23 16:37:59 2021 +0800
+
+    modified dm messages v1 test
+
+[33mcommit fd57fd7d8730022bd1bb48e4c80bb2790528e1e9[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sat Oct 23 16:34:36 2021 +0800
+
+    added dm message in
+
+[33mcommit 6fb25826353bfcabd974af3a7063dc0eeddc7d43[m
+Merge: aa830ee 8d9573a
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 23 19:00:43 2021 +1100
+
+    Merge branch 'user_profile_sethandle_v1' into 'master'
+    
+    user/profile/sethandle/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!90
+
+[33mcommit 8d9573aac3734695d23abc82e2dc8033a7624565[m[33m ([m[1;31morigin/user_profile_sethandle_v1[m[33m)[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 18:58:50 2021 +1100
+
+    Revert change on duplicate email helper function
+
+[33mcommit c36ef46da196d7be96117ccb92c4027468bca404[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 18:56:40 2021 +1100
+
+    Added endpoint for /user/profile/sethandle/v1
+    * Tracking Issue: #44
+
+[33mcommit d1d9a6f03c077cddcd134a579baca5da754631f4[m
+Merge: b77c28c aa830ee
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 18:53:44 2021 +1100
+
+    Merge branch 'master' into user_profile_sethandle_v1
+
+[33mcommit b77c28c7dfdaaa970db3ef1f3d6118141ab0204d[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 18:52:45 2021 +1100
+
+    Added implementation of user_profile_sethandle_v1
+    * Tracking Issue: #44
+
+[33mcommit aa830ee894ca86a3d73b30a192453e1c0a1dd806[m
+Merge: 307b57e 43fe242
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Oct 23 17:49:52 2021 +1100
+
+    Merge branch 'feature/message/senddm/v1' into 'master'
+    
+    Feature/message/senddm/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!89
+
+[33mcommit c817d21204a90e073e8f66e4214884969d9fd448[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 17:45:03 2021 +1100
+
+    Added blackbox tests for user_profile_sethandle_v1
+    * Tracking Issue: #44
+
+[33mcommit 43fe242012d12acd0c73341691a6244767061ff1[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Oct 23 17:07:48 2021 +1100
+
+    Pylinted message.py removed unsused variables
+
+[33mcommit 1005e1b35e7be97beda15926884b9f5cf50d72dc[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Oct 23 17:02:35 2021 +1100
+
+    Merge branch 'master' of gitlab.cse.unsw.EDU.AU:COMP1531/21T3/groups/T11B_DODO/project-backend
+
+[33mcommit 83e55e3b669b19b0b988b14d6717708c6db391d2[m
+Merge: 75de106 307b57e
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Oct 23 17:01:59 2021 +1100
+
+    Merge branch 'master' of gitlab.cse.unsw.EDU.AU:COMP1531/21T3/groups/T11B_DODO/project-backend
+
+[33mcommit 75de106697f3c60968305e759bab4cc8fcce0bd9[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Oct 23 17:00:34 2021 +1100
+
+    Fixed Issue where a variable wasn't being set in message.py and fixed message.py coverage and fixed index issues in channel.py
+
+[33mcommit 307b57e669cfac808fe741ab31fa71d0eb5202fc[m
+Merge: 09bb856 9955cb6
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sat Oct 23 16:55:34 2021 +1100
+
+    Merge branch 'user_profile_setemail_v1' into 'master'
+    
+    user/profile/setemail/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!88
+
+[33mcommit 9955cb6475797d4e006618899d1046d035a81b32[m[33m ([m[1;31morigin/user_profile_setemail_v1[m[33m)[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 16:24:45 2021 +1100
+
+    Unused variable for pylint compliancy
+
+[33mcommit 8f91c4e5d3e34dbe7387b238821f0d6ae068234d[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 16:22:27 2021 +1100
+
+    Added endpoint for user/profile/setemail/v1:
+    * Tracking Issue: #43
+
+[33mcommit 0e64742be55b329a02c06ebd2ee5d57786c6efb5[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 16:19:53 2021 +1100
+
+    Added implementation of user_profile_setemail_v1 function:
+    * Tracking Issue: #43
+
+[33mcommit b48a70fe0389937bfa07eaf3380bb29ecac58efe[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 16:09:17 2021 +1100
+
+    fixed test function names typo
+
+[33mcommit 58d7c03ba678cb3d0bc0d1f66ed04c8c08748df8[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 16:07:37 2021 +1100
+
+    Added blackbox tests for user_profile_setemail_v1:
+    * Tracking Issue: #43
+
+[33mcommit 09bb8565fe73304a92ce583ed999661da8a333e2[m
+Merge: 32125a6 69ba5e4
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sat Oct 23 15:41:07 2021 +1100
+
+    Merge branch 'user_profile_setname_v1' into 'master'
+    
+    user/profile/setname/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!87
+
+[33mcommit 69ba5e4f35358c33f97d5cb99ed96bf00c402fbb[m[33m ([m[1;31morigin/user_profile_setname_v1[m[33m)[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 15:38:16 2021 +1100
+
+    Fixed first and last name InputError check:
+    * Tracking Issue: #42
+
+[33mcommit 3b8302a68c9fbef6f6f951008dbae3b75b1985c8[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 15:21:47 2021 +1100
+
+    Fixed bug to verify user ID and typo variables
+
+[33mcommit 74a3bb0b7a75234aab2897fc822f3d9c06b325ff[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Oct 23 15:14:11 2021 +1100
+
+    Fixed Channel to match spec with errors
+
+[33mcommit dd87ffec820ac5f6cc9cf97ec6b45425d1c74f60[m
+Merge: 92ba759 32125a6
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 15:02:24 2021 +1100
+
+    Merge branch 'master' into user_profile_setname_v1
+
+[33mcommit 32125a626c9a067e1b78be769fc4c3a8fea93eb3[m
+Merge: 3a64339 504bdd3
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Oct 23 14:55:52 2021 +1100
+
+    Merge branch 'feature/message/senddm/v1' into 'master'
+    
+    Feature/message/senddm/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!86
+
+[33mcommit aca2612c8e00c3d035c7c2c2109148cf9100e5b8[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sat Oct 23 11:53:05 2021 +0800
+
+    add dm message in
+
+[33mcommit 4cdf9a0f1f7df28ac33f8139bf8da07cce4230ec[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 23 14:44:34 2021 +1100
+
+    Added dm leaving functionality to remove user from dm in admin.py
+
+[33mcommit 00b6dbfbaec0feb7fff415406a13a6a171f8fc78[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 23 14:43:16 2021 +1100
+
+    Expanded test for valid call
+
+[33mcommit bbd53ee9f04af9ebac74127bfd77a16a2286d784[m
+Merge: 369b3a6 3a64339
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 23 13:38:02 2021 +1100
+
+    Resolve merge conflicts in admin.py and server.py
+
+[33mcommit 504bdd3859841978f3ff33e64d8a4fc2520046c9[m
+Merge: 64151d7 3a64339
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Oct 23 13:25:38 2021 +1100
+
+    Merge branch 'master' into feature/message/senddm/v1
+
+[33mcommit 64151d7e68fcf1e11dbd6267f6a6b4574a708131[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Oct 23 13:24:48 2021 +1100
+
+    Improved Coverage Testing for files committed and fixed issues in local of channel_messages_v2
+
+[33mcommit 3a64339bea026a3d953599cfc290f496e05929e8[m
+Merge: 40fc43c bf0e2be
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Sat Oct 23 12:27:27 2021 +1100
+
+    Merge branch 'feature/dm_remove_v1_new' into 'master'
+    
+    Feature/dm remove v1 new
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!85
+
+[33mcommit bf0e2beb1f4e3be04d459e8797f4063c4ce54209[m[33m ([m[1;31morigin/feature/dm_remove_v1_new[m[33m)[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sat Oct 23 01:07:53 2021 +0800
+
+    add one more test for 100% coverage
+
+[33mcommit 9a6a4db9c0f9d46a2a6ab6038602ab5e9b8f83eb[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sat Oct 23 01:05:40 2021 +0800
+
+    add one more test for 100% coverage
+
+[33mcommit 40fc43cbde2331e1c37831ec0659ae3100eba8c5[m
+Merge: 01a9c61 1c629fb
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Sat Oct 23 03:56:48 2021 +1100
+
+    Merge branch 'feature/dm/leave_v1_new' into 'master'
+    
+    Feature/dm/leave v1 new
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!84
+
+[33mcommit 49343e40af9780f4207d9b9ce0ce6975759ade68[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sat Oct 23 00:50:43 2021 +0800
+
+    modified dm remove tests and modified all tests
+
+[33mcommit 55c35ff7dfbc18623d8e9a370666a9badb2eaa38[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sat Oct 23 00:46:27 2021 +0800
+
+    put dm remove in
+
+[33mcommit 5f1965cd570dd2df80cd9b379c8a113343a83caa[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sat Oct 23 00:45:16 2021 +0800
+
+    ad another helper function for dm remove
+
+[33mcommit 1aba2ed8d602054a3f44b4ab543d8a71a691b5cf[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Sat Oct 23 00:44:16 2021 +0800
+
+    add dm remove in
+
+[33mcommit 1c629fbe15d5e2bcefa91de33d57dd850df6c56d[m[33m ([m[1;31morigin/feature/dm/leave_v1_new[m[33m)[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Oct 22 23:49:56 2021 +0800
+
+    add one more test for 100%coverage
+
+[33mcommit b52c2e627db8c8d8527743bdee095ce45849c0fa[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Oct 22 23:48:55 2021 +0800
+
+    fixed a small error in helper function is_user_authorised_dm
+
+[33mcommit 92ba759b5723e70d143aebf149e1737e05aa9ed8[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 02:10:36 2021 +1100
+
+    Added endpoint for user_profile_setname_v1:
+    * Tracking Issue: #42
+
+[33mcommit 01a9c6131f0d718e186f05ba9a8b71a277fec777[m
+Merge: b64fdce 2bbee29
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Sat Oct 23 02:10:36 2021 +1100
+
+    Merge branch 'feature/dm/leave_v1_new' into 'master'
+    
+    Feature/dm/leave v1 new
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!80
+
+[33mcommit b2bd9c4418f6fd4cd706014b1d465c2d90e98dba[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 01:55:58 2021 +1100
+
+    Added function for user_profile_setname_v1:
+    * Tracking Issue: #42
+
+[33mcommit 236f79d551c4cc24a1927ead8e8804af1d5ac2f8[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 01:46:58 2021 +1100
+
+    Added blackbox tests for user_profile_setname_v1:
+    * Tracking Issue: #42
+
+[33mcommit c22423b5217192931b54c28eeacb3f39b9b1838e[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 01:40:07 2021 +1100
+
+    Added stubs for blackbox testing
+
+[33mcommit b64fdce6369122adbed4631eae4f80e5b3b42560[m
+Merge: 09fb8e0 8bd947d
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Sat Oct 23 01:36:28 2021 +1100
+
+    Merge branch 'feature/dm/details_v1_new' into 'master'
+    
+    Feature/dm/details v1 new
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!77
+
+[33mcommit 09fb8e06311bd26f8f8b0d3c6fc3539b79879dc5[m
+Merge: 81f632b 5e492c5
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sat Oct 23 01:22:20 2021 +1100
+
+    Merge branch 'channel_removeowner_v1' into 'master'
+    
+    /channel/removeowner/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!83
+
+[33mcommit 5e492c5e5ff03b4e35de9724ced1894b917b40ba[m[33m ([m[1;31morigin/channel_removeowner_v1[m[33m)[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 01:09:34 2021 +1100
+
+    Fixed key error bug in tests
+
+[33mcommit dda7d88fd8a87edc48061cdd33ab9b85667fcc53[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 01:05:06 2021 +1100
+
+    Added endpoint for channel_removeowner_v1:
+    * Tracking Issue: #29
+
+[33mcommit 81cb0633023b9ffcd37f36610181b63446e7a99e[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 01:02:52 2021 +1100
+
+    Added channel_removeowner_v1 function:
+    * Tracking Issue: #29
+
+[33mcommit 9e44ddfa06215ab8c579b2a6f19afef6ed778820[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 00:43:09 2021 +1100
+
+    Added docstrings and stub for channel_removeowner_v1
+
+[33mcommit 05f42defb9b9e88ee565b16177fe5223a1194927[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 00:33:10 2021 +1100
+
+    Added blackbox tests:
+    * Tracking Issue: #29
+
+[33mcommit a009ae8e9d26f3b0cd9f22e05ed7f793eedfe72b[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 23 00:14:55 2021 +1100
+
+    Added stub tests for channel_removeowner_v1
+
+[33mcommit 81f632bd5853831c23ba4d394248f00d8ddd85e4[m
+Merge: f7134b2 92d4f67
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Fri Oct 22 23:56:01 2021 +1100
+
+    Merge branch 'channel_addowner_v1' into 'master'
+    
+    /channel/addowner/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!82
+
+[33mcommit 92d4f67da401faa653c84f07f74dc727d1ba7faf[m[33m ([m[1;31morigin/channel_addowner_v1[m[33m)[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 23:51:40 2021 +1100
+
+    Removed debug option bug for more coverage
+
+[33mcommit a472343f02c60e43b246b7d553d402251732cbe1[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 23:49:48 2021 +1100
+
+    Removed unused variable in test
+
+[33mcommit f1d0fb178c0c2efd745a2d1d4caf41481d76e895[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 23:48:15 2021 +1100
+
+    Added endpoint channel_addowner_v1
+    * Tracking Issue: #28
+
+[33mcommit bf28517ca8b9ce2579b24c4bc600f9e134b10b6b[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 23:45:55 2021 +1100
+
+    Added channel_addowner_v1 endpoint:
+    * Fixed tests for channel_addowner_v1
+    * Added endpoint for channel_addowner_v1
+    * Tracking Issue: #28
+
+[33mcommit 2872086afde6005bf73eb5fda7388630d638b8ec[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Fri Oct 22 23:17:47 2021 +1100
+
+    Fixed bad channel create call in channel_join_v2_test.py
+
+[33mcommit a18e5155ae2367fa239b0c294b6c42b1039034a2[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Fri Oct 22 23:17:02 2021 +1100
+
+    Altered error description in channel_join_v1() to be more descriptive in channel.py
+
+[33mcommit 682b0760d24f70f03a9475ed5b5e07cc49a6fb29[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 23:15:06 2021 +1100
+
+    Completed channel_owner_v1 function:
+    * Tracking Issue: #28
+
+[33mcommit ac153f0bee555612c95fbefc098c4df7f080690c[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 23:08:04 2021 +1100
+
+    Added error checks foor channel_addwner_v1:
+    * Tracking issue: #28
+
+[33mcommit c4503eb05633fd918bef09a6d4f01e26534cf933[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 22:47:31 2021 +1100
+
+    Fixed bug to check if user is in a channel or not
+
+[33mcommit caaf0a35b0c31c1807913d6c064c996f2e84bc60[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 22:20:01 2021 +1100
+
+    Removed unused variables in channel_addowner_v1 test for pylint compliance
+
+[33mcommit 39fdcf62ba1458557d3fa451822ae0ad67d262ad[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 21:56:09 2021 +1100
+
+    Docstring and stub for channel_addowner_v1 function
+
+[33mcommit 8b976ba17e8c8b362005fcf0de9c1ceed236677a[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 21:51:48 2021 +1100
+
+    Blackbox Tests for channel_addowner_v1
+
+[33mcommit 21890233874dbf0ef7bc514b10fd971d47de14c7[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 21:41:17 2021 +1100
+
+    Added test for make a user an owner of a channel: channel_addowner_v1
+
+[33mcommit 6b78f15ad8cde0eb4c27263d4ff373795afe162b[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 20:58:12 2021 +1100
+
+    Added stub tests for channel_addowner_v1
+
+[33mcommit 2bbee291769c0dcac8cdf7f73e85e14df978419b[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Oct 22 16:37:32 2021 +0800
+
+    fixed coverage to 100%
+
+[33mcommit 0c14b96dba7fb1bba57da87ffe8557ec5c7f7205[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Oct 22 15:25:44 2021 +0800
+
+    removed the unused variable to pass the pylint
+
+[33mcommit 9f4525b962d23e32e9716e2ddf2c50e7516acbe5[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Oct 22 15:21:20 2021 +0800
+
+    delete the merge conflit reminder in the very bottom of this file
+
+[33mcommit ac9289d3e6f99cb01bda41cef9a9d82ccae39d9b[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Oct 22 15:17:20 2021 +0800
+
+    modified tests for dm leave
+
+[33mcommit 0754437b48c17616cc852fc0e3529bed9c74af75[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Oct 22 15:16:19 2021 +0800
+
+    add dm leave in
+
+[33mcommit bc8d5ccbb955a83e84267e68799cbcdf82bd5917[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Oct 22 15:15:39 2021 +0800
+
+    add dm leave in
+
+[33mcommit 84d79b2c61230b0695baebd0b08877fefc4f7335[m
+Merge: 2dca59b 8bd947d
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Oct 22 11:39:35 2021 +0800
+
+    fix merge conflict
+
+[33mcommit 8bd947d2d64d33e02fcfc1b84a82e3a892e65a2c[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Oct 22 11:29:38 2021 +0800
+
+    delete some unnecessary lines for the dm helper functions
+
+[33mcommit f77c77683df73c4e3f4a17ee8d39ae23f95a3af7[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Oct 22 11:21:58 2021 +0800
+
+    fixed the error come from merging
+
+[33mcommit 0a5078c4bc775daaf7bba1369e7425ecffe85107[m
+Merge: b677e7c f7134b2
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Oct 22 10:49:37 2021 +0800
+
+    merged from master
+
+[33mcommit b677e7c533715546b2224bcf3b6873d0c35731e2[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Oct 22 10:44:43 2021 +0800
+
+    modified dm_details_v1_tests and passed
+
+[33mcommit 4336c7c8658d5238d4c9f0f59e7894a9e5a8c79b[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Oct 22 10:43:10 2021 +0800
+
+    modified dm_details_v1
+
+[33mcommit 5269c2340b679799f0db2a6beb5c4db4bc2e6345[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Oct 22 10:42:12 2021 +0800
+
+    add dm_details_v1 in
+
+[33mcommit fe5a37e4055cc66838ad23f93c79eee9522f7064[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Fri Oct 22 10:40:47 2021 +0800
+
+    added helper functions for dm details
+
+[33mcommit f7134b22e2c111e33d2c38659f760666c9f20eb0[m
+Merge: 30032d5 32a1d01
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Fri Oct 22 01:39:03 2021 +1100
+
+    Merge branch 'channel_leave_v1' into 'master'
+    
+    Added further coverage testing
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!75
+
+[33mcommit 32a1d018c3cc01775114ed4740157d334e0d003b[m[33m ([m[1;31morigin/channel_leave_v1[m[33m)[m
+Merge: e6cbb30 30032d5
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 01:30:31 2021 +1100
+
+    Merge branch 'master' into channel_leave_v1
+
+[33mcommit e6cbb30f83b1fb34da9c26759478553615d73de1[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 01:29:57 2021 +1100
+
+    Invalid token test for channel_leave_v1
+
+[33mcommit 9d5cef7a6ea943dfa4c49e1004d4f77a60e799a2[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 01:29:41 2021 +1100
+
+    Invalid token test for channel_leave_v1
+
+[33mcommit 30032d5925fa53b2692f8984df6c34efea6ab1b4[m
+Merge: e9294d9 c81197f
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Fri Oct 22 01:23:10 2021 +1100
+
+    Merge branch 'channel_leave_v1' into 'master'
+    
+    Added test for invalid auth_user_id for channel_leave_v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!74
+
+[33mcommit c81197ff515965a5c18b820da385705e0cc241c9[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 01:20:01 2021 +1100
+
+    Added test for invalid auth_user_id for channel_leave_v1
+
+[33mcommit e9294d903e9d46ce40a1254d81cedafc0c31b488[m
+Merge: 975f674 aaa2894
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Fri Oct 22 01:16:58 2021 +1100
+
+    Merge branch 'feature/message/senddm/v1' into 'master'
+    
+    Added tests for dms to message edit and message remove and improve coverage
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!73
+
+[33mcommit aaa2894ff92ed79f13b9782b0a002fadfe0ada21[m
+Merge: 3642bff 975f674
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Fri Oct 22 01:04:49 2021 +1100
+
+    Merge branch 'master' into feature/message/senddm/v1
+
+[33mcommit 3642bffffed9f2529b50bf243c5885508623b470[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Fri Oct 22 01:03:00 2021 +1100
+
+    Added tests for dms to message edit and message remove and improve coverage
+
+[33mcommit 975f6742a60329f52971eac425426f759b640e27[m
+Merge: 700c361 498bbcd
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Fri Oct 22 00:46:46 2021 +1100
+
+    Merge branch 'channel_leave_v1' into 'master'
+    
+    Channel_leave_v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!72
+
+[33mcommit 498bbcd08f141e20f030c581c4a60e3bae047083[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 00:42:39 2021 +1100
+
+    Removed unused variables for pylint
+
+[33mcommit f5586c8704be453de59dd896777401def7075523[m
+Merge: d95b738 700c361
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 00:41:01 2021 +1100
+
+    Merge branch 'master' into channel_leave_v1
+
+[33mcommit d95b7380ccba17efdd19596f462443b2b62c4576[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 22 00:38:38 2021 +1100
+
+    Fixed multiple owner details bug in channel_details
+    * Fixed invalid token datatype bug in channel_leave_v1_test.py
+    * Tracking Issue: #27
+
+[33mcommit 700c361a292c41afd9edecfd38e79b506a6eed27[m
+Merge: 160c087 40e7cb3
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Fri Oct 22 00:21:54 2021 +1100
+
+    Merge branch 'feature/message/senddm/v1' into 'master'
+    
+    Feature/message/senddm/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!71
+
+[33mcommit 40e7cb3c1443c5a2ecaa4a7b29cffaed93519c9a[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Fri Oct 22 00:16:18 2021 +1100
+
+    Removed Echo and related test and server endpoint
+
+[33mcommit 49b17b8c5c5c13416ef9c12a1675a18d949947cb[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Fri Oct 22 00:13:08 2021 +1100
+
+    Removed duplicate function
+
+[33mcommit 2d906930fe15ddb21469af926bef8071ac3780d1[m
+Merge: f0d1dd7 3ca3883
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Fri Oct 22 00:08:51 2021 +1100
+
+    Merge branch 'master' into feature/message/senddm/v1
+
+[33mcommit 3ca3883415a55af6991f36484e2bce1ba272d9ec[m
+Merge: ef05aaf 160c087
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Fri Oct 22 00:08:18 2021 +1100
+
+    Merge branch 'master' of gitlab.cse.unsw.EDU.AU:COMP1531/21T3/groups/T11B_DODO/project-backend
+
+[33mcommit f0d1dd79592dceb44c36f5b01578fda657fb607e[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Fri Oct 22 00:07:57 2021 +1100
+
+    Implemented Send Dm and fixed access error for token validation and decoding
+
+[33mcommit 1baee8084c71602eee9c6fc03e21096720921606[m
+Author: Mahi <starexify@gmail.com>
+Date:   Thu Oct 21 23:53:21 2021 +1100
+
+    Added /channel/leave/v1 endpoint
+    * Tracking Issue: #27
+
+[33mcommit 2dca59b5453ee8650e341095745f25e7f2cf8bb8[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Oct 21 20:52:02 2021 +0800
+
+    add helper function for dm/leave
+
+[33mcommit 4eff2e02d3705e718cc686b104841c7f10a04598[m
+Merge: 72df6d9 160c087
+Author: Mahi <starexify@gmail.com>
+Date:   Thu Oct 21 23:49:30 2021 +1100
+
+    Merge branch 'master' into channel_leave_v1
+
+[33mcommit e2785d966fc97b0afcbfea5491516acd47793811[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Oct 21 20:48:08 2021 +0800
+
+    add dm/leave in
+
+[33mcommit 72df6d9611c4aa5804b30afa8e8e81d39608cd5c[m
+Author: Mahi <starexify@gmail.com>
+Date:   Thu Oct 21 23:47:58 2021 +1100
+
+    Added channel_leave_v1 function in channel.py:
+    * Tracking Issue: #27
+
+[33mcommit 160c087e954ec4a84ab377ddf16e737e2e80cbc8[m
+Merge: af7aae7 743b594
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Thu Oct 21 23:46:11 2021 +1100
+
+    Merge branch 'feature/dm/list_v1_new' into 'master'
+    
+    Feature/dm/list v1 new
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!70
+
+[33mcommit 743b594fbba6af0b5963163cc527eef88ad6c605[m[33m ([m[1;31morigin/feature/dm/list_v1_new[m[33m)[m
+Merge: bf8f62b af7aae7
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Oct 21 20:27:50 2021 +0800
+
+    merged from latest master version
+
+[33mcommit ef05aaffac8957f0386901b3fa7aaf8335545498[m
+Merge: c967515 af7aae7
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Thu Oct 21 23:21:52 2021 +1100
+
+    Merge branch 'master' of gitlab.cse.unsw.EDU.AU:COMP1531/21T3/groups/T11B_DODO/project-backend
+
+[33mcommit c9675154ff5a3dcd849efa5220321dd446b489fc[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Thu Oct 21 23:19:56 2021 +1100
+
+    Created Send Dm Test v1:
+    Implemented Tests
+    
+    Tracking: #39
+
+[33mcommit bf8f62bb3c1cb5f0cce7b2cae9002bf9f1ecc486[m
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Thu Oct 21 23:14:24 2021 +1100
+
+    changed test file name to standard
+
+[33mcommit 92229cabffdc3b90241cf8eef0af310efa5707ed[m
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Thu Oct 21 23:11:31 2021 +1100
+
+    change test file name to that standard
+
+[33mcommit b39ee37493d928003253ac7baf07418996637226[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Oct 21 20:07:48 2021 +0800
+
+    finalised dm_list tests and the implementations passed the tests
+
+[33mcommit 75d013dee1ab0b977a236f93978b9ef10c20e02a[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Oct 21 20:05:23 2021 +0800
+
+    add dm_list in
+
+[33mcommit 3e718cb3d0783a3d8daa3867537412f4175577a7[m
+Merge: eaa5ba7 af7aae7
+Author: Mahi <starexify@gmail.com>
+Date:   Thu Oct 21 23:05:09 2021 +1100
+
+    Merge branch 'master' into channel_leave_v2
+
+[33mcommit 73a006b8ddc6e7f86941a0e092f81ae6ffbb367c[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Oct 21 20:02:48 2021 +0800
+
+    added dm/list in
+
+[33mcommit eaa5ba7da51e49091b9b78e9e13ec1d2f1604c02[m
+Author: Mahi <starexify@gmail.com>
+Date:   Thu Oct 21 23:02:15 2021 +1100
+
+    Added blackbox test for channel_leave_v1
+    * Tracking Issue: #37
+
+[33mcommit af7aae77b26755fbbe1c1454385d1fe1520aef2c[m
+Merge: 6328733 d5ed55a
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 22:26:57 2021 +1100
+
+    Merge branch 'revert-63287333' into 'master'
+    
+    Revert "Merge branch 'revert-8e8f53e0' into 'master'"
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!67
+
+[33mcommit d5ed55acf6c502a49d76fffbb2168fc9f2802de3[m
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 22:26:29 2021 +1100
+
+    Revert "Merge branch 'revert-8e8f53e0' into 'master'"
+    
+    This reverts merge request !66
+
+[33mcommit 63287333d40379f3270750a3718072644f14c329[m
+Merge: 8e8f53e bf7c4fb
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 22:22:20 2021 +1100
+
+    Merge branch 'revert-8e8f53e0' into 'master'
+    
+    Revert "Merge branch 'feature/dm/create_v1_new' into 'master'"
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!66
+
+[33mcommit bf7c4fb68e6ec253b045e491947a33ed62506ef3[m
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 22:21:48 2021 +1100
+
+    Revert "Merge branch 'feature/dm/create_v1_new' into 'master'"
+    
+    This reverts merge request !65
+
+[33mcommit 8e8f53e04e356abf42485223b4ffc18212488094[m
+Merge: 8c62e79 d19ce3b
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Thu Oct 21 22:03:06 2021 +1100
+
+    Merge branch 'feature/dm/create_v1_new' into 'master'
+    
+    Feature/dm/create v1 new
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!65
+
+[33mcommit d19ce3b736489021d4a64691ff4fbcb84a5611ce[m[33m ([m[1;31morigin/feature/dm/create_v1_new[m[33m)[m
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Thu Oct 21 21:57:55 2021 +1100
+
+    change test file name
+
+[33mcommit 8c62e79d6937e823e9d255cc146c58bf92cc546d[m
+Merge: d942a64 7fee16d
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 21:47:03 2021 +1100
+
+    Merge branch 'feature/admin/userpermission/change/v1' into 'master'
+    
+    Feature/admin/userpermission/change/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!64
+
+[33mcommit cf8826d3a106074035c5bbd5a39d77462f606279[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Oct 21 17:25:49 2021 +0800
+
+    finalised tests and passed all the tests
+
+[33mcommit fcde08d14c3f9a83b71669e2eecfdad0e60a5720[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Oct 21 17:25:06 2021 +0800
+
+    add dm/create_v1 in server
+
+[33mcommit 895c99141a0d8547ced61d6a74b5bc6d9edb3c9a[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Oct 21 17:24:04 2021 +0800
+
+    add generate dm name helper functionbased on the new version of master
+
+[33mcommit 6dbb85d6f04bec01e0e7bc2125c54f96cd507416[m
+Author: Vincent <z5313503@ad.unsw.edu.au>
+Date:   Thu Oct 21 17:22:45 2021 +0800
+
+    get fixed error from merge
+
+[33mcommit 137549b0ec5ab17053f226a49124fc3d8f8f6198[m[33m ([m[1;31morigin/channel_leave_v2[m[33m)[m
+Merge: 96537f4 d942a64
+Author: Mahi <starexify@gmail.com>
+Date:   Thu Oct 21 18:15:33 2021 +1100
+
+    Merge branch 'master' into channel_leave_v2
+
+[33mcommit 7fee16d1177d984e6df675f61c9556d794581315[m[33m ([m[1;31morigin/feature/admin/userpermission/change/v1[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 17:29:53 2021 +1100
+
+    Implemented admin/userpermission/change/v1 in admin.py and server.py; Fixes to expected status codes and name of admin_userpermission_change_v1_test.py
+
+[33mcommit 4351327689e03f372b887c181fbc9cffe49f0feb[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 17:12:22 2021 +1100
+
+    Created tests in admin_userpermission_change_v1_test.py
+
+[33mcommit ad847f425167342d5d9c94014092c3129a63e47a[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 16:33:32 2021 +1100
+
+    Created stubs for admin/userpermission/change/v1 tests in admin_userpermission_change_v1_test.py
+
+[33mcommit 369b3a68a15439b24aa0cb86837f48506066be93[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 16:15:55 2021 +1100
+
+    Bug fixes in admin.py
+
+[33mcommit 23693ca3d126ba606360f4f0d2e3b7bb36f8a557[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 15:49:50 2021 +1100
+
+    Added implementation of admin/user/remove/v1 in server.py
+
+[33mcommit 3f592b482c876addbaf7ff2c06e047f0932a1a8b[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 15:49:08 2021 +1100
+
+    Added line to save changes to data_store in admin.py
+
+[33mcommit bc9aee67b03eb60e6ba1388ed64b6bb273529787[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 15:17:41 2021 +1100
+
+    Added admin/user/remove/v1 implementation in admin.py and users.py
+
+[33mcommit 7a8df0b0b9f5f4bb79e523fb535a22359550af7d[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 14:55:38 2021 +1100
+
+    Fixed file name of admin_user_remove_v1_test.py
+
+[33mcommit ba7651e662f84804b8e22c75741d841318928e8b[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 14:52:36 2021 +1100
+
+    Fixed typo in admin_user_remove_v1_test.py
+
+[33mcommit ada891dc9ffcfca698b78aa86925aebb787bdf78[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 14:51:13 2021 +1100
+
+    Added tests to admin_user_remove_v1_test.py
+
+[33mcommit d357abd4da56f5b16eca801e45a38ea69d1b5304[m
+Merge: 80660a8 d942a64
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 14:46:01 2021 +1100
+
+    Merge branch 'master' into feature/admin/user/remove/v1
+
+[33mcommit d942a640c1e7013438d53c8caf357f28fd2ef67d[m
+Merge: aaca6d8 bb58b5c
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 14:44:14 2021 +1100
+
+    Merge branch 'feature/Add_permissions_field_and_checking' into 'master'
+    
+    Feature/add permissions field and checking
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!63
+
+[33mcommit bb58b5c03bd0ca6de2debe6fc10c7f44c65d62de[m[33m ([m[1;31morigin/feature/Add_permissions_field_and_checking[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 14:35:48 2021 +1100
+
+    Added permission_id field to user fields in auth.py
+
+[33mcommit 6fbaf2d48f45c1888c5caccf21710842d3caef3c[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 14:34:54 2021 +1100
+
+    Changed functionality of is_global_user() in other.py to check permission_id field
+
+[33mcommit 80660a841510ccfc652873588707242fb26e55b8[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 14:26:29 2021 +1100
+
+    Added test_user_not_global_owner to pytests in admin_user_remove_v1.py
+
+[33mcommit f199b967f452b9d6431f7bc86dcfdee6642f9d20[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 14:07:00 2021 +1100
+
+    Created stubs for tests in admin_user_remove_v1_test.py
+
+[33mcommit 28e159342bcb13e572cc5f0f64f68beb1e887dec[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 13:54:55 2021 +1100
+
+    Renamed tests to align with naming convention
+
+[33mcommit aaca6d89d756fd0903dc0b1b23954479b51c7b40[m
+Merge: cc927d1 e834762
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Thu Oct 21 13:49:00 2021 +1100
+
+    Merge branch 'feature/channel/messages/v2' into 'master'
+    
+    Feature/channel/messages/v2
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!62
+
+[33mcommit e834762947271e220373726b5491057cbc3d89f9[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Thu Oct 21 12:28:22 2021 +1100
+
+    Fixed src/message.py to throw access errors in message remove where necessary and to check message_id in message_edit and message_remove is within bounds of defined message_ids
+
+[33mcommit 54f380cf45d6571407a05ccc0078317b768ef116[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Thu Oct 21 12:07:03 2021 +1100
+
+    Pylinted Test Files and channel.py file
+
+[33mcommit 9b0b79f91bef56628497486402ad592fc612307c[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Thu Oct 21 02:02:48 2021 +1100
+
+    Fixed Merge Conflict
+
+[33mcommit 99aeb219da9d6f2be9df37a4cc89e771c911d24e[m
+Merge: 85ba063 9b06766
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Thu Oct 21 01:55:42 2021 +1100
+
+    Fixed Merge Conflict
+
+[33mcommit 9b06766caac4d3c4e7be6e5d935e254fd4ea876c[m
+Merge: 053456e cc927d1
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Thu Oct 21 01:54:04 2021 +1100
+
+    Merge branch 'master' of gitlab.cse.unsw.EDU.AU:COMP1531/21T3/groups/T11B_DODO/project-backend
+
+[33mcommit cc927d1267853c4a60198f6b540cc75461e86013[m
+Merge: d5443ac b061f4d
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 01:53:39 2021 +1100
+
+    Merge branch 'feature/user/profile/v1' into 'master'
+    
+    Feature/user/profile/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!61
+
+[33mcommit 85ba063158cce311f5367f450d17cd5c8bf58d66[m
+Merge: 6377617 053456e
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Thu Oct 21 01:51:57 2021 +1100
+
+    Fixed Merge COnflict
+
+[33mcommit b061f4da20ee83ccb24da8f3160243cb3371f697[m[33m ([m[1;31morigin/feature/user/profile/v1[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 01:50:43 2021 +1100
+
+    Fixed style in user_profile_v1_test.py; Fixed bug in server.py that stoped u_id being cast to int from str type
+
+[33mcommit 053456eba9b3a9cc12209ad378de1823302a48a6[m
+Merge: b7a6197 d5443ac
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Thu Oct 21 01:49:53 2021 +1100
+
+    Fixed Merge Conflict
+
+[33mcommit 63776179c0c65428deeb2ff67a5342ac185b9e0b[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Thu Oct 21 01:47:26 2021 +1100
+
+    Implemented Edit and Remove Tests and Fixed channel_messages and messages send implementation to talk to messages in datastore and message indices in channel
+
+[33mcommit 089e786cf181031cafdf255e71e6695545b4de62[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 01:42:26 2021 +1100
+
+    Fixes to expected output user_profile_v1__test.py
+
+[33mcommit 7efbcc040fdf952e56c719bfb1dafa6f9e62c506[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 01:41:21 2021 +1100
+
+    Fixes to output/expected output in iser.py users.py and users_all_v1_test.py
+
+[33mcommit ec2f13164c92c4dc0b402732e7b7e98a65367cfe[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 01:35:07 2021 +1100
+
+    Implemented user/profile/v1 in user.py and server.py
+
+[33mcommit 02f1bc179493e1251148ac3cb9e4284cf28ac976[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 01:34:19 2021 +1100
+
+    Fixed typo in called routes
+
+[33mcommit e2eb84a46a5658af8ef97c3f1a5fe9216dd7ab0b[m
+Merge: 82fed74 d5443ac
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 01:15:51 2021 +1100
+
+    Merge branch 'master' into feature/user/profile/v1
+
+[33mcommit 82fed7448704357688ba16274c043cb79808e825[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 01:12:37 2021 +1100
+
+    Implemented user/profile/v1 in user.py
+
+[33mcommit d5443acc834821da35d335cd02b09cafe0c74da8[m
+Merge: a9c85e0 256151f
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 01:11:30 2021 +1100
+
+    Merge branch 'feature/users/all/v1' into 'master'
+    
+    Feature/users/all/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!60
+
+[33mcommit 59914bdb8eadf2247e870ba439f6434711011712[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 01:10:45 2021 +1100
+
+    Created tests in user_profile_v1_test.py
+
+[33mcommit 256151fbf137cfeafb40eff91a57cdb70c1b75c3[m[33m ([m[1;31morigin/feature/users/all/v1[m[33m)[m
+Merge: 24bfc2b a9c85e0
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 00:53:10 2021 +1100
+
+    Merge branch 'master' into feature/users/all/v1
+
+[33mcommit 24bfc2b80cf4c535a2687856b2f3d40ac986f0a3[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 00:44:07 2021 +1100
+
+    Removed unused variable from users_all_v1_test.py
+
+[33mcommit 6bfd94a7f783b444a10a8731aceccea4e7560f69[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 00:40:04 2021 +1100
+
+    Fixed expected output of valid use test in users_all_v1_test.py
+
+[33mcommit cca8cf2243877f2dcbb368080ad8b468a357723f[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 00:27:54 2021 +1100
+
+    Implemented users/all/v1 in users.py and server.py
+
+[33mcommit aeb757559326c0b1f48d87cf54e64312a5ad4214[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 21 00:23:19 2021 +1100
+
+    Created tests in users_all_v1_test.py
+
+[33mcommit 96537f4994988768a5c6adbb7e62941b4813c501[m
+Author: Mahi <starexify@gmail.com>
+Date:   Wed Oct 20 23:56:19 2021 +1100
+
+    Test stubs for channel_leave blackbox testing
+
+[33mcommit a9c85e0b0e8be718cf883b6009c867c297df57d6[m
+Merge: 47fc942 98fef0a
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Wed Oct 20 23:28:42 2021 +1100
+
+    Merge branch 'channel_details_v2' into 'master'
+    
+    Channel details v2
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!59
+
+[33mcommit 98fef0ae8863b64758e597f04b1e9b5733d89827[m[33m ([m[1;31morigin/channel_details_v2[m[33m)[m
+Author: Mahi <starexify@gmail.com>
+Date:   Wed Oct 20 23:25:53 2021 +1100
+
+    Test multiple users in a channel issue: #23
+
+[33mcommit 9396e8857febe2491f10b4c91f91cea9bed2993b[m
+Merge: 35fe345 47fc942
+Author: Mahi <starexify@gmail.com>
+Date:   Wed Oct 20 23:17:16 2021 +1100
+
+    Merge branch 'master' into channel_details_v2
+
+[33mcommit 35fe345310ed86dbaec5c043582efc5b10a85191[m
+Author: Mahi <starexify@gmail.com>
+Date:   Wed Oct 20 23:12:39 2021 +1100
+
+    Added extra test
+
+[33mcommit 47fc942e952f133ba518540800ac3d3985beb388[m
+Merge: e76ac25 0891719
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 22:55:24 2021 +1100
+
+    Merge branch 'iteration2_stubs' into 'master'
+    
+    Iteration2 stubs
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!58
+
+[33mcommit 08917193637a38c59213b5723eb8c90b72a37ffd[m[33m ([m[1;31morigin/iteration2_stubs[m[33m)[m
+Merge: e53f3f8 e76ac25
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 22:50:52 2021 +1100
+
+    Merge branch 'master' into iteration2_stubs
+
+[33mcommit e53f3f84162fde05a92239944bf74b5fe783cc36[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 22:46:03 2021 +1100
+
+    Created file and stubs for admin functions
+
+[33mcommit 2af71c64ea775cf3f934eb82b998d4473abba27b[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 22:43:42 2021 +1100
+
+    Created files and stubs for users, user and admin functions
+
+[33mcommit e76ac25717a9f6f51ef7663154323dbe0a7c7f17[m
+Merge: 9678aa9 731bf43
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 22:32:05 2021 +1100
+
+    Merge branch 'feature/channel/invite/v2' into 'master'
+    
+    Feature/channel/invite/v2
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!57
+
+[33mcommit 731bf43136a2d4eeb1a09114152935fe2a5a7b5e[m[33m ([m[1;31morigin/feature/channel/invite/v2[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 22:11:11 2021 +1100
+
+    Fixed bug in tests where uid field populated with token not id in channel_invite_v2_test.py
+
+[33mcommit 21ad7bc101be43585846c2b657ee82ba8814be72[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 22:08:04 2021 +1100
+
+    Implmented route for channel/invite/v2 in server.py
+
+[33mcommit a6028948de69a519d1ced1122e30380e7d6c2086[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 22:03:36 2021 +1100
+
+    Created tests in channel_invite_v2_test.py
+
+[33mcommit 1a8f1d94e93b139ef3e07d991b0878279d187b79[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Wed Oct 20 22:00:47 2021 +1100
+
+    Implemeneted message_edit_v1 tests
+    Tracking: #31
+
+[33mcommit 2add5d98ad46e6077e918db42229908c6f55d623[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 21:48:10 2021 +1100
+
+    Created stubs for tests in channel_invite_v2_test.py
+
+[33mcommit 9678aa91a6905d382e03364a8b8877d1a7b60d56[m
+Merge: 6268d9e 0a5c748
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 21:32:06 2021 +1100
+
+    Merge branch 'feature/channel/join/v2' into 'master'
+    
+    Feature/channel/join/v2
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!55
+
+[33mcommit 0a5c748ef5d8d2e5d07ef1c8cfd7eb5ebd77d198[m[33m ([m[1;31morigin/feature/channel/join/v2[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 21:27:04 2021 +1100
+
+    Removed iteration 1 pytests that no longer allign with current implementation in iteration 2 from channel_invite_v1_test.py and channel_join_v1_test.py
+
+[33mcommit 7c074b6dc9052a8954e962b09e00066c4b87a3f2[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 21:22:47 2021 +1100
+
+    Fixed merge conflicts in server.py and channels.py from updating current master.
+
+[33mcommit 5c0409c131ac07cbeffcec6ddab980e266151334[m
+Merge: 6162bc0 6268d9e
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 21:20:49 2021 +1100
+
+    Fixed merge conflicts in server.py and channels.py from updating current master.
+
+[33mcommit aa6dcbf06b44b398273558e3eb2d1d62a1413810[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Wed Oct 20 17:40:54 2021 +1100
+
+    Fixed message/send/v1
+    Fixed to include unique message ID's that are unique for each dm message and channel message
+
+[33mcommit abe32bda9b11df292fa1753d80ee3d60298eacf1[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Wed Oct 20 16:04:18 2021 +1100
+
+    Created message_send_v1_test.py tests and passed tests
+
+[33mcommit b7a61979513366dfe2377f572eae189ae50367ce[m
+Merge: 74a8bb9 6268d9e
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Wed Oct 20 13:14:03 2021 +1100
+
+    Fixed Merge Conflict
+
+[33mcommit 74a8bb90effe7e6b900f26b84345f6872144904f[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Wed Oct 20 13:08:35 2021 +1100
+
+    Added Backward Compatability for Old Tests
+    -improved coverage by using old tests
+    - improved styling
+
+[33mcommit 6268d9eb4a58d3969fa8fbe5c5071e5c7f9b79dc[m
+Merge: 274bd20 4b35976
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 11:34:22 2021 +1100
+
+    Merge branch 'feature/channels/list/v2' into 'master'
+    
+    Feature/channels/list/v2
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!54
+
+[33mcommit 6162bc0678abfb68a31cf0db3832bae58b0cb97d[m
+Merge: fbe8fed 57b535d
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 04:08:41 2021 +1100
+
+    Resolve merge conflicts from merging channel_details_v2 into branch in server.py
+
+[33mcommit fbe8fed1b3ac2574435948f5a934ae76beebb067[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 04:00:51 2021 +1100
+
+    Fixed expected status code in test_join_private_channel() in channel_join_v2_test.py
+
+[33mcommit f4c737739f4aaf4291c88f2ba98e56481d9d6af5[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 03:10:14 2021 +1100
+
+    Implmented route for channel/join/v2 in server.py
+
+[33mcommit 8bfa27641b893c258e4a3733f04c5e09639f81ff[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 03:08:57 2021 +1100
+
+    Added error messages to functions in channels.py and channel.py
+
+[33mcommit 0c8a845199528ddb7cdf14ab8d3325d25ba09d5a[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 03:00:01 2021 +1100
+
+    Implemented tests in channel_join_v2_test.py
+
+[33mcommit d48f897be6117bb0e3da82152a09a1f5482a4a7a[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 02:24:10 2021 +1100
+
+    Created stubs for tests in channel_join_v2_test.py
+
+[33mcommit 4b359763064f285bf24535c511741f8e1742126b[m[33m ([m[1;31morigin/feature/channels/list/v2[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 02:20:53 2021 +1100
+
+    improved blackbox testing in channel_join_v2_test.py by enabling testing with channels/list/v2 functionality.
+
+[33mcommit 0852ee15ea9afbf11a96d55b1a9c53fbc011172e[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 02:08:24 2021 +1100
+
+    Implemented route for channels/list/v2
+
+[33mcommit 4646ce3cd80a904e4dac66c42d12faf7f748b82a[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 02:06:07 2021 +1100
+
+    Fixed HTTP method in test_bad_token() in channels_list_v2_test.py
+
+[33mcommit c388ae35df31ed0a6c34b33ae43c18e8d8f4e47c[m
+Merge: 71826ed 274bd20
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 20 01:51:58 2021 +1100
+
+    Fixed merge conflicts in channels.py
+
+[33mcommit 57b535d18f6189db7a076fc904363ce65adb38f9[m
+Author: Mahi <starexify@gmail.com>
+Date:   Wed Oct 20 01:50:08 2021 +1100
+
+    Added import for channel_details function
+
+[33mcommit ee3bcf2a20c5bc2fe70defc6e6404e2f4e3d6395[m
+Merge: 865cd2b 274bd20
+Author: Mahi <starexify@gmail.com>
+Date:   Wed Oct 20 01:45:33 2021 +1100
+
+    Resolve conflict
+
+[33mcommit 865cd2b4f71f037b3ab1f1e7eed942fb6d62590f[m
+Author: Mahi <starexify@gmail.com>
+Date:   Wed Oct 20 01:36:04 2021 +1100
+
+    Fixed channel_details tests:
+    * Tracking Issue: #23
+
+[33mcommit 911b0423e611731b459e918af0fb2d1708b3398c[m
+Author: Mahi <starexify@gmail.com>
+Date:   Wed Oct 20 00:48:54 2021 +1100
+
+    Added channel_details endpoint:
+    * Tracking Issue: #23
+
+[33mcommit 37f05260ed6ceb27d7638ec07379fdbedd3177fc[m
+Author: Mahi <starexify@gmail.com>
+Date:   Wed Oct 20 00:21:30 2021 +1100
+
+    Modified channel_details so it adheres to token input:
+    * Tracking Issue: #23
+
+[33mcommit 622c1558a210b844f93d8d635a8de21001b57d80[m
+Author: Mahi <starexify@gmail.com>
+Date:   Wed Oct 20 00:09:13 2021 +1100
+
+    Added new black box tests for channel_details_v2:
+    * Tracking issue: #23
+
+[33mcommit 274bd2065a3930f469f75555a4799f4abf3c3d0a[m
+Merge: 504f89a eb86036
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Wed Oct 20 00:06:01 2021 +1100
+
+    Merge branch 'feature/channel/messages/v2' into 'master'
+    
+    Feature/channel/messages/v2
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!53
+
+[33mcommit eb86036d49219d8b39e8b7c948a321a5ef1967ef[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Wed Oct 20 00:02:20 2021 +1100
+
+    Pylinted src/message.py tests/channel_messages_test.py
+
+[33mcommit 05131625fac58b9bedd7e01e128f678ca66b2e72[m
+Merge: e7ed82e 504f89a
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Oct 19 23:51:09 2021 +1100
+
+    Merge branch 'master' into feature/channel/messages/v2
+
+[33mcommit e7ed82e6eb8986eb4d2c3e3bce0fb2da946345e5[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Oct 19 23:50:29 2021 +1100
+
+    Turned off Debug
+
+[33mcommit 504f89a0eed747a5d7be9c44f019bb24146d4def[m
+Merge: 8d3b82b 0861a66
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Tue Oct 19 23:48:17 2021 +1100
+
+    Merge branch 'coverage-bug-fix' into 'master'
+    
+    Disabled debug mode
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!52
+
+[33mcommit 0861a66fa766096170a8ada811c91f748e1cb94f[m
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Tue Oct 19 23:47:11 2021 +1100
+
+    Removed debug mode
+
+[33mcommit 52a4c5eddb6a0a44e8beafc0e7ebb2ccd690c4c9[m
+Merge: 8e8a010 8d3b82b
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Oct 19 23:29:58 2021 +1100
+
+    Fixed Merge Conflict
+
+[33mcommit 8e8a0102dd679f89ff3f816c614ef7cc8ca34392[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Oct 19 23:26:31 2021 +1100
+
+    Implemented Endpoint Functionality for channel/messages/v2 and message/send/v1 (which was a helper function previously in iteration1) Tracking: #30 #26
+
+[33mcommit 929248d85f8f0d14135acc50efb348c0b58c4d9c[m
+Merge: de6bd0a 8d3b82b
+Author: Mahi <starexify@gmail.com>
+Date:   Tue Oct 19 23:19:18 2021 +1100
+
+    Merge branch 'master' into channel_details_v2
+
+[33mcommit 8d3b82b472b489165bbad02027d0ee92d01d25d1[m
+Merge: 1177909 84dfb37
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Tue Oct 19 23:16:33 2021 +1100
+
+    Merge branch 'channels_listall_v2' into 'master'
+    
+    Channels listall v2
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!51
+
+[33mcommit 71826ede1bc1b5f3a708c563c15cc245dd50549b[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Oct 19 21:28:52 2021 +1100
+
+    Added test for bad token to channels_list_v2_test.py
+
+[33mcommit 84dfb3708486c167fe1c20c39703244772afacdb[m[33m ([m[1;31morigin/channels_listall_v2[m[33m)[m
+Merge: 1082961 1177909
+Author: Mahi <starexify@gmail.com>
+Date:   Tue Oct 19 21:28:03 2021 +1100
+
+    Merge branch 'master' into channels_listall_v2
+    
+    channels_liistall_v2 endpoint implemented
+    * Passed all pytests
+    * Added the endpoint route
+    * Modified tests to work with endpoints
+    
+    Tracking issue: #22
+
+[33mcommit d130dd86093ee6e60b67536e2daec97bba4762f1[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Oct 19 21:22:45 2021 +1100
+
+    Created pytest for channels/list/v2, updated test in channels/create/v2
+
+[33mcommit 4e85dd8db7d92692e1679f637d3479475e1a529b[m
+Merge: 40154ba 1177909
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Oct 19 21:19:12 2021 +1100
+
+    Merge branch 'master' into feature/channels/list/v2
+
+[33mcommit 45c72f0f51a4fb3ec9665c77cabd508479ae05b7[m
+Merge: c061deb 1177909
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Oct 19 21:10:36 2021 +1100
+
+    Merge branch 'master' into feature/channel/messages/v2
+
+[33mcommit c061debbc8411e731f80f317fb86c98be4cc54b1[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Oct 19 21:08:07 2021 +1100
+
+    Moved CreatedMessages helper function to message.py
+    and renamed to message_send_v1
+    Tracking: #30
+
+[33mcommit 40154baa20de16cf788e49b60358325d3bc6ef9b[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Oct 19 20:52:14 2021 +1100
+
+    Added error messages to exceptions in channels.py
+
+[33mcommit 1177909bbdd9536bce904bf8fe272bb5b28c4562[m
+Merge: 99b26e7 61b28d9
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Tue Oct 19 20:25:47 2021 +1100
+
+    Merge branch 'fix/channels/create/v2-Bad_body' into 'master'
+    
+    Fix/channels/create/v2 bad body
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!50
+
+[33mcommit 99b26e7639cd0a70d789ba348865670a7033e2be[m
+Merge: 2d46906 c40c1c8
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Tue Oct 19 20:14:16 2021 +1100
+
+    Merge branch 'restore_readme' into 'master'
+    
+    Restored README.md to be up to date
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!49
+
+[33mcommit 61b28d9d841eacf19fcea5460a972af3bb6993fc[m[33m ([m[1;31morigin/fix/channels/create/v2-Bad_body[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Oct 19 20:11:26 2021 +1100
+
+    Fixed tests to include json body in POST request
+
+[33mcommit 58021bd0dbc978bd11c705230719114cd91fed34[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Oct 19 20:09:20 2021 +1100
+
+    Fixed implementation to accept json body not get args
+
+[33mcommit c40c1c87bf97cf109d62755145f295b9a9bcaf66[m[33m ([m[1;31morigin/restore_readme[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Oct 19 19:54:51 2021 +1100
+
+    Restored README.md to be up to date
+
+[33mcommit de6bd0a42334f36d879ef00074d63899a888b955[m
+Author: Mahi <starexify@gmail.com>
+Date:   Tue Oct 19 19:47:23 2021 +1100
+
+    Added pytest clear fixture and register user
+
+[33mcommit 2d46906bbeabd7364d9faea2e19a105c03834448[m
+Merge: 0107afe 9260bfb
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Tue Oct 19 19:33:39 2021 +1100
+
+    Merge branch 'feature/channels/create/v2' into 'master'
+    
+    Feature/channels/create/v2
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!48
+
+[33mcommit 9260bfbdb5c7f0d3d772940d5bbca08cf1c468aa[m[33m ([m[1;31morigin/feature/channels/create/v2[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Oct 19 19:12:40 2021 +1100
+
+    Removed unused import in server.py
+
+[33mcommit 73c55fb9de4267a377e6f9a64a11111238956d37[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Oct 19 19:11:17 2021 +1100
+
+    Added regex to check for valid JWT format in check_valid_token() in other.py
+
+[33mcommit 25c8f20b9552a849b81933f1c49575864b6e9586[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Oct 19 19:10:02 2021 +1100
+
+    Fixed tests to use correct http method in channels_create_v2_test.py
+
+[33mcommit f40121d61892b430ae521835a14c786aeb3416f7[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Oct 19 18:34:16 2021 +1100
+
+    Removed old non endpoint tests
+
+[33mcommit 4119ca8042ac0f560624aaf9856b4d31405223e7[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Oct 19 18:20:44 2021 +1100
+
+    New Messages.py file Implemented channel_messages testing for endpoint
+    -create endpoint testing for channel_messages
+
+[33mcommit acf4559b7622a4155081f89f7c34a55794062bc6[m
+Merge: c9d3d5f 0107afe
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Oct 19 18:16:31 2021 +1100
+
+    Fixed merge conflicts in server.py & other.py
+
+[33mcommit c9d3d5fd32500b595b78a867e83bb54ebdaa37e5[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Oct 19 18:06:01 2021 +1100
+
+    Style changes in server.py
+
+[33mcommit df1c8354d10de160c2cb479ce0ae3ad198d45d74[m
+Author: Mahi <starexify@gmail.com>
+Date:   Tue Oct 19 17:48:31 2021 +1100
+
+    Added test file for channel_details_v2
+
+[33mcommit 108296199f82213fe16f0096be602d0c5e0eb5f9[m
+Author: Mahi <starexify@gmail.com>
+Date:   Tue Oct 19 17:43:14 2021 +1100
+
+    Added endpoint for channels_listall_v2
+            Tracking issue: #22
+
+[33mcommit c8a3d7423b1c17fa0a1b6dc1583ece709f575838[m
+Merge: 58c9605 0107afe
+Author: Mahi <starexify@gmail.com>
+Date:   Tue Oct 19 17:10:55 2021 +1100
+
+    Resolved conflict
+
+[33mcommit 58c9605cfb43d4190de1ff9802419feb17b846ef[m
+Author: Mahi <starexify@gmail.com>
+Date:   Tue Oct 19 16:56:16 2021 +1100
+
+    Added tests for channels_listall:
+            Changed previous iteration 1 tests to use the endpoints.
+            Tracking issue: #22
+
+[33mcommit 0107afe585a2eb795678c8bc39fc1349bba66c2e[m
+Merge: fdf458a 00bbbf1
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Tue Oct 19 16:29:26 2021 +1100
+
+    Merge branch 'feature/auth/logout/v1' into 'master'
+    
+    Feature/auth/logout/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!47
+
+[33mcommit 00bbbf15f82b09cdf2277c3483cac12f45415002[m[33m ([m[1;31morigin/feature/auth/logout/v1[m[33m, [m[1;32mfeature/auth/logout/v1[m[33m)[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Oct 19 13:53:05 2021 +1100
+
+    Fixed Unused variable
+
+[33mcommit 57a4f610250f15bd305041cf581f1876cc59d956[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Oct 19 13:37:32 2021 +1100
+
+    Enabled Save and Load Functionality Server.py
+
+[33mcommit 07e83082d7f2de09dba77ab736622ae48312e509[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Oct 19 13:28:22 2021 +1100
+
+    Fixed Merge
+
+[33mcommit b271a08b379ac576cec36be7bf2c0e3a5e116121[m
+Merge: 5f8b213 689a401
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Oct 19 13:25:48 2021 +1100
+
+    Fixed Merges
+
+[33mcommit 5f8b21321b04efd86a7709b8eead170a3f76ac70[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Oct 19 13:21:13 2021 +1100
+
+    Fixed Merge
+
+[33mcommit fdf458a38ac71a8cab742df27954a74d1a32c275[m
+Merge: de98278 3a5e7ee
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Tue Oct 19 07:36:21 2021 +1100
+
+    Merge branch 'revert-de98278e' into 'master'
+    
+    Revert "Merge branch 'feature/auth/logout/v1' into 'master'"
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!43
+
+[33mcommit 3a5e7ee0681f05aa10c5bcc3b605df383645f978[m[33m ([m[1;31morigin/revert-de98278e[m[33m)[m
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Tue Oct 19 00:04:12 2021 +1100
+
+    Revert "Merge branch 'feature/auth/logout/v1' into 'master'"
+    
+    This reverts merge request !41
+
+[33mcommit 689a4016022430776c65907a01fafa6c7f4e3ef6[m[33m ([m[1;34mgrafted[m[33m)[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Tue Oct 19 00:00:15 2021 +1100
+
+    Fixed auth_logout_test Styling
+    -removed unecessary print statements and cleaned style
+
+[33mcommit a796fb22d78b2d74e59ee5b3d93458342fb315c7[m
+Author: Mahi <starexify@gmail.com>
+Date:   Mon Oct 18 23:18:32 2021 +1100
+
+    Flask debug mode set to True
+
+[33mcommit 2210e239065757c6ef20c2826ae2bb9f2a503c86[m
+Author: Mahi <starexify@gmail.com>
+Date:   Mon Oct 18 23:18:00 2021 +1100
+
+    Added git ignore rule for *.p files
+
+[33mcommit de98278e0487abfdfe2dded232265211ab2f6d22[m
+Merge: f250762 6bf9945
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Mon Oct 18 21:49:29 2021 +1100
+
+    Merge branch 'feature/auth/logout/v1' into 'master'
+    
+    Feature/auth/logout/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!41
+
+[33mcommit 6bf99452682d35328f9b73b884f3d70a0b04c369[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Mon Oct 18 21:47:42 2021 +1100
+
+    Broken Endpoint Implementation
+
+[33mcommit d92cae07280b3c323fc88aacb48d0758e0d24a83[m
+Author: Mahi <starexify@gmail.com>
+Date:   Mon Oct 18 19:23:03 2021 +1100
+
+    Pytest fixture for clean msg in listall_v2
+
+[33mcommit 6a10a7834b512e087c0fadb5b8f619bf32647591[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Mon Oct 18 15:27:31 2021 +1100
+
+    Fixed style (ordering of functions) in server.py
+
+[33mcommit 230fad0de7bb5d4f15819f08e2d7c78d7f96561f[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Mon Oct 18 15:11:16 2021 +1100
+
+    Fixed merge conflicts in server.py
+
+[33mcommit 2ae683ba563b7082904f6416bd5aa9d844e02752[m
+Merge: 5dde557 f250762
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Mon Oct 18 15:08:33 2021 +1100
+
+    Fixed merge conflicts in server.py
+
+[33mcommit e4887f2b4ccd8bf90e67f46c8a996f8cdc00fcf1[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Mon Oct 18 00:17:34 2021 +1100
+
+    Fixing auth_logout implementation
+    -fixed bugs relating to indents
+    -added datastore.p to gitignore
+
+[33mcommit 28f5e4295c0ffd6e0280014c67643a6ec7623149[m[33m ([m[1;31morigin/feature/auth/register/v2[m[33m, [m[1;32mfeature/auth/register/v2[m[33m)[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Oct 17 22:15:56 2021 +1100
+
+    Implemented Save Function and Authlogout test
+    -implemented tests for authlogout
+    -implemented data persistence
+    -checked token validity
+    Tracking: #48 #49 #19
+
+[33mcommit f95aff4917f35c9b2b262f8de85ad65891032be8[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 17 14:29:33 2021 +1100
+
+    Published Branch
+
+[33mcommit 215c4cd7d401fc1cef28af4aad69f8f17213a90e[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Oct 17 11:21:19 2021 +1100
+
+    Fixed Function Name Duplication
+
+[33mcommit 342c068ab33cac50d399fbd2f82014a221fd3be5[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Oct 17 11:18:48 2021 +1100
+
+    fixed variable typo in clear function
+
+[33mcommit 99d3c64f8298146341e07e174c259009f65eafff[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Oct 17 11:16:02 2021 +1100
+
+    Fixed Return Token and Included New Datastore Items:
+    - fixed return token not appending session_ids
+    -added dms and permissions to data_store
+
+[33mcommit a11348e9a571c80bfba7a062998941b17278a225[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Oct 17 11:07:04 2021 +1100
+
+    Added Token  Generation and Validaiton
+    -implemented token generation and validation
+    as well as token storage
+    Tracking :#48
+
+[33mcommit c0a3acd838de2a8c9384b76fab19f0accb3cfae5[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sun Oct 17 00:02:57 2021 +1100
+
+    Created Auth_login Endpont on server.py
+    -Fixed Implementation with Testing
+    -JWTs need to be abstracted and fixed separately
+    
+    Tracking: #17 , #48
+
+[33mcommit 5c5603a25a357046bf213cebb4ca4ae2c6a9e45a[m
+Author: Jake Edwards <jake.e@live.com.au>
+Date:   Sat Oct 16 23:16:02 2021 +1100
+
+    Created auth_login_test endpoint tests
+    -Duplicated existing tests to work with endpoint calls
+    
+    Tracking: #17
+
+[33mcommit f250762254a67480c14c2d3a40fe1528f26bcea6[m
+Merge: 744b8f5 ec2fc0e
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Oct 16 22:02:49 2021 +1100
+
+    Merge branch 'feature/auth/register/v2' into 'master'
+    
+    Feature/auth/register/v2
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!37
+
+[33mcommit 744b8f5d99182b1b5e69b9cd3711a004bebe3137[m
+Merge: d5a4632 a5411eb
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Oct 16 21:31:00 2021 +1100
+
+    Merge branch 'update-1694753fa0c69c9db8dadf5df835b3eb401752da' into 'master'
+    
+    Updated starter code
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!39
+
+[33mcommit a5411eb3ff2b47cfccd79a3fd9e8fd37ed00d9f0[m[33m ([m[1;31morigin/update-1694753fa0c69c9db8dadf5df835b3eb401752da[m[33m)[m
+Author: COMP1531 Bot <cs1531@cse.unsw.edu.au>
+Date:   Sat Oct 16 12:02:07 2021 +1100
+
+    Task update 1694753fa0c69c9db8dadf5df835b3eb401752da
+
+[33mcommit 1694753fa0c69c9db8dadf5df835b3eb401752da[m
+Author: Hayden Smith <hayden@chambalam.com>
+Date:   Sat Oct 16 12:00:28 2021 +1100
+
+    Hashing clarification
+
+[33mcommit 5dde5570b1c404777edc7a91bd24eba9631efaad[m
+Merge: 1163772 d5a4632
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Fri Oct 15 16:55:49 2021 +1100
+
+    Merge branch 'master' into feature/channels/create/v2
+
+[33mcommit d5a46320ac96e04ac3e4460058bfae5ab88f6784[m
+Merge: 9a7ac70 19eaea0
+Author: COMP1531 Bot <cs1531@cse.unsw.edu.au>
+Date:   Fri Oct 15 15:56:37 2021 +1100
+
+    Merge changes from starter code into 'master'
+
+[33mcommit 19eaea07473681aab62ec258b6358862418ad3fb[m[33m ([m[1;31morigin/update-08b4bd70b773fa737ba619465fc6cf2d89eedd7d[m[33m)[m
+Author: COMP1531 Bot <cs1531@cse.unsw.edu.au>
+Date:   Fri Oct 15 15:56:35 2021 +1100
+
+    Task update 08b4bd70b773fa737ba619465fc6cf2d89eedd7d
+
+[33mcommit 08b4bd70b773fa737ba619465fc6cf2d89eedd7d[m
+Author: Emily Luxa <emilyluxa@gmail.com>
+Date:   Fri Oct 15 15:43:13 2021 +1100
+
+    Updated coverage and pylint configurations
+
+[33mcommit ec2fc0ee99bce90a1804154a18f7b81fb93be7a8[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Fri Oct 15 00:13:56 2021 +1100
+
+    Fixed Pylint Score
+    -improved pylint score by fixing duplicated function test name
+
+[33mcommit b389c05a91bbc9ad3b864ed4e1271544e0592d8f[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Fri Oct 15 00:09:46 2021 +1100
+
+    auth_register Testing and Endpoint
+    -fixed endpoint for auth with all related tests
+    
+    Tracking: #18
+
+[33mcommit 5ca73f0a4aca5d4c767153364a14c44702794300[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Thu Oct 14 23:28:28 2021 +1100
+
+    Added Endpoint Tests
+    -added endpoint tests to capture 400 status code
+    and valid input
+    
+    Tracking: #18
+
+[33mcommit 11637726a69388d589e0e54265fa077127b07836[m
+Merge: 615447a 9a7ac70
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 14 23:05:10 2021 +1100
+
+    Fixed merge conflicts in server.py
+
+[33mcommit 9a7ac70ee5923efbcb0db0d25cb23a9ef289f63c[m
+Merge: e6f373a 5e205e8
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Thu Oct 14 22:07:06 2021 +1100
+
+    Merge branch 'feature/clear/v1' into 'master'
+    
+    Feature/clear/v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!36
+
+[33mcommit 5e205e82510abc12f796ed329300735ccff4a857[m[33m ([m[1;31morigin/feature/clear/v1[m[33m)[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Thu Oct 14 19:37:18 2021 +1100
+
+    Modified Config File and used in clear_v1 testing
+    -used config file in testing to help
+    with port changes
+    Tracking: #47
+
+[33mcommit 63a67bcc6f5a05a12ea0520d4db5510446e7201e[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Thu Oct 14 19:29:41 2021 +1100
+
+    Implemented clear_v1() Endpoint
+    -provided empty dict output and call
+    clear_v1() function
+    
+    Tracking: #47
+
+[33mcommit a4c18a5de0a14904d5c23fbf32ecd49714b7de6e[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Thu Oct 14 19:26:07 2021 +1100
+
+    Clear_V1 Endpoint Test Added
+    -added endpoint test for clear
+    to reset data check output and response
+    Tracking: #47
+
+[33mcommit 615447afa1726e7d6891b20e801cdf5db88d4f58[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 14 17:25:55 2021 +1100
+
+    Created channels/create/v2 route in server.py
+
+[33mcommit cada55e5fb1098011950a57c0899a04df7b9cae7[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 14 17:25:03 2021 +1100
+
+    Created token_to_uid() helper function in other.py
+
+[33mcommit 65bea4f700328cc86eb85b954ed0adf6eeff1b02[m
+Merge: 9ea898e e6f373a
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 14 16:37:04 2021 +1100
+
+    Merge branch 'master' into feature/channels/create/v2
+
+[33mcommit 9ea898e6d94cb84bc6226330c3b41ad48513cc62[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Thu Oct 14 16:33:49 2021 +1100
+
+    Implemented pytests for channels/create/v2 in channels_create_v2_test.py
+
+[33mcommit e6f373a31bda78c178c9f89ea85655be3511b4fe[m
+Merge: 1f22b3e 35360aa
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Thu Oct 14 15:32:11 2021 +1100
+
+    Merge branch 'feature/auth/register/v2' into 'master'
+    
+    Feature/auth/register/v2
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!35
+
+[33mcommit 35360aaa4d35cc44cb169c9a71cd4b8ec88e4d90[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Wed Oct 13 21:38:14 2021 +1100
+
+    Modify Make Token Function Input
+    -include input for make token to include auth_user_id
+    Tracking: #48
+
+[33mcommit 15d685f7564068921f0cacca3f72c922086d1ecc[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Wed Oct 13 12:08:50 2021 +1100
+
+    Updated Token Helper Functions
+    -updated to help have a variable return
+    as a stub holder
+    
+    Tracking: #48
+
+[33mcommit 20472d74251aec31ed95b37dda358f8fe06793d9[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Wed Oct 13 10:14:43 2021 +1100
+
+    Added check_valid_token(token) helper function:
+    -token will assist with all functions that have token as an input
+    
+    Tracking: #48
+
+[33mcommit 1f22b3eaa82a74a9d6fb457c32c0b0cfc932a23b[m
+Merge: dffe1ec 931af01
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Tue Oct 12 12:05:26 2021 +1100
+
+    Merge branch 'feature/auth/register/v2' into 'master'
+    
+    Feature/auth/register/v2
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!34
+
+[33mcommit 931af018caf403291105d90c9349d3442006f2f6[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Mon Oct 11 18:08:11 2021 +1100
+
+    Added Helper Functions for Tokens
+    -added placeholder make_token for auth register
+    -added return_token for auth login
+    
+    Tracking: #17 #18
+
+[33mcommit 7b9d49be0fc300b39bb8c6867fd80ab017ad34fa[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Mon Oct 11 17:12:14 2021 +1100
+
+    Update Testing to include Tokens
+    -included assert statement to check for
+    return of tokens occur, doesn't check if token is valid
+    
+    Tracking: #18
+
+[33mcommit dffe1ecb95e9dd35b314c736b1cd6a8733b839e2[m
+Merge: 8eb23f4 5c6a8ec
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 9 21:24:26 2021 +1100
+
+    Merge branch 'fix/channel_join_if_global_owner' into 'master'
+    
+    Fix/channel join if global owner
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!33
+
+[33mcommit 5c6a8ec3bb6929ff7258fa16090449c433dc2dd1[m[33m ([m[1;31morigin/fix/channel_join_if_global_owner[m[33m)[m
+Merge: bccfd34 8eb23f4
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 9 21:20:43 2021 +1100
+
+    Fixed merge conflicts in other.py
+
+[33mcommit 8eb23f4698eb7b8597684d52f1f54059da66a1d9[m
+Merge: 5c52228 9a27791
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Oct 9 21:12:30 2021 +1100
+
+    Merge branch 'feature/jake-auth-register-v1' into 'master'
+    
+    Feature/jake auth register v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!31
+
+[33mcommit bccfd34caab8cbf0bf9205e70a73417a241fa26a[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 9 19:35:33 2021 +1100
+
+    Fixed channel_join_v1() in channel.py so global owner can join private channels; Created is_global_owner() in other.py
+
+[33mcommit 1481cea1d93f7542a3f0e9f600b13afff1bdd07c[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 9 19:26:07 2021 +1100
+
+    Test for global owner join private channel in channel_join_v1_test
+
+[33mcommit 5c52228700890be900becbc4cd59dcbca1d6cbce[m
+Merge: f565e8e d8fecf7
+Author: COMP1531 Bot <cs1531@cse.unsw.edu.au>
+Date:   Fri Oct 8 15:21:13 2021 +1100
+
+    Merge changes from starter code into 'master'
+
+[33mcommit d8fecf7ce74f3693f56b126beffafe5837dc7614[m[33m ([m[1;31morigin/update-873336e88a706b6231fb7002940ad1e10a6c4d51[m[33m)[m
+Author: COMP1531 Bot <cs1531@cse.unsw.edu.au>
+Date:   Fri Oct 8 15:21:12 2021 +1100
+
+    Task update 873336e88a706b6231fb7002940ad1e10a6c4d51
+
+[33mcommit 873336e88a706b6231fb7002940ad1e10a6c4d51[m
+Author: Emily Luxa <e.luxa@student.unsw.edu.au>
+Date:   Fri Oct 8 15:08:26 2021 +1100
+
+    Added instructions to run coverage locally
+
+[33mcommit 9a27791a47fbbe232f4410b925a0e4fe8b822ba9[m[33m ([m[1;31morigin/feature/jake-auth-register-v1[m[33m)[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Thu Oct 7 22:21:55 2021 +1100
+
+    Fixed Duplicated Test function Name in channel_messages_test.py
+
+[33mcommit 5be6c6357ac54a80c4a33f2a25ca5666f94eaf2e[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Thu Oct 7 22:15:54 2021 +1100
+
+    style changes for  channel_messages_test.py
+    -made style improvements in regard to categorising and commenting on tests
+    -made pylint work
+
+[33mcommit f72c9268dc3739f6a7424d5d9711aa5cf7ad5423[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Thu Oct 7 21:24:16 2021 +1100
+
+    Removed Invalid Assumption
+    -removed invalid assumption relating to duplicate
+    str_handle and allowable characters
+    Tracking: #3
+
+[33mcommit 691e01426d97b35ac453dc755b25348d21e9b205[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Thu Oct 7 21:18:54 2021 +1100
+
+    Added Helper Function Fixed Iteration 1 Bug in Auth.py
+    -renamed search_handle to make_handle and create a new
+    function called search_handle which returns a handle given a valid
+    auth user_id
+    -fixed implementation of auth register if there are duplicate str_handle values
+    
+    Tracking: #3
+
+[33mcommit f565e8e541f3b52479e175ffc8f4666c502d4b78[m
+Merge: 38fc83a c6f71b2
+Author: COMP1531 Bot <cs1531@cse.unsw.edu.au>
+Date:   Thu Oct 7 18:31:20 2021 +1100
+
+    Merge changes from starter code into 'master'
+
+[33mcommit c6f71b28aee90892b2ae7a0924f9018ca2347be3[m[33m ([m[1;31morigin/update-d45027bd10017dcabe0beabc3b1a9838596e9417[m[33m)[m
+Author: COMP1531 Bot <cs1531@cse.unsw.edu.au>
+Date:   Thu Oct 7 18:31:18 2021 +1100
+
+    Task update d45027bd10017dcabe0beabc3b1a9838596e9417
+
+[33mcommit d45027bd10017dcabe0beabc3b1a9838596e9417[m
+Author: Emily Luxa <e.luxa@student.unsw.edu.au>
+Date:   Thu Oct 7 17:51:30 2021 +1100
+
+    Fixed automarking formula
+
+[33mcommit 38fc83a5d1e07e9c8a54d290306097b3c9b748c6[m
+Merge: e36718d d6bf2cf
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Wed Oct 6 11:09:49 2021 +1100
+
+    Merge branch 'update-db2ddbbde684c1de819ea29cc82bc803b15cc2d6' into 'master'
+    
+    Updated starter code
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!29
+
+[33mcommit d6bf2cf43df862b76a9a33ea8abedece6350fa11[m[33m ([m[1;31morigin/update-db2ddbbde684c1de819ea29cc82bc803b15cc2d6[m[33m)[m
+Author: COMP1531 Bot <cs1531@cse.unsw.edu.au>
+Date:   Mon Oct 4 21:35:25 2021 +1100
+
+    Task update db2ddbbde684c1de819ea29cc82bc803b15cc2d6
+
+[33mcommit db2ddbbde684c1de819ea29cc82bc803b15cc2d6[m
+Merge: 1110aa6 a78d7a1
+Author: Hayden Smith <hayden.smith@unsw.edu.au>
+Date:   Mon Oct 4 21:32:56 2021 +1100
+
+    Merge branch 'iteration2' into 'master'
+    
+    I think this is everything
+    
+    See merge request COMP1531/21T3/STAFF/repos/project-backend!16
+
+[33mcommit a78d7a111501114ded9042194d609b0dab6591b1[m
+Author: Hayden Smith <hayden@chambalam.com>
+Date:   Mon Oct 4 20:29:07 2021 +1100
+
+    ITERATION 2 RELEASE
+
+[33mcommit e36718d18636da342988d8b1a49a470be6366892[m[33m ([m[1;33mtag: submission[m[33m)[m
+Merge: 4672f50 8067b62
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 3 23:40:44 2021 +1100
+
+    Merge branch 'patch-2' into 'master'
+    
+    Update assumptions.md
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!28
+
+[33mcommit 8067b6278929ba4d7b557c8360bd0e64ad09828e[m
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 3 23:39:24 2021 +1100
+
+    Update assumptions.md
+
+[33mcommit 4672f502e1599511ed9f0b2175fe46115c9a672d[m
+Merge: 77914c0 594de9c
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sun Oct 3 23:09:33 2021 +1100
+
+    Merge branch 'mahi.pylint_channel' into 'master'
+    
+    Added doc strings and linted channel.py
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!27
+
+[33mcommit 594de9cd34ec5cf35750d8e9e758cc22085c5e3d[m
+Merge: e34b28e 77914c0
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 3 23:08:25 2021 +1100
+
+    Merge branch 'master' into mahi.pylint_channel
+
+[33mcommit e34b28ea5f1f17b05880948d6deb0bfb7a4c5e5e[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sun Oct 3 22:40:59 2021 +1100
+
+    Improved Style consistency
+
+[33mcommit 77914c093175286c2f8cef02f4b7854171bd4aaa[m
+Merge: acbb176 6a0a126
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Sun Oct 3 23:01:08 2021 +1100
+
+    Merge branch 'feature/jake-channel-messages-and-clear-v1' into 'master'
+    
+    Fixed auth docstring
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!26
+
+[33mcommit 83d67da45ff633df77d230cfcafb5efe62557b94[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 3 22:58:58 2021 +1100
+
+    Added doc strings to channel.py
+
+[33mcommit 15a00d083e6f2b5aacb1b2f47f788dc2021e8ffa[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 3 22:52:27 2021 +1100
+
+    Added docstrings to channel.py
+
+[33mcommit 6a0a1262222bdc671655b07808be997d226c40ed[m[33m ([m[1;31morigin/feature/jake-channel-messages-and-clear-v1[m[33m)[m
+Merge: 1f93a10 acbb176
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sun Oct 3 22:43:43 2021 +1100
+
+    Merge branch 'master' into feature/jake-channel-messages-and-clear-v1
+
+[33mcommit 1f93a10b29083ae75f4d87c480586acc67ea5eea[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sun Oct 3 22:40:59 2021 +1100
+
+    Improved Style consistency
+
+[33mcommit acbb1760434bbdfe5c183800eac555805a18a958[m
+Merge: d879011 5853325
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 3 22:39:36 2021 +1100
+
+    Merge branch 'fix/channels_invite_tests' into 'master'
+    
+    Expanded test coverage for channel invite
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!25
+
+[33mcommit 5853325f8936b79b02dfe52e112b0857c8926bda[m[33m ([m[1;31morigin/fix/channels_invite_tests[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 3 22:37:13 2021 +1100
+
+    Expand test coverage
+
+[33mcommit d879011986fd997569d02db354e99704f927fa8f[m
+Merge: 001b85d 87426e9
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Sun Oct 3 22:31:22 2021 +1100
+
+    Merge branch 'feature/jake-channel-messages-and-clear-v1' into 'master'
+    
+    pylint auth.py
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!23
+
+[33mcommit 87426e9b37c89e6fa0e9640cf0ca7874e134eb42[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sun Oct 3 22:08:56 2021 +1100
+
+    pylint auth.py
+    10/10
+
+[33mcommit 001b85dcd7f4a11ce26382b94339e9148b75a6d0[m
+Merge: d123529 6856ad3
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Sun Oct 3 21:28:22 2021 +1100
+
+    Merge branch 'feature/jake-channel-messages-and-clear-v1' into 'master'
+    
+    Feature/jake channel messages and clear v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!22
+
+[33mcommit 6856ad3760615dba2adcf864f54459559c92d35c[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sun Oct 3 21:20:04 2021 +1100
+
+    Improve Coverage in Other.py
+
+[33mcommit b91817aaf73ac7f7e42d67b3d4a5fca53ad01b54[m
+Merge: 81f8043 8ac8f78
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sun Oct 3 21:15:50 2021 +1100
+
+    Merge branch 'master' into feature/jake-channel-messages-and-clear-v1
+    
+    Fix Merge Conflict
+    -added doc strings to other for some helper functions
+
+[33mcommit d12352926ef0b50820df51a742dfac6eb26aeffa[m
+Merge: 8ac8f78 0e42b33
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sun Oct 3 21:08:43 2021 +1100
+
+    Merge branch 'patch-1' into 'master'
+    
+    Removed whitespace
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!21
+
+[33mcommit 0e42b335d42e963e40271f4680c616774486f56b[m
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sun Oct 3 21:07:48 2021 +1100
+
+    Removed whitespace
+
+[33mcommit 8ac8f78a37ce0b6788d7c8ead1c6d1a593043fd4[m
+Merge: d3a7881 2113365
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sun Oct 3 20:50:16 2021 +1100
+
+    Merge branch 'helper-functions' into 'master'
+    
+    Moved helper functions to other.py
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!20
+
+[33mcommit 81f8043f43995f7c290dea959a3154d2360226f8[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sun Oct 3 20:46:15 2021 +1100
+
+    Pylinting of Auth
+    -improved Auth linting
+
+[33mcommit 21133654840fd33460af396d2530ffa5068a5601[m[33m ([m[1;31morigin/helper-functions[m[33m)[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 3 19:57:15 2021 +1100
+
+    Moved helper functions to other.py
+
+[33mcommit a60b1ad36d9d841dbcb7f94f835bd66ea5e07b8a[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sun Oct 3 19:47:51 2021 +1100
+
+    Improved Test Coverage
+    -improved assumptions relating to start index of ids
+    -made sure all tests run and that test coverage is improved
+
+[33mcommit d3a78819c77d5dac6a1cd0662039787e19c0827e[m
+Merge: 2fda4bf 957c595
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sun Oct 3 19:33:24 2021 +1100
+
+    Merge branch 'feature/channel_details_v1' into 'master'
+    
+    Additional tests for channel_details_v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!19
+
+[33mcommit 957c5959dfde95a3727856a98ddef2d70be04dfd[m[33m ([m[1;31morigin/feature/channel_details_v1[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 3 17:48:03 2021 +1100
+
+    Added assumption for `channels_create_v1`
+
+[33mcommit ffa93d8139f238bfd34fdf4a42a41e01b7e8dd2e[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 3 18:30:52 2021 +1100
+
+    Updated channel.py
+
+[33mcommit 285c6c5db21a2d146335c80167e0b78845d76f77[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 3 18:27:39 2021 +1100
+
+    Added further tests for channel_details_v1
+
+[33mcommit 2fda4bf094aa331a3a041640fdda90bbdb83dbbc[m
+Merge: 4911fd2 4303df3
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 3 17:51:31 2021 +1100
+
+    Merge branch 'fix/channels_create_assumptions' into 'master'
+    
+    Added assumption for `channels_create_v1`
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!18
+
+[33mcommit 4303df3682d49a70b5ee39ecfe29879fce6acfbe[m[33m ([m[1;31morigin/fix/channels_create_assumptions[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 3 17:48:03 2021 +1100
+
+    Added assumption for `channels_create_v1`
+
+[33mcommit 4911fd27ba55708b53d7815ff7981b2b0a58bd0a[m
+Merge: 7d414d4 bbc84dc
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sun Oct 3 17:25:04 2021 +1100
+
+    Merge branch 'feature/channels_listall_v1' into 'master'
+    
+    Added further tests for channels_listall_v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!17
+
+[33mcommit bbc84dc75f26b46076a1902ebf3800cc8bb9df4e[m[33m ([m[1;31morigin/feature/channels_listall_v1[m[33m)[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 3 17:23:43 2021 +1100
+
+    Fixed typo in comments
+
+[33mcommit 6fe131dd1518d0f417193a8faba071358cf27873[m
+Merge: aa332ee 7d414d4
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 3 17:20:12 2021 +1100
+
+    Merge branch 'master' into feature/channels_listall_v1
+
+[33mcommit aa332eeb5f24fa3dbd78a422483ead4b13de6535[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 3 17:11:33 2021 +1100
+
+    Typo in test name
+
+[33mcommit 9d92559b9837cf2d01e717dc3611b86ac6102e4b[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 3 17:01:52 2021 +1100
+
+    Moved verify_user_id() to src/other.py
+
+[33mcommit 7361b021d15b47f0d1182eed712c88be0a64e947[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 3 16:14:27 2021 +1100
+
+    Fixed style
+
+[33mcommit 353df800032b954504757248b8006efc5d90c0bb[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 3 15:57:48 2021 +1100
+
+    Added docstrings to each function in channels.py
+
+[33mcommit 7d414d48622bbeb963c8809ae2414a1789d9b61d[m
+Merge: 43d6ada 1a1e559
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sun Oct 3 17:06:14 2021 +1100
+
+    Merge branch 'fix/channels-style' into 'master'
+    
+    Fix Style - channels.py
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!15
+
+[33mcommit 1a1e559a71a226ee10149e54c3f6c26b35962376[m[33m ([m[1;31morigin/fix/channels-style[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 3 17:01:52 2021 +1100
+
+    Moved verify_user_id() to src/other.py
+
+[33mcommit 505f64275a3281ff57362f64ef7bbf31d19cbb0b[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sun Oct 3 16:59:10 2021 +1100
+
+    Added further tests for channels_listall_v1
+
+[33mcommit 43d6ada41478c9f242852e5b8271232b53500d47[m
+Merge: bb30738 63bb92c
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Sun Oct 3 16:56:03 2021 +1100
+
+    Merge branch 'feature/channel-join_by_Vincent' into 'master'
+    
+    Feature/channel join by vincent
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!16
+
+[33mcommit 63bb92c10fd5e13835d7a54a992ad4c5164c730c[m
+Author: Vincent Fang <yunsheng.fang@student.unsw.edu.au>
+Date:   Sun Oct 3 16:56:03 2021 +1100
+
+    Feature/channel join by vincent
+
+[33mcommit 21cb2c058e328e0b9f6221473493ba5fe6797d94[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 3 16:14:27 2021 +1100
+
+    Fixed style
+
+[33mcommit 33731687bc43a27a364d5565aa7877662d5ed616[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sun Oct 3 15:57:48 2021 +1100
+
+    Added docstrings to each function in channels.py
+
+[33mcommit bb307388f9251ff71aa9cf1f0100c325e5ff0107[m
+Merge: deb1c08 45e633a
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 23:12:50 2021 +1000
+
+    Merge branch 'feature/caleb-channel-invite' into 'master'
+    
+    channel_join_v1 implementation and tests
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!13
+
+[33mcommit deb1c08bb3efbba22f6e78c0f89568ad2efab8b9[m
+Merge: cdea05d 2678aa7
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 23:09:47 2021 +1000
+
+    Merge branch 'feature/caleb-channel-join' into 'master'
+    
+    channel_join_v1 implementation and tests
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!12
+
+[33mcommit 45e633acf87a0ec7af071af448242f110568ff12[m[33m ([m[1;31morigin/feature/caleb-channel-invite[m[33m)[m
+Merge: b6cfcb5 cdea05d
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 22:58:42 2021 +1000
+
+    Merged updated master
+
+[33mcommit 2678aa782d04b08bdd22d7ba2b68fff86f323a60[m[33m ([m[1;31morigin/feature/caleb-channel-join[m[33m)[m
+Merge: 266c53c cdea05d
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 22:56:31 2021 +1000
+
+    Merged updated master
+
+[33mcommit cdea05dec0d51f778619cb6b604a1a4a8dbbc96e[m
+Merge: 947464d a188f59
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Oct 2 22:28:57 2021 +1000
+
+    Merge branch 'feature/jake-channel-messages-and-clear-v1' into 'master'
+    
+    Feature/jake channel messages and clear v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!11
+
+[33mcommit a188f5953eac7f64a623dd4b9b0381183fbf139b[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Oct 2 22:09:49 2021 +1000
+
+    CLEAR_V1 UPDATE
+    - fixed implementation of clear_v1 to reset
+    all relevant fields
+    -updated tests to verify change
+    
+    Tracking: #12
+
+[33mcommit a22ce2dbc8baf00b836f88971c67d4367ae9d137[m
+Merge: 3b2ef47 947464d
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Oct 2 21:33:49 2021 +1000
+
+    Fixed Branch Sync Issues
+    merged local master to local branch
+
+[33mcommit 947464d9644e7588d146bf41b0c780629a0a4826[m
+Merge: 441fbfa 2d461d6
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Oct 2 21:03:06 2021 +1000
+
+    Merge branch 'fix/clear_return_type_fix' into 'master'
+    
+    Fix/clear return type fix
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!9
+
+[33mcommit 2d461d6cc127b5b5c48f69c397c9ea47317e7027[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Oct 2 20:55:56 2021 +1000
+
+    Added Return Type for Clear
+    
+    Tracking: #12
+
+[33mcommit 25bfd87e3d62c1e3fc4af5c33a561a4a9b90be09[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Oct 2 20:54:29 2021 +1000
+
+    Added Test for Clear Return Type
+    
+    Tracking: #12
+
+[33mcommit 3b2ef4700cabec34d20180a5b9c83c4f64191db2[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Oct 2 20:48:00 2021 +1000
+
+    Fixed Pytest Implementation
+    -fixed issues in create_messages function in channel
+    -fixed bugs with regards to types set
+    
+    Tracking : #11
+
+[33mcommit 83735b7133ab9045b4516a0756961d5e1f4b25ba[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Oct 2 19:26:13 2021 +1000
+
+    MAJOR CHANGE TO CHANNEL AND CHANNELS
+    -include messages in each channel creation
+    -added function to display and create messages
+    -adjusted data store to reflect movement of message to channel creation
+    -added a return line to clear
+    
+    Tracking : #11 , #12, #6 , #2
+
+[33mcommit 266c53c1eb62d5f407f820e9171d17e324f1f21d[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 19:11:02 2021 +1000
+
+    Fixed pytest for channel_join_v1 (Fixed test to align with expected return of `channel_details_v1()`)
+
+[33mcommit 74aa4c8f28b082f5723a2cdfb974d84c4e26fc50[m
+Merge: cb5c2bd 441fbfa
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 19:07:28 2021 +1000
+
+    Merged updated master
+
+[33mcommit b6cfcb57bd86e693d38d3f1c96b3a9f8a1152942[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 19:04:54 2021 +1000
+
+    Fixed `channel_invite_v1()` (Fixed bug adding wrong member to members list)
+
+[33mcommit ba08e9d26044cfc3601b5e9b7063fd05e295984d[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 19:01:41 2021 +1000
+
+    Fixed pytest for channel_invite_v1 (Fixxed test to align with expected return of `channel_details_v1()`)
+
+[33mcommit b65eadef7e34f8f3cb661b42d0112138552cdaa1[m
+Merge: 93c6e56 441fbfa
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 18:41:17 2021 +1000
+
+    Merged updated master
+
+[33mcommit 441fbfa38bcc7c22ff9479547fd87206403a7a47[m
+Merge: a872bfc 7dd1432
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sat Oct 2 18:35:25 2021 +1000
+
+    Merge branch 'feature/channel_details_v1' into 'master'
+    
+    channel_details_v1 Implementation + Tests
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!8
+
+[33mcommit 93c6e56a8ad995b9206c00f0aaaf5cb9282f4be2[m
+Merge: c55c2cc a872bfc
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 18:29:40 2021 +1000
+
+    Merge branch 'master' into feature/caleb-channel-invite
+
+[33mcommit cb5c2bd9fc7f4afd1a00e7cc8c007a7cf421cabf[m
+Merge: e652407 a872bfc
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 18:20:58 2021 +1000
+
+    Merge branch 'master' into feature/caleb-channel-join
+
+[33mcommit 7dd1432b1a815e8eb847c5e38cbd25ebdd8a0d53[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 2 17:59:43 2021 +1000
+
+    Implemented channel_details_v1
+    * Added all helper functions in other.py
+    * Completed channel_details_v1 function
+    * Fixed assertion bug in test cases
+    Tracking: #8, #10
+
+[33mcommit 18742c7e14fe998b8b2e45ae278b4805c7d6bf4d[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 2 17:22:17 2021 +1000
+
+    Finished name, is_public, owner_members in details dictionary
+    * Added helper functins to retreive specific data
+    * all_members remaining to be done
+    
+    Tracking: #10
+
+[33mcommit bec1455164f4e25b0ff3b68b4b9d49033f3ae1b9[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 2 16:44:55 2021 +1000
+
+    channel_details_v1 errors
+    * Added Input and Access errors
+    * Added helper functions to check channel validity and user exists in a
+      channel
+
+[33mcommit c55c2ccafb47a3697124a7dfa9642e5576b455be[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 16:41:44 2021 +1000
+
+    Implemented channel_invite_v1()
+
+[33mcommit d73b4d229af25316aa61cd350ec6a98f6e4f774e[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 16:20:57 2021 +1000
+
+    Created pytest for channel_invite_v1
+
+[33mcommit e6524078cbf1f94e2a52467dc7ca99d01fbe8118[m
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 15:48:07 2021 +1000
+
+    Fixed pytest for channel_join_v1 (update header comment)
+
+[33mcommit 4a481d3f3f7fbf902adb377202f0dcd73e50b594[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 15:38:40 2021 +1000
+
+    Implemented channel_join_v1()
+
+[33mcommit 361f0ababae8e376a79626c7acd667a5ee54a759[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 15:37:48 2021 +1000
+
+    Fixed pytest for channel_join_v1 (add missing clear_v1() calls)
+
+[33mcommit 6f7c4bab6b05bbb500374279548c0c630c58049a[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 15:35:25 2021 +1000
+
+    Fixed pytest for channel_join_v1 (email duplicates)
+
+[33mcommit a872bfc0ed8b638a7da491ec2caf934161451e45[m
+Merge: 2dcc8ee 0898676
+Author: Mahi Rahman <mahi.rahman@student.unsw.edu.au>
+Date:   Sat Oct 2 15:34:05 2021 +1000
+
+    Merge branch 'feature/channels_listall_v1' into 'master'
+    
+    channel_listall_v1
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!7
+
+[33mcommit ca08a99f132ff82cc3745bab2b61beea810923a5[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 2 15:30:29 2021 +1000
+
+    Added return format example
+
+[33mcommit 4b2bf3bfc764b39638b370edbd9166d0230d376f[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Sat Oct 2 14:48:40 2021 +1000
+
+    Created pytest for channel_join_v1
+
+[33mcommit 715abfb15244fddc6f522efc93c8e9d73b2b5bd7[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Oct 2 14:16:19 2021 +1000
+
+    DATA STORE ADDITIONAL FIELDS
+    
+    -added members and messages to datastore
+    
+    Tracking: #6
+
+[33mcommit edecfe528262960d94ef9ab6f5f37c5e54556dfb[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Oct 2 13:50:25 2021 +1000
+
+    IMPLEMENTATION OF CHANNEL MESSAGES TESTS
+    
+    -implemented some tests for input error
+    and access error as contained in the specification
+    
+    -need to confirm how messages are stored to hard code some messages
+    for testing of one of the errors when it is valid and invalid
+    
+    Tracking :#11
+
+[33mcommit 4f7a861a1486e8c63017579ec7283701b8e5d9d5[m
+Author: Mahi <starexify@gmail.com>
+Date:   Sat Oct 2 01:22:32 2021 +1000
+
+    Tests for channel_details_v1
+    * Added 4 tests for channel_details
+    * AccessError, InputError, Single user and multiple users in a channel
+      testing
+
+[33mcommit d183819e9b9c19269b060b03ce148b9326e3065a[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 1 20:24:32 2021 +1000
+
+    First commit
+    * Comment on what the details function should do
+
+[33mcommit 0898676e5623e1d55be86abd1052f41c0e98fb8e[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 1 20:13:04 2021 +1000
+
+    channels_listall_v1 implemented
+    * Implemented the listall function for channels
+    * Passes all current 5 pytests
+    Tracking: #9
+
+[33mcommit eb0b72c99b8f603f8877b9db1e295915723a9813[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 1 19:16:30 2021 +1000
+
+    * Added initial tests for channels_listall_v1
+    - Public individual, Private individual, Public multiple accounts and
+      Private multiple accounts testing
+    Tracking: #7
+
+[33mcommit 937ad8877f0b9999ea87925a7e21d880e469225e[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 1 16:52:05 2021 +1000
+
+    Test commit message
+            * multiple lines
+            * second line
+    
+            tracking:#7
+
+[33mcommit 2a0559dc4961c809b2b4ee2025bb10ceb84550d1[m
+Author: Mahi <starexify@gmail.com>
+Date:   Fri Oct 1 16:49:48 2021 +1000
+
+    basic tests and stubs
+
+[33mcommit 2dcc8ee7aafc043ee07ba4424dabc481037b4cae[m
+Merge: dfd3db6 bd2d1be
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 22:13:46 2021 +1000
+
+    Merge branch 'feature/caleb-channels-create-and-list' into 'master'
+    
+    Feature/caleb channels create and list
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!6
+
+[33mcommit bd2d1be5c4a2f10f77efe83f1399f4d256f474de[m[33m ([m[1;31morigin/feature/caleb-channels-create-and-list[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 22:05:19 2021 +1000
+
+    Fixed tests so does not clear accounts created in fixtures
+
+[33mcommit 55538ee244f173faf49e8be5dbcd33d7bf3bd3f3[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 22:01:25 2021 +1000
+
+    Added clear_v1() to fixture
+
+[33mcommit f42a6597e9a520ce83ccb64133620c56442178e5[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 21:58:36 2021 +1000
+
+    Added clear_v1() to tests
+
+[33mcommit aef6e56366d0b6dcce15c46fe88776772ba47486[m
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 20:39:17 2021 +1000
+
+    Update assumptions.md
+
+[33mcommit 79253e855346bd83142ede24b9401a69a56b680e[m
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 20:39:04 2021 +1000
+
+    Update assumptions.md
+
+[33mcommit 781e71d6835d34a75378e509da4c410f1cc15494[m
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 20:38:47 2021 +1000
+
+    Update assumptions.md
+
+[33mcommit 45d0b40ac8a318ff161ee132e35d299ad3b0de37[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 20:36:59 2021 +1000
+
+    Formatting assumptions.md: removed heading lines
+
+[33mcommit 20b7bb9f932e8448477c8ea1d462074860ad621d[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 20:35:40 2021 +1000
+
+    Formatting assumptions.md
+
+[33mcommit b5cfcf10317e3b267f059dad8bc66b1a10a55ff2[m
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 20:06:23 2021 +1000
+
+    Update assumptions.md
+
+[33mcommit aeccf97030f278bcbed0d32638a4e40ef0122d10[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 15:03:50 2021 +1000
+
+    Added simple assumptions for channels.py; Fixed formatting
+
+[33mcommit 1ee6c80cd89c2396fa7c397831b1612b12d98588[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 14:58:01 2021 +1000
+
+    Added user verification helper function
+
+[33mcommit a29721c8fe6d29ef8e18203b1025211b5f17355c[m[33m ([m[1;31morigin/feature/channels-list[m[33m, [m[1;31morigin/feature/channels-create[m[33m)[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 14:39:09 2021 +1000
+
+    Modified tests to align with spec expected return types
+
+[33mcommit c7a690627e00e473a09d909f25036360f5a09616[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 14:28:22 2021 +1000
+
+    Modified fixtures and tests to align with spec expected return types
+
+[33mcommit 84611e5f183ef358b80e7ddc29c616e82983377c[m
+Merge: fe83ca8 0746d51
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 14:02:22 2021 +1000
+
+    Merge branch 'feature/channels-list' into feature/channels-create
+
+[33mcommit 0746d51246a0f702c78578d55ff865b0c2f1d459[m
+Merge: fe0c3e3 dfd3db6
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 13:59:44 2021 +1000
+
+    Merged from master
+
+[33mcommit dfd3db60ce23389ce5b0bcbcadd26c0b43ad0a6b[m
+Merge: 3c652e9 87ffb36
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Wed Sep 29 13:45:30 2021 +1000
+
+    Merge branch 'feature/jake-auth-v1-combined' into 'master'
+    
+    Feature/jake auth v1 combined
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!5
+
+[33mcommit fe0c3e39bf8b2911a90f8a0322a54f1cc557ed14[m
+Merge: 28afd1c 3c652e9
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 13:34:13 2021 +1000
+
+    Merge branch 'master' into feature/channels-list
+
+[33mcommit fe83ca8c8e8141dc7768413aa0cb4714a5759d03[m
+Merge: f3ebbf2 3c652e9
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 13:32:55 2021 +1000
+
+    Merge branch 'master' into feature/channels-create
+
+[33mcommit 3c652e9aec2e84ba37989845541d4aa96c7a43ff[m
+Merge: 219a3bd c0e1aa9
+Author: Caleb Watts <caleb.watts@student.unsw.edu.au>
+Date:   Wed Sep 29 13:29:28 2021 +1000
+
+    Merge branch 'update-5640e49c3d38bb7804b337a9f831647dbe99bb20' into 'master'
+    
+    Updated starter code
+    
+    See merge request COMP1531/21T3/groups/T11B_DODO/project-backend!1
+
+[33mcommit 87ffb3677ef144c832d3209723b81b013755f97d[m[33m ([m[1;31morigin/feature/testgit[m[33m, [m[1;31morigin/feature/jake-auth-v1-combined[m[33m)[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Wed Sep 29 10:56:05 2021 +1000
+
+    ADDED LOGIN STRESS TEST
+    -added login stress test for 2000 users
+    -fixed code that was lost in merge
+    
+    Tracking : #1, #5
+
+[33mcommit 5437b22224e0bc354732790d2c5632473ee5e11a[m
+Merge: c0f5c41 e63dd92
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Wed Sep 29 10:46:46 2021 +1000
+
+    Merge branch 'feature/jake-auth-register-v1' into feature/jake-auth-v1-combined
+    
+    Fixed Merge Conflict
+    -created a combined auth branch as there was some overlap that could be simplified
+    through abstraction between functions
+    
+    Tracking :#1 ,#3
+
+[33mcommit c0f5c413404b64c191640d444d719fa6dcb29d26[m[33m ([m[1;31morigin/feature/jake-auth-login-v1[m[33m)[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Wed Sep 29 10:39:33 2021 +1000
+
+    Login Tests Implemented and Functions Implemented
+    -Abstracted common behaviour between auth_login and auth_register
+    -need to fix branches and create a stress login test
+    
+    Tracking : #1 #3
+
+[33mcommit e63dd9269e383d5319260dd8e75372b442969be8[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Wed Sep 29 10:08:53 2021 +1000
+
+    Fixed Regular Expression Test and Implementation
+    -fixed regular expression whens testing name_last and name_first
+    -also improved email length testing
+    
+    Tracking : #3
+
+[33mcommit a67aa25c4f1ded4d2a4928cb4800452d24bf6803[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Tue Sep 28 23:28:10 2021 +1000
+
+    ASSUMPTIONS MAX USER CHANGE
+    -now only testing for max users to be 2000
+    -when testing this creating a large amount of users causes the test to be killed
+    as the runtime is long and presumably has O(n^2) complexity which goes over
+    the allowable 2minutes.
+    
+    Tracking : #3 #5
+
+[33mcommit 0eb5f72fca12e0c0b4c4bb8d8d145ae07a15f243[m
+Merge: 11a04b4 d8ece30
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Tue Sep 28 23:03:44 2021 +1000
+
+    Merge branch 'feature/jake-auth-login-v1' into feature/jake-auth-register-v1
+    
+    Simplify Auth Branching
+
+[33mcommit 11a04b49a0c5199790657f9f08d35599d3cb2375[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Tue Sep 28 23:00:26 2021 +1000
+
+    Implementation Modified
+    -ability to handle 256 character passwords
+    -stricter input for name_first and name_last to handle implicit input
+    restricitons implied by str_handle
+    
+    Tracking : #3
+
+[33mcommit 9c423eda84757c672f427718223851856131dd64[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Tue Sep 28 22:43:13 2021 +1000
+
+    NEW TESTS ADDED TO COVER MORE ASSUMPTIONS
+    -character restriction test imposed on name_last and name_first
+    as str_handle is limited
+    -assume implementation can store 10000 users and tests for this functionality
+    -password limit of 256 characters imposed and tested due to practicality and potential DOS attack
+    
+    Tracking : #5 , #3
+
+[33mcommit d8ece3015ed0efd1482bd476c799fbaf9670b1d0[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Tue Sep 28 21:49:18 2021 +1000
+
+    TESTS IMPLEMENTED FOR AUTH LOGIN
+    - Test Input errors when email entered doesnt belong to
+    a registered user
+    -Test Input errors when password is not correct
+    -Vary ordering and number of users for testing
+    
+    Tracking: #1
+
+[33mcommit f3ebbf2811a920b5e5c882170f13a9aadbcea384[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Sep 28 19:41:10 2021 +1000
+
+    Modified fixtures with clear_v1()
+
+[33mcommit ed90e6d6558d3ec662296e14cb1a961ba0f63cca[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Sep 28 19:32:31 2021 +1000
+
+    Added test to check channels_create_v1() raises an AcessError when called by an unauthorised user
+
+[33mcommit 28afd1c1e02677b012cc29d90e69127b2fdebb9a[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Sep 28 19:25:26 2021 +1000
+
+    Added test to check channels_list_v1() raises an AcessError when called by an unauthorised user
+
+[33mcommit 4305728570fc02f7d9f1ff0f722b603eb358e407[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Sep 28 19:23:54 2021 +1000
+
+    Added test to check channels_list_v1() raises an AcessError when called by an unauthorised user
+
+[33mcommit 16612cfea6ca115b66f6b5bcc862343cc96e0fc1[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Sep 28 18:59:01 2021 +1000
+
+    Added check to determine if user is authorised to channels-list-v1_test.py
+
+[33mcommit 82fd4d7896279a8adcec62a8490cdcbeecee57f5[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Sep 28 18:24:33 2021 +1000
+
+    Fixed return type of create_channel_v1 function to align with spec
+
+[33mcommit a59920c55e141554da9cf205716283a921d7e529[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Tue Sep 28 18:22:09 2021 +1000
+
+    Fixed return type of create_channel_v1 function to align with spec
+
+[33mcommit 5c9e68d1c8cad67d01cc67bf85a7b43134201dfb[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Mon Sep 27 16:04:44 2021 +1000
+
+    fixed test dictionary entry name to be correct
+
+[33mcommit 5587662fd7f5f90592f29679d6282228b84fe0d1[m
+Merge: 8527569 a753d19
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Mon Sep 27 16:00:37 2021 +1000
+
+    Merged channels create to channels list
+
+[33mcommit a753d19e449678473b83cbcfe3fe3cd4d6a0b5f3[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Mon Sep 27 15:55:53 2021 +1000
+
+    Fixed error of channel not adding to the store
+
+[33mcommit 85275694c6486a403aa3458dd9e7b944ee422348[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Mon Sep 27 15:50:02 2021 +1000
+
+    Implemented channels_list_v1
+
+[33mcommit 08ca3e9c37c0dea53cbfcfbe8263f0153d20f3e9[m
+Author: z5360175 <caleb.watts@student.unsw.edu.au>
+Date:   Mon Sep 27 15:28:48 2021 +1000
+
+    Created pytest for channels_list_v1
+
+[33mcommit 219a3bdc6b513dd9ef0c3c326f186b85afb37a8a[m
+Merge: 1487dab 30e844b
+Author: COMP1531 Bot <cs1531@cse.unsw.edu.au>
+Date:   Sat Sep 25 20:41:05 2021 +1000
+
+    Merge changes from starter code into 'master'
+
+[33mcommit 30e844ba7abc7d26dc086e68f28194cd89a5c8ac[m[33m ([m[1;31morigin/update-1110aa6aff5ea3c4e4cefb62b5788817af550529[m[33m)[m
+Author: COMP1531 Bot <cs1531@cse.unsw.edu.au>
+Date:   Sat Sep 25 20:41:03 2021 +1000
+
+    Task update 1110aa6aff5ea3c4e4cefb62b5788817af550529
+
+[33mcommit 1110aa6aff5ea3c4e4cefb62b5788817af550529[m
+Author: Emily Luxa <e.luxa@student.unsw.edu.au>
+Date:   Sat Sep 25 20:24:46 2021 +1000
+
+    Clarified channel_join_v1 AccessError
+
+[33mcommit c637c446f0c47b8a5b0e3dcd6a79beb7fb579490[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Sep 25 13:22:50 2021 +1000
+
+    FIXED TESTS
+    -some test function names were duplicated
+    which didnt produce errors
+    -clear_v1() was included within all functions
+    
+    Tracking: #3
+
+[33mcommit a0541eb873c6141e2bc5d744b42621ed9e9400dd[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Sat Sep 25 13:04:45 2021 +1000
+
+    PASS ALL TESTS AUTH_REGISTER
+    -Auth register now passes all tests and appears to conform to
+    specified behaviour
+    -Assumptions still require clarification
+    -Is a stress test for max number of users for max number of users
+    in terms of runtime?
+    -Tests do not currently operate as unit tests require clear_v1() implementation
+    
+    Tracking: #3, #5
+
+[33mcommit a9ad81150a661a0f0d36657e8d3ce528e56fa5c9[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Fri Sep 24 23:09:23 2021 +1000
+
+    Additional Tests and Auth_Register Development Begins
+    - create test for too long password and too long email
+    - still need to determine more specific assumptions
+    - proposal for iteration 1 data store method for auth functions
+    followed.
+    
+    Tracking : #6  , #5 , #3
+
+[33mcommit c0e1aa9b9bfaa71f0b36ff32a189f38920181c00[m[33m ([m[1;31morigin/update-5640e49c3d38bb7804b337a9f831647dbe99bb20[m[33m)[m
+Author: COMP1531 Bot <cs1531@cse.unsw.edu.au>
+Date:   Fri Sep 24 14:36:25 2021 +1000
+
+    Task update 5640e49c3d38bb7804b337a9f831647dbe99bb20
+
+[33mcommit 5640e49c3d38bb7804b337a9f831647dbe99bb20[m
+Merge: 6ff6fe3 c977d83
+Author: Emily Luxa <e.luxa@student.unsw.edu.au>
+Date:   Fri Sep 24 14:25:16 2021 +1000
+
+    Merge branch 'spec-clarifications' into 'master'
+    
+    Fixed channel AccessErrors, handles, removed DM references
+    
+    See merge request COMP1531/21T3/STAFF/repos/project-backend!14
+
+[33mcommit c977d83956c5754ea0cf7a8f86a63a372a797032[m
+Author: Emily Luxa <emilyluxa@gmail.com>
+Date:   Fri Sep 24 12:02:15 2021 +1000
+
+    fixed channel AccessErrors, handles, removed DM references
+
+[33mcommit fbc0770758f2c39a4b42a774b220a93c6188f99c[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Fri Sep 24 08:59:05 2021 +1000
+
+    TESTS MODIFIED
+    - test multiple emails almost complete
+    - are more tests needed for str_handle?
+    
+    Tracking: #3
+
+[33mcommit 2c21be6a363339bd3cba8d20637beded9564c241[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Fri Sep 24 10:00:57 2021 +1000
+
+    FIX Assumptions?
+
+[33mcommit 5d66a32954b5ac4bed1a06ab801460760b997081[m
+Author: Jake Edwards <jake.edwards1@student.unsw.edu.au>
+Date:   Thu Sep 23 23:00:34 2021 +1000
+
+    Update assumptions.md
+
+[33mcommit 4daef0013a5c4d6ae50aa7aba5f53062f46cf0e4[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Thu Sep 23 22:55:02 2021 +1000
+
+    Valid Input Musings
+    -length of valid email related to a standard
+    -length of valid password is more opinion based
+    
+    Tracking: #5
+
+[33mcommit 3859f1960407cd713c0af23c94bf6aaa7d5bf598[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Thu Sep 23 22:29:04 2021 +1000
+
+    DRAFT INPUT TESTS MADE
+    
+    - Frames for input tests have been filled in, covering
+    the main likely types of input errors.
+    - The tests are not exhaustive and largely do not look for gaps in the specification.
+    - Will Password or other input warnings be required in the future e.g. weak password?
+    
+    Tracks: #3
+
+[33mcommit 9c0dbf2b63933b2c1bd87ed0081a22ee1f62bf41[m
+Author: z5165158 <jake.edwards1@student.unsw.edu.au>
+Date:   Wed Sep 22 22:30:45 2021 +1000
+
+    INITIAL FRAMING OF TESTS AND FUTURE WARNINGS
+    
+    -InputError tests defined by specificaitons framed  but not written.
+    -Possible future invalid tests will be framed  warnings, especially for allowed
+    passwords.
+    
+    Tracks: #3
+
+[33mcommit 0d3571c4e187457e9c099121a770300b61b816cb[m
+Author: code-monke <50727669+code-monke@users.noreply.github.com>
+Date:   Wed Sep 22 16:53:17 2021 +1000
+
+    Fixed expected type for comparison
+
+[33mcommit e296e9e9ca173e37ff03a7bbeee569dd67909bfb[m
+Author: code-monke <50727669+code-monke@users.noreply.github.com>
+Date:   Wed Sep 22 16:03:39 2021 +1000
+
+    Ignore .vscode/
+
+[33mcommit 0c7adb1647b134d7990b81834f83f1536ec9baad[m
+Author: code-monke <50727669+code-monke@users.noreply.github.com>
+Date:   Wed Sep 22 16:01:35 2021 +1000
+
+    Improved valid creation test for channels_create_v1
+
+[33mcommit ce0f94c40f8f28e823fffe879451db61944d3ac0[m
+Author: code-monke <50727669+code-monke@users.noreply.github.com>
+Date:   Wed Sep 22 15:56:50 2021 +1000
+
+    Implemented channels_create_v1
+
+[33mcommit 6a0c703cc620a5eb9d72b9ff939167a6706fb033[m
+Author: code-monke <50727669+code-monke@users.noreply.github.com>
+Date:   Wed Sep 22 15:53:57 2021 +1000
+
+    Fixed typo
+
+[33mcommit da937f6d8684b3b6b068df6d82e355003a09bb31[m
+Author: code-monke <50727669+code-monke@users.noreply.github.com>
+Date:   Wed Sep 22 15:51:24 2021 +1000
+
+    Added assumptions about channels_create_v1 behaviour; validity checking and return type in case of error
+
+[33mcommit 148a3cf9b63b5e92434eb895f685680aff5a5096[m
+Author: code-monke <50727669+code-monke@users.noreply.github.com>
+Date:   Wed Sep 22 15:48:12 2021 +1000
+
+    Fixed test_valid_creation to expect int return type
+
+[33mcommit 7d733587efe6c197439cbed5fcc2c2be04dcee45[m
+Author: code-monke <50727669+code-monke@users.noreply.github.com>
+Date:   Wed Sep 22 15:08:03 2021 +1000
+
+    Added tests for InputError cases (name too long/short)
+
+[33mcommit c9afecfc0e3933e957c9f6f4be34ca07a102f521[m
+Author: code-monke <50727669+code-monke@users.noreply.github.com>
+Date:   Tue Sep 21 20:44:39 2021 +1000
+
+    Created pytest file 'channels-create-v1_test.py'
+
+[33mcommit 1487dabd477b59616a42af56f6583e4752cf103c[m
+Author: COMP1531 Bot <cs1531@cse.unsw.edu.au>
+Date:   Fri Sep 17 22:01:26 2021 +1000
+
+    Released 6ff6fe3549bae1bcb1ed1d69fc9b191a1d7636bd to COMP1531/21T3/groups/T11B_DODO
+
+[33mcommit 6ff6fe3549bae1bcb1ed1d69fc9b191a1d7636bd[m
+Author: Hayden Smith <mail@chambalam.com>
+Date:   Sun Sep 6 23:35:04 2020 +1000
+
+    Ready for 21T3

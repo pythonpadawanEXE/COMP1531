@@ -35,7 +35,7 @@ def admin_user_remove_v1(auth_user_id, u_id):
         raise AccessError(description="The authorised user is not a global owner")
 
     global_owners = get_global_owners()
-    if len(global_owners) == 1 and global_owners[0]['u_id'] == u_id:
+    if len(global_owners) == 1 and global_owners[0] == u_id:
         raise InputError(description="u_id refers to a user who is the only global owner")
     
     found = False
@@ -107,7 +107,7 @@ def admin_userpermission_change_v1(auth_user_id, u_id, permission_id):
         raise InputError(description="permission_id is invalid")
 
     global_owners = get_global_owners()
-    if len(global_owners) == 1 and global_owners[0]['u_id'] == u_id and permission_id == 2:
+    if len(global_owners) == 1 and global_owners[0] == u_id and permission_id == 2:
         raise InputError(description="u_id refers to a user who is the only global owner")
     
     found = False
